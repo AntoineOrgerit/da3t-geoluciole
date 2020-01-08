@@ -1,12 +1,19 @@
 package com.univlr.geoluciole;
 
 import android.os.Bundle;
+import android.util.Log;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.univlr.geoluciole.db.dao.LocationDAO;
+import com.univlr.geoluciole.model.Location;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +30,23 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+
+        // creation LocationDAO
+        LocationDAO ldao = new LocationDAO(this);
+
+        // creation d une location
+        Location l = new Location(55.55, 44.77, 12345, 99.88, 0);
+        ldao.open();
+        ldao.addLocation(l);
+        //ldao.removeAll();
+        List list = ldao.getAll();
+        for (Object location : list) {
+            Location castedLocation = (Location)location;
+            Log.i("DATA RETRIEVED",castedLocation.toString() );
+            System.out.println(castedLocation.parseToJson()); // put to json array
+        }
+        ldao.close();
     }
 
 }
