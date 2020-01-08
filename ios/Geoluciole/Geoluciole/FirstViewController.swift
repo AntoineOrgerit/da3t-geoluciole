@@ -2,7 +2,7 @@
 //  FirstViewController.swift
 //  Geoluciole
 //
-//  Created by local192 on 08/01/2020.
+//  Created by Lambert Thibaud on 08/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 

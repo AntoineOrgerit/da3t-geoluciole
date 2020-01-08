@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2305CE7623C6321200354361 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE6B23C6321200354361 /* FMDatabasePool.m */; };
+		2305CE7723C6321200354361 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE6D23C6321200354361 /* FMDatabaseQueue.m */; };
+		2305CE7823C6321200354361 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE6E23C6321200354361 /* FMDatabase.m */; };
+		2305CE7923C6321200354361 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE7123C6321200354361 /* FMDatabaseAdditions.m */; };
+		2305CE7A23C6321200354361 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE7323C6321200354361 /* FMResultSet.m */; };
+		2305CE7C23C632CF00354361 /* database.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2305CE7B23C632CF00354361 /* database.sqlite */; };
+		2305CE7F23C633B200354361 /* Constantes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE7E23C633B200354361 /* Constantes.swift */; };
+		2305CE8123C6347A00354361 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8023C6347A00354361 /* Tools.swift */; };
+		2305CE8623C639CE00354361 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8523C639CE00354361 /* DatabaseManager.swift */; };
+		2305CE8923C63E9700354361 /* LocationTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8823C63E9700354361 /* LocationTable.swift */; };
+		2305CE8B23C64AD500354361 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8A23C64AD500354361 /* Table.swift */; };
+		2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8C23C64F3000354361 /* TableColumn.swift */; };
 		237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237AD41E23C606D4009937AB /* AppDelegate.swift */; };
 		237AD42123C606D4009937AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237AD42023C606D4009937AB /* SceneDelegate.swift */; };
 		237AD42323C606D4009937AB /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237AD42223C606D4009937AB /* FirstViewController.swift */; };
@@ -18,6 +30,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2305CE6723C631CA00354361 /* Geoluciole-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Geoluciole-Bridging-Header.h"; sourceTree = "<group>"; };
+		2305CE6B23C6321200354361 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		2305CE6C23C6321200354361 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		2305CE6D23C6321200354361 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		2305CE6E23C6321200354361 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		2305CE6F23C6321200354361 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		2305CE7023C6321200354361 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		2305CE7123C6321200354361 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		2305CE7223C6321200354361 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		2305CE7323C6321200354361 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		2305CE7423C6321200354361 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		2305CE7523C6321200354361 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		2305CE7B23C632CF00354361 /* database.sqlite */ = {isa = PBXFileReference; lastKnownFileType = text; path = database.sqlite; sourceTree = "<group>"; };
+		2305CE7E23C633B200354361 /* Constantes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constantes.swift; sourceTree = "<group>"; };
+		2305CE8023C6347A00354361 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		2305CE8523C639CE00354361 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		2305CE8823C63E9700354361 /* LocationTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTable.swift; sourceTree = "<group>"; };
+		2305CE8A23C64AD500354361 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		2305CE8C23C64F3000354361 /* TableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableColumn.swift; sourceTree = "<group>"; };
 		237AD41B23C606D4009937AB /* Geoluciole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geoluciole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		237AD41E23C606D4009937AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		237AD42023C606D4009937AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +73,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2305CE6A23C631E700354361 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2305CE8523C639CE00354361 /* DatabaseManager.swift */,
+				2305CE8723C63E7D00354361 /* Tables */,
+				2305CE6F23C6321200354361 /* FMDatabase.h */,
+				2305CE6E23C6321200354361 /* FMDatabase.m */,
+				2305CE7223C6321200354361 /* FMDatabaseAdditions.h */,
+				2305CE7123C6321200354361 /* FMDatabaseAdditions.m */,
+				2305CE6C23C6321200354361 /* FMDatabasePool.h */,
+				2305CE6B23C6321200354361 /* FMDatabasePool.m */,
+				2305CE7423C6321200354361 /* FMDatabaseQueue.h */,
+				2305CE6D23C6321200354361 /* FMDatabaseQueue.m */,
+				2305CE7523C6321200354361 /* FMDB.h */,
+				2305CE7023C6321200354361 /* FMResultSet.h */,
+				2305CE7323C6321200354361 /* FMResultSet.m */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		2305CE8723C63E7D00354361 /* Tables */ = {
+			isa = PBXGroup;
+			children = (
+				2305CE8A23C64AD500354361 /* Table.swift */,
+				2305CE8C23C64F3000354361 /* TableColumn.swift */,
+				2305CE8823C63E9700354361 /* LocationTable.swift */,
+			);
+			path = Tables;
+			sourceTree = "<group>";
+		};
 		237AD41223C606D4009937AB = {
 			isa = PBXGroup;
 			children = (
@@ -62,14 +123,19 @@
 		237AD41D23C606D4009937AB /* Geoluciole */ = {
 			isa = PBXGroup;
 			children = (
+				2305CE6723C631CA00354361 /* Geoluciole-Bridging-Header.h */,
+				237AD42E23C606D4009937AB /* Info.plist */,
+				2305CE7B23C632CF00354361 /* database.sqlite */,
+				2305CE7E23C633B200354361 /* Constantes.swift */,
+				2305CE6A23C631E700354361 /* Database */,
 				237AD41E23C606D4009937AB /* AppDelegate.swift */,
 				237AD42023C606D4009937AB /* SceneDelegate.swift */,
 				237AD42223C606D4009937AB /* FirstViewController.swift */,
 				237AD42423C606D4009937AB /* SecondViewController.swift */,
+				2305CE8023C6347A00354361 /* Tools.swift */,
 				237AD42623C606D4009937AB /* Main.storyboard */,
 				237AD42923C606D4009937AB /* Assets.xcassets */,
 				237AD42B23C606D4009937AB /* LaunchScreen.storyboard */,
-				237AD42E23C606D4009937AB /* Info.plist */,
 			);
 			path = Geoluciole;
 			sourceTree = "<group>";
@@ -114,6 +180,7 @@
 				TargetAttributes = {
 					237AD41A23C606D4009937AB = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -140,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2305CE7C23C632CF00354361 /* database.sqlite in Resources */,
 				237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */,
 				237AD42A23C606D4009937AB /* Assets.xcassets in Resources */,
 				237AD42823C606D4009937AB /* Main.storyboard in Resources */,
@@ -155,8 +223,19 @@
 			files = (
 				237AD42523C606D4009937AB /* SecondViewController.swift in Sources */,
 				237AD42323C606D4009937AB /* FirstViewController.swift in Sources */,
+				2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */,
+				2305CE7623C6321200354361 /* FMDatabasePool.m in Sources */,
+				2305CE7823C6321200354361 /* FMDatabase.m in Sources */,
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,
+				2305CE7F23C633B200354361 /* Constantes.swift in Sources */,
+				2305CE8B23C64AD500354361 /* Table.swift in Sources */,
 				237AD42123C606D4009937AB /* SceneDelegate.swift in Sources */,
+				2305CE8123C6347A00354361 /* Tools.swift in Sources */,
+				2305CE8623C639CE00354361 /* DatabaseManager.swift in Sources */,
+				2305CE7A23C6321200354361 /* FMResultSet.m in Sources */,
+				2305CE7723C6321200354361 /* FMDatabaseQueue.m in Sources */,
+				2305CE8923C63E9700354361 /* LocationTable.swift in Sources */,
+				2305CE7923C6321200354361 /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +379,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -309,6 +389,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "univ-lr.fr.Geoluciole";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -318,6 +400,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -327,6 +410,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "univ-lr.fr.Geoluciole";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Geoluciole
 //
-//  Created by local192 on 08/01/2020.
+//  Created by Lambert Thibaud on 08/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -11,10 +11,15 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //Afficher chemin vers le dossier Documents de l'app
+        print("DocumentDirectory => \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last ?? "")")
+        
+        // Créations des tables pour la Db
+        DatabaseManager.createAllTables(tables: [LocationTable()])
+        
+        Tools.copyFile(fileName: Constantes.DB_NAME)
         return true
     }
 
