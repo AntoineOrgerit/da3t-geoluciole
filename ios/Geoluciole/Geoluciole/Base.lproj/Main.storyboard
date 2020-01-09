@@ -37,7 +37,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="btn-home25x25" id="acW-dT-cKf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
@@ -72,7 +72,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="1" title="Badges / Stats" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Badges / Stats" image="btn-trophee25x25" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -88,7 +88,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="d2u-JU-wTu"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="2" title="Settings" id="wjY-wW-xrB"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Settings" image="btn-parameters25x25" id="wjY-wW-xrB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zx3-Gs-Rvj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -115,7 +115,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="btn-home25x25" width="25" height="25"/>
+        <image name="btn-parameters25x25" width="25" height="25"/>
+        <image name="btn-trophee25x25" width="25" height="25"/>
     </resources>
 </document>
