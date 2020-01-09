@@ -81,7 +81,7 @@
         <!--Settings-->
         <scene sceneID="RQa-5j-XjJ">
             <objects>
-                <viewController id="jeO-2J-db5" sceneMemberID="viewController">
+                <viewController id="jeO-2J-db5" customClass="SettingsViewController" customModule="Geoluciole" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eiM-gw-roa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,8 +105,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="jeO-2J-db5" kind="relationship" relationship="viewControllers" id="Nh5-Xf-E5s"/>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

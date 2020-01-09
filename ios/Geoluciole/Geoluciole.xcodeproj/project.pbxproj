@@ -27,6 +27,7 @@
 		237AD42A23C606D4009937AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 237AD42923C606D4009937AB /* Assets.xcassets */; };
 		237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237AD42B23C606D4009937AB /* LaunchScreen.storyboard */; };
 		237AD43623C60749009937AB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 237AD43523C60748009937AB /* libsqlite3.tbd */; };
+		23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E22D2023C7645100C3540E /* SettingsViewController.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		237AD42C23C606D4009937AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		237AD42E23C606D4009937AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		237AD43523C60748009937AB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		23E22D2023C7645100C3540E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 			children = (
 				237AD42223C606D4009937AB /* FirstViewController.swift */,
 				237AD42423C606D4009937AB /* SecondViewController.swift */,
+				23E22D2023C7645100C3540E /* SettingsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				237AD42123C606D4009937AB /* SceneDelegate.swift in Sources */,
 				2305CE8123C6347A00354361 /* Tools.swift in Sources */,
 				2305CE8623C639CE00354361 /* DatabaseManager.swift in Sources */,
+				23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */,
 				2305CE7A23C6321200354361 /* FMResultSet.m in Sources */,
 				2305CE7723C6321200354361 /* FMDatabaseQueue.m in Sources */,
 				2305CE8923C63E9700354361 /* LocationTable.swift in Sources */,

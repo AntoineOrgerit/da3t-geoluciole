@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Tools {
 
@@ -66,6 +67,10 @@ class Tools {
         }
 
         return s
+    }
+    
+    static func getStatusBarHeight() -> CGFloat {
+        return UIApplication.shared.statusBarFrame.height
     }
 
 }

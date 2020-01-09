@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
         
-        // Créations des tables pour la Db
-        DatabaseManager.createAllTables(tables: [LocationTable.getInstance()])
+        // Permet d'upgrade la base de de données
+        DatabaseManager.upgradeDatabase()
         
         // Demande l'autorisation de récupérer la localisation
         locationManager.requestAlwaysAuthorization()

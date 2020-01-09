@@ -10,10 +10,21 @@ import Foundation
 
 class DatabaseManager {
 
-    fileprivate static var DATABASE_INSTANCE: FMDatabase? = nil
-
-    init() {
-
+    fileprivate static var DATABASE_INSTANCE: FMDatabase!
+    static var dbVersion: Int {
+        get {
+            let db = DatabaseManager.getInstance()
+            db.open()
+            let dbVersion = Int(DatabaseManager.getInstance().userVersion)
+            db.close()
+            return dbVersion
+        }
+        set {
+            let db = DatabaseManager.getInstance()
+            db.open()
+            db.userVersion = UInt32(Constantes.DB_VERSION)
+            db.close()
+        }
     }
 
     static func getInstance() -> FMDatabase {
@@ -21,12 +32,12 @@ class DatabaseManager {
             DATABASE_INSTANCE = FMDatabase(path: Tools.getPath(Constantes.DB_NAME))
         }
 
-        return DATABASE_INSTANCE!
+        return DATABASE_INSTANCE
     }
-    
+
     /// Permet de créer toutes les tables de la Db
     /// - Parameter tables: la liste des tables à créer
-    static func createAllTables(tables: [Table]) {
+    static func createTable(tables: [Table]) {
 
         for table in tables {
             DatabaseManager.getInstance().open()
@@ -36,6 +47,20 @@ class DatabaseManager {
                 print(error.localizedDescription)
             }
             DatabaseManager.getInstance().close()
+        }
+    }
+
+    static func upgradeDatabase() {
+        
+        if DatabaseManager.dbVersion < Constantes.DB_VERSION {
+            // Pour upgrade, il faut faire un if de cette façon et placer l'upgrade dans le block du if
+            if Constantes.DB_VERSION == 1 {
+                // Créations des tables pour la Db
+                DatabaseManager.createTable(tables: [LocationTable.getInstance()])
+            }
+            
+            // Mise a niveau de la version de la base de données
+            DatabaseManager.dbVersion = Constantes.DB_VERSION
         }
     }
 }

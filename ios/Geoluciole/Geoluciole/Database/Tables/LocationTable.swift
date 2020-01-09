@@ -10,7 +10,7 @@ import Foundation
 
 class LocationTable: Table {
 
-    fileprivate static var INSTANCE: LocationTable? = nil
+    fileprivate static var INSTANCE: LocationTable!
 
     static let LATITUDE = "latitude"
     static let LONGITUDE = "longitude"
@@ -34,6 +34,6 @@ class LocationTable: Table {
             INSTANCE = LocationTable()
         }
         
-        return INSTANCE!
+        return INSTANCE
     }
 }
