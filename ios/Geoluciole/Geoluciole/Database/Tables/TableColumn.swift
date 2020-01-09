@@ -13,12 +13,10 @@ class TableColumn {
     var columnName: String!
     var columnType: String!
     var canBeNull: Bool!
-    var defaultValue: Any?
 
-    init(columnName: String, columnType: String, canBeNull: Bool, defaultValue: Any? = nil) {
+    init(columnName: String, columnType: String, canBeNull: Bool) {
         self.columnName = columnName
         self.columnType = columnType
         self.canBeNull = canBeNull
-        self.defaultValue = defaultValue
     }
 }

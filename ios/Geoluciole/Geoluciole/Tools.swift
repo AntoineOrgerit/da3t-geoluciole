@@ -43,4 +43,29 @@ class Tools {
         }
     }
 
+    static func joinWithCharacter(_ separator: String, _ values: [String]) -> String {
+        return Tools.joinWithCharacter(nil, separator, values)
+    }
+
+    static func joinWithCharacter(_ beforeWord: String?, _ separator: String, _ values: [String]) -> String {
+        var s = ""
+        let endIndex = values.count - 1
+
+        for i in 0...endIndex {
+
+            if let before = beforeWord {
+                s += before
+            }
+
+            s += values[i]
+
+
+            if i != endIndex {
+                s += ", "
+            }
+        }
+
+        return s
+    }
+
 }

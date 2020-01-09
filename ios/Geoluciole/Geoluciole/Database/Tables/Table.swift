@@ -12,6 +12,7 @@ class Table {
 
     var tableName: String = ""
     var columns: [TableColumn] = []
+    fileprivate let db = DatabaseManager.getInstance()
 
     func prepareSQLForCreateTable() -> String {
         var sqlRequest = "CREATE TABLE IF NOT EXISTS"
@@ -29,10 +30,6 @@ class Table {
                 sqlRequest += " NOT NULL"
             }
 
-            if let defaultValue = column.defaultValue {
-                sqlRequest += " DEFAULT \(defaultValue)"
-            }
-
             if i != columns.count - 1 {
                 sqlRequest += ","
             }
@@ -42,4 +39,34 @@ class Table {
 
         return sqlRequest
     }
+
+    //TODO: QUERY
+    func select(_ arguments: [String: Any]) {
+
+    }
+
+    //TODO: UPDATE
+
+    func insert(_ arguments: [String: Any]) {
+
+        var sql = "INSERT INTO " + self.tableName + " ("
+        var sqlValues = ""
+        var allKeys = [String]()
+
+        for key in arguments.keys {
+            allKeys.append(key)
+        }
+
+        sqlValues += Tools.joinWithCharacter(":", ",", allKeys)
+        sql += Tools.joinWithCharacter(nil, ",", allKeys) + ") VALUES (" + sqlValues + ")"
+
+        self.db.open()
+        let success = self.db.executeUpdate(sql, withParameterDictionary: arguments)
+        self.db.close()
+        if !success {
+            print("Error insert " + self.tableName + " : " + self.db.lastErrorMessage())
+        }
+    }
+
+    //TODO: DROP
 }

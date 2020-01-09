@@ -13,20 +13,20 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
-
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //Afficher chemin vers le dossier Documents de l'app
         print("DocumentDirectory => \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last ?? "")")
         
-        // Créations des tables pour la Db
-        DatabaseManager.createAllTables(tables: [LocationTable()])
-        
+        // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
         
+        // Créations des tables pour la Db
+        DatabaseManager.createAllTables(tables: [LocationTable.getInstance()])
+        
         // Demande l'autorisation de récupérer la localisation
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
             // Début écoute position
@@ -57,8 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = CLLocation(latitude: manager.location!.coordinate.latitude, longitude: manager.location!.coordinate.longitude)
-        NSLog("new location : (\(location.coordinate.latitude), \(location.coordinate.longitude))")
+        LocationTable.getInstance().insert([
+            LocationTable.ALTITUDE: location.altitude,
+            LocationTable.LATITUDE: location.coordinate.latitude,
+            LocationTable.LONGITUDE: location.coordinate.longitude,
+            LocationTable.TIMESTAMP: Date().timeIntervalSince1970
+        ])
     }
-
-
 }

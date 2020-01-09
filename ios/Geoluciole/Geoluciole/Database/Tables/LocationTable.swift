@@ -9,17 +9,31 @@
 import Foundation
 
 class LocationTable: Table {
-    
-    override init() {
+
+    fileprivate static var INSTANCE: LocationTable? = nil
+
+    static let LATITUDE = "latitude"
+    static let LONGITUDE = "longitude"
+    static let ALTITUDE = "altitude"
+    static let TIMESTAMP = "time_stamp"
+
+    fileprivate override init() {
         super.init()
-        
+
         self.tableName = "locations"
         self.columns = [
-            TableColumn(columnName: "latitude", columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: "longitude", columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: "altitude", columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: "time_stamp", columnType: "TIMESTAMP", canBeNull: false),
-            TableColumn(columnName: "is_sync", columnType: "BOOLEAN", canBeNull: false, defaultValue: 0)
+            TableColumn(columnName: LocationTable.LATITUDE, columnType: "DOUBLE", canBeNull: false),
+            TableColumn(columnName: LocationTable.LONGITUDE, columnType: "DOUBLE", canBeNull: false),
+            TableColumn(columnName: LocationTable.ALTITUDE, columnType: "DOUBLE", canBeNull: false),
+            TableColumn(columnName: LocationTable.TIMESTAMP, columnType: "TIMESTAMP", canBeNull: false)
         ]
+    }
+    
+    static func getInstance() -> LocationTable {
+        if INSTANCE == nil {
+            INSTANCE = LocationTable()
+        }
+        
+        return INSTANCE!
     }
 }
