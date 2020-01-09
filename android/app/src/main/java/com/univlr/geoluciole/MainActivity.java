@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.univlr.geoluciole.db.dao.LocationDAO;
+import com.univlr.geoluciole.database.LocationTable;
 import com.univlr.geoluciole.model.Location;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,20 +33,29 @@ public class MainActivity extends AppCompatActivity {
 
 
         // creation LocationDAO
-        LocationDAO ldao = new LocationDAO(this);
+        //   LocationDAO ldao = new LocationDAO(this);
 
         // creation d une location
-        Location l = new Location(55.55, 44.77, 12345, 99.88, 0);
-        ldao.open();
-        ldao.addLocation(l);
-        //ldao.removeAll();
-        List list = ldao.getAll();
+        //  Location l = new Location(2299.55, 44.77, 12345, 99.88, 0);
+        //  ldao.open();
+        //ldao.addLocation(l);
+        // ldao.removeAll();
+        //  List list = ldao.getAll();
+        //    for (Object location : list) {
+        //      Location castedLocation = (Location)location;
+        //      Log.i("DATA RETRIEVED",castedLocation.toString() );
+        // System.out.println(castedLocation.parseToJson()); // put to json array
+        //  }
+        //  ldao.close();
+
+        LocationTable lt = new LocationTable(this);
+        Location l = new Location(199.66, 44.77, 12345, 99.88);
+        lt.insert(l);
+        List list = lt.getAll();
         for (Object location : list) {
-            Location castedLocation = (Location)location;
-            Log.i("DATA RETRIEVED",castedLocation.toString() );
-            System.out.println(castedLocation.parseToJson()); // put to json array
+            Location castedLocation = (Location) location;
+            Log.i("DATA RETRIEVED", castedLocation.toString());
         }
-        ldao.close();
     }
 
 }
