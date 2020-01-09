@@ -1,12 +1,19 @@
 package com.univlr.geoluciole;
 
 import android.os.Bundle;
+import android.util.Log;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.univlr.geoluciole.database.LocationTable;
+import com.univlr.geoluciole.model.Location;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        // test base de donnees 
+        LocationTable lt = new LocationTable(this);
+        Location l = new Location(199.66, 44.77, 12345, 99.88);
+        lt.insert(l);
+        List list = lt.getAll();
+        for (Object location : list) {
+            Location castedLocation = (Location) location;
+            Log.i("DATA RETRIEVED", castedLocation.toString());
+        }
     }
 
 }
