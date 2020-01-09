@@ -1,11 +1,14 @@
 package com.univlr.geoluciole;
 
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             if(!unauthorizedPermissions.isEmpty()) {
                 requestPermissions(unauthorizedPermissions);
             } else {
-                mService.requestLocationUpdates();
+                launchServiceIfGPSEnabled();
             }
         }
 
@@ -135,6 +138,52 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    private void launchServiceIfGPSEnabled() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        Task<LocationSettingsResponse> result =
+                LocationServices.getSettingsClient(this).checkLocationSettings(builder.build());
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                try {
+                    LocationSettingsResponse response = task.getResult(ApiException.class);
+                    // All location settings are satisfied. The client can initialize location
+                    // requests here.
+                } catch (ApiException exception) {
+                    switch (exception.getStatusCode()) {
+                        case LocationSettingsStatusCodes.SUCCESS:
+                            mService.requestLocationUpdates();
+                            break;
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            // Location settings are not satisfied. But could be fixed by showing the
+                            // user a dialog.
+                            try {
+                                // Cast to a resolvable exception.
+                                ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                // Show the dialog by calling startResolutionForResult(),
+                                // and check the result in onActivityResult().
+                                resolvable.startResolutionForResult(
+                                        MainActivity.this,
+                                        LocationRequest.PRIORITY_HIGH_ACCURACY);
+                            } catch (IntentSender.SendIntentException e) {
+                                // Ignore the error.
+                            } catch (ClassCastException e) {
+                                // Ignore, should be an impossible error.
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            // Location settings are not satisfied. However, we have no way to fix the
+                            // settings so we won't show the dialog.
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
     private void requestPermissions(ArrayList<Permission> unauthorizedPermissions) {
         for(Permission permission : unauthorizedPermissions) {
             ActivityCompat.requestPermissions(this,
@@ -170,12 +219,33 @@ public class MainActivity extends AppCompatActivity {
                 } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission was granted.
                     if(permission.getManifestValue() == Manifest.permission.ACCESS_FINE_LOCATION) {
-                        mService.requestLocationUpdates();
+                        launchServiceIfGPSEnabled();
                     }
                 } else {
                     // Permission denied.
                 }
             }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case LocationRequest.PRIORITY_HIGH_ACCURACY:
+                switch (resultCode) {
+                    case AppCompatActivity.RESULT_OK:
+                        // All required changes were successfully made
+                        Log.i(TAG, "onActivityResult: GPS Enabled by user");
+                        mService.requestLocationUpdates();
+                        break;
+                    case AppCompatActivity.RESULT_CANCELED:
+                        // The user was asked to change settings, but chose not to
+                        Log.i(TAG, "onActivityResult: User rejected GPS request");
+                        break;
+                    default:
+                        break;
+                }
+                break;
         }
     }
 

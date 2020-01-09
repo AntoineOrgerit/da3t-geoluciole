@@ -17,7 +17,8 @@
 /**
  * Modifications done:
  *  - update of package name and string value of PACKAGE_NAME variable;
- *  - delete of Android 0 Notification Channel.
+ *  - delete of Android 0 Notification Channel;
+ *  - changing accuracy to be balanced with the battery.
  */
 
 package com.univlr.geoluciole.location;
@@ -337,7 +338,7 @@ public class LocationUpdatesService extends Service {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
     /**
