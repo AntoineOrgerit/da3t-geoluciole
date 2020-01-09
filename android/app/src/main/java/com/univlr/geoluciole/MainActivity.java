@@ -31,23 +31,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
-        // creation LocationDAO
-        //   LocationDAO ldao = new LocationDAO(this);
-
-        // creation d une location
-        //  Location l = new Location(2299.55, 44.77, 12345, 99.88, 0);
-        //  ldao.open();
-        //ldao.addLocation(l);
-        // ldao.removeAll();
-        //  List list = ldao.getAll();
-        //    for (Object location : list) {
-        //      Location castedLocation = (Location)location;
-        //      Log.i("DATA RETRIEVED",castedLocation.toString() );
-        // System.out.println(castedLocation.parseToJson()); // put to json array
-        //  }
-        //  ldao.close();
-
+        // test base de donnees 
         LocationTable lt = new LocationTable(this);
         Location l = new Location(199.66, 44.77, 12345, 99.88);
         lt.insert(l);
