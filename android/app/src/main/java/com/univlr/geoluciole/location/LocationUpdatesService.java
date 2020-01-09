@@ -1,23 +1,30 @@
 /**
  * Copyright 2017 Google Inc. All Rights Reserved.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - delete of Android 0 Notification Channel;
+ * - remove stopping activity from notifications;
+ * - changing accuracy to be balanced with the battery.
  */
 
 /**
  * Modifications done:
  *  - update of package name and string value of PACKAGE_NAME variable;
  *  - delete of Android 0 Notification Channel;
+ *  - remove stopping activity from notifications;
  *  - changing accuracy to be balanced with the battery.
  */
 
@@ -25,24 +32,22 @@ package com.univlr.geoluciole.location;
 
 import android.app.ActivityManager;
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -53,6 +58,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.univlr.geoluciole.MainActivity;
+import com.univlr.geoluciole.R;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -74,11 +80,6 @@ public class LocationUpdatesService extends Service {
             "com.univlr.geoluciole.location";
 
     private static final String TAG = LocationUpdatesService.class.getSimpleName();
-
-    /**
-     * The name of the channel for notifications.
-     */
-    private static final String CHANNEL_ID = "channel_01";
 
     public static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
 
@@ -112,8 +113,6 @@ public class LocationUpdatesService extends Service {
      */
     private boolean mChangingConfiguration = false;
 
-    private NotificationManager mNotificationManager;
-
     /**
      * Contains parameters used by {@link com.google.android.gms.location.FusedLocationProviderApi}.
      */
@@ -136,9 +135,6 @@ public class LocationUpdatesService extends Service {
      */
     private Location mLocation;
 
-    public LocationUpdatesService() {
-    }
-
     @Override
     public void onCreate() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -157,7 +153,6 @@ public class LocationUpdatesService extends Service {
         HandlerThread handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         mServiceHandler = new Handler(handlerThread.getLooper());
-        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 
     @Override
@@ -262,37 +257,24 @@ public class LocationUpdatesService extends Service {
     private Notification getNotification() {
         Intent intent = new Intent(this, LocationUpdatesService.class);
 
-        CharSequence text = Utils.getLocationText(mLocation);
+        CharSequence text = getResources().getString(R.string.location_notification_content_text);
 
         // Extra to help us figure out if we arrived in onStartCommand via the notification or not.
         intent.putExtra(EXTRA_STARTED_FROM_NOTIFICATION, true);
-
-        // The PendingIntent that leads to a call to onStartCommand() in this service.
-        PendingIntent servicePendingIntent = PendingIntent.getService(this, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
 
         // The PendingIntent to launch activity.
         PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), 0);
 
         Notification.Builder builder = new Notification.Builder(this)
-                /*.addAction(R.drawable.ic_launch, getString(R.string.launch_activity),
-                        activityPendingIntent)
-                .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
-                        servicePendingIntent)*/
+                .addAction(R.drawable.ic_home_black_24dp, getResources().getString(R.string.location_notification_button_text), activityPendingIntent)
                 .setContentText(text)
-                /*.setContentTitle(Utils.getLocationTitle(this))*/
-                .setContentTitle("A title")
+                .setContentTitle(getResources().getString(R.string.location_notification_content_title))
                 .setOngoing(true)
                 .setPriority(Notification.PRIORITY_HIGH)
-                /*.setSmallIcon(R.mipmap.ic_launcher)*/
+                .setSmallIcon(R.mipmap.luciole_blanche)
                 .setTicker(text)
                 .setWhen(System.currentTimeMillis());
-
-        // Set the Channel ID for Android O.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setChannelId(CHANNEL_ID); // Channel ID
-        }
 
         return builder.build();
     }
@@ -324,11 +306,6 @@ public class LocationUpdatesService extends Service {
         Intent intent = new Intent(ACTION_BROADCAST);
         intent.putExtra(EXTRA_LOCATION, location);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-
-        // Update notification content if running as a foreground service.
-        /*if (serviceIsRunningInForeground(this)) {
-            mNotificationManager.notify(NOTIFICATION_ID, getNotification());
-        }*/
     }
 
     /**
@@ -361,10 +338,8 @@ public class LocationUpdatesService extends Service {
                 Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(
                 Integer.MAX_VALUE)) {
-            if (getClass().getName().equals(service.service.getClassName())) {
-                if (service.foreground) {
-                    return true;
-                }
+            if (getClass().getName().equals(service.service.getClassName()) && service.foreground) {
+                return true;
             }
         }
         return false;

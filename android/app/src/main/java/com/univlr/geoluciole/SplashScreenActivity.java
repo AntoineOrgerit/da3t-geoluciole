@@ -1,13 +1,7 @@
 package com.univlr.geoluciole;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.univlr.geoluciole.permissions.Permission;
 
@@ -15,7 +9,7 @@ import java.util.ArrayList;
 
 public class SplashScreenActivity extends LocationActivity {
 
-    private static String TAG = SplashScreenActivity.class.getSimpleName();
+    private static final String TAG = SplashScreenActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

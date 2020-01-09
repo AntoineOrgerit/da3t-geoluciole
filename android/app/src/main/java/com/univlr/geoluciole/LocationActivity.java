@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 public abstract class LocationActivity extends AppCompatActivity {
 
-    private static String TAG = LocationActivity.class.getSimpleName();
+    private static final String TAG = LocationActivity.class.getSimpleName();
 
     protected ArrayList<Permission> retrieveUnauthorizedPermissions() {
         ArrayList<Permission> unauthorizedPermissions = new ArrayList<>();
@@ -45,7 +46,7 @@ public abstract class LocationActivity extends AppCompatActivity {
     }
 
     protected void requestPermissions(ArrayList<Permission> unauthorizedPermissions) {
-        for(Permission permission : unauthorizedPermissions) {
+        for (Permission permission : unauthorizedPermissions) {
             Log.w(TAG, "Requesting permission for " + permission.getManifestValue());
             ActivityCompat.requestPermissions(this,
                     new String[]{permission.getManifestValue()},
@@ -70,10 +71,10 @@ public abstract class LocationActivity extends AppCompatActivity {
                     // requests here.
                 } catch (ApiException exception) {
                     switch (exception.getStatusCode()) {
-                        case LocationSettingsStatusCodes.SUCCESS:
+                        case CommonStatusCodes.SUCCESS:
                             onGPSEnabled();
                             break;
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        case CommonStatusCodes.RESOLUTION_REQUIRED:
                             // Location settings are not satisfied. But could be fixed by showing the
                             // user a dialog.
                             try {
@@ -84,15 +85,15 @@ public abstract class LocationActivity extends AppCompatActivity {
                                 resolvable.startResolutionForResult(
                                         LocationActivity.this,
                                         LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-                            } catch (IntentSender.SendIntentException e) {
-                                // Ignore the error.
-                            } catch (ClassCastException e) {
+                            } catch (IntentSender.SendIntentException | ClassCastException e) {
                                 // Ignore, should be an impossible error.
                             }
                             break;
                         case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                             // Location settings are not satisfied. However, we have no way to fix the
                             // settings so we won't show the dialog.
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -112,7 +113,7 @@ public abstract class LocationActivity extends AppCompatActivity {
                 } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission was granted.
                     Log.i(TAG, "Permission granted for " + permission.getManifestValue());
-                    if(permission.getManifestValue() == Manifest.permission.ACCESS_FINE_LOCATION) {
+                    if (permission.getManifestValue() == Manifest.permission.ACCESS_FINE_LOCATION) {
                         enableGPSIfNeeded();
                     }
                 } else {
@@ -124,22 +125,20 @@ public abstract class LocationActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case LocationRequest.PRIORITY_HIGH_ACCURACY:
-                switch (resultCode) {
-                    case AppCompatActivity.RESULT_OK:
-                        // All required changes were successfully made
-                        Log.i(TAG, "GPS Enabled by user");
-                        onGPSEnabled();
-                        break;
-                    case AppCompatActivity.RESULT_CANCELED:
-                        // The user was asked to change settings, but chose not to
-                        Log.i(TAG, "User rejected GPS request");
-                        break;
-                    default:
-                        break;
-                }
-                break;
+        if (requestCode == LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY) {
+            switch (resultCode) {
+                case AppCompatActivity.RESULT_OK:
+                    // All required changes were successfully made
+                    Log.i(TAG, "GPS Enabled by user");
+                    onGPSEnabled();
+                    break;
+                case AppCompatActivity.RESULT_CANCELED:
+                    // The user was asked to change settings, but chose not to
+                    Log.i(TAG, "User rejected GPS request");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

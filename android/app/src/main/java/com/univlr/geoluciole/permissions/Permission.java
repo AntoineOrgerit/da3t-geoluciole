@@ -10,6 +10,7 @@ public enum Permission {
     private String manifestValue;
     private int uniqueID;
 
+    @SuppressWarnings("unused")
     Permission(String manifestValue, int uniqueID) {
         this.manifestValue = manifestValue;
         this.uniqueID = uniqueID;
