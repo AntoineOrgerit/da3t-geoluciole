@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+    
+    let locationManager = CLLocationManager()
 
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //Afficher chemin vers le dossier Documents de l'app
@@ -20,6 +24,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DatabaseManager.createAllTables(tables: [LocationTable()])
         
         Tools.copyFile(fileName: Constantes.DB_NAME)
+        
+        // Demande l'autorisation de récupérer la localisation
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            // Début écoute position
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            
+        }
+        
         return true
     }
 
@@ -38,7 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = CLLocation(latitude: manager.location!.coordinate.latitude, longitude: manager.location!.coordinate.longitude)
+        NSLog("new location : (\(location.coordinate.latitude), \(location.coordinate.longitude))")
+    }
 
 
 }
-
