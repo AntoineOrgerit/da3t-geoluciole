@@ -23,7 +23,7 @@
 /**
  * Modifications done:
  *  - update of package name and string value of PACKAGE_NAME variable;
- *  - delete of Android 0 Notification Channel;
+ *  - update notification channel name;
  *  - remove stopping activity from notifications;
  *  - changing accuracy to be balanced with the battery.
  */
@@ -32,6 +32,8 @@ package com.univlr.geoluciole.location;
 
 import android.app.ActivityManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -39,6 +41,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -81,6 +84,11 @@ public class LocationUpdatesService extends Service {
 
     private static final String TAG = LocationUpdatesService.class.getSimpleName();
 
+    /**
+     * The name of the channel for notifications.
+     */
+    private static final String CHANNEL_ID = "channel_location_updates_service";
+
     public static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
 
     public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
@@ -112,6 +120,8 @@ public class LocationUpdatesService extends Service {
      * place.
      */
     private boolean mChangingConfiguration = false;
+
+    private NotificationManager mNotificationManager;
 
     /**
      * Contains parameters used by {@link com.google.android.gms.location.FusedLocationProviderApi}.
@@ -153,6 +163,18 @@ public class LocationUpdatesService extends Service {
         HandlerThread handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         mServiceHandler = new Handler(handlerThread.getLooper());
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        // Android O requires a Notification Channel.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.app_name);
+            // Create the channel for the notification
+            NotificationChannel mChannel =
+                    new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+            // Set the Notification Channel for the Notification Manager.
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
     }
 
     @Override
@@ -306,6 +328,11 @@ public class LocationUpdatesService extends Service {
         Intent intent = new Intent(ACTION_BROADCAST);
         intent.putExtra(EXTRA_LOCATION, location);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+
+        // Update notification content if running as a foreground service.
+        if (serviceIsRunningInForeground(this)) {
+            mNotificationManager.notify(NOTIFICATION_ID, getNotification());
+        }
     }
 
     /**
