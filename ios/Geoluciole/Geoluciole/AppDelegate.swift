@@ -13,7 +13,7 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         //Afficher chemin vers le dossier Documents de l'app
@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
-
+        
+        // params
+        var t = Params.getInstance();
+        
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
 

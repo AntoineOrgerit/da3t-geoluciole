@@ -14,11 +14,18 @@ class HomeViewController: UIViewController {
     @IBOutlet var switchData: UISwitch!
     @IBOutlet var progressBar: UIProgressView!
     
+    let param = Params.getInstance().param
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let send = param.bool(forKey: "send_data")
+        switchData.setOn(send, animated: true)
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func switchSender(sender: UISwitch){
+        param.set(sender.isOn, forKey: "send_data")
+    }
     
 
 }
