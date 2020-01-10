@@ -3,9 +3,8 @@ package com.univlr.geoluciole.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.location.Location;
 import android.util.Log;
-
-import com.univlr.geoluciole.model.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,7 @@ public class LocationTable extends Table {
         ContentValues values = new ContentValues();
         values.put(LocationTable.LATITUDE, l.getLatitude());
         values.put(LocationTable.LONGITUDE, l.getLongitude());
-        values.put(LocationTable.TIMESTAMP, l.getTimestamp());
+        values.put(LocationTable.TIMESTAMP, l.getTime());
         values.put(LocationTable.ALTITUDE, l.getAltitude());
         Log.i("DATABASE", "addLocation - Ajout d une location dans la base de donnee");
         System.out.println(values);
@@ -87,10 +86,10 @@ public class LocationTable extends Table {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             do {
-                Location location = new Location();
+                Location location = new Location("");
                 location.setLatitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LATITUDE)));
                 location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LONGITUDE)));
-                location.setTimestamp(cursor.getInt(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
+                location.setTime(cursor.getInt(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
                 location.setAltitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.ALTITUDE)));
                 locationList.add(location);
             } while (cursor.moveToNext());
