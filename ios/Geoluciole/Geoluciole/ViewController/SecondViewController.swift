@@ -24,7 +24,7 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
         collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
         
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .white
         collectionView.topAnchor.constraint(equalTo: badgesLabel.bottomAnchor, constant: 20).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(self.tabBarController!.tabBar.frame.height+10)).isActive = true
@@ -38,7 +38,7 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout UICollectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / 2, height: collectionView.frame.width / 3)
+        return CGSize(width: collectionView.frame.width / 2.5, height: collectionView.frame.width / 3)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -51,6 +51,8 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
             label.text = collectionData[indexPath.row]
         }*/
         //cell.backgroundColor = .red
+        //let frameCel = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 25, height: 25)
+        //cell.frame = frameCel
         return cell
     }
     
