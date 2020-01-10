@@ -40,14 +40,36 @@ class Table {
         return sqlRequest
     }
 
-    //TODO: QUERY
-    func select(_ arguments: [String: Any]) {
+    func selectQuery(_ wantedColumns: [String] = [], where whereConditions: [WhereCondition]? = nil) -> Dictionary<AnyHashable, Any> {
+        var queryResult = [AnyHashable: Any]()
 
+        var sql = wantedColumns.isEmpty ? "SELECT *" : "SELECT " + Tools.joinWithCharacter(",", wantedColumns)
+        sql += " FROM " + self.tableName
+
+        if let whereConditions = whereConditions, !whereConditions.isEmpty {
+            sql += " WHERE"
+
+            var allConditions = [String]()
+            for whereCondition in whereConditions {
+                allConditions.append(whereCondition.toString())
+            }
+        }
+
+        self.db.open()
+        do {
+            if let r = try self.db.executeQuery(sql, values: nil).resultDictionary {
+                queryResult = r
+            }
+        } catch let error {
+            print("SELECT ERROR : \(error.localizedDescription)")
+        }
+        
+        self.db.close()
+        
+        return queryResult
     }
 
-    //TODO: UPDATE
-
-    func insert(_ arguments: [String: Any]) {
+    func insertQuery(_ arguments: [String: Any]) {
 
         var sql = "INSERT INTO " + self.tableName + " ("
         var sqlValues = ""
@@ -67,6 +89,4 @@ class Table {
             print("Error insert " + self.tableName + " : " + self.db.lastErrorMessage())
         }
     }
-
-    //TODO: DROP
 }

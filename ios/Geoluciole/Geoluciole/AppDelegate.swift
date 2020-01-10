@@ -11,31 +11,31 @@ import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
-    
+
     let locationManager = CLLocationManager()
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         //Afficher chemin vers le dossier Documents de l'app
         print("DocumentDirectory => \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last ?? "")")
-        
+
         // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
-        
+
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
-        
+
         // Demande l'autorisation de récupérer la localisation
         locationManager.requestAlwaysAuthorization()
-        
+
         if CLLocationManager.locationServicesEnabled() {
             // Début écoute position
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
-            
+
         }
-        
+
         return true
     }
 
@@ -54,10 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = CLLocation(latitude: manager.location!.coordinate.latitude, longitude: manager.location!.coordinate.longitude)
-        LocationTable.getInstance().insert([
+        LocationTable.getInstance().insertQuery([
             LocationTable.ALTITUDE: location.altitude,
             LocationTable.LATITUDE: location.coordinate.latitude,
             LocationTable.LONGITUDE: location.coordinate.longitude,
