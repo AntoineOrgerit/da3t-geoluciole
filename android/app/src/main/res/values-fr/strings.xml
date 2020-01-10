@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Géoluciole</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- CONSTANT NOTIFICATION -->
+    <string name="location_notification_content_title">Géoluciole en fonctionnement</string>
+    <string name="location_notification_content_text">Le suivi de votre parcours est en cours</string>
+    <string name="location_notification_button_text">Ouvrir l'application</string>
+</resources>
