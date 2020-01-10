@@ -8,12 +8,14 @@
 
 import UIKit
 import CoreLocation
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
 
     let locationManager = CLLocationManager()
-    
+    let userNotificationCenter = UNUserNotificationCenter.current()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         //Afficher chemin vers le dossier Documents de l'app
@@ -31,15 +33,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Demande l'autorisation de récupérer la localisation
         locationManager.requestAlwaysAuthorization()
 
+        // Ecoute de la position uniquement is l'autorisation est donnée
         if CLLocationManager.locationServicesEnabled() {
-            // Début écoute position
             locationManager.delegate = self
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.distanceFilter = 10 // on doit bouger de 10m pour détecter un changement
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
-
         }
 
+        userNotificationCenter.delegate = self
+        requestNotificationAuthorization()
+
         return true
+    }
+
+    /// Appelé lorsque l'application va se terminer (coupure via le gestionnaire d'app par exemple)
+    func applicationWillTerminate(_ application: UIApplication) {
+        NSLog("App killed")
+        if CLLocationManager.locationServicesEnabled() {
+            sendNotificationStopTracking()
+            locationManager.stopUpdatingLocation()
+        }
     }
 
     // MARK: UISceneSession Lifecycle
@@ -58,8 +73,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    // Location PART
+
+    /// Appelé lorsque l'on reçoit une nouvelle position GPS
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = CLLocation(latitude: manager.location!.coordinate.latitude, longitude: manager.location!.coordinate.longitude)
+        // on effectue l'insertion uniquement si la valeur n'est pas nil
+        guard let location = locations.last else {
+            return
+        }
+
+        NSLog("Location update")
+
         LocationTable.getInstance().insertQuery([
             LocationTable.ALTITUDE: location.altitude,
             LocationTable.LATITUDE: location.coordinate.latitude,
@@ -67,4 +91,74 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             LocationTable.TIMESTAMP: Date().timeIntervalSince1970
         ])
     }
+
+    /// Appelé lorsqu'une erreur liée à la localisation est capturée
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        if let err = error as? CLError {
+            switch err {
+            case CLError.locationUnknown:
+                NSLog("Position inconnue")
+            case CLError.denied:
+                locationManager.stopUpdatingLocation()
+            default:
+                NSLog("Erreur inconnue : \(err.localizedDescription)")
+            }
+        }
+    }
+
+
+    // Notification PART
+
+    /// Demande l'autorisation d'envoyer des notifications à l'utilisateur
+    func requestNotificationAuthorization() {
+        // On définit les élements que l'on veut utiliser pour les notifications
+        let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .sound)
+
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
+            if let error = error {
+                NSLog("Erreur lors de l'autorisation des notifications : \(error)")
+            }
+        }
+    }
+
+    /// Envoi d'une notification lorsque l'on coupe l'application pour information
+    /// l'utilisateur que le tracking va être coupé
+    func sendNotificationStopTracking() {
+        // Création de la notification
+        let notificationContent = UNMutableNotificationContent()
+
+        // définition du contenu
+        notificationContent.title = "\u{26a0} Attention \u{26a0}"
+        notificationContent.body = "La coupure de l'application ne permet pas de suivre vos déplacements. Veuillez relancer l'application pour reprendre le suivi"
+
+        // Ajout d'un icone
+        if let url = Bundle.main.url(forResource: "AppIcon", withExtension: "png") {
+            if let attachment = try? UNNotificationAttachment(identifier: "AppIcon", url: url, options: nil) {
+                notificationContent.attachments = [attachment]
+            }
+        }
+
+
+        // gestion de l'émission
+        // temps exprimé en secondes
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        let request = UNNotificationRequest(identifier: "testNotification", content: notificationContent, trigger: trigger)
+
+        // on post la notification pour la prendre en compte
+        userNotificationCenter.add(request) { (error) in
+            if let error = error {
+                NSLog("Erreur lors de la soumission de la notification : \(error)")
+            }
+        }
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+
 }
