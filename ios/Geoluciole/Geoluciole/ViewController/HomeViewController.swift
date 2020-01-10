@@ -8,13 +8,18 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class HomeViewController: UIViewController {
 
+    @IBOutlet var niveau: UILabel!
+    @IBOutlet var switchData: UISwitch!
+    @IBOutlet var progressBar: UIProgressView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
+    
 
 }
 
