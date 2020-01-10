@@ -29,6 +29,7 @@
 		237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237AD42B23C606D4009937AB /* LaunchScreen.storyboard */; };
 		237AD43623C60749009937AB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 237AD43523C60748009937AB /* libsqlite3.tbd */; };
 		23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E22D2023C7645100C3540E /* SettingsViewController.swift */; };
+		23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE123C8C0F400A13999 /* UIColorExtension.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		237AD42E23C606D4009937AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		237AD43523C60748009937AB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		23E22D2023C7645100C3540E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		23F18DE123C8C0F400A13999 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,8 @@
 		237AD41D23C606D4009937AB /* Geoluciole */ = {
 			isa = PBXGroup;
 			children = (
+				23F18DE023C8C07D00A13999 /* Extensions */,
+				23F18DDF23C8C03800A13999 /* UIItems */,
 				23E22D1E23C75ECE00C3540E /* ViewController */,
 				23E22D1D23C75EB200C3540E /* Models */,
 				2305CE6723C631CA00354361 /* Geoluciole-Bridging-Header.h */,
@@ -187,6 +191,21 @@
 				23E22D2023C7645100C3540E /* SettingsViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		23F18DDF23C8C03800A13999 /* UIItems */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIItems;
+			sourceTree = "<group>";
+		};
+		23F18DE023C8C07D00A13999 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				23F18DE123C8C0F400A13999 /* UIColorExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +285,7 @@
 				237AD42323C606D4009937AB /* FirstViewController.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
 				2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */,
+				23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */,
 				2305CE7623C6321200354361 /* FMDatabasePool.m in Sources */,
 				2305CE7823C6321200354361 /* FMDatabase.m in Sources */,
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,
