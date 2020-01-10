@@ -29,6 +29,8 @@
 		237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237AD42B23C606D4009937AB /* LaunchScreen.storyboard */; };
 		237AD43623C60749009937AB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 237AD43523C60748009937AB /* libsqlite3.tbd */; };
 		23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E22D2023C7645100C3540E /* SettingsViewController.swift */; };
+		62C73F8723C8CD8A007144CC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C73F8623C8CD8A007144CC /* HomeViewController.swift */; };
+		62C73F8923C8CD99007144CC /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C73F8823C8CD99007144CC /* SecondViewController.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		237AD42E23C606D4009937AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		237AD43523C60748009937AB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		23E22D2023C7645100C3540E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		62C73F8623C8CD8A007144CC /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		62C73F8823C8CD99007144CC /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,8 +188,8 @@
 		23E22D1E23C75ECE00C3540E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				237AD42223C606D4009937AB /* FirstViewController.swift */,
-				237AD42423C606D4009937AB /* SecondViewController.swift */,
+				62C73F8823C8CD99007144CC /* SecondViewController.swift */,
+				62C73F8623C8CD8A007144CC /* HomeViewController.swift */,
 				23E22D2023C7645100C3540E /* SettingsViewController.swift */,
 			);
 			path = ViewController;
@@ -266,11 +270,13 @@
 			files = (
 				237AD42523C606D4009937AB /* SecondViewController.swift in Sources */,
 				237AD42323C606D4009937AB /* HomeViewController.swift in Sources */,
+				62C73F8723C8CD8A007144CC /* HomeViewController.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
 				2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */,
 				2305CE7623C6321200354361 /* FMDatabasePool.m in Sources */,
 				2305CE7823C6321200354361 /* FMDatabase.m in Sources */,
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,
+				62C73F8923C8CD99007144CC /* SecondViewController.swift in Sources */,
 				2345245423C79E20001D2CF7 /* WhereCondition.swift in Sources */,
 				2305CE7F23C633B200354361 /* Constantes.swift in Sources */,
 				2305CE8B23C64AD500354361 /* Table.swift in Sources */,
