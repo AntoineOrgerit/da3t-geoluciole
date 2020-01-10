@@ -19,6 +19,7 @@
 		2305CE8923C63E9700354361 /* LocationTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8823C63E9700354361 /* LocationTable.swift */; };
 		2305CE8B23C64AD500354361 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8A23C64AD500354361 /* Table.swift */; };
 		2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8C23C64F3000354361 /* TableColumn.swift */; };
+		230BA7C523C879F4000C61C3 /* ATable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BA7C423C879F4000C61C3 /* ATable.swift */; };
 		2345245423C79E20001D2CF7 /* WhereCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2345245323C79E20001D2CF7 /* WhereCondition.swift */; };
 		237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237AD41E23C606D4009937AB /* AppDelegate.swift */; };
 		237AD42123C606D4009937AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237AD42023C606D4009937AB /* SceneDelegate.swift */; };
@@ -52,6 +53,7 @@
 		2305CE8823C63E9700354361 /* LocationTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTable.swift; sourceTree = "<group>"; };
 		2305CE8A23C64AD500354361 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		2305CE8C23C64F3000354361 /* TableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableColumn.swift; sourceTree = "<group>"; };
+		230BA7C423C879F4000C61C3 /* ATable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATable.swift; sourceTree = "<group>"; };
 		2345245323C79E20001D2CF7 /* WhereCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereCondition.swift; sourceTree = "<group>"; };
 		237AD41B23C606D4009937AB /* Geoluciole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geoluciole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		237AD41E23C606D4009937AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			children = (
 				2305CE8A23C64AD500354361 /* Table.swift */,
 				2305CE8823C63E9700354361 /* LocationTable.swift */,
+				230BA7C423C879F4000C61C3 /* ATable.swift */,
 			);
 			path = Tables;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,
 				2345245423C79E20001D2CF7 /* WhereCondition.swift in Sources */,
 				2305CE7F23C633B200354361 /* Constantes.swift in Sources */,
+				230BA7C523C879F4000C61C3 /* ATable.swift in Sources */,
 				2305CE8B23C64AD500354361 /* Table.swift in Sources */,
 				237AD42123C606D4009937AB /* SceneDelegate.swift in Sources */,
 				2305CE8123C6347A00354361 /* Tools.swift in Sources */,

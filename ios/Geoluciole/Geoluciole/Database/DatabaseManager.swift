@@ -59,6 +59,10 @@ class DatabaseManager {
                 DatabaseManager.createTable(tables: [LocationTable.getInstance()])
             }
             
+            if Constantes.DB_VERSION == 2 {
+                DatabaseManager.createTable(tables: [ATable.getInstance()])
+            }
+            
             // Mise a niveau de la version de la base de données
             DatabaseManager.dbVersion = Constantes.DB_VERSION
         }
