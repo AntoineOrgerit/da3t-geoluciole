@@ -23,9 +23,17 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let send = param.bool(forKey: "send_data")
+        switchData.setOn(send, animated: true)
+        //self.tabBarController?.delegate = self as? UITabBarControllerDelegate
+    }
+    
     @IBAction func switchSender(sender: UISwitch){
         param.set(sender.isOn, forKey: "send_data")
     }
+    
     
 
 }

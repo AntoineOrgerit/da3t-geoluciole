@@ -181,7 +181,7 @@
                                 <rect key="frame" x="53" y="196" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="textFieldChanged:" destination="jeO-2J-db5" eventType="editingChanged" id="zUa-bC-Ikg"/>
                                 </connections>
@@ -193,11 +193,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TLK-qa-fUT">
-                                <rect key="frame" x="184" y="512" width="49" height="31"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CiW-Wh-tnp">
+                                <rect key="frame" x="183" y="525" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="switchSenderWithSender:" destination="jeO-2J-db5" eventType="touchUpInside" id="FKh-Bs-RUs"/>
+                                    <action selector="switchSenderDataWithSender:" destination="jeO-2J-db5" eventType="touchUpInside" id="c8l-5n-stW"/>
                                 </connections>
                             </switch>
                         </subviews>
@@ -208,7 +208,7 @@
                     <connections>
                         <outlet property="label" destination="DZ3-L5-ZMQ" id="PzR-DS-hBk"/>
                         <outlet property="langue" destination="x0R-fe-GJf" id="JEc-De-xia"/>
-                        <outlet property="switchData" destination="TLK-qa-fUT" id="mXR-O7-8OY"/>
+                        <outlet property="switchDataParam" destination="CiW-Wh-tnp" id="gbL-yc-udl"/>
                         <outlet property="type_engagement" destination="CNi-CJ-wqo" id="utw-By-EE9"/>
                     </connections>
                 </viewController>

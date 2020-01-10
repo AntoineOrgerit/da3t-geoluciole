@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         Tools.copyFile(fileName: Constantes.DB_NAME)
         
         // params
-        var t = Params.getInstance();
+        _ = Params.getInstance();
         
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
