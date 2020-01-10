@@ -11,14 +11,10 @@ import Foundation
 class WhereCondition {
 
     var column: String!
-    var condition: String!
+    var value: Any!
 
-    init(onColumn: String, withCondition: String) {
+    init(onColumn: String, withCondition: Any) {
         self.column = onColumn
-        self.condition = withCondition
-    }
-
-    func toString() -> String {
-        return self.column + " " + self.condition
+        self.value = withCondition
     }
 }

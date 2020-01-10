@@ -10,7 +10,7 @@ import Foundation
 
 class Constantes {
     
-    static let DB_NAME = "database.sqlite"
+    static let DB_NAME = "geoluciole.sqlite"
     
     // Il faut incrémenter lorsque l'on veut prendre en compte des modifs pour la base de données et faire le nécessaire dans la fonction upgradeDatabase de la classe DatabaseManager
     static let DB_VERSION = 1

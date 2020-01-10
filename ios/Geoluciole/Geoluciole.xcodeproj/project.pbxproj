@@ -12,7 +12,7 @@
 		2305CE7823C6321200354361 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE6E23C6321200354361 /* FMDatabase.m */; };
 		2305CE7923C6321200354361 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE7123C6321200354361 /* FMDatabaseAdditions.m */; };
 		2305CE7A23C6321200354361 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE7323C6321200354361 /* FMResultSet.m */; };
-		2305CE7C23C632CF00354361 /* database.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2305CE7B23C632CF00354361 /* database.sqlite */; };
+		2305CE7C23C632CF00354361 /* geoluciole.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2305CE7B23C632CF00354361 /* geoluciole.sqlite */; };
 		2305CE7F23C633B200354361 /* Constantes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE7E23C633B200354361 /* Constantes.swift */; };
 		2305CE8123C6347A00354361 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8023C6347A00354361 /* Tools.swift */; };
 		2305CE8623C639CE00354361 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE8523C639CE00354361 /* DatabaseManager.swift */; };
@@ -29,6 +29,7 @@
 		237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237AD42B23C606D4009937AB /* LaunchScreen.storyboard */; };
 		237AD43623C60749009937AB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 237AD43523C60748009937AB /* libsqlite3.tbd */; };
 		23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E22D2023C7645100C3540E /* SettingsViewController.swift */; };
+		23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE123C8C0F400A13999 /* UIColorExtension.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +46,7 @@
 		2305CE7323C6321200354361 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		2305CE7423C6321200354361 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
 		2305CE7523C6321200354361 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		2305CE7B23C632CF00354361 /* database.sqlite */ = {isa = PBXFileReference; lastKnownFileType = text; path = database.sqlite; sourceTree = "<group>"; };
+		2305CE7B23C632CF00354361 /* geoluciole.sqlite */ = {isa = PBXFileReference; lastKnownFileType = text; path = geoluciole.sqlite; sourceTree = "<group>"; };
 		2305CE7E23C633B200354361 /* Constantes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constantes.swift; sourceTree = "<group>"; };
 		2305CE8023C6347A00354361 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		2305CE8523C639CE00354361 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		237AD42E23C606D4009937AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		237AD43523C60748009937AB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		23E22D2023C7645100C3540E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		23F18DE123C8C0F400A13999 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,11 +147,13 @@
 		237AD41D23C606D4009937AB /* Geoluciole */ = {
 			isa = PBXGroup;
 			children = (
+				23F18DE023C8C07D00A13999 /* Extensions */,
+				23F18DDF23C8C03800A13999 /* UIItems */,
 				23E22D1E23C75ECE00C3540E /* ViewController */,
 				23E22D1D23C75EB200C3540E /* Models */,
 				2305CE6723C631CA00354361 /* Geoluciole-Bridging-Header.h */,
 				237AD42E23C606D4009937AB /* Info.plist */,
-				2305CE7B23C632CF00354361 /* database.sqlite */,
+				2305CE7B23C632CF00354361 /* geoluciole.sqlite */,
 				2305CE7E23C633B200354361 /* Constantes.swift */,
 				2305CE6A23C631E700354361 /* Database */,
 				237AD41E23C606D4009937AB /* AppDelegate.swift */,
@@ -189,6 +193,21 @@
 				23E22D2023C7645100C3540E /* SettingsViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		23F18DDF23C8C03800A13999 /* UIItems */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIItems;
+			sourceTree = "<group>";
+		};
+		23F18DE023C8C07D00A13999 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				23F18DE123C8C0F400A13999 /* UIColorExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +269,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2305CE7C23C632CF00354361 /* database.sqlite in Resources */,
+				2305CE7C23C632CF00354361 /* geoluciole.sqlite in Resources */,
 				237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */,
 				237AD42A23C606D4009937AB /* Assets.xcassets in Resources */,
 				237AD42823C606D4009937AB /* Main.storyboard in Resources */,
@@ -268,6 +287,7 @@
 				237AD42323C606D4009937AB /* HomeViewController.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
 				2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */,
+				23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */,
 				2305CE7623C6321200354361 /* FMDatabasePool.m in Sources */,
 				2305CE7823C6321200354361 /* FMDatabase.m in Sources */,
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,
@@ -427,7 +447,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKVA2U4NBE;
+				DEVELOPMENT_TEAM = 3HYBSBSWZP;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -449,7 +469,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKVA2U4NBE;
+				DEVELOPMENT_TEAM = 3HYBSBSWZP;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -40,32 +40,40 @@ class Table {
         return sqlRequest
     }
 
-    func selectQuery(_ wantedColumns: [String] = [], where whereConditions: [WhereCondition]? = nil) -> Dictionary<AnyHashable, Any> {
-        var queryResult = [AnyHashable: Any]()
+    func selectQuery(_ wantedColumns: [String] = [], where whereConditions: [WhereCondition]? = nil) -> [[String: Any]] {
+        var queryResult = [[String: Any]]()
 
         var sql = wantedColumns.isEmpty ? "SELECT *" : "SELECT " + Tools.joinWithCharacter(",", wantedColumns)
         sql += " FROM " + self.tableName
 
+        var values = [Any]()
         if let whereConditions = whereConditions, !whereConditions.isEmpty {
             sql += " WHERE"
-
-            var allConditions = [String]()
-            for whereCondition in whereConditions {
-                allConditions.append(whereCondition.toString())
+            for (index, condition) in whereConditions.enumerated() {
+                values.append(condition.value!)
+                sql += " " + condition.column + " = ?"
+                sql += (index == whereConditions.count - 1) ? "" : ","
             }
         }
 
         self.db.open()
         do {
-            if let r = try self.db.executeQuery(sql, values: nil).resultDictionary {
-                queryResult = r
+            let result = try self.db.executeQuery(sql, values: values)
+            
+            while result.next() {
+                var data = [String: Any]()
+                for (key, value) in result.resultDictionary! {
+                    data[key as! String] = value
+                }
+                
+                queryResult.append(data)
             }
         } catch let error {
             print("SELECT ERROR : \(error.localizedDescription)")
         }
-        
+
         self.db.close()
-        
+
         return queryResult
     }
 

@@ -11,6 +11,11 @@ import Foundation
 class DatabaseManager {
 
     fileprivate static var DATABASE_INSTANCE: FMDatabase!
+    
+    static let sharedQueue: FMDatabaseQueue = {
+        return FMDatabaseQueue(path: Tools.getPath(Constantes.DB_NAME))!
+    }()
+    
     static var dbVersion: Int {
         get {
             let db = DatabaseManager.getInstance()
