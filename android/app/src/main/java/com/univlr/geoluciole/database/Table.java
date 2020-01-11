@@ -77,7 +77,7 @@ public abstract class Table {
      *
      * @param o Object a sauvegarder
      */
-    public abstract void insertObject(Object o);
+    protected abstract void insertObject(Object o);
 
     /**
      * Permet de supprimer tous les objets en base
@@ -91,7 +91,7 @@ public abstract class Table {
     /**
      * Permet de supprimer tous les objets en base
      */
-    public abstract void removeAllObject();
+    protected abstract void removeAllObject();
 
     /**
      * Permet de recuperer tous les objets de la base
@@ -110,5 +110,5 @@ public abstract class Table {
      *
      * @return List des objets
      */
-    public abstract List getAllObject();
+    protected abstract List getAllObject();
 }

@@ -90,7 +90,7 @@ public class HttpSender {
     }
 
     public static void test() {
-        String url = "http://datamuseum.univ-lr.fr:80/geolucioles/data/_bulk";
+        String url = "https://86.233.189.163:9200/geolucioles/data/_bulk";
         // String content = "{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\n";
         String content = "{\"index\": {}}\n{\"x\": 100,\"y\": 300}\n";
         new HttpSender()

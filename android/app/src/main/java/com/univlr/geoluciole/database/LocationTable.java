@@ -3,6 +3,7 @@ package com.univlr.geoluciole.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.location.Location;
 import android.util.Log;
 
@@ -26,10 +27,10 @@ public class LocationTable extends Table {
         super();
         this.tableName = LOCATION_TABLE_NAME;
         this.columns = new TableColumn[]{
-                new TableColumn(LATITUDE, "DOUBLE", false),
-                new TableColumn(LONGITUDE, "DOUBLE", false),
+                new TableColumn(LATITUDE, "DOUBLE", true),
+                new TableColumn(LONGITUDE, "DOUBLE", true),
                 new TableColumn(TIMESTAMP, "TIMESTAMP", false),
-                new TableColumn(ALTITUDE, "DOUBLE", false),
+                new TableColumn(ALTITUDE, "DOUBLE", true),
         };
     }
 
@@ -48,7 +49,7 @@ public class LocationTable extends Table {
      * @param o Object a inserer dans la table
      */
     @Override
-    public void insertObject(Object o) {
+    protected void insertObject(Object o) {
         Location l = (Location) o;
         ContentValues values = new ContentValues();
         values.put(LocationTable.LATITUDE, l.getLatitude());
@@ -65,7 +66,7 @@ public class LocationTable extends Table {
      * Permet de supprimer tous les objets de la table
      */
     @Override
-    public void removeAllObject() {
+    protected void removeAllObject() {
         this.dbSQLite.getDb().delete(LocationTable.LOCATION_TABLE_NAME, null, null);
     }
 
@@ -75,7 +76,7 @@ public class LocationTable extends Table {
      * @return List de tous les objets Locations
      */
     @Override
-    public List getAllObject() {
+    protected List getAllObject() {
         List<Location> locationList = new ArrayList();
         String[] columnArray = {
                 LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + "," +
@@ -102,4 +103,10 @@ public class LocationTable extends Table {
     }
 
 
+    public long countAll() {
+        this.dbSQLite.open();
+        long count = DatabaseUtils.queryNumEntries(this.dbSQLite.getDb(), LOCATION_TABLE_NAME);
+        this.dbSQLite.close();
+        return count;
+    }
 }
