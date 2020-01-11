@@ -72,5 +72,16 @@ class Tools {
     static func getStatusBarHeight() -> CGFloat {
         return UIApplication.shared.statusBarFrame.height
     }
+    
+    static func getAppName() -> String {
+        return Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
+    }
+    
+    static func getScreenWidth() -> CGFloat {
+        return UIScreen.main.bounds.width
+    }
 
+    static func getScreenHeight() -> CGFloat {
+        return UIScreen.main.bounds.height
+    }
 }

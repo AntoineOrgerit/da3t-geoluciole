@@ -8,33 +8,30 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: ParentViewController {
 
     @IBOutlet var niveau: UILabel!
     @IBOutlet var switchData: UISwitch!
     @IBOutlet var progressBar: UIProgressView!
-    
+
     let param = Params.getInstance().param
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let send = param.bool(forKey: "send_data")
         switchData.setOn(send, animated: true)
-        // Do any additional setup after loading the view.
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         let send = param.bool(forKey: "send_data")
         switchData.setOn(send, animated: true)
-        //self.tabBarController?.delegate = self as? UITabBarControllerDelegate
     }
-    
-    @IBAction func switchSender(sender: UISwitch){
+
+    @IBAction func switchSender(sender: UISwitch) {
         param.set(sender.isOn, forKey: "send_data")
     }
-    
-    
-
 }
 

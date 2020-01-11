@@ -8,11 +8,12 @@
 
 import Foundation
 
-class Params{
-    fileprivate static var INSTANCE: Params!
-    var param : UserDefaults
+class Params {
     
-    fileprivate init(){
+    fileprivate static var INSTANCE: Params!
+    var param: UserDefaults
+
+    fileprivate init() {
         self.param = UserDefaults.standard
         // si donnée d'envoi deja stocké
         if self.param.bool(forKey: "send_data") {
@@ -38,11 +39,11 @@ class Params{
         } else {
             self.param.set(0, forKey: "langue")
         }
-        
+
 
         self.param.synchronize()
     }
-    
+
     static func getInstance() -> Params {
         if INSTANCE == nil {
             INSTANCE = Params()
