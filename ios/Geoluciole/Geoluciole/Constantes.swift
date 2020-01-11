@@ -14,4 +14,7 @@ class Constantes {
     
     // Il faut incrémenter lorsque l'on veut prendre en compte des modifs pour la base de données et faire le nécessaire dans la fonction upgradeDatabase de la classe DatabaseManager
     static let DB_VERSION = 1
+
+    // API URL
+    static let API_URL = "http://datamuseum.univ-lr.fr:80/geolucioles/data/_bulk"
 }

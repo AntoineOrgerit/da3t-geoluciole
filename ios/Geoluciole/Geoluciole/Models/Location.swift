@@ -8,19 +8,14 @@
 
 import Foundation
 
-class Location {
+class Location: Codable {
     
-    let latitude: Double
-    let longitude: Double
-    let altitude: Double
-    let timestamp: Date
-    let isSync: Bool
+    var latitude: Double!
+    var longitude: Double!
+    var altitude: Double!
+    var timestamp: Double!
     
-    init(latitude: Double, longitude: Double, altitude: Double, timestamp: Date, isSync: Bool) {
-        self.latitude = latitude
-        self.longitude = longitude
-        self.altitude = altitude
-        self.timestamp = timestamp
-        self.isSync = isSync
+    init() {
+        // pas d'initialisation
     }
 }

@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
-        
+
         // params
-        _ = Params.getInstance();
-        
+        _ = Params.getInstance()
+
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
 
@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         userNotificationCenter.delegate = self
         requestNotificationAuthorization()
+
+        sendPostElasticSearch()
 
         return true
     }
@@ -159,6 +161,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
+    }
+
+    // Envoi serveur PART
+
+    func sendPostElasticSearch() {
+        // création du message à envoyer
+
+        // récupération des localisations en BDD SQLite
+        let result = LocationTable.getInstance().selectQuery()
+
+        if result.count > 0 {
+            var locations: [Location] = []
+
+            // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
+            for location in result {
+                let loc = Location()
+
+                for (key, value) in location {
+                    switch key {
+                    case LocationTable.ALTITUDE:
+                        loc.altitude = value as? Double
+
+                    case LocationTable.LATITUDE:
+                        loc.latitude = value as? Double
+
+                    case LocationTable.LONGITUDE:
+                        loc.longitude = value as? Double
+
+                    case LocationTable.TIMESTAMP:
+                        loc.timestamp = value as? Double
+
+                    default:
+                        NSLog("Aucune propriété \(key) dans l'objet Location")
+                    }
+                }
+                locations.append(loc)
+            }
+
+            // Si le tableau n'est pas vide, on envoi notre message
+            if locations.count > 0 {
+                let uuid = UIDevice.current.identifierForVendor?.uuidString
+                let message = ElasticSearchAPIMessage(uuid: uuid!, locations: locations)
+                ElasticSearchAPI.getInstance().postLocations(message)
+            }
+        }
     }
 
 }
