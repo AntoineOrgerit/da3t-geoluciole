@@ -7,11 +7,11 @@ import Foundation
 
 class ElasticSearchAPIMessage: Codable {
     
-    let uuid: String
+    let identifier: String
     let locations: [Location]
 
-    init(uuid: String, locations: [Location]) {
-        self.uuid = uuid
+    init(identifier: String, locations: [Location]) {
+        self.identifier = identifier
         self.locations = locations
     }
 }

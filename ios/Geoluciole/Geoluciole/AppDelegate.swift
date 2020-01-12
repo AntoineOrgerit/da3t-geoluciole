@@ -201,8 +201,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
             // Si le tableau n'est pas vide, on envoi notre message
             if locations.count > 0 {
+                // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
                 let uuid = UIDevice.current.identifierForVendor?.uuidString
-                let message = ElasticSearchAPIMessage(uuid: uuid!, locations: locations)
+                
+                // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
+                let identifier = String(-1 * uuid!.hashCode())
+                
+                // équivalent identifier.substring(2, 8)
+                let range = identifier.index(identifier.startIndex, offsetBy: 2)..<identifier.index(identifier.startIndex, offsetBy: 9)
+                let substringIdentifier = identifier[range]
+                NSLog("identifier : \(substringIdentifier)")
+                
+                let message = ElasticSearchAPIMessage(identifier: String(substringIdentifier), locations: locations)
                 ElasticSearchAPI.getInstance().postLocations(message)
             }
         }
