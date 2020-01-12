@@ -15,12 +15,21 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
+import com.univlr.geoluciole.sender.BulkObject;
 import com.univlr.geoluciole.sender.HttpSender;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class HomeFragment extends Fragment {
 
     private Button button;
+    private Button sendButton;
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -37,15 +46,48 @@ public class HomeFragment extends Fragment {
         });
 
         this.button = root.findViewById(R.id.count_data);
+        this.sendButton = root.findViewById(R.id.send_button);
 
         this.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //HttpSender.test(root.getContext());
-                //Log.d("Location count", ""+ new LocationTable(root.getContext()).countAll());
-                //Log.d("Location count", ""+ new LocationTable(root.getContext()).getAll().toString());
+                Log.d("Location count", ""+ new LocationTable(root.getContext()).countAll());
+                Log.d("Location count", ""+ new LocationTable(root.getContext()).getAll().toString());
             }
         });
+
+        this.sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<BulkObject> list = new LocationTable(root.getContext()).getAll();
+                if (list.size() == 0) {
+                    return;
+                }
+                String data = HttpSender.parseDataInBulk(list);
+                String url = "http://datamuseum.univ-lr.fr/geolucioles/data/_bulk";
+
+                Callback callback = new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        new LocationTable(root.getContext()).removeAll();
+                        Log.d("debug http", response.body().string());
+                        Log.d("debug http", response.message());
+                        Log.d("debug http", response.toString());
+                    }
+                };
+                new HttpSender()
+                        .setData(data)
+                        .setUrl(url)
+                        .setCallback(callback)
+                        .send();
+            }
+        });
+
 
         return root;
     }
