@@ -7,6 +7,8 @@ import android.database.DatabaseUtils;
 import android.location.Location;
 import android.util.Log;
 
+import com.univlr.geoluciole.location.LocationBulk;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +79,7 @@ public class LocationTable extends Table {
      */
     @Override
     protected List getAllObject() {
-        List<Location> locationList = new ArrayList();
+        List<LocationBulk> locationList = new ArrayList();
         String[] columnArray = {
                 LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + "," +
                         LocationTable.TIMESTAMP + "," + LocationTable.ALTITUDE};
@@ -92,7 +94,7 @@ public class LocationTable extends Table {
                 location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LONGITUDE)));
                 location.setTime(cursor.getInt(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
                 location.setAltitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.ALTITUDE)));
-                locationList.add(location);
+                locationList.add(new LocationBulk(location));
             } while (cursor.moveToNext());
             cursor.close();
         } else {
