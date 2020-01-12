@@ -50,14 +50,9 @@ class TitleBar: UIView, UIGestureRecognizerDelegate {
             icon.heightAnchor.constraint(equalToConstant: statusBarHeight),
             icon.widthAnchor.constraint(equalToConstant: (self.frame.width * 0.2))
         ])
-
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-
-    @objc fileprivate func touchOnUIImageView() {
-        
     }
 }
