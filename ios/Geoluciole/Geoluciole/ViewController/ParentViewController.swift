@@ -20,8 +20,17 @@ class ParentViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.titleBar = TitleBar(frame: CGRect(x: 0, y: 0, width: Tools.getScreenWidth(), height: (Tools.getStatusBarHeight() * 2)))
+        self.view.removeAllViews()
+        
+        self.titleBar = TitleBar(frame: .zero)
+        self.titleBar.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.titleBar)
+        
+        NSLayoutConstraint.activate([
+            self.titleBar.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 1),
+            self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight() * 2),
+            self.titleBar.topAnchor.constraint(equalTo: self.view.topAnchor)
+        ])
     }
     
     override func didReceiveMemoryWarning() {

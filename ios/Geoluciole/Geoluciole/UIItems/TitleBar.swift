@@ -41,14 +41,14 @@ class TitleBar: UIView, UIGestureRecognizerDelegate {
 
         NSLayoutConstraint.activate([
             titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            titleLabel.widthAnchor.constraint(equalToConstant: (self.frame.width * 0.75)),
+            NSLayoutConstraint(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: Constantes.TITLE_BAR_PADDING_HORIZONTAL),
             titleLabel.heightAnchor.constraint(equalToConstant: statusBarHeight),
             titleLabel.rightAnchor.constraint(equalTo: icon.leftAnchor),
 
             icon.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            icon.rightAnchor.constraint(equalTo: self.rightAnchor),
+            NSLayoutConstraint(item: icon, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -Constantes.TITLE_BAR_PADDING_HORIZONTAL),
             icon.heightAnchor.constraint(equalToConstant: statusBarHeight),
-            icon.widthAnchor.constraint(equalToConstant: (self.frame.width * 0.2))
+            icon.widthAnchor.constraint(equalToConstant: statusBarHeight)
         ])
     }
 
