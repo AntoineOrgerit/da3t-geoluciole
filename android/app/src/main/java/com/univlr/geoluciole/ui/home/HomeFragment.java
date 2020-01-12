@@ -1,6 +1,7 @@
 package com.univlr.geoluciole.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.database.LocationTable;
+import com.univlr.geoluciole.sender.HttpSender;
 
 
 public class HomeFragment extends Fragment {
@@ -38,7 +41,7 @@ public class HomeFragment extends Fragment {
         this.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //HttpSender.test();
+                //HttpSender.test(root.getContext());
                 //Log.d("Location count", ""+ new LocationTable(root.getContext()).countAll());
                 //Log.d("Location count", ""+ new LocationTable(root.getContext()).getAll().toString());
             }
