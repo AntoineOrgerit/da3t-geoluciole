@@ -2,6 +2,7 @@ package com.univlr.geoluciole;
 
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
+import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
 
 import android.content.BroadcastReceiver;
@@ -10,12 +11,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,9 +34,13 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 
-public class MainActivity extends LocationActivity {
+import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
+import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
 
+public class MainActivity extends LocationActivity {
+    public static final String PREFERENCES = "Saved_Pref";
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static final String USER_PREFERENCE_KEY = "userPreferenceKey";
 
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
@@ -51,7 +58,7 @@ public class MainActivity extends LocationActivity {
 
             // checking permissions
             ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
-            if(!unauthorizedPermissions.isEmpty()) {
+            if (!unauthorizedPermissions.isEmpty()) {
                 requestPermissions(unauthorizedPermissions);
             } else {
                 enableGPSIfNeeded();
@@ -76,6 +83,17 @@ public class MainActivity extends LocationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        UserPreferences u = new UserPreferences(false, 123, "FR", this);
+        Log.i("ID RETRIEVED ", u.getId());
+
+        // to store an object
+        saveObjectToSharedPreference(this, "UserPreference", USER_PREFERENCE_KEY, u);
+
+        // to retrive object stored in preference
+        u = getSavedObjectFromPreference(this, "UserPreference", USER_PREFERENCE_KEY, UserPreferences.class);
+        Log.i("UserPreferences",u.toString());
+
 
         // temporary receiver
         myReceiver = new MyReceiver();
@@ -197,3 +215,5 @@ public class MainActivity extends LocationActivity {
     }
 
 }
+
+
