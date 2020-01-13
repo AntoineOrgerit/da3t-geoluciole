@@ -16,9 +16,14 @@ class ParentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.removeAllViews()
-        
+
+        let subStatusBarView = UIView()
+        subStatusBarView.backgroundColor = .backgroundTitleBar
+        subStatusBarView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(subStatusBarView)
+
         self.rootView = UIView(frame: .zero)
         self.rootView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.rootView)
@@ -28,13 +33,18 @@ class ParentViewController: UIViewController {
         self.rootView.addSubview(self.titleBar)
 
         NSLayoutConstraint.activate([
-            self.rootView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            subStatusBarView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            subStatusBarView.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
+            subStatusBarView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            subStatusBarView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            
+            self.rootView.topAnchor.constraint(equalTo: /*self.view.topAnchor*/self.topLayoutGuide.bottomAnchor),
             self.rootView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor),
             self.rootView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             self.rootView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            
-            self.titleBar.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, constant: 0),
-            self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight() * 2),
+
+            self.titleBar.widthAnchor.constraint(equalTo: self.rootView.widthAnchor),
+            self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
             self.titleBar.topAnchor.constraint(equalTo: self.rootView.topAnchor),
             self.titleBar.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
             self.titleBar.rightAnchor.constraint(equalTo: self.rootView.rightAnchor)

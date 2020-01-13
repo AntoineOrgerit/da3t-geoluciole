@@ -10,8 +10,6 @@ import UIKit
 
 class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
 
-    //var titleBar: TitleBar!
-
     var collectionData = ["test", "test2", "Test3", "Test4", "Test5", "Test6"]
 
     override func viewDidLoad() {
@@ -31,7 +29,7 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(BadgesCollectionViewCell.self, forCellWithReuseIdentifier: "BadgesCollectionViewCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.reloadData()
@@ -50,10 +48,7 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-
     }
-
 
     func collectionView(_ collectionView: UICollectionView, layout UICollectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width / 2.5, height: collectionView.frame.width / 3)
@@ -64,7 +59,7 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BadgesCollectionViewCell", for: indexPath) as! BadgesCollectionViewCell
         return cell
     }
 
@@ -72,36 +67,3 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
         return 1
     }
 }
-
-class CustomCell: UICollectionViewCell {
-
-    private let bg: UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "guillaume-briard-lSXpV8bDeMA-unsplash")
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFill
-        return iv
-    }()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        contentView.addSubview(bg)
-
-        NSLayoutConstraint.activate([
-            bg.topAnchor.constraint(equalTo: contentView.topAnchor),
-            bg.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            bg.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            bg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
-
-
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-}
-
