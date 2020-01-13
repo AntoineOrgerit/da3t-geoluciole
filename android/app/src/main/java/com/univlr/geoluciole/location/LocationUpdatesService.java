@@ -39,9 +39,13 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -62,6 +66,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -145,9 +154,15 @@ public class LocationUpdatesService extends Service {
      */
     private Location mLocation;
 
+    private String filename;
+
+    private LocationManager mLocationManager;
+    private Criteria mCriteria;
+    private LocationListener mLocationListener;
+
     @Override
     public void onCreate() {
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        /*mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationCallback = new LocationCallback() {
             @Override
@@ -158,7 +173,38 @@ public class LocationUpdatesService extends Service {
         };
 
         createLocationRequest();
-        getLastLocation();
+        getLastLocation();*/
+
+        mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        mCriteria = new Criteria();
+        mCriteria.setAccuracy(Criteria.ACCURACY_FINE);
+        mCriteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
+        mCriteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
+        mCriteria.setAltitudeRequired(true);
+        mCriteria.setBearingRequired(true);
+        mCriteria.setSpeedRequired(true);
+        mLocationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                onNewLocation(location);
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.i(TAG, "onStatusChanger: "+ provider + " " + status + " " + extras.toString());
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                Log.i(TAG, "onProviderEnabled: "+ provider);
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Log.i(TAG, "onProviderDisabled: "+ provider);
+            }
+        };
+
 
         HandlerThread handlerThread = new HandlerThread(TAG);
         handlerThread.start();
@@ -175,6 +221,22 @@ public class LocationUpdatesService extends Service {
             // Set the Notification Channel for the Notification Manager.
             mNotificationManager.createNotificationChannel(mChannel);
         }
+
+        File folder = new File(getFilesDir() + "/LocationTestCSV");
+        if(!folder.exists()) {
+            folder.mkdir();
+        }
+
+        filename = folder.toString() + "/" + "Test.csv";
+        Log.i(TAG, filename);
+        try {
+            FileWriter fw = new FileWriter(filename);
+            fw.append("lat,long,time\n");
+            fw.close();
+        }catch(IOException e) {
+            Log.e(TAG, e.getMessage());
+        }
+
     }
 
     @Override
@@ -249,8 +311,9 @@ public class LocationUpdatesService extends Service {
         Utils.setRequestingLocationUpdates(this, true);
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                    mLocationCallback, Looper.myLooper());
+            mLocationManager.requestLocationUpdates(10000, 50, mCriteria, mLocationListener, Looper.myLooper());
+            /*mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                    mLocationCallback, Looper.myLooper());*/
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
@@ -264,7 +327,8 @@ public class LocationUpdatesService extends Service {
     public void removeLocationUpdates() {
         Log.i(TAG, "Removing location updates");
         try {
-            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+            mLocationManager.removeUpdates(mLocationListener);
+            //mFusedLocationClient.removeLocationUpdates(mLocationCallback);
             Utils.setRequestingLocationUpdates(this, false);
             stopSelf();
         } catch (SecurityException unlikely) {
@@ -322,6 +386,19 @@ public class LocationUpdatesService extends Service {
     private void onNewLocation(Location location) {
         Log.i(TAG, "New location: " + location);
 
+        try {
+            File f = new File(filename);
+            FileOutputStream fos = new FileOutputStream(f, true);
+            String content = location.getLatitude() + "," + location.getLongitude() + "," + location.getTime() + "\n";
+            fos.write(content.getBytes());
+            Log.i(TAG, "position logged in csv");
+            fos.flush();
+            fos.close();
+        }catch(IOException e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+
         mLocation = location;
 
         // Notify anyone listening for broadcasts about the new location.
@@ -342,7 +419,7 @@ public class LocationUpdatesService extends Service {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
     /**
