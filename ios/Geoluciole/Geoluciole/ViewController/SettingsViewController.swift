@@ -21,13 +21,13 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         let send = param.bool(forKey: "send_data")
         switchDataParam.setOn(send, animated: true)
-        
+
         // Modification style bouton
-        
-        
+
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,17 +46,26 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
 
         langue.addTarget(self, action: #selector(SettingsViewController.switchLangue(_:)), for: .valueChanged)
         type_engagement.addTarget(self, action: #selector(SettingsViewController.switchTypeEngagement(_:)), for: .valueChanged)
-        
-        // On change la couleur du bouton
+
+        // bouton de suppression de compte
         self.deleteAccount = CustomUIButton(frame: .zero)
-        self.deleteAccount.titleLabel?.text = "Toto"
-        self.deleteAccount.setStyle(color: .buttonLightDark)
-        
+        self.deleteAccount.setTitle("Supprimer le compte", for: .normal)
+        self.deleteAccount.sizeToFit() // auto-resize en fonction du texte
+        self.deleteAccount.setStyle(color: .buttonLight)
+        self.deleteAccount.titleEdgeInsets = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
+
         // ajout bouton vue
         self.view.addSubview(self.deleteAccount)
+
+        // Ajout des contraintes
         NSLayoutConstraint.activate([
-            self.deleteAccount.bottomAnchor.constraint(equalTo: self.deleteAccount.bottomAnchor)
+            self.deleteAccount.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.deleteAccount.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.tabBarController!.tabBar.frame.height * 4),
         ])
+
+        // Nécessaire sinon bouton s'affiche pas !!!
+        self.deleteAccount.translatesAutoresizingMaskIntoConstraints = false
+       
     }
 
     // Function de changement des paramètres
