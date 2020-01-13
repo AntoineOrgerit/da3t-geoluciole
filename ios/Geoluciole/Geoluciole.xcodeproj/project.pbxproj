@@ -37,6 +37,8 @@
 		23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E22D2023C7645100C3540E /* SettingsViewController.swift */; };
 		23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE123C8C0F400A13999 /* UIColorExtension.swift */; };
 		23F18DE423C8C57000A13999 /* TitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE323C8C57000A13999 /* TitleBar.swift */; };
+		6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427323CCB926004DFD43 /* CustomUIButton.swift */; };
+		6263427623CCC094004DFD43 /* EnumUIButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427523CCC094004DFD43 /* EnumUIButtonStyle.swift */; };
 		62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */; };
 		62BF3D6F23C8840E00945C04 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6E23C8840E00945C04 /* Params.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
@@ -82,6 +84,8 @@
 		23E22D2023C7645100C3540E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		23F18DE123C8C0F400A13999 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		23F18DE323C8C57000A13999 /* TitleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBar.swift; sourceTree = "<group>"; };
+		6263427323CCB926004DFD43 /* CustomUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIButton.swift; sourceTree = "<group>"; };
+		6263427523CCC094004DFD43 /* EnumUIButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnumUIButtonStyle.swift; path = Geoluciole/UIItems/EnumUIButtonStyle.swift; sourceTree = SOURCE_ROOT; };
 		62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTrophiesViewController.swift; sourceTree = "<group>"; };
 		62BF3D6E23C8840E00945C04 /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 		2385EE2D23CCB5DE0093C454 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
+				6263427523CCC094004DFD43 /* EnumUIButtonStyle.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 			children = (
 				236EE58623CB1D360000ADE3 /* CustomItems */,
 				23F18DE323C8C57000A13999 /* TitleBar.swift */,
+				6263427323CCB926004DFD43 /* CustomUIButton.swift */,
 			);
 			path = UIItems;
 			sourceTree = "<group>";
@@ -246,7 +252,7 @@
 				23F18DE123C8C0F400A13999 /* UIColorExtension.swift */,
 				236EE58223CB19560000ADE3 /* UIViewExtension.swift */,
 				223DEC50D1BB2FA7C82C8993 /* CharacterExtension.swift */,
-                				223DE8E297A0FB9F407CBAC7 /* StringExtension.swift */,
+				223DE8E297A0FB9F407CBAC7 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -326,6 +332,7 @@
 			files = (
 				237AD42323C606D4009937AB /* HomeViewController.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
+				6263427623CCC094004DFD43 /* EnumUIButtonStyle.swift in Sources */,
 				62BF3D6F23C8840E00945C04 /* Params.swift in Sources */,
 				62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */,
 				2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */,
@@ -335,6 +342,7 @@
 				2305CE7823C6321200354361 /* FMDatabase.m in Sources */,
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,
 				2345245423C79E20001D2CF7 /* WhereCondition.swift in Sources */,
+				6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */,
 				2305CE7F23C633B200354361 /* Constantes.swift in Sources */,
 				2305CE8B23C64AD500354361 /* Table.swift in Sources */,
 				235D45D323C930BC00992B7B /* CustomUIImageView.swift in Sources */,
@@ -497,7 +505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKVA2U4NBE;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -519,7 +527,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKVA2U4NBE;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

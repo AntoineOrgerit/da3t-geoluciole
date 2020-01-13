@@ -15,6 +15,7 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
     @IBOutlet var langue: UISegmentedControl!
     @IBOutlet var label: UITextField!
     @IBOutlet var switchDataParam: UISwitch!
+    fileprivate var deleteAccount: CustomUIButton!
 
     let param = Params.getInstance().param
 
@@ -23,6 +24,10 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
         
         let send = param.bool(forKey: "send_data")
         switchDataParam.setOn(send, animated: true)
+        
+        // Modification style bouton
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,6 +46,17 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
 
         langue.addTarget(self, action: #selector(SettingsViewController.switchLangue(_:)), for: .valueChanged)
         type_engagement.addTarget(self, action: #selector(SettingsViewController.switchTypeEngagement(_:)), for: .valueChanged)
+        
+        // On change la couleur du bouton
+        self.deleteAccount = CustomUIButton(frame: .zero)
+        self.deleteAccount.titleLabel?.text = "Toto"
+        self.deleteAccount.setStyle(color: .buttonLightDark)
+        
+        // ajout bouton vue
+        self.view.addSubview(self.deleteAccount)
+        NSLayoutConstraint.activate([
+            self.deleteAccount.bottomAnchor.constraint(equalTo: self.deleteAccount.bottomAnchor)
+        ])
     }
 
     // Function de changement des paramètres
