@@ -1,14 +1,16 @@
 package com.univlr.geoluciole.model;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
+
+import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
+import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
 
 
 public class UserPreferences {
+    public static final String USER_PREFERENCE_KEY = "userPreferenceKey";
+    public static final String USER_PREFERENCE_FILENAME = "UserPreference";
+
     private String id;
     private boolean consent;
     private long validityDuration;
@@ -21,6 +23,14 @@ public class UserPreferences {
         this.validityDuration = validityDuration;
         this.language = language;
 
+    }
+
+    public static UserPreferences getInstance(Context context) {
+        return getSavedObjectFromPreference(context, UserPreferences.USER_PREFERENCE_FILENAME, UserPreferences.USER_PREFERENCE_KEY, UserPreferences.class);
+    }
+
+    public static void storeInstance(Context context, UserPreferences u) {
+        saveObjectToSharedPreference(context, UserPreferences.USER_PREFERENCE_FILENAME, UserPreferences.USER_PREFERENCE_KEY, u);
     }
 
 
