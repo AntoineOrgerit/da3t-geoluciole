@@ -85,26 +85,3 @@ class Tools {
         return UIScreen.main.bounds.height
     }
 }
-
-// Source fonction de hashCode : https://stackoverflow.com/a/44413863
-extension Character {
-    var asciiValue: UInt32? {
-        return String(self).unicodeScalars.filter{$0.isASCII}.first?.value
-    }
-}
-
-extension String {
-    var asciiArray: [UInt32] {
-        return unicodeScalars.filter{$0.isASCII}.map{$0.value}
-    }
-
-    func hashCode() -> Int32 {
-        var h: Int32 = 0
-        for i in self.asciiArray {
-            h = 31 &* h &+ Int32(i)
-        }
-
-        return h
-    }
-}
-

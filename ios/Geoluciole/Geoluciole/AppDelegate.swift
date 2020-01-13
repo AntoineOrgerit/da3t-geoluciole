@@ -140,7 +140,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
         }
 
-
         // gestion de l'émission
         // temps exprimé en secondes
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
@@ -170,9 +169,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         // récupération des localisations en BDD SQLite
         let result = LocationTable.getInstance().selectQuery()
-
+         
         if result.count > 0 {
-            var locations: [Location] = []
+            var locations: [Location] = [Location]()
 
             // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
             for location in result {
@@ -203,15 +202,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             if locations.count > 0 {
                 // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
                 let uuid = UIDevice.current.identifierForVendor?.uuidString
-                
+
                 // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
                 let identifier = String(-1 * uuid!.hashCode())
-                
+
                 // équivalent identifier.substring(2, 8)
                 let range = identifier.index(identifier.startIndex, offsetBy: 2)..<identifier.index(identifier.startIndex, offsetBy: 9)
                 let substringIdentifier = identifier[range]
-                NSLog("identifier : \(substringIdentifier)")
-                
+
                 let message = ElasticSearchAPIMessage(identifier: String(substringIdentifier), locations: locations)
                 ElasticSearchAPI.getInstance().postLocations(message)
             }
