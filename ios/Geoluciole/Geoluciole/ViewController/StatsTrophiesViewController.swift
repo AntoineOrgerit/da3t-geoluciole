@@ -8,31 +8,20 @@
 
 import UIKit
 
-class StatsTrophiesViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
+class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
 
-    var titleBar: TitleBar!
+    //var titleBar: TitleBar!
 
     var collectionData = ["test", "test2", "Test3", "Test4", "Test5", "Test6"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.titleBar = TitleBar()
-        self.titleBar.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.titleBar)
-
-        NSLayoutConstraint.activate([
-            self.titleBar.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 1),
-            self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight() * 2),
-            self.titleBar.topAnchor.constraint(equalTo: self.view.topAnchor),
-
-        ])
-        
         let statView = StatsView()
 
         self.view.addSubview(statView)
         NSLayoutConstraint.activate([
-            statView.topAnchor.constraint(equalTo: titleBar.bottomAnchor),
+            statView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor),
             statView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             statView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             statView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.20)
@@ -47,8 +36,6 @@ class StatsTrophiesViewController: UIViewController, UICollectionViewDelegateFlo
         collectionView.dataSource = self
         collectionView.reloadData()
 
-
-        view.addSubview(self.titleBar)
         view.addSubview(statView)
         view.addSubview(collectionView)
 

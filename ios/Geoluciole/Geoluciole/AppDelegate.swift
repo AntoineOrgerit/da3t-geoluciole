@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
-        
+
         // params
-        _ = Params.getInstance();
-        
+        _ = Params.getInstance()
+
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
 
@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         userNotificationCenter.delegate = self
         requestNotificationAuthorization()
+
+        sendPostElasticSearch()
 
         return true
     }
@@ -138,7 +140,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
         }
 
-
         // gestion de l'émission
         // temps exprimé en secondes
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
@@ -159,6 +160,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
+    }
+
+    // Envoi serveur PART
+
+    func sendPostElasticSearch() {
+        // création du message à envoyer
+
+        // récupération des localisations en BDD SQLite
+        LocationTable.getInstance().selectQuery { (success, result, error) in
+            if result.count > 0 {
+                var locations: [Location] = [Location]()
+
+                // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
+                for location in result {
+                    let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double)
+
+                    locations.append(loc)
+                }
+
+                // Si le tableau n'est pas vide, on envoi notre message
+                if locations.count > 0 {
+                    // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
+                    let uuid = UIDevice.current.identifierForVendor?.uuidString
+
+                    // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
+                    let identifier = String(-1 * uuid!.hashCode())
+
+                    // équivalent identifier.substring(2, 8)
+                    let range = identifier.index(identifier.startIndex, offsetBy: 2)..<identifier.index(identifier.startIndex, offsetBy: 9)
+                    let substringIdentifier = String(identifier[range])
+
+                    let message: String = ElasticSearchAPI.getInstance().generateMessage(locations: locations, identifier: substringIdentifier)
+                    ElasticSearchAPI.getInstance().postLocations(message: message)
+                }
+            }
+        }
     }
 
 }
