@@ -72,6 +72,18 @@ class Tools {
     static func getStatusBarHeight() -> CGFloat {
         return UIApplication.shared.statusBarFrame.height
     }
+
+    static func getAppName() -> String {
+        return Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
+    }
+
+    static func getScreenWidth() -> CGFloat {
+        return UIScreen.main.bounds.width
+    }
+
+    static func getScreenHeight() -> CGFloat {
+        return UIScreen.main.bounds.height
+    }
 }
 
 // Source fonction de hashCode : https://stackoverflow.com/a/44413863
@@ -85,13 +97,14 @@ extension String {
     var asciiArray: [UInt32] {
         return unicodeScalars.filter{$0.isASCII}.map{$0.value}
     }
-    
+
     func hashCode() -> Int32 {
         var h: Int32 = 0
         for i in self.asciiArray {
             h = 31 &* h &+ Int32(i)
         }
-        
+
         return h
     }
 }
+

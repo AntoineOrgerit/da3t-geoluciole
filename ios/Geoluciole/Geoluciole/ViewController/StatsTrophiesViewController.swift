@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  StatsTrophiesViewController.swift
 //  Geoluciole
 //
 //  Created by Lambert Thibaud on 08/01/2020.
@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
     @IBOutlet var dist : UILabel!
     @IBOutlet var badgesLabel : UILabel!
     //@IBOutlet var containerCollectionView : UIView!
