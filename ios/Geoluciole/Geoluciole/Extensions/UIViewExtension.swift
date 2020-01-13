@@ -19,13 +19,10 @@ extension UIView {
             return nil
         }
     }
-    
+
     func removeAllViews() {
         for view in self.subviews {
-            // Ce if devra disparaitre
-            if view.isKind(of: TitleBar.self) {
-                view.removeFromSuperview()
-            }
+            view.removeFromSuperview()
         }
     }
 }
