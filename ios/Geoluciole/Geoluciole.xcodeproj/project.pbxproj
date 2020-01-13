@@ -165,6 +165,7 @@
 		237AD41D23C606D4009937AB /* Geoluciole */ = {
 			isa = PBXGroup;
 			children = (
+				2385EE2D23CCB5DE0093C454 /* Enum */,
 				23F18DE023C8C07D00A13999 /* Extensions */,
 				23F18DDF23C8C03800A13999 /* UIItems */,
 				23E22D1E23C75ECE00C3540E /* ViewController */,
@@ -191,6 +192,13 @@
 				237AD43523C60748009937AB /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2385EE2D23CCB5DE0093C454 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		23E22D1D23C75EB200C3540E /* Models */ = {
