@@ -10,17 +10,20 @@ import Foundation
 
 class Location {
     
-    let latitude: Double
-    let longitude: Double
-    let altitude: Double
-    let timestamp: Date
-    let isSync: Bool
-    
-    init(latitude: Double, longitude: Double, altitude: Double, timestamp: Date, isSync: Bool) {
+    var latitude: Double
+    var longitude: Double
+    var altitude: Double
+    var timestamp: Double
+
+    init(latitude: Double, longitude: Double, altitude: Double, timestamp: Double) {
         self.latitude = latitude
         self.longitude = longitude
         self.altitude = altitude
         self.timestamp = timestamp
-        self.isSync = isSync
+    }
+
+    /// Fonction utilisée pour l'envoi des données au serveur
+    func toString() -> String {
+        return "{\"latitude\": \(latitude), \"longitude\": \(longitude), \"altitude\": \(altitude), \"timestamp\": \(timestamp)"
     }
 }
