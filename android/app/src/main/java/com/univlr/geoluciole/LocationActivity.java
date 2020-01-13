@@ -56,7 +56,7 @@ public abstract class LocationActivity extends AppCompatActivity {
 
     protected void enableGPSIfNeeded() {
         LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
         Task<LocationSettingsResponse> result =
@@ -84,7 +84,7 @@ public abstract class LocationActivity extends AppCompatActivity {
                                 // and check the result in onActivityResult().
                                 resolvable.startResolutionForResult(
                                         LocationActivity.this,
-                                        LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                                        LocationRequest.PRIORITY_HIGH_ACCURACY);
                             } catch (IntentSender.SendIntentException | ClassCastException e) {
                                 // Ignore, should be an impossible error.
                             }
@@ -125,7 +125,7 @@ public abstract class LocationActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY) {
+        if (requestCode == LocationRequest.PRIORITY_HIGH_ACCURACY) {
             switch (resultCode) {
                 case AppCompatActivity.RESULT_OK:
                     // All required changes were successfully made
