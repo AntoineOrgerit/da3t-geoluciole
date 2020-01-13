@@ -5,7 +5,7 @@
 
 import Foundation
 
-class ElasticSearchAPIMessage: Codable {
+class ElasticSearchAPIMessage {
     
     let identifier: String
     let locations: [Location]

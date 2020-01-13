@@ -9,6 +9,12 @@
 import Foundation
 
 class Table {
+    // Définition des types de retour possible pour les actions de la BDD
+    // Retour 1 : Indication état de la requête + erreur
+    public typealias Completion = ((Bool, Error?) -> Void)
+
+    // Retour 2 : Idem retour 1 mais avec des résultats à retourner
+    public typealias ResultCompletion = ((Bool, [[String: Any]], Error?) -> Void)
 
     var tableName: String = ""
     var columns: [TableColumn] = []
@@ -40,61 +46,91 @@ class Table {
         return sqlRequest
     }
 
-    func selectQuery(_ wantedColumns: [String] = [], where whereConditions: [WhereCondition]? = nil) -> [[String: Any]] {
-        var queryResult = [[String: Any]]()
+    func selectQuery(_ wantedColumns: [String] = [], where whereConditions: [WhereCondition]? = nil, completion: ResultCompletion) {
+        DatabaseManager.sharedQueue.inDeferredTransaction { (db, rollback) in
+            do {
+                var queryResult = [[String: Any]]()
+                var sql = wantedColumns.isEmpty ? "SELECT *" : "SELECT " + Tools.joinWithCharacter(",", wantedColumns)
+                sql += " FROM " + self.tableName
 
-        var sql = wantedColumns.isEmpty ? "SELECT *" : "SELECT " + Tools.joinWithCharacter(",", wantedColumns)
-        sql += " FROM " + self.tableName
-
-        var values = [Any]()
-        if let whereConditions = whereConditions, !whereConditions.isEmpty {
-            sql += " WHERE"
-            for (index, condition) in whereConditions.enumerated() {
-                values.append(condition.value!)
-                sql += " " + condition.column + " = ?"
-                sql += (index == whereConditions.count - 1) ? "" : ","
-            }
-        }
-
-        self.db.open()
-        do {
-            let result = try self.db.executeQuery(sql, values: values)
-            
-            while result.next() {
-                var data = [String: Any]()
-                for (key, value) in result.resultDictionary! {
-                    data[key as! String] = value
+                var values = [Any]()
+                if let whereConditions = whereConditions, !whereConditions.isEmpty {
+                    sql += " WHERE"
+                    for (index, condition) in whereConditions.enumerated() {
+                        values.append(condition.value!)
+                        sql += " " + condition.column + " = ?"
+                        sql += (index == whereConditions.count - 1) ? "" : ","
+                    }
                 }
-                
-                queryResult.append(data)
+
+                if !self.db.isOpen {
+                    self.db.open()
+                }
+
+                let result = try self.db.executeQuery(sql, values: values)
+
+                while result.next() {
+                    var data = [String: Any]()
+                    for (key, value) in result.resultDictionary! {
+                        data[key as! String] = value
+                    }
+
+                    queryResult.append(data)
+                }
+
+                completion(true, queryResult, nil)
+                self.db.close()
+            } catch {
+                print("SELECT ERROR " + self.tableName + " : " + error.localizedDescription)
+                completion(false, [], error)
+                self.db.close()
             }
-        } catch let error {
-            print("SELECT ERROR : \(error.localizedDescription)")
         }
-
-        self.db.close()
-
-        return queryResult
     }
 
     func insertQuery(_ arguments: [String: Any]) {
+        DatabaseManager.sharedQueue.inDeferredTransaction { (db, rollback) in
+            var sql = "INSERT INTO " + self.tableName + " ("
+            var sqlValues = ""
+            var allKeys = [String]()
 
-        var sql = "INSERT INTO " + self.tableName + " ("
-        var sqlValues = ""
-        var allKeys = [String]()
+            for key in arguments.keys {
+                allKeys.append(key)
+            }
 
-        for key in arguments.keys {
-            allKeys.append(key)
+            sqlValues += Tools.joinWithCharacter(":", ",", allKeys)
+            sql += Tools.joinWithCharacter(nil, ",", allKeys) + ") VALUES (" + sqlValues + ")"
+
+            do {
+                if !self.db.isOpen {
+                    self.db.open()
+                }
+
+                let success = self.db.executeUpdate(sql, withParameterDictionary: arguments)
+
+                if !success {
+                    print("INSERT ERROR " + self.tableName + " : " + self.db.lastErrorMessage())
+                }
+
+                self.db.close()
+            }
         }
+    }
 
-        sqlValues += Tools.joinWithCharacter(":", ",", allKeys)
-        sql += Tools.joinWithCharacter(nil, ",", allKeys) + ") VALUES (" + sqlValues + ")"
+    func deleteQuery() {
+        DatabaseManager.sharedQueue.inDeferredTransaction { (db, rollback) in
+            do {
+                if !self.db.isOpen {
+                    self.db.open()
+                }
 
-        self.db.open()
-        let success = self.db.executeUpdate(sql, withParameterDictionary: arguments)
-        self.db.close()
-        if !success {
-            print("Error insert " + self.tableName + " : " + self.db.lastErrorMessage())
+                let sql = "DELETE FROM " + self.tableName
+                try self.db.executeUpdate(sql, values: [])
+                self.db.close()
+            } catch {
+                print("DELETE ERROR " + self.tableName + " : " + error.localizedDescription)
+                self.db.close()
+            }
         }
     }
 }

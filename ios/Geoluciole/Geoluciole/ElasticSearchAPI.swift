@@ -11,7 +11,7 @@ class ElasticSearchAPI {
     fileprivate static var INSTANCE: ElasticSearchAPI!
 
     init() {
-        guard let resourceURL = URL(string: Constantes.API_URL) else {
+        guard let resourceURL = URL(string: Constantes.API_URL_UNIV_LR) else {
             fatalError()
         }
 
@@ -26,18 +26,33 @@ class ElasticSearchAPI {
         return INSTANCE
     }
 
-    /// Envoi des localisations du terminal au serveur
-    func postLocations(_ message: ElasticSearchAPIMessage) {
-        // transformation de l'objet en JSON
-        let jsonData = try? JSONEncoder().encode(message)
-        let jsonString = String(data: jsonData!, encoding: String.Encoding.utf8)
-        print(jsonString!)
+    /// Génération du message à envoyer au serveur
+    func generateMessage(locations: [Location], identifier: String) -> String {
+        var messageStr = ""
 
+        // On génère une string exemple pour l'index
+        let index = "{\"index\": {}}"
+        let idStr = "\"id\": \(identifier)"
+
+        for location in locations {
+            if location.toString() != "" {
+                messageStr += index + "\n"
+                messageStr += location.toString() + ", \(idStr)}\n"
+            }
+
+        }
+
+        return messageStr
+    }
+
+    /// Envoi des localisations du terminal au serveur
+    func postLocations(message: String) {
+        NSLog("Envoi au serveur en cours ...")
         // Création de la requête (header + contenu)
         var request = URLRequest(url: resourceURL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
+        request.httpBody = message.data(using: .utf8)
 
         // création de la tâche d'envoi
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -51,7 +66,17 @@ class ElasticSearchAPI {
             // Sinon, on récupère le
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
-                print(responseJSON)
+                // si on a pas d'erreurs, on supprime les données en base
+                if let err = responseJSON["errors"] as? Int {
+                    if err == 0 {
+                        NSLog("Envoi au serveur réussi !")
+                        LocationTable.getInstance().deleteQuery()
+                        // Sinon, on indique l'erreur et on garde les données
+                    } else {
+                        NSLog("Erreur durant l'envoi au serveur")
+                    }
+                }
+
             }
         }
 

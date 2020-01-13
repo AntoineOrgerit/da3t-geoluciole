@@ -45,7 +45,10 @@ class DatabaseManager {
     static func createTable(tables: [Table]) {
 
         for table in tables {
-            DatabaseManager.getInstance().open()
+            if !DatabaseManager.getInstance().isOpen {
+                 DatabaseManager.getInstance().open()
+            }
+            
             do {
                 try DatabaseManager.getInstance().executeUpdate(table.prepareSQLForCreateTable(), values: nil)
             } catch {

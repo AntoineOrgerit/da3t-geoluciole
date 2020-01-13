@@ -168,50 +168,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // création du message à envoyer
 
         // récupération des localisations en BDD SQLite
-        let result = LocationTable.getInstance().selectQuery()
-         
-        if result.count > 0 {
-            var locations: [Location] = [Location]()
+        LocationTable.getInstance().selectQuery { (success, result, error) in
+            if result.count > 0 {
+                var locations: [Location] = [Location]()
 
-            // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
-            for location in result {
-                let loc = Location()
+                // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
+                for location in result {
+                    let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double)
 
-                for (key, value) in location {
-                    switch key {
-                    case LocationTable.ALTITUDE:
-                        loc.altitude = value as? Double
-
-                    case LocationTable.LATITUDE:
-                        loc.latitude = value as? Double
-
-                    case LocationTable.LONGITUDE:
-                        loc.longitude = value as? Double
-
-                    case LocationTable.TIMESTAMP:
-                        loc.timestamp = value as? Double
-
-                    default:
-                        NSLog("Aucune propriété \(key) dans l'objet Location")
-                    }
+                    locations.append(loc)
                 }
-                locations.append(loc)
-            }
 
-            // Si le tableau n'est pas vide, on envoi notre message
-            if locations.count > 0 {
-                // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
-                let uuid = UIDevice.current.identifierForVendor?.uuidString
+                // Si le tableau n'est pas vide, on envoi notre message
+                if locations.count > 0 {
+                    // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
+                    let uuid = UIDevice.current.identifierForVendor?.uuidString
 
-                // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
-                let identifier = String(-1 * uuid!.hashCode())
+                    // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
+                    let identifier = String(-1 * uuid!.hashCode())
 
-                // équivalent identifier.substring(2, 8)
-                let range = identifier.index(identifier.startIndex, offsetBy: 2)..<identifier.index(identifier.startIndex, offsetBy: 9)
-                let substringIdentifier = identifier[range]
+                    // équivalent identifier.substring(2, 8)
+                    let range = identifier.index(identifier.startIndex, offsetBy: 2)..<identifier.index(identifier.startIndex, offsetBy: 9)
+                    let substringIdentifier = String(identifier[range])
 
-                let message = ElasticSearchAPIMessage(identifier: String(substringIdentifier), locations: locations)
-                ElasticSearchAPI.getInstance().postLocations(message)
+                    let message: String = ElasticSearchAPI.getInstance().generateMessage(locations: locations, identifier: substringIdentifier)
+                    ElasticSearchAPI.getInstance().postLocations(message: message)
+                }
             }
         }
     }

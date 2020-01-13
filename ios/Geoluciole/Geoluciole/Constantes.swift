@@ -19,5 +19,6 @@ class Constantes {
     static  let TITLE_BAR_PADDING_HORIZONTAL: CGFloat = 10
 
     // API URL
-    static let API_URL = "http://datamuseum.univ-lr.fr:80/geolucioles/data/_bulk"
+    static let API_URL_UNIV_LR = "http://datamuseum.univ-lr.fr:80/geolucioles/data/_bulk"
+    static let API_URL_SERVER_TEST = "http://86.233.189.163:9200/geolucioles/data/_bulk"
 }

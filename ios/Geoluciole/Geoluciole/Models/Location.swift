@@ -8,14 +8,22 @@
 
 import Foundation
 
-class Location: Codable {
+class Location {
     
-    var latitude: Double!
-    var longitude: Double!
-    var altitude: Double!
-    var timestamp: Double!
-    
-    init() {
-        // pas d'initialisation
+    var latitude: Double
+    var longitude: Double
+    var altitude: Double
+    var timestamp: Double
+
+    init(latitude: Double, longitude: Double, altitude: Double, timestamp: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.altitude = altitude
+        self.timestamp = timestamp
+    }
+
+    /// Fonction utilisée pour l'envoi des données au serveur
+    func toString() -> String {
+        return "{\"latitude\": \(latitude), \"longitude\": \(longitude), \"altitude\": \(altitude), \"timestamp\": \(timestamp)"
     }
 }
