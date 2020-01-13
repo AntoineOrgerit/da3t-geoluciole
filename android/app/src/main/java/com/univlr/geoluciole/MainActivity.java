@@ -1,46 +1,37 @@
 package com.univlr.geoluciole;
 
-import com.univlr.geoluciole.location.LocationUpdatesService;
-import com.univlr.geoluciole.location.Utils;
-import com.univlr.geoluciole.model.UserPreferences;
-import com.univlr.geoluciole.permissions.Permission;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-
 import android.os.IBinder;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
+import com.univlr.geoluciole.location.LocationUpdatesService;
+import com.univlr.geoluciole.location.Utils;
+import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.ui.dashboard.DashboardFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.notifications.NotificationsFragment;
 
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import java.util.ArrayList;
-
-import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
-import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
 
 public class MainActivity extends LocationActivity {
     public static final String PREFERENCES = "Saved_Pref";
     private static final String TAG = MainActivity.class.getSimpleName();
-    public static final String USER_PREFERENCE_KEY = "userPreferenceKey";
 
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
@@ -88,10 +79,9 @@ public class MainActivity extends LocationActivity {
         Log.i("ID RETRIEVED ", u.getId());
 
         // to store an object
-        saveObjectToSharedPreference(this, "UserPreference", USER_PREFERENCE_KEY, u);
-
+        UserPreferences.storeInstance(this, u);
         // to retrive object stored in preference
-        u = getSavedObjectFromPreference(this, "UserPreference", USER_PREFERENCE_KEY, UserPreferences.class);
+        u = UserPreferences.getInstance(this);
         Log.i("UserPreferences",u.toString());
 
 

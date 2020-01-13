@@ -8,6 +8,7 @@ import android.location.Location;
 import android.util.Log;
 
 import com.univlr.geoluciole.location.LocationBulk;
+import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,8 @@ public class LocationTable extends Table {
         Cursor cursor = this.dbSQLite.getDb().query(LocationTable.LOCATION_TABLE_NAME,
                 columnArray, null, null, null, null, null, null);
 
+        UserPreferences userPref = UserPreferences.getInstance(this.context);
+
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             do {
@@ -94,7 +97,7 @@ public class LocationTable extends Table {
                 location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LONGITUDE)));
                 location.setTime(cursor.getInt(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
                 location.setAltitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.ALTITUDE)));
-                locationList.add(new LocationBulk(location));
+                locationList.add(new LocationBulk(location, userPref.getId()));
             } while (cursor.moveToNext());
             cursor.close();
         } else {
