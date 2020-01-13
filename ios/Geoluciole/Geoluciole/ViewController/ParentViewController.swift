@@ -11,7 +11,7 @@ import UIKit
 
 class ParentViewController: UIViewController {
 
-    fileprivate var titleBar: TitleBar!
+    var titleBar: TitleBar = TitleBar(frame: .zero)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class ParentViewController: UIViewController {
 
         self.view.removeAllViews()
 
-        self.titleBar = TitleBar(frame: .zero)
+        //self.titleBar = TitleBar(frame: .zero)
         self.titleBar.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.titleBar)
 

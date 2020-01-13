@@ -8,85 +8,113 @@
 
 import UIKit
 
-class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
-    @IBOutlet var dist : UILabel!
-    @IBOutlet var badgesLabel : UILabel!
-    //@IBOutlet var containerCollectionView : UIView!
-    
-    var collectionData = ["test","test2","Test3","Test4", "Test5","Test6"]
-    
+class StatsTrophiesViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
+
+    var titleBar: TitleBar!
+
+    var collectionData = ["test", "test2", "Test3", "Test4", "Test5", "Test6"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.titleBar = TitleBar()
+        self.titleBar.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.titleBar)
+
+        NSLayoutConstraint.activate([
+            self.titleBar.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 1),
+            self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight() * 2),
+            self.titleBar.topAnchor.constraint(equalTo: self.view.topAnchor),
+
+        ])
+        
+        let statView = StatsView()
+
+        self.view.addSubview(statView)
+        NSLayoutConstraint.activate([
+            statView.topAnchor.constraint(equalTo: titleBar.bottomAnchor),
+            statView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            statView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            statView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.20)
+        ])
+
         let layout = UICollectionViewFlowLayout()
-        //let size = CGRect(x: 0, y: 0, width: containerCollectionView.frame.width, height: containerCollectionView.frame.height)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
-        
-        view.addSubview(collectionView)
-        collectionView.backgroundColor = .white
-        collectionView.topAnchor.constraint(equalTo: badgesLabel.bottomAnchor, constant: 20).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(self.tabBarController!.tabBar.frame.height+10)).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        //collectionView.reloadData()
-        
+        collectionView.reloadData()
+
+
+        view.addSubview(self.titleBar)
+        view.addSubview(statView)
+        view.addSubview(collectionView)
+
+        NSLayoutConstraint.activate([
+
+            collectionView.topAnchor.constraint(equalTo: statView.bottomAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+        ])
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+
+    }
+
+
     func collectionView(_ collectionView: UICollectionView, layout UICollectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width / 2.5, height: collectionView.frame.width / 3)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionData.count
+        return 10
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
-        /*if let label = cell.viewWithTag(0) as? UILabel {
-            label.text = collectionData[indexPath.row]
-        }*/
-        //cell.backgroundColor = .red
-        //let frameCel = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: 25, height: 25)
-        //cell.frame = frameCel
         return cell
     }
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 }
 
 class CustomCell: UICollectionViewCell {
-    
+
     private let bg: UIImageView = {
         let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "mads-schmidt-rasmussen-xfngap_DToE-unsplash")
+        iv.image = #imageLiteral(resourceName: "guillaume-briard-lSXpV8bDeMA-unsplash")
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         return iv
     }()
-   
+
     override init(frame: CGRect) {
-        super.init(frame:frame)
-        
+        super.init(frame: frame)
+
         contentView.addSubview(bg)
-        bg.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        bg.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        bg.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        bg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        
+
+        NSLayoutConstraint.activate([
+            bg.topAnchor.constraint(equalTo: contentView.topAnchor),
+            bg.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bg.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+
+
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }
 

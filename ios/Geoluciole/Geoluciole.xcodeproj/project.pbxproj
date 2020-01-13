@@ -30,6 +30,9 @@
 		237AD42A23C606D4009937AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 237AD42923C606D4009937AB /* Assets.xcassets */; };
 		237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237AD42B23C606D4009937AB /* LaunchScreen.storyboard */; };
 		237AD43623C60749009937AB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 237AD43523C60748009937AB /* libsqlite3.tbd */; };
+		2392A4C623CCBF39006606B5 /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2392A4C523CCBF39006606B5 /* BadgesView.swift */; };
+		2392A4C823CCC2E1006606B5 /* CustomUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2392A4C723CCC2E1006606B5 /* CustomUILabel.swift */; };
+		23A76CC623CCB71900E191B6 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A76CC523CCB71900E191B6 /* StatsView.swift */; };
 		23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E22D2023C7645100C3540E /* SettingsViewController.swift */; };
 		23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE123C8C0F400A13999 /* UIColorExtension.swift */; };
 		23F18DE423C8C57000A13999 /* TitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE323C8C57000A13999 /* TitleBar.swift */; };
@@ -71,6 +74,9 @@
 		237AD42C23C606D4009937AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		237AD42E23C606D4009937AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		237AD43523C60748009937AB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		2392A4C523CCBF39006606B5 /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
+		2392A4C723CCC2E1006606B5 /* CustomUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUILabel.swift; sourceTree = "<group>"; };
+		23A76CC523CCB71900E191B6 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		23E22D2023C7645100C3540E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		23F18DE123C8C0F400A13999 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		23F18DE323C8C57000A13999 /* TitleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBar.swift; sourceTree = "<group>"; };
@@ -141,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				235D45D223C930BC00992B7B /* CustomUIImageView.swift */,
+				2392A4C723CCC2E1006606B5 /* CustomUILabel.swift */,
 			);
 			path = CustomItems;
 			sourceTree = "<group>";
@@ -218,6 +225,8 @@
 			children = (
 				236EE58623CB1D360000ADE3 /* CustomItems */,
 				23F18DE323C8C57000A13999 /* TitleBar.swift */,
+				23A76CC523CCB71900E191B6 /* StatsView.swift */,
+				2392A4C523CCBF39006606B5 /* BadgesView.swift */,
 			);
 			path = UIItems;
 			sourceTree = "<group>";
@@ -306,7 +315,9 @@
 			files = (
 				237AD42323C606D4009937AB /* HomeViewController.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
+				2392A4C623CCBF39006606B5 /* BadgesView.swift in Sources */,
 				62BF3D6F23C8840E00945C04 /* Params.swift in Sources */,
+				2392A4C823CCC2E1006606B5 /* CustomUILabel.swift in Sources */,
 				62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */,
 				2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */,
 				23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */,
@@ -320,6 +331,7 @@
 				235D45D323C930BC00992B7B /* CustomUIImageView.swift in Sources */,
 				237AD42123C606D4009937AB /* SceneDelegate.swift in Sources */,
 				23F18DE423C8C57000A13999 /* TitleBar.swift in Sources */,
+				23A76CC623CCB71900E191B6 /* StatsView.swift in Sources */,
 				2305CE8123C6347A00354361 /* Tools.swift in Sources */,
 				2305CE8623C639CE00354361 /* DatabaseManager.swift in Sources */,
 				23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */,

@@ -84,64 +84,10 @@
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Statistiques" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exm-Cf-Zci">
-                                <rect key="frame" x="31" y="105" width="117.5" height="62"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance parcourues" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgS-nK-0yY">
-                                <rect key="frame" x="89" y="175" width="158" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WFf-4R-a0Q">
-                                <rect key="frame" x="273" y="175" width="11" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9y-kS-CLj">
-                                <rect key="frame" x="300" y="175" width="26" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mes badges" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pw7-XM-eyl">
-                                <rect key="frame" x="31" y="243" width="122" height="27.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pw7-XM-eyl" secondAttribute="trailing" symbolic="YES" id="12T-tO-JFy"/>
-                            <constraint firstItem="V9y-kS-CLj" firstAttribute="top" secondItem="vgS-nK-0yY" secondAttribute="top" id="2KX-We-Xfn"/>
-                            <constraint firstItem="vgS-nK-0yY" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="89" id="7a4-r1-yje"/>
-                            <constraint firstItem="WFf-4R-a0Q" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="131" id="9q4-9M-k5f"/>
-                            <constraint firstItem="vgS-nK-0yY" firstAttribute="top" secondItem="exm-Cf-Zci" secondAttribute="bottom" constant="8" id="Buo-gE-Dk7"/>
-                            <constraint firstItem="WFf-4R-a0Q" firstAttribute="leading" secondItem="vgS-nK-0yY" secondAttribute="trailing" constant="26" id="OwA-8h-Lhb"/>
-                            <constraint firstItem="WFf-4R-a0Q" firstAttribute="top" secondItem="vgS-nK-0yY" secondAttribute="top" id="aKv-Dd-7P3"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="V9y-kS-CLj" secondAttribute="trailing" constant="88" id="cfY-dd-nGM"/>
-                            <constraint firstItem="V9y-kS-CLj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WFf-4R-a0Q" secondAttribute="trailing" constant="8" symbolic="YES" id="fRe-2K-uhF"/>
-                            <constraint firstItem="exm-Cf-Zci" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="31" id="lxj-ll-FGa"/>
-                            <constraint firstItem="pw7-XM-eyl" firstAttribute="top" secondItem="vgS-nK-0yY" secondAttribute="bottom" constant="47" id="pw9-HG-Tag"/>
-                            <constraint firstItem="WFf-4R-a0Q" firstAttribute="bottom" secondItem="vgS-nK-0yY" secondAttribute="bottom" id="qCM-96-gqJ"/>
-                            <constraint firstItem="exm-Cf-Zci" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="61" id="rdw-tE-iZs"/>
-                            <constraint firstItem="V9y-kS-CLj" firstAttribute="bottom" secondItem="vgS-nK-0yY" secondAttribute="bottom" id="uAN-I0-DDf"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="exm-Cf-Zci" secondAttribute="trailing" symbolic="YES" id="wjW-Le-zQh"/>
-                            <constraint firstItem="pw7-XM-eyl" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="31" id="ynh-hE-RR8"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" tag="1" title="Badges / Stats" image="btn-trophee" id="cPa-gy-q4n"/>
-                    <connections>
-                        <outlet property="badgesLabel" destination="pw7-XM-eyl" id="yq7-jR-RXR"/>
-                        <outlet property="dist" destination="WFf-4R-a0Q" id="4tr-7o-9OY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
