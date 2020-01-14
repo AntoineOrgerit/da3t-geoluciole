@@ -1,46 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:layout_centerInParent="false"
+    android:layout_centerHorizontal="false">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
+        android:id="@+id/layout_progression"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_stay_progression"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/stay_progression"
+            android:textAlignment="viewStart"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_stay_progression"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:progress="70"
+            android:progressTint="@color/colorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_sticker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/layout_data_collection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/layout_progression">
 
-    <Button
-        android:id="@+id/count_data"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/text_achievements_obtained"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/last_achievement_obtained"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/last_achievement_image"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:contentDescription="@string/last_achievement_obtained_picture_description"
+            app:srcCompat="@mipmap/no_badge" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_data_collection"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="count"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/send_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.739"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        <TextView
+            android:id="@+id/text_data_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/data_collection"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/layout_data_collection_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_data_collection_deactivated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/data_collection_deactivated" />
+
+            <Switch
+                android:id="@+id/data_collection_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:padding="10dp"
+                android:showText="false" />
+
+            <TextView
+                android:id="@+id/text_data_collection_activated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/data_collection_activated" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

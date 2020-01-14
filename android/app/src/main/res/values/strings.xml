@@ -8,4 +8,12 @@
     <string name="location_notification_content_title">Géoluciole is running</string>
     <string name="location_notification_content_text">Tracking of your journey in progress</string>
     <string name="location_notification_button_text">Open app</string>
+
+    <!-- HOME FRAGMENT -->
+    <string name="stay_progression">Progression of your stay</string>
+    <string name="last_achievement_obtained">Sticker recently obtained</string>
+    <string name="last_achievement_obtained_picture_description">Picture of the last sticker obtained by the user.</string>
+    <string name="data_collection">Data collection</string>
+    <string name="data_collection_activated">ON</string>
+    <string name="data_collection_deactivated">OFF</string>
 </resources>

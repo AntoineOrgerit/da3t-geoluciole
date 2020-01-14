@@ -8,4 +8,12 @@
     <string name="location_notification_content_title">Géoluciole en fonctionnement</string>
     <string name="location_notification_content_text">Le suivi de votre parcours est en cours</string>
     <string name="location_notification_button_text">Ouvrir l\'application</string>
+
+    <!-- HOME FRAGMENT -->
+    <string name="stay_progression">Progression de votre séjour</string>
+    <string name="last_achievement_obtained">Badge récemment obtenu</string>
+    <string name="last_achievement_obtained_picture_description">Image du dernier badge obtenu par l\'utilisateur.</string>
+    <string name="data_collection">Collecte des données</string>
+    <string name="data_collection_activated">ON</string>
+    <string name="data_collection_deactivated">OFF</string>
 </resources>
