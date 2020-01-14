@@ -43,4 +43,12 @@
     <string name="rgpd_second_content_7_line">Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne sont
     pas respectés, vous pouvez adresser une réclamation à la CNIL.</string>
     <string name="rgpd_second_content_consentement">J’autorise les chercheurs du laboratoire LIENSS à me recontacter dans le cadre de cette expérience.</string>
+
+    <!-- HOME FRAGMENT -->
+    <string name="stay_progression">Progression de votre séjour</string>
+    <string name="last_achievement_obtained">Badge récemment obtenu</string>
+    <string name="last_achievement_obtained_picture_description">Image du dernier badge obtenu par l\'utilisateur.</string>
+    <string name="data_collection">Collecte des données</string>
+    <string name="data_collection_activated">ON</string>
+    <string name="data_collection_deactivated">OFF</string>
 </resources>
