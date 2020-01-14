@@ -21,7 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
-import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.ui.dashboard.DashboardFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
@@ -74,16 +73,6 @@ public class MainActivity extends LocationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        UserPreferences u = new UserPreferences(false, 123, "FR", this);
-        Log.i("ID RETRIEVED ", u.getId());
-
-        // to store an object
-        UserPreferences.storeInstance(this, u);
-        // to retrive object stored in preference
-        u = UserPreferences.getInstance(this);
-        Log.i("UserPreferences",u.toString());
-
 
         // temporary receiver
         myReceiver = new MyReceiver();

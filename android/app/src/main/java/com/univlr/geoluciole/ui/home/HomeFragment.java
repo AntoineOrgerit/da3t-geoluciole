@@ -7,14 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
+import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.sender.BulkObject;
 import com.univlr.geoluciole.sender.HttpSender;
 
@@ -53,6 +56,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Log.d("Location count", ""+ new LocationTable(root.getContext()).countAll());
                 Log.d("Location count", ""+ new LocationTable(root.getContext()).getAll().toString());
+                Toast.makeText(root.getContext(), UserPreferences.getInstance(root.getContext()).toString(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
 

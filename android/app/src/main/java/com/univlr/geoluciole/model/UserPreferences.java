@@ -12,14 +12,16 @@ public class UserPreferences {
     public static final String USER_PREFERENCE_FILENAME = "UserPreference";
 
     private String id;
-    private boolean consent;
+    private boolean gpsConsent;
+    private boolean accountConsent;
     private long validityDuration;
     private String language;
 
 
     public UserPreferences(boolean consent, long validityDuration, String language, Context context) {
         this.id = generateID(context);
-        this.consent = false;
+        this.gpsConsent = false;
+        this.accountConsent = false;
         this.validityDuration = validityDuration;
         this.language = language;
 
@@ -42,12 +44,20 @@ public class UserPreferences {
         return newID;
     }
 
-    public boolean isConsent() {
-        return consent;
+    public boolean isGpsConsent() {
+        return gpsConsent;
     }
 
-    public void setConsent(boolean consent) {
-        this.consent = consent;
+    public boolean isAccountConsent() {
+        return accountConsent;
+    }
+
+    public void setGpsConsent(boolean consent) {
+        this.gpsConsent = consent;
+    }
+
+    public void setAccountConsent(boolean consent) {
+        this.accountConsent = consent;
     }
 
     public long getValidityDuration() {
@@ -74,7 +84,8 @@ public class UserPreferences {
     public String toString() {
         return "UserPreferences{" +
                 "id='" + id + '\'' +
-                ", consent=" + consent +
+                ", gpsConsent=" + gpsConsent +
+                ", accountConsent=" + accountConsent +
                 ", validityDuration=" + validityDuration +
                 ", language='" + language + '\'' +
                 '}';

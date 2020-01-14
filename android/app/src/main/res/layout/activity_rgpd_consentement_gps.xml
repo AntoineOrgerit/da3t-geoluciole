@@ -16,7 +16,6 @@
         android:text="@string/rgpd_title_primary"
         android:textAlignment="center"
         android:textAppearance="@style/rgpd_title_primary"
-        app:layout_constraintBottom_tazoTopOf="@+id/rgpd_title_project_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
         android:text="@string/rgpd_title_project"
         app:layout_constraintBottom_toTopOf="@+id/scrollview_rgdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,6 @@
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/rgpd_first_content_consentement_checkbox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rgpd_title_project_textview">
 
