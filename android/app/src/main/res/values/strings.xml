@@ -16,4 +16,62 @@
     <string name="data_collection">Data collection</string>
     <string name="data_collection_activated">ON</string>
     <string name="data_collection_deactivated">OFF</string>
+
+    <!-- CONSTANT FORM -->
+    <string name="form_title">Form</string>
+    <!-- GENERAL INFO FORM LABELS -->
+    <string name="form_lastname">Lastname</string>
+    <string name="form_firstname">FirstName</string>
+    <string name="form_mail">Mail</string>
+    <!-- DATE AND HOUR INFO TITLES -->
+    <string name="form_in_city_title">Date and hour of arrival in La Rochelle</string>
+    <string name="form_out_city_title">Date and hour of departure of La Rochelle</string>
+    <!-- DATE AND HOUR BUTTONS -->
+    <string name="form_btn_date">Select date</string>
+    <string name="form_btn_time">Select time</string>
+    <!-- DATE AND HOUR PLACEHOLDERS -->
+    <string name="form_date_in_hint">01–01–2020</string>
+    <string name="form_time_in_hint">10:00</string>
+    <string name="form_date_out_hint">02–01–2020</string>
+    <string name="form_time_out_hint">17:00</string>
+    <!-- QUESTIONS FORM -->
+    <string name="form_with_whom_title">Whom travel ?</string>
+    <string-array name="form_responses_whom_array">
+        <item>Alone</item>
+        <item>With family</item>
+        <item>With friends</item>
+        <item>With group</item>
+        <item>Presence of children under 13 years old</item>
+        <item>Presence of teenagers (13–18 years old)</item>
+        <item>Other</item>
+    </string-array>
+
+    <string name="form_transport_title">How did you get to La Rochelle ?</string>
+    <string-array name="form_responses_transport_array">
+        <item>Personal car</item>
+        <item>Carpool / Stop</item>
+        <item>Bus</item>
+        <item>Train</item>
+        <item>Flight </item>
+        <item>Boat</item>
+        <item>Camping Car</item>
+        <item>Cycling</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- RADIO QUESTIONS -->
+    <string name="form_first_visit_title">Are you visiting La Rochelle for the first time ?</string>
+    <string name="form_know_city_title">Would you say you know La Rochelle well ?</string>
+    <string name="form_more_five_times_title">Have you been to La Rochelle more than 5 times ?</string>
+    <string name="form_more_two_months_title">Have you ever lived in La Rochelle for more than two months ?</string>
+    <string name="form_yes_response">Yes</string>
+    <string name="form_no_response">No</string>
+
+
+    <!-- BUTTONS -->
+    <string name="form_continue">Next</string>
+    <string name="form_previous">Previous</string>
+    <string name="form_submit">Submit</string>
+
+
 </resources>
