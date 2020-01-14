@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     let locationManager = CLLocationManager()
     let userNotificationCenter = UNUserNotificationCenter.current()
+    var timer: Timer? // timer permettant l'envoi des données au serveur de manière régulière
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -42,7 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         userNotificationCenter.delegate = self
         requestNotificationAuthorization()
 
-        sendPostElasticSearch()
+        // init de la tâche d'envoi au serveur
+        timer = Timer(timeInterval: Constantes.TIMER_SEND_DATA, target: self, selector: #selector(sendPostElasticSearch), userInfo: nil, repeats: true)
+        timer?.tolerance = 60.0 // ajout d'une tolerance (en s) pour permettre l'envoi entre le temps défini + 1 min
+        RunLoop.current.add(timer!, forMode: .common) // permet de mettre le timer dans un thread à part pour le déclencher même en cas d'interaction utilisateur
 
         return true
     }
@@ -50,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     /// Appelé lorsque l'application va se terminer (coupure via le gestionnaire d'app par exemple)
     func applicationWillTerminate(_ application: UIApplication) {
         NSLog("App killed")
+
+        // On doit invalider le timer lorsque l'on quitte l'application
+        timer?.invalidate()
+
         if CLLocationManager.locationServicesEnabled() {
             sendNotificationStopTracking()
             locationManager.stopUpdatingLocation()
@@ -120,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
 
-    /// Envoi d'une notification lorsque l'on coupe l'application pour information
+    /// Envoi d'une notification lorsque l'on coupe l'application pour informer
     /// l'utilisateur que le tracking va être coupé
     func sendNotificationStopTracking() {
         // Création de la notification
@@ -161,7 +169,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     // Envoi serveur PART
 
-    func sendPostElasticSearch() {
+    /// Envoi les données de localisation de l'utilisateur au serveur
+    @objc func sendPostElasticSearch() {
+        print("Timer déclenché !!!")
         // création du message à envoyer
 
         // récupération des localisations en BDD SQLite

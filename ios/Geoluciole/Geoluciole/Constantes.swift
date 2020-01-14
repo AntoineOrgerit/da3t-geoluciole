@@ -21,7 +21,8 @@ class Constantes {
     static let FIELD_SPACING_HORIZONTAL: CGFloat = 10
     static let FIELD_SPACING_VERTICAL: CGFloat = 20
 
-    // API URL
+    // SERVEUR ELASTIC SEARCH
     static let API_URL_UNIV_LR = "http://datamuseum.univ-lr.fr:80/geolucioles/data/_bulk"
     static let API_URL_SERVER_TEST = "http://86.233.189.163:9200/geolucioles/data/_bulk"
+    static let TIMER_SEND_DATA = 10.0 // en s ==> paramètre pour l'envoi régulier au serveur
 }
