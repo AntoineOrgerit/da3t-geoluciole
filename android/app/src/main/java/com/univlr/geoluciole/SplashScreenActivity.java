@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.univlr.geoluciole.model.UserPreferences;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static final String TAG = SplashScreenActivity.class.getSimpleName();
@@ -12,10 +14,14 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.splash_screen_activity);
-        Intent intent = new Intent(getApplicationContext(),
-                RGPDConsentementGPSActivity.class);
+        UserPreferences userPreferences = UserPreferences.getInstance(this);
+        Intent intent;
+        if (userPreferences.hasGiveConsent()) {
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+        } else {
+            intent = new Intent(getApplicationContext(), RGPDConsentementGPSActivity.class);
+        }
         startActivity(intent);
         finish();
     }
