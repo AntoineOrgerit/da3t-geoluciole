@@ -42,9 +42,9 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
         NSLayoutConstraint.activate([
 
             collectionView.topAnchor.constraint(equalTo: statView.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
         ])
     }
 
@@ -56,7 +56,7 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
 
 
     func collectionView(_ collectionView: UICollectionView, layout UICollectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / 2.5, height: collectionView.frame.width / 3)
+        return CGSize(width: collectionView.frame.width / 4, height: collectionView.frame.width / 3)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
