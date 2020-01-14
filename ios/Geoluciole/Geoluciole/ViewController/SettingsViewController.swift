@@ -94,8 +94,8 @@ class SettingsViewController: ParentViewController {
 
             deleteButton.topAnchor.constraint(equalTo: partnersButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             deleteButton.centerXAnchor.constraint(equalTo: wrapButtons.centerXAnchor),
-            deleteButton.heightAnchor.constraint(equalTo: deleteButton.titleLabel!.heightAnchor, constant: 50),
-            deleteButton.widthAnchor.constraint(equalTo: deleteButton.titleLabel!.widthAnchor, constant: 50)
+            deleteButton.heightAnchor.constraint(equalTo: deleteButton.titleLabel!.heightAnchor, constant: 40),
+            deleteButton.widthAnchor.constraint(equalTo: deleteButton.titleLabel!.widthAnchor, constant: 40)
         ])
     }
 }
