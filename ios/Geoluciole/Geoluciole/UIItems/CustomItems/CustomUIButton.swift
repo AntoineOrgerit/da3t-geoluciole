@@ -9,9 +9,13 @@
 import UIKit
 
 class CustomUIButton: UIButton {
+    
+    var onClick: ((CustomUIButton) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.addTarget(self, action: #selector(CustomUIButton.touchOnUIButton), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -19,7 +23,7 @@ class CustomUIButton: UIButton {
     }
 
     /// Applique le style définition en paramètre (énumération)
-    func setStyle(color: EnumUIButtonStyle) {
+    func setStyle(color: ButtonStyle) {
         var bgColor: UIColor
 
         switch color {
@@ -38,6 +42,10 @@ class CustomUIButton: UIButton {
         // On applique le style au background
         layer.backgroundColor = bgColor.cgColor
         layer.cornerRadius = 5 // bords arrondis de 5px
+    }
+    
+    @objc fileprivate func touchOnUIButton() {
+        self.onClick?(self)
     }
 
 }

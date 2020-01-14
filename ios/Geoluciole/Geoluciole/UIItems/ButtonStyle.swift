@@ -1,5 +1,5 @@
 //
-//  EnumUIButtonStyle.swift
+//  ButtonStyle.swift
 //  Geoluciole
 //
 //  Created by Alexandre BARET on 13/01/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum EnumUIButtonStyle {
+enum ButtonStyle {
     case buttonLight
     case buttonLightDark
     case buttonPrimary

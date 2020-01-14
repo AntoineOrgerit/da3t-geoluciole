@@ -46,7 +46,7 @@
 		23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE123C8C0F400A13999 /* UIColorExtension.swift */; };
 		23F18DE423C8C57000A13999 /* TitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE323C8C57000A13999 /* TitleBarView.swift */; };
 		6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427323CCB926004DFD43 /* CustomUIButton.swift */; };
-		6263427623CCC094004DFD43 /* EnumUIButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427523CCC094004DFD43 /* EnumUIButtonStyle.swift */; };
+		6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427523CCC094004DFD43 /* ButtonStyle.swift */; };
 		62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */; };
 		62BF3D6F23C8840E00945C04 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6E23C8840E00945C04 /* Params.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
@@ -101,7 +101,7 @@
 		23F18DE123C8C0F400A13999 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		23F18DE323C8C57000A13999 /* TitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarView.swift; sourceTree = "<group>"; };
 		6263427323CCB926004DFD43 /* CustomUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIButton.swift; sourceTree = "<group>"; };
-		6263427523CCC094004DFD43 /* EnumUIButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnumUIButtonStyle.swift; path = Geoluciole/UIItems/EnumUIButtonStyle.swift; sourceTree = SOURCE_ROOT; };
+		6263427523CCC094004DFD43 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonStyle.swift; path = Geoluciole/UIItems/ButtonStyle.swift; sourceTree = SOURCE_ROOT; };
 		62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTrophiesViewController.swift; sourceTree = "<group>"; };
 		62BF3D6E23C8840E00945C04 /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -170,6 +170,7 @@
 			children = (
 				235D45D223C930BC00992B7B /* CustomUIImageView.swift */,
 				2392A4C723CCC2E1006606B5 /* CustomUILabel.swift */,
+				6263427323CCB926004DFD43 /* CustomUIButton.swift */,
 			);
 			path = CustomItems;
 			sourceTree = "<group>";
@@ -236,7 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				237972DD23CD260600800764 /* LabelStyle.swift */,
-				6263427523CCC094004DFD43 /* EnumUIButtonStyle.swift */,
+				6263427523CCC094004DFD43 /* ButtonStyle.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -273,7 +274,6 @@
 				23F18DE323C8C57000A13999 /* TitleBarView.swift */,
 				23A76CC523CCB71900E191B6 /* StatsView.swift */,
 				234C710623CD0F0000DF70FB /* BadgesCollectionView.swift */,
-				6263427323CCB926004DFD43 /* CustomUIButton.swift */,
 			);
 			path = UIItems;
 			sourceTree = "<group>";
@@ -365,7 +365,7 @@
 				237AD42323C606D4009937AB /* HomeViewController.swift in Sources */,
 				23CB178123CCDCFE00B1BF73 /* CollectDataSwitchView.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
-				6263427623CCC094004DFD43 /* EnumUIButtonStyle.swift in Sources */,
+				6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */,
 				234C710723CD0F0000DF70FB /* BadgesCollectionView.swift in Sources */,
 				62BF3D6F23C8840E00945C04 /* Params.swift in Sources */,
 				2392A4C823CCC2E1006606B5 /* CustomUILabel.swift in Sources */,
