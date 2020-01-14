@@ -66,6 +66,13 @@ class ShowLevelView: UIView {
         ])
     }
 
+    
+    func setProgress(value: Float){
+        self.progressBar.progress = value
+    }
+    
+    
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
