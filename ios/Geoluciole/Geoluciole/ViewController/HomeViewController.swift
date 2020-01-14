@@ -39,28 +39,28 @@ class HomeViewController: ParentViewController {
         // Constraints ShowLevelView
         NSLayoutConstraint.activate([
             self.showLevelView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            self.showLevelView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
-            self.showLevelView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
+            self.showLevelView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
+            self.showLevelView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
             self.showLevelView.widthAnchor.constraint(equalTo: self.rootView.widthAnchor)
         ])
-        
+
         // Constraints LastTrophyView
         NSLayoutConstraint.activate([
             wrap.topAnchor.constraint(equalTo: self.showLevelView.bottomAnchor),
             wrap.bottomAnchor.constraint(equalTo: self.collectDataSwitchView.topAnchor),
-            wrap.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
-            wrap.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
-            
+            wrap.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
+            wrap.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
+
             self.lastTrophyView.centerXAnchor.constraint(equalTo: wrap.centerXAnchor),
             self.lastTrophyView.centerYAnchor.constraint(equalTo: wrap.centerYAnchor),
-            self.lastTrophyView.widthAnchor.constraint(equalTo: self.rootView.widthAnchor)
+            self.lastTrophyView.widthAnchor.constraint(equalTo: wrap.widthAnchor)
         ])
 
         // Constraints CollectDataSwitchView
         NSLayoutConstraint.activate([
             self.collectDataSwitchView.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.collectDataSwitchView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
-            self.collectDataSwitchView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor)
+            self.collectDataSwitchView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
+            self.collectDataSwitchView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
         ])
     }
 

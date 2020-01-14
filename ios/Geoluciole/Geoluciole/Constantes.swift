@@ -19,7 +19,7 @@ class Constantes {
     static let TITLE_BAR_PADDING_HORIZONTAL: CGFloat = 10
     static let PAGE_PADDING_HORIZONTAL: CGFloat = 10
     static let FIELD_SPACING_HORIZONTAL: CGFloat = 10
-    static let FIELD_SPACING_VERTICAL: CGFloat = 10
+    static let FIELD_SPACING_VERTICAL: CGFloat = 20
 
     // API URL
     static let API_URL_UNIV_LR = "http://datamuseum.univ-lr.fr:80/geolucioles/data/_bulk"

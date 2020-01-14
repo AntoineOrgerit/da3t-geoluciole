@@ -38,7 +38,7 @@ class ParentViewController: UIViewController {
             subStatusBarView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             subStatusBarView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
             
-            self.rootView.topAnchor.constraint(equalTo: /*self.view.topAnchor*/self.topLayoutGuide.bottomAnchor),
+            self.rootView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor),
             self.rootView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor),
             self.rootView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             self.rootView.rightAnchor.constraint(equalTo: self.view.rightAnchor),

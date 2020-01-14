@@ -22,11 +22,15 @@ class CollectDataSwitchView: UIView {
         
         // Title label
         self.titleLabel = UILabel()
-        self.titleLabel.text = "Collecte des données :"
+        self.titleLabel.text = "Collecte des données"
         self.titleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
         self.titleLabel.adjustsFontForContentSizeCategory = true
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.titleLabel)
+        
+        let wrapSwitch = UIView()
+        wrapSwitch.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(wrapSwitch)
         
         // Off Label
         self.offLabel = UILabel()
@@ -34,7 +38,7 @@ class CollectDataSwitchView: UIView {
         self.offLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         self.offLabel.adjustsFontForContentSizeCategory = true
         self.offLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(self.offLabel)
+        wrapSwitch.addSubview(self.offLabel)
         
         // On Label
         self.onLabel = UILabel()
@@ -42,28 +46,34 @@ class CollectDataSwitchView: UIView {
         self.onLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         self.onLabel.adjustsFontForContentSizeCategory = true
         self.onLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(self.onLabel)
+        wrapSwitch.addSubview(self.onLabel)
         
         // Switch data
         self.switchData = UISwitch()
         self.switchData.translatesAutoresizingMaskIntoConstraints = false
        
         self.switchData.addTarget(self, action: #selector(CollectDataSwitchView.switchSenderData(sender:)), for: .touchUpInside)
-        self.addSubview(self.switchData)
+        wrapSwitch.addSubview(self.switchData)
         
         NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalTo: self.switchData.heightAnchor),
+            self.heightAnchor.constraint(equalTo: self.titleLabel.heightAnchor, constant: self.switchData.frame.height + Constantes.FIELD_SPACING_VERTICAL),
             
-            self.titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            self.titleLabel.centerYAnchor.constraint(equalTo: self.switchData.centerYAnchor),
+            self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            self.titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
+            self.titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor),
             
-            self.onLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
+            wrapSwitch.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            wrapSwitch.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            wrapSwitch.heightAnchor.constraint(equalTo: self.switchData.heightAnchor),
+            wrapSwitch.widthAnchor.constraint(equalTo: self.widthAnchor),
+            
+            self.switchData.centerXAnchor.constraint(equalTo: wrapSwitch.centerXAnchor),
+            self.switchData.topAnchor.constraint(equalTo: wrapSwitch.topAnchor),
+            
+            self.onLabel.leftAnchor.constraint(equalTo: self.switchData.rightAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             self.onLabel.centerYAnchor.constraint(equalTo: self.switchData.centerYAnchor),
             
-            self.switchData.rightAnchor.constraint(equalTo: self.onLabel.leftAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
-            self.switchData.topAnchor.constraint(equalTo: self.topAnchor),
-            
-            self.offLabel.rightAnchor.constraint(equalTo: self.switchData.unsafelyUnwrapped.leftAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            self.offLabel.rightAnchor.constraint(equalTo: self.switchData.leftAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
             self.offLabel.centerYAnchor.constraint(equalTo: self.switchData.centerYAnchor),
         ])
     }
