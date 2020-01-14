@@ -24,5 +24,5 @@ class Constantes {
     // SERVEUR ELASTIC SEARCH
     static let API_URL_UNIV_LR = "http://datamuseum.univ-lr.fr:80/geolucioles/data/_bulk"
     static let API_URL_SERVER_TEST = "http://86.233.189.163:9200/geolucioles/data/_bulk"
-    static let TIMER_SEND_DATA = 10.0 // en s ==> paramètre pour l'envoi régulier au serveur
+    static let TIMER_SEND_DATA = 60.0 * 2 // en s ==> paramètre pour l'envoi régulier au serveur
 }
