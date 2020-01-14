@@ -50,9 +50,9 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
         // bouton de suppression de compte
         self.deleteAccount = CustomUIButton(frame: .zero)
         self.deleteAccount.setTitle("Supprimer le compte", for: .normal)
-        self.deleteAccount.sizeToFit() // auto-resize en fonction du texte
-        self.deleteAccount.setStyle(color: .buttonLight)
-        self.deleteAccount.titleEdgeInsets = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
+        self.deleteAccount.setStyle(color: .buttonDark)
+        // Nécessaire sinon bouton s'affiche pas !!!
+        self.deleteAccount.translatesAutoresizingMaskIntoConstraints = false
 
         // ajout bouton vue
         self.view.addSubview(self.deleteAccount)
@@ -61,10 +61,10 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
         NSLayoutConstraint.activate([
             self.deleteAccount.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.deleteAccount.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.tabBarController!.tabBar.frame.height * 4),
+            self.deleteAccount.widthAnchor.constraint(equalTo: self.deleteAccount.titleLabel!.widthAnchor, constant: 20)
         ])
 
-        // Nécessaire sinon bouton s'affiche pas !!!
-        self.deleteAccount.translatesAutoresizingMaskIntoConstraints = false
+        
        
     }
 
