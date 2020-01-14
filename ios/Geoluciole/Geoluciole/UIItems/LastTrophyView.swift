@@ -11,6 +11,9 @@ import UIKit
 
 class LastTrophyView: UIView {
 
+    fileprivate let trophy = CustomUIImageView(frame: .zero)
+    fileprivate let label = UILabel()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -42,6 +45,10 @@ class LastTrophyView: UIView {
         ])
     }
 
+    func setImage(nom: String){
+        self.trophy.image = UIImage(named: nom)
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
