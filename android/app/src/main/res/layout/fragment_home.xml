@@ -6,18 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="false"
-    android:layout_centerHorizontal="false"
-    android:layout_gravity="bottom"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:layout_centerHorizontal="false">
 
     <LinearLayout
         android:id="@+id/layout_progression"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/layout_sticker"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -45,7 +40,7 @@
         android:layout_height="wrap_content"
         android:gravity="center|center_horizontal|center_vertical"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/layout_data_collection"
+        app:layout_constraintBottom_toTopOf="@+id/layout_data_collection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_progression">
@@ -59,11 +54,9 @@
 
         <ImageView
             android:id="@+id/last_achievement_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:contentDescription="@string/last_achievement_obtained_picture_description"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             app:srcCompat="@mipmap/no_badge" />
 
     </LinearLayout>
@@ -75,8 +68,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_sticker">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/text_data_collection"
