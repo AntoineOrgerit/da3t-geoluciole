@@ -15,14 +15,19 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
     @IBOutlet var langue: UISegmentedControl!
     @IBOutlet var label: UITextField!
     @IBOutlet var switchDataParam: UISwitch!
+    fileprivate var deleteAccount: CustomUIButton!
 
     let param = Params.getInstance().param
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         let send = param.bool(forKey: "send_data")
         switchDataParam.setOn(send, animated: true)
+
+        // Modification style bouton
+
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,6 +46,26 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
 
         langue.addTarget(self, action: #selector(SettingsViewController.switchLangue(_:)), for: .valueChanged)
         type_engagement.addTarget(self, action: #selector(SettingsViewController.switchTypeEngagement(_:)), for: .valueChanged)
+
+        // bouton de suppression de compte
+        self.deleteAccount = CustomUIButton(frame: .zero)
+        self.deleteAccount.setTitle("Supprimer le compte", for: .normal)
+        self.deleteAccount.setStyle(color: .buttonDark)
+        // Nécessaire sinon bouton s'affiche pas !!!
+        self.deleteAccount.translatesAutoresizingMaskIntoConstraints = false
+
+        // ajout bouton vue
+        self.view.addSubview(self.deleteAccount)
+
+        // Ajout des contraintes
+        NSLayoutConstraint.activate([
+            self.deleteAccount.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.deleteAccount.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.tabBarController!.tabBar.frame.height * 4),
+            self.deleteAccount.widthAnchor.constraint(equalTo: self.deleteAccount.titleLabel!.widthAnchor, constant: 20)
+        ])
+
+        
+       
     }
 
     // Function de changement des paramètres
