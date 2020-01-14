@@ -15,7 +15,7 @@ class CollectDataSwitchView: UIView {
     fileprivate var offLabel: UILabel!
     fileprivate var onLabel: UILabel!
     fileprivate var switchData: UISwitch!
-    let param = Params.getInstance().param
+    fileprivate let userPrefs = UserPrefs.getInstance()
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,8 +51,8 @@ class CollectDataSwitchView: UIView {
         // Switch data
         self.switchData = UISwitch()
         self.switchData.translatesAutoresizingMaskIntoConstraints = false
-       
-        self.switchData.addTarget(self, action: #selector(CollectDataSwitchView.switchSenderData(sender:)), for: .touchUpInside)
+        self.switchData.setOn(self.userPrefs.bool(forKey: UserPrefs.KEY_SEND_DATA), animated: true)
+        self.switchData.addTarget(self, action: #selector(CollectDataSwitchView.switchSenderData), for: .touchUpInside)
         wrapSwitch.addSubview(self.switchData)
         
         NSLayoutConstraint.activate([
@@ -82,9 +82,8 @@ class CollectDataSwitchView: UIView {
         super.init(coder: coder)
     }
 
-    @objc func switchSenderData(sender: UISwitch) {
-        param.set(sender.isOn, forKey: "send_data")
-        print("coucou")
+    @objc func switchSenderData() {
+        self.userPrefs.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: self.switchData.isOn)
     }
 
     func setSwitch(value: Bool) {

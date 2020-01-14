@@ -17,12 +17,10 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
     @IBOutlet var switchDataParam: UISwitch!
     fileprivate var deleteAccount: CustomUIButton!
 
-    let param = Params.getInstance().param
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let send = param.bool(forKey: "send_data")
+        let send = self.userPrefs.bool(forKey: "send_data")
         switchDataParam.setOn(send, animated: true)
 
         // Modification style bouton
@@ -37,15 +35,12 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let send = param.bool(forKey: "send_data")
+        let send = self.userPrefs.bool(forKey: "send_data")
         switchDataParam.setOn(send, animated: true)
         self.label.delegate = self
-        label.text = param.string(forKey: "duree_engagement")
-        langue.selectedSegmentIndex = param.integer(forKey: "langue")
-        type_engagement.selectedSegmentIndex = param.integer(forKey: "type_engagement")
-
-        langue.addTarget(self, action: #selector(SettingsViewController.switchLangue(_:)), for: .valueChanged)
-        type_engagement.addTarget(self, action: #selector(SettingsViewController.switchTypeEngagement(_:)), for: .valueChanged)
+        label.text = self.userPrefs.string(forKey: UserPrefs.KEY_DUREE_ENGAGEMENT)
+        type_engagement.selectedSegmentIndex = self.userPrefs.int(forKey: UserPrefs.KEY_TYPE_ENGAGEMENT)
+        type_engagement.addTarget(self, action: #selector(SettingsViewController.switchTypeEngagement), for: .valueChanged)
 
         // bouton de suppression de compte
         self.deleteAccount = CustomUIButton(frame: .zero)
@@ -64,29 +59,18 @@ class SettingsViewController: ParentViewController, UITextFieldDelegate {
             self.deleteAccount.widthAnchor.constraint(equalTo: self.deleteAccount.titleLabel!.widthAnchor, constant: 20)
         ])
 
-        
-       
+
+
     }
 
     // Function de changement des paramètres
-
-    @objc func switchLangue(_ sender: UISegmentedControl) {
-        print("changement langue")
-        param.set(sender.selectedSegmentIndex, forKey: "langue")
+    @objc fileprivate func switchTypeEngagement() {
+        print("Changement type engagement")
+        self.userPrefs.setPrefs(key: UserPrefs.KEY_TYPE_ENGAGEMENT, value: self.type_engagement.selectedSegmentIndex)
     }
 
-    @objc func switchTypeEngagement(_ sender: UISegmentedControl) {
-        print("changement type")
-        param.set(sender.selectedSegmentIndex, forKey: "type_engagement")
-    }
-
-    @IBAction func textFieldChanged(_ sender: UITextField) {
-        print("changement durée")
-        param.set(sender.text, forKey: "duree_engagement")
-    }
-
-    @IBAction func switchSenderData(sender: UISwitch) {
-        print("changement suivis")
-        param.set(sender.isOn, forKey: "send_data")
+    @objc fileprivate func textFieldChanged() {
+        print("Changement durée")
+        self.userPrefs.setPrefs(key: UserPrefs.KEY_DUREE_ENGAGEMENT, value: self.label.text!)
     }
 }

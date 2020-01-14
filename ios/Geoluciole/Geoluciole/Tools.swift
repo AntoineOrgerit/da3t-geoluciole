@@ -90,16 +90,16 @@ class Tools {
         var identifier: String
 
         // On vérifie si on a un identifiant de généré
-        let id = Params.getInstance().param.string(forKey: "identifier")
+        let id = UserPrefs.getInstance().string(forKey: "identifier")
 
         // Si oui, on le récupère
-        if id != nil {
-            identifier = id!
+        if id != "" {
+            identifier = id
 
-        // Sinon, on en génère un
+            // Sinon, on en génère un
         } else {
             print("Aucun identifiant existant ! Génération en cours ...")
-            
+
             // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
             let uuid = UIDevice.current.identifierForVendor?.uuidString
 
@@ -109,9 +109,9 @@ class Tools {
             // équivalent identifier.substring(2, 8)
             let range = hashId.index(hashId.startIndex, offsetBy: 2)..<hashId.index(hashId.startIndex, offsetBy: 9)
             identifier = String(hashId[range])
-            
+
             // et on sauvegarde le paramètre
-            Params.getInstance().param.set(identifier, forKey: "identifier")
+            UserPrefs.getInstance().setPrefs(key: "identifier", value: identifier)
         }
 
         return identifier

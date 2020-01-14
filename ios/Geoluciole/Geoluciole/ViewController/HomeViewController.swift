@@ -13,7 +13,6 @@ class HomeViewController: ParentViewController {
     fileprivate var showLevelView: ShowLevelView!
     fileprivate var lastTrophyView: LastTrophyView!
     fileprivate var collectDataSwitchView: CollectDataSwitchView!
-    let param = Params.getInstance().param
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +40,7 @@ class HomeViewController: ParentViewController {
             self.showLevelView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             self.showLevelView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
             self.showLevelView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
-            self.showLevelView.widthAnchor.constraint(equalTo: self.rootView.widthAnchor)
+            self.showLevelView.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
         ])
 
         // Constraints LastTrophyView
@@ -62,12 +61,6 @@ class HomeViewController: ParentViewController {
             self.collectDataSwitchView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
             self.collectDataSwitchView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
         ])
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let send = param.bool(forKey: "send_data")
-        self.collectDataSwitchView.setSwitch(value: send)
     }
 
     override func didReceiveMemoryWarning() {

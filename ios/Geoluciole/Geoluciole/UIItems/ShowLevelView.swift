@@ -18,13 +18,16 @@ class ShowLevelView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        self.setDefaultBoxStyle()
+        
         // Label indiquant le niveau
         self.levelNumberLabel = UILabel()
-    self.levelNumberLabel.text = "Progression de votre séjour"
+        self.levelNumberLabel.text = "Progression de votre séjour"
         self.levelNumberLabel.font = UIFont.preferredFont(forTextStyle: .title2)
         self.levelNumberLabel.adjustsFontForContentSizeCategory = true
         self.levelNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         self.levelNumberLabel.textAlignment = .left
+        self.levelNumberLabel.backgroundColor = .yellow
         self.addSubview(self.levelNumberLabel)
 
         // progressview
@@ -37,9 +40,9 @@ class ShowLevelView: UIView {
         self.addSubview(self.progressBar)
 
         NSLayoutConstraint.activate([
-            
+
             self.heightAnchor.constraint(equalTo: self.levelNumberLabel.heightAnchor, constant: Constantes.FIELD_SPACING_VERTICAL + self.progressBarHeight),
-            
+
             self.levelNumberLabel.widthAnchor.constraint(equalTo: self.widthAnchor),
             self.levelNumberLabel.topAnchor.constraint(equalTo: self.topAnchor),
             self.levelNumberLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -52,13 +55,13 @@ class ShowLevelView: UIView {
         ])
     }
 
-    
-    func setProgress(value: Float){
+
+    func setProgress(value: Float) {
         self.progressBar.progress = value
     }
-    
-    
-    
+
+
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

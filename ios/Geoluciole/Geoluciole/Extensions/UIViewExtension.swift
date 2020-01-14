@@ -19,6 +19,10 @@ extension UIView {
             return nil
         }
     }
+    
+    func setDefaultBoxStyle() {
+        self.layer.cornerRadius = 5
+    }
 
     func removeAllViews() {
         for view in self.subviews {

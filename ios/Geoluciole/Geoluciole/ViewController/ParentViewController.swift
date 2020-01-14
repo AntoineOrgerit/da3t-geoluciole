@@ -13,6 +13,7 @@ class ParentViewController: UIViewController {
 
     var titleBar: TitleBarView!
     var rootView: UIView!
+    var userPrefs = UserPrefs.getInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -24,9 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
 
-        // params
-        _ = Params.getInstance()
-
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
 
