@@ -84,4 +84,36 @@ class Tools {
     static func getScreenHeight() -> CGFloat {
         return UIScreen.main.bounds.height
     }
+
+    /// Retourne l'identifiant de l'utilisateur
+    static func getIdentifier() -> String {
+        var identifier: String
+
+        // On vérifie si on a un identifiant de généré
+        let id = Params.getInstance().param.string(forKey: "identifier")
+
+        // Si oui, on le récupère
+        if id != nil {
+            identifier = id!
+
+        // Sinon, on en génère un
+        } else {
+            print("Aucun identifiant existant ! Génération en cours ...")
+            
+            // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
+            let uuid = UIDevice.current.identifierForVendor?.uuidString
+
+            // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
+            let hashId = String(-1 * uuid!.hashCode())
+
+            // équivalent identifier.substring(2, 8)
+            let range = hashId.index(hashId.startIndex, offsetBy: 2)..<hashId.index(hashId.startIndex, offsetBy: 9)
+            identifier = String(hashId[range])
+            
+            // et on sauvegarde le paramètre
+            Params.getInstance().param.set(identifier, forKey: "identifier")
+        }
+
+        return identifier
+    }
 }
