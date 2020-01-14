@@ -42,7 +42,7 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
             collectionView.topAnchor.constraint(equalTo: statView.bottomAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
         ])
     }
 
