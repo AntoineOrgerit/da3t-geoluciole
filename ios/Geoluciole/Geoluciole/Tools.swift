@@ -116,4 +116,16 @@ class Tools {
 
         return identifier
     }
+
+    static func convertDate(date: String) -> Date {
+        let df = DateFormatter()
+        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        return df.date(from: date)!
+    }
+
+    static func convertDate(date: Date) -> String {
+        let df = DateFormatter()
+        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        return df.string(from: date)
+    }
 }
