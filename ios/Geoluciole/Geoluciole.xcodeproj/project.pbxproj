@@ -27,6 +27,7 @@
 		234C710723CD0F0000DF70FB /* BadgesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C710623CD0F0000DF70FB /* BadgesCollectionView.swift */; };
 		235D45D123C9247A00992B7B /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235D45D023C9247A00992B7B /* ParentViewController.swift */; };
 		235D45D323C930BC00992B7B /* CustomUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235D45D223C930BC00992B7B /* CustomUIImageView.swift */; };
+		23610E8123CDF593003B6EF8 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8023CDF593003B6EF8 /* CheckBoxView.swift */; };
 		236EE58323CB19560000ADE3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236EE58223CB19560000ADE3 /* UIViewExtension.swift */; };
 		237972DE23CD260600800764 /* LabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237972DD23CD260600800764 /* LabelStyle.swift */; };
 		237972E023CD2E9700800764 /* BadgesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237972DF23CD2E9700800764 /* BadgesCollectionViewCell.swift */; };
@@ -43,6 +44,7 @@
 		23CB178323CCE9AC00B1BF73 /* ShowLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CB178223CCE9AC00B1BF73 /* ShowLevelView.swift */; };
 		23CB178523CCFFCF00B1BF73 /* LastTrophyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CB178423CCFFCF00B1BF73 /* LastTrophyView.swift */; };
 		23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E22D2023C7645100C3540E /* SettingsViewController.swift */; };
+		23E79B3F23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E79B3E23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift */; };
 		23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE123C8C0F400A13999 /* UIColorExtension.swift */; };
 		23F18DE423C8C57000A13999 /* TitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE323C8C57000A13999 /* TitleBarView.swift */; };
 		6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427323CCB926004DFD43 /* CustomUIButton.swift */; };
@@ -80,6 +82,7 @@
 		234C710623CD0F0000DF70FB /* BadgesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesCollectionView.swift; sourceTree = "<group>"; };
 		235D45D023C9247A00992B7B /* ParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		235D45D223C930BC00992B7B /* CustomUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIImageView.swift; sourceTree = "<group>"; };
+		23610E8023CDF593003B6EF8 /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		236EE58223CB19560000ADE3 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		237972DD23CD260600800764 /* LabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyle.swift; sourceTree = "<group>"; };
 		237972DF23CD2E9700800764 /* BadgesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -98,6 +101,7 @@
 		23CB178223CCE9AC00B1BF73 /* ShowLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLevelView.swift; sourceTree = "<group>"; };
 		23CB178423CCFFCF00B1BF73 /* LastTrophyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTrophyView.swift; sourceTree = "<group>"; };
 		23E22D2023C7645100C3540E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		23E79B3E23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationOfEngagementFormView.swift; sourceTree = "<group>"; };
 		23F18DE123C8C0F400A13999 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		23F18DE323C8C57000A13999 /* TitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarView.swift; sourceTree = "<group>"; };
 		6263427323CCB926004DFD43 /* CustomUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIButton.swift; sourceTree = "<group>"; };
@@ -274,6 +278,8 @@
 				23F18DE323C8C57000A13999 /* TitleBarView.swift */,
 				23A76CC523CCB71900E191B6 /* StatsView.swift */,
 				234C710623CD0F0000DF70FB /* BadgesCollectionView.swift */,
+				23E79B3E23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift */,
+				23610E8023CDF593003B6EF8 /* CheckBoxView.swift */,
 			);
 			path = UIItems;
 			sourceTree = "<group>";
@@ -363,11 +369,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				237AD42323C606D4009937AB /* HomeViewController.swift in Sources */,
+				23E79B3F23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift in Sources */,
 				23CB178123CCDCFE00B1BF73 /* CollectDataSwitchView.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
 				6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */,
 				234C710723CD0F0000DF70FB /* BadgesCollectionView.swift in Sources */,
 				62BF3D6F23C8840E00945C04 /* UserPrefs.swift in Sources */,
+				23610E8123CDF593003B6EF8 /* CheckBoxView.swift in Sources */,
 				2392A4C823CCC2E1006606B5 /* CustomUILabel.swift in Sources */,
 				62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */,
 				2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */,

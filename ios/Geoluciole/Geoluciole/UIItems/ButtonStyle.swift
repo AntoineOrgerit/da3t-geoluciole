@@ -9,9 +9,5 @@
 import Foundation
 
 enum ButtonStyle {
-    case buttonLight
-    case buttonLightDark
-    case buttonPrimary
-    case buttonDark
-    case buttonPrimaryDark
+    case buttonLight, buttonLightDark, buttonPrimary, buttonDark, buttonPrimaryDark, delete
 }
