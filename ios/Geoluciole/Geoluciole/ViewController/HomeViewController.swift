@@ -13,6 +13,7 @@ class HomeViewController: ParentViewController {
     fileprivate var showLevelView: ShowLevelView!
     fileprivate var lastTrophyView: LastTrophyView!
     fileprivate var collectDataSwitchView: CollectDataSwitchView!
+    let param = Params.getInstance().param
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,8 @@ class HomeViewController: ParentViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let send = param.bool(forKey: "send_data")
+        self.collectDataSwitchView.setSwitch(value: send)
     }
 
     override func didReceiveMemoryWarning() {
