@@ -3,6 +3,8 @@ package com.univlr.geoluciole.model;
 import android.content.Context;
 import android.provider.Settings;
 
+import java.util.Locale;
+
 import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
 import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
 
@@ -13,20 +15,29 @@ public class UserPreferences {
 
     private String id;
     private boolean consent;
+    private boolean gpsConsent;
+    private boolean accountConsent;
     private long validityDuration;
     private String language;
 
 
-    public UserPreferences(boolean consent, long validityDuration, String language, Context context) {
+    public UserPreferences(String language, Context context) {
         this.id = generateID(context);
         this.consent = false;
-        this.validityDuration = validityDuration;
+        this.gpsConsent = false;
+        this.accountConsent = false;
+        this.validityDuration = 0;
         this.language = language;
 
     }
 
     public static UserPreferences getInstance(Context context) {
-        return getSavedObjectFromPreference(context, UserPreferences.USER_PREFERENCE_FILENAME, UserPreferences.USER_PREFERENCE_KEY, UserPreferences.class);
+        UserPreferences userPreferences =  getSavedObjectFromPreference(context, UserPreferences.USER_PREFERENCE_FILENAME, UserPreferences.USER_PREFERENCE_KEY, UserPreferences.class);
+        if (userPreferences == null) {
+            String lang = Locale.getDefault().getDisplayLanguage();
+            userPreferences = new UserPreferences(lang, context);
+        }
+        return userPreferences;
     }
 
     public static void storeInstance(Context context, UserPreferences u) {
@@ -42,12 +53,26 @@ public class UserPreferences {
         return newID;
     }
 
-    public boolean isConsent() {
-        return consent;
+    public boolean hasGiveConsent() {
+        return this.consent;
     }
 
-    public void setConsent(boolean consent) {
-        this.consent = consent;
+    public boolean isGpsConsent() {
+        return gpsConsent;
+    }
+
+    public boolean isAccountConsent() {
+        return accountConsent;
+    }
+
+    public void setGpsConsent(boolean consent) {
+        this.gpsConsent = consent;
+        this.consent = true;
+    }
+
+    public void setAccountConsent(boolean consent) {
+        this.accountConsent = consent;
+        this.consent = true;
     }
 
     public long getValidityDuration() {
@@ -74,7 +99,9 @@ public class UserPreferences {
     public String toString() {
         return "UserPreferences{" +
                 "id='" + id + '\'' +
-                ", consent=" + consent +
+                ", consent=" + consent+
+                ", gpsConsent=" + gpsConsent +
+                ", accountConsent=" + accountConsent +
                 ", validityDuration=" + validityDuration +
                 ", language='" + language + '\'' +
                 '}';
