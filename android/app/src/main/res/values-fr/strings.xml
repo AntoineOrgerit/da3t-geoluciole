@@ -4,8 +4,25 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="action_validate">Valider</string>
+
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole en fonctionnement</string>
     <string name="location_notification_content_text">Le suivi de votre parcours est en cours</string>
     <string name="location_notification_button_text">Ouvrir l\'application</string>
+
+    <!-- RGPD CONTENT -->
+    <string name="rgpd_title_primary">Consentement RGPD</string>
+    <string name="rgpd_title_project">PROJET Région Nouvelle-Aquitaine DA3T</string>
+    <!--RGPD CONTENT : First content -->
+    <string name="rgpd_first_content_1_line">Les données recueillies par l’application font l’objet d’une inscription sur le registre des
+    traitements de la Rochelle Université.</string>
+    <string name="rgpd_first_content_2_line">Les données sont recueillies à des fins de recherche par les chercheurs du LIENSS dans le cadre
+    du projet DA3T.</string>
+    <string name="rgpd_first_content_3_line">Le projet de recherche vise à proposer un dispositif d’analyse des traces géonumériques dans le
+    but d’améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine.</string>
+    <string name="rgpd_first_content_4_line">La finalité de l’étude est d’interroger l’apport supposé des traces géonumériques dans la
+    compréhension de la ville touristique atlantique.</string>
+    <string name="rgpd_first_content_consentement">J’autorise les chercheurs du laboratoire LIENSS à utiliser mes données dans le cadre
+    du projet DA3T</string>
 </resources>

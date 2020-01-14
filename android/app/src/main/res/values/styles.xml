@@ -14,4 +14,39 @@
         <item name ="android:windowBackground">@drawable/ic_launcher_background</item>
     </style>
 
+    <!-- Style for RGPD Screen -->
+
+    <style name="textviewTitle" parent="@android:style/Widget.TextView">
+        <item name="android:layout_marginBottom">@dimen/rgpd_vertical_margin_title_primary</item>
+        <item name="android:textAppearance">@style/rgpd_title_primary</item>
+    </style>
+
+    <style name="textviewTitle_1" parent="@android:style/Widget.TextView">
+        <item name="android:textAppearance">@style/rgpd_title_1</item>
+        <item name="android:layout_marginStart">@dimen/rgpd_horizontal_margin_title_1</item>
+        <item name="android:layout_marginBottom">@dimen/rgpd_vertical_margin_title_1</item>
+    </style>
+
+    <style name="textviewContent">
+        <item name="android:layout_marginStart">@dimen/rgpd_horizontal_margin_content</item>
+        <item name="android:layout_marginBottom">@dimen/rgpd_vertical_margin_content</item>
+    </style>
+
+    <style name="rgpd_title_primary" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="rgpd_title_1">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="mySwitch" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textColorPrimaryDisableOnly">#b71c1c</item>
+        <item name="android:colorControlActivated">#1b5e20</item>
+        <item name="android:colorForeground">#f57f17</item>
+    </style>
 </resources>
