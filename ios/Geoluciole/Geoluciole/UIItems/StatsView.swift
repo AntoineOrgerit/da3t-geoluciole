@@ -23,19 +23,19 @@ class StatsView: UIView {
 
         let lbDistance = CustomUILabel()
         lbDistance.text = "Distance parcourue"
-        lbDistance.setStyle(style: .paragraphe)
+        lbDistance.setStyle(style: .Paragraphe)
         lbDistance.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(lbDistance)
 
         let lbValeurDist = CustomUILabel()
         lbValeurDist.text = "0"
-        lbValeurDist.setStyle(style: .paragraphe)
+        lbValeurDist.setStyle(style: .Paragraphe)
         lbValeurDist.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(lbValeurDist)
 
         let lbvaleurMetrique = CustomUILabel()
         lbvaleurMetrique.text = "Km"
-        lbvaleurMetrique.setStyle(style: .paragraphe)
+        lbvaleurMetrique.setStyle(style: .Paragraphe)
         lbvaleurMetrique.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(lbvaleurMetrique)
 

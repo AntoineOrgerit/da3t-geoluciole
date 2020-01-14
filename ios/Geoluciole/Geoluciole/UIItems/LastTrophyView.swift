@@ -28,6 +28,8 @@ class LastTrophyView: UIView {
         trophy.image = UIImage(named: "no-badge")
         trophy.translatesAutoresizingMaskIntoConstraints = false
         trophy.contentMode = .scaleAspectFit
+        trophy.layer.borderColor = UIColor.black.cgColor
+        trophy.layer.borderWidth = 2
         self.addSubview(trophy)
         
         NSLayoutConstraint.activate([

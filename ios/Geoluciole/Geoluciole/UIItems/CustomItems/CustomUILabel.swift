@@ -9,33 +9,18 @@
 import UIKit
 import Foundation
 
-
-enum LabelStyle {
-    case TitreSectionBadges
-    case SousTitreSection
-    case paragraphe
-}
-
 class CustomUILabel: UILabel {
 
     func setStyle (style: LabelStyle) {
+        self.adjustsFontForContentSizeCategory = true
+        
         switch style {
         case .TitreSectionBadges:
             self.font = UIFont.preferredFont(forTextStyle: .title2)
-            self.adjustsFontForContentSizeCategory = true
-
-            self.textAlignment = .left
         case .SousTitreSection:
             self.font = UIFont.preferredFont(forTextStyle: .title3)
-            self.adjustsFontForContentSizeCategory = true
-
-            self.textAlignment = .left
-        case .paragraphe:
+        case .Paragraphe:
             self.font = UIFont.preferredFont(forTextStyle: .body)
-            self.adjustsFontForContentSizeCategory = true
-
-            self.textAlignment = .left
-       
         }
     }
 }

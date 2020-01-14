@@ -1,5 +1,5 @@
 //
-//  BadgesView.swift
+//  BadgesCollectionView.swift
 //  Geoluciole
 //
 //  Created by local192 on 13/01/2020.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class BadgesView {
-    
+class BadgesCollectionView: UICollectionView {
+
 }

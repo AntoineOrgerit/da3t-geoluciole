@@ -34,12 +34,12 @@ class TitleBarView: UIView, UIGestureRecognizerDelegate {
         self.addSubview(icon)
 
         NSLayoutConstraint.activate([
-            icon.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            icon.topAnchor.constraint(equalTo: self.topAnchor),
             NSLayoutConstraint(item: icon, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: Constantes.TITLE_BAR_PADDING_HORIZONTAL),
             icon.heightAnchor.constraint(equalToConstant: statusBarHeight),
             icon.widthAnchor.constraint(equalToConstant: statusBarHeight),
             
-            titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
             NSLayoutConstraint(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: icon, attribute: .right, multiplier: 1, constant: Constantes.TITLE_BAR_PADDING_HORIZONTAL),
             titleLabel.heightAnchor.constraint(equalToConstant: statusBarHeight),
             titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor)
