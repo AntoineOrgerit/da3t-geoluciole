@@ -19,6 +19,7 @@
 
     <!-- CONSTANT FORM -->
     <string name="form_title">Form</string>
+    <string name="form_step">1/3</string>
     <!-- GENERAL INFO FORM LABELS -->
     <string name="form_lastname">Lastname</string>
     <string name="form_firstname">FirstName</string>

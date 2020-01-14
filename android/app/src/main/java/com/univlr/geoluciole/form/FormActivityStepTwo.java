@@ -9,11 +9,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.solver.widgets.ConstraintAnchor;
 
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
@@ -21,6 +21,9 @@ import com.univlr.geoluciole.model.FormModel;
 import java.util.Calendar;
 
 public class FormActivityStepTwo extends AppCompatActivity {
+    // variable step
+    private TextView step;
+
     // variables dates et heures
     private EditText txtDateArrivee;
     private EditText txtTimeArrivee;
@@ -43,7 +46,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private int mHour;
     private int mMinute;
 
-    FormModel form;
+    private FormModel form;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
         setContentView(R.layout.form_activity_step_two);
         // recuperation de l'objet formulaire
         form = (FormModel) getIntent().getSerializableExtra("Form");
+
         // init éléments du form
         initUI();
         // desactive les keyboards des inputs
@@ -61,7 +65,15 @@ public class FormActivityStepTwo extends AppCompatActivity {
         initListenersButtons();
     }
 
+    /**
+     * Méthode pour initialiser les éléments UI
+     */
     private void initUI() {
+        // step
+        this.step = (TextView) findViewById(R.id.form_step);
+        if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/true) {
+            this.step.setText("2/3");
+        }
         // date et heure arrivée boutons
         this.btnDatePickerArrivee = (Button) findViewById(R.id.btn_in_date);
         this.btnTimePickerArrivee = (Button) findViewById(R.id.btn_in_time);
@@ -80,8 +92,15 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.btnContinue = (Button) findViewById(R.id.btn_next);
         // bouton précédent
         this.btnPrevious = (Button) findViewById(R.id.btn_prev);
+        // cacher le bouton precedent si pas de consentement
+        if (/*!UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/false) {
+            this.btnPrevious.setVisibility(View.INVISIBLE);
+        }
     }
 
+    /**
+     * Méthode pour désactiver l'affichage des keyboard au clic sur les input
+     */
     private void disableKeyboardOnInputClick() {
         this.txtDateArrivee.setInputType(EditorInfo.TYPE_NULL);
         this.txtTimeArrivee.setInputType(EditorInfo.TYPE_NULL);
@@ -89,34 +108,14 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.txtTimeDepart.setInputType(EditorInfo.TYPE_NULL);
     }
 
+    /**
+     * Méthode pour ajouter les listeners de DatePicker et Timepicker sur les inputs
+     */
     private void initListenersInput() {
         this.txtDateArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee));
         this.txtTimeArrivee.setOnClickListener(getAndSetTextTime(txtTimeArrivee));
         this.txtDateDepart.setOnClickListener(getAndSetTextDate(txtDateDepart));
         this.txtTimeDepart.setOnClickListener(getAndSetTextTime(txtTimeDepart));
-    }
-
-    // to do
-    private View.OnFocusChangeListener getAndSetTextDateFocus(final EditText text) {
-        return new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                // Get Current Date
-                final Calendar c = Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(FormActivityStepTwo.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String month = monthOfYear < 10 ? "0" + (monthOfYear + 1) : (monthOfYear + 1) + "";
-                        text.setText(dayOfMonth + "-" + month + "-" + year);
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
-        };
     }
 
     private void initListenersButtons() {
@@ -155,7 +154,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
                         ,
 
                         Toast.LENGTH_SHORT).show();
-
+                System.out.println(form.toString());
                 Intent intent = new Intent(getApplicationContext(),
                         FormActivityStepTwo.class);
                 intent.putExtra("Form", form);
@@ -195,11 +194,16 @@ public class FormActivityStepTwo extends AppCompatActivity {
 
     /**
      * Redéfinition de la méthode onBackPressed
-     * afin de revenir sur le premier écran du formulaire
+     * afin de revenir sur le premier écran du formulaire si consentement
+     * sinon réduit l'application
      */
     @Override
     public void onBackPressed() {
-        back();
+        if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/ true) {
+            back();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**

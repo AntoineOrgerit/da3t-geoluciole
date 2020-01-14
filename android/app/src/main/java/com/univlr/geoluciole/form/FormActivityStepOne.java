@@ -10,11 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.univlr.geoluciole.FormActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModelWithoutConsent;
-
-import java.io.Serializable;
 
 public class FormActivityStepOne extends AppCompatActivity {
 
@@ -30,6 +27,7 @@ public class FormActivityStepOne extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_activity_step_one);
+
         // init form
         formWithoutConsent = new FormModelWithoutConsent();
 
@@ -38,7 +36,7 @@ public class FormActivityStepOne extends AppCompatActivity {
         firstname = (TextInputEditText) findViewById(R.id.firstname);
         email = (TextInputEditText) findViewById(R.id.email);
 
-        // show keyboard
+        // cacher keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         // bouton envoi

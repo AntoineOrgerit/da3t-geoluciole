@@ -75,16 +75,6 @@ public class MainActivity extends LocationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        UserPreferences u = new UserPreferences(false, 123, "FR", this);
-        Log.i("ID RETRIEVED ", u.getId());
-
-        // to store an object
-        UserPreferences.storeInstance(this, u);
-        // to retrive object stored in preference
-        u = UserPreferences.getInstance(this);
-        Log.i("UserPreferences",u.toString());
-
-
         // temporary receiver
         myReceiver = new MyReceiver();
 

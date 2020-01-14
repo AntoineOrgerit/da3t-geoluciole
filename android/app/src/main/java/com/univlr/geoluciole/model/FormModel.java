@@ -15,8 +15,8 @@ public class FormModel implements Serializable {
     private boolean twoMonths;
     private String transport;
 
-    public FormModel() {
 
+    public FormModel() {
     }
 
     public String getWithWhom() {
@@ -97,5 +97,21 @@ public class FormModel implements Serializable {
 
     public void setTimeOut(String timeOut) {
         this.timeOut = timeOut;
+    }
+
+    @Override
+    public String toString() {
+        return "FormModel{" +
+                "dateIn='" + dateIn + '\'' +
+                ", timeIn='" + timeIn + '\'' +
+                ", dateOut='" + dateOut + '\'' +
+                ", timeOut='" + timeOut + '\'' +
+                ", withWhom='" + withWhom + '\'' +
+                ", firstTime=" + firstTime +
+                ", knowCity=" + knowCity +
+                ", fiveTimes=" + fiveTimes +
+                ", twoMonths=" + twoMonths +
+                ", transport='" + transport + '\'' +
+                '}';
     }
 }

@@ -34,6 +34,18 @@
             app:layout_constraintTop_toTopOf="parent" />
         <!-- FORM TITLE - END -->
 
+        <!-- FORM STEP - BEGIN -->
+        <TextView
+            android:id="@+id/form_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/form_step"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!-- FORM STEP - END -->
+
         <!-- IN LA ROCHELLE TITLE - BEGIN-->
         <TextView
             android:id="@+id/in_LaRochelle_title"
@@ -67,6 +79,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:enabled="true"
+                android:focusableInTouchMode="false"
                 android:hint="@string/form_date_in_hint"
                 android:inputType="date"
                 android:textColor="@color/text_disabled"
@@ -110,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:enabled="true"
+                android:focusableInTouchMode="false"
                 android:hint="@string/form_time_in_hint"
                 android:inputType="time"
                 android:textColor="@color/text_disabled"
@@ -163,6 +177,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:enabled="true"
+                android:focusableInTouchMode="false"
                 android:hint="@string/form_date_out_hint"
                 android:inputType="date"
                 android:textColor="@color/text_disabled"
@@ -209,6 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:enabled="true"
+                android:focusableInTouchMode="false"
                 android:hint="@string/form_time_in_hint"
                 android:inputType="time"
                 android:textColor="@color/text_disabled"

@@ -31,4 +31,13 @@ public class FormModelWithoutConsent extends FormModel{
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "FormModelWithoutConsent{" +
+                "lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
