@@ -65,6 +65,7 @@ class HomeViewController: ParentViewController {
             view.clipsToBounds = true
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let send = self.userPrefs.bool(forKey: "send_data")
@@ -74,13 +75,11 @@ class HomeViewController: ParentViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if !userPrefs.bool(forKey: "rgpd_consent") {
-            let rgpdController = RgpdGPSConsentementController()
+            let rgpdController = GPSConsentRGPD()
             rgpdController.modalPresentationStyle = .fullScreen
             self.present(rgpdController,animated: true, completion: nil)
         }
     }
-
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

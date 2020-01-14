@@ -26,6 +26,7 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
         self.addSubview(self.checkbox)
 
         self.optionLabel = UILabel()
+        self.optionLabel.numberOfLines = 0
         self.optionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         self.optionLabel.adjustsFontForContentSizeCategory = true
         self.optionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -39,20 +40,17 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
         self.addGestureRecognizer(tapRecognizer)
 
         NSLayoutConstraint.activate([
-            
-            self.topAnchor.constraint(equalTo: self.checkbox.topAnchor),
-            self.bottomAnchor.constraint(equalTo: self.checkbox.bottomAnchor),
+
+            self.topAnchor.constraint(equalTo: self.optionLabel.topAnchor),
+            self.bottomAnchor.constraint(equalTo: self.optionLabel.bottomAnchor),
             self.leftAnchor.constraint(equalTo: self.checkbox.leftAnchor),
             self.rightAnchor.constraint(equalTo: self.optionLabel.rightAnchor),
 
-            self.checkbox.topAnchor.constraint(equalTo: self.topAnchor),
-            self.checkbox.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.checkbox.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             self.checkbox.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.checkbox.heightAnchor.constraint(equalToConstant: 25),
             self.checkbox.widthAnchor.constraint(equalTo: self.checkbox.heightAnchor),
 
-            self.optionLabel.topAnchor.constraint(equalTo: self.topAnchor),
-            self.optionLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.optionLabel.leftAnchor.constraint(equalTo: self.checkbox.rightAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
         ])
     }
@@ -73,8 +71,28 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
         self.setChecked(checked: !self.isChecked())
         self.onCheckChange?(self)
     }
-    
-    func setChecked(checked:Bool){
+
+    func setChecked(checked: Bool) {
         self.checkbox.isChecked = checked
+    }
+
+    func setStyle(style: CheckBoxView.Style) {
+        self.checkbox.style = style
+    }
+
+    func setBorderStyle(style: CheckBoxView.BorderStyle) {
+        self.checkbox.borderStyle = style
+    }
+
+    func setCheckmarkColor(color: UIColor) {
+        self.checkbox.checkmarkColor = color
+    }
+
+    func setCheckedBorderColor(color: UIColor) {
+        self.checkbox.checkedBorderColor = color
+    }
+
+    func setUncheckedBorderColor(color: UIColor) {
+        self.checkbox.uncheckedBorderColor = color
     }
 }
