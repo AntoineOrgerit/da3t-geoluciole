@@ -39,8 +39,7 @@ class HomeViewController: ParentViewController {
         NSLayoutConstraint.activate([
             self.showLevelView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             self.showLevelView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            self.showLevelView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
-            self.showLevelView.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
+            self.showLevelView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
         ])
 
         // Constraints LastTrophyView
@@ -61,6 +60,10 @@ class HomeViewController: ParentViewController {
             self.collectDataSwitchView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
             self.collectDataSwitchView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
         ])
+        
+        for view in self.rootView.subviews {
+            view.clipsToBounds = true
+        }
     }
 
     override func didReceiveMemoryWarning() {

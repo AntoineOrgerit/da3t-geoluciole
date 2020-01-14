@@ -11,7 +11,7 @@ import UIKit
 
 extension UIColor {
 
-    class var backgroundTitleBar: UIColor {
+    class var backgroundDefault: UIColor {
         return UIColor(red: 241 / 255, green: 145 / 255, blue: 67 / 255, alpha: 1)
     }
     

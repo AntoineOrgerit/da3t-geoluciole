@@ -21,7 +21,7 @@ class ParentViewController: UIViewController {
         self.view.removeAllViews()
 
         let subStatusBarView = UIView()
-        subStatusBarView.backgroundColor = .backgroundTitleBar
+        subStatusBarView.backgroundColor = .backgroundDefault
         subStatusBarView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(subStatusBarView)
 

@@ -14,7 +14,7 @@ class TitleBarView: UIView, UIGestureRecognizerDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.backgroundColor = .backgroundTitleBar
+        self.backgroundColor = .backgroundDefault
 
         let statusBarHeight = Tools.getStatusBarHeight()
 

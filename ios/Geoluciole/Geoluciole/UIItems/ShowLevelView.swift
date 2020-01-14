@@ -17,8 +17,6 @@ class ShowLevelView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        self.setDefaultBoxStyle()
         
         // Label indiquant le niveau
         self.levelNumberLabel = UILabel()
@@ -27,7 +25,6 @@ class ShowLevelView: UIView {
         self.levelNumberLabel.adjustsFontForContentSizeCategory = true
         self.levelNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         self.levelNumberLabel.textAlignment = .left
-        self.levelNumberLabel.backgroundColor = .yellow
         self.addSubview(self.levelNumberLabel)
 
         // progressview
@@ -59,8 +56,6 @@ class ShowLevelView: UIView {
     func setProgress(value: Float) {
         self.progressBar.progress = value
     }
-
-
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
