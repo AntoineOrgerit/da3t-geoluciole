@@ -83,7 +83,7 @@ class GPSConsentRGPDViewController: ParentViewController {
         self.checkbox.setTitleOption(titleOption: Constantes.TEXTE_VALIDATION_DROIT)
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
-            guard let strongSelf = self else { return }
+            guard self != nil else { return }
             
             // Faire le save prefs dans methode click du bouton
             // Si la checkbox est cochée alors activer le bouton et le mettre en orange
