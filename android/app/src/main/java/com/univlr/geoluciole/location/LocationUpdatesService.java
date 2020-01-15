@@ -180,9 +180,9 @@ public class LocationUpdatesService extends Service {
         mCriteria.setAccuracy(Criteria.ACCURACY_FINE);
         mCriteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
         mCriteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
-        mCriteria.setAltitudeRequired(true);
+        /*mCriteria.setAltitudeRequired(true);
         mCriteria.setBearingRequired(true);
-        mCriteria.setSpeedRequired(true);
+        mCriteria.setSpeedRequired(true);*/
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -311,7 +311,7 @@ public class LocationUpdatesService extends Service {
         Utils.setRequestingLocationUpdates(this, true);
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
-            mLocationManager.requestLocationUpdates(10000, 50, mCriteria, mLocationListener, Looper.myLooper());
+            mLocationManager.requestLocationUpdates(10000, 10, mCriteria, mLocationListener, Looper.myLooper());
             /*mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                     mLocationCallback, Looper.myLooper());*/
         } catch (SecurityException unlikely) {
