@@ -1,15 +1,16 @@
 //
-//  GPSConsentRGPDViewController.swift
+//  FormulaireConsentRGPDViewController.swift
 //  Geoluciole
 //
-//  Created by Jessy BARRITAULT on 14/01/2020.
+//  Created by Jessy BARRITAULT on 15/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
+
 
 import Foundation
 import UIKit
 
-class GPSConsentRGPDViewController: ParentViewController {
+class FormulaireConsentRGPDViewController: ParentViewController {
 
     fileprivate var textRGPD: UITextView!
     fileprivate var titreRGPD: UILabel!
@@ -44,7 +45,7 @@ class GPSConsentRGPDViewController: ParentViewController {
 
         // texte rgpd
         self.textRGPD = UITextView()
-        self.textRGPD.text = Constantes.TEXT_RGPD
+        self.textRGPD.text = Constantes.FORM_RGPD
         self.textRGPD.isUserInteractionEnabled = true
         self.textRGPD.isScrollEnabled = true
         self.textRGPD.showsVerticalScrollIndicator = true
@@ -69,8 +70,8 @@ class GPSConsentRGPDViewController: ParentViewController {
         self.button.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
             if strongSelf.checkbox.isChecked() {
-                strongSelf.sendDataCompte()
-                strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
+                //strongSelf.sendDataCompte()
+                strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)
             }
             strongSelf.dismiss(animated: true, completion: nil)
         }
@@ -83,7 +84,7 @@ class GPSConsentRGPDViewController: ParentViewController {
         self.checkbox.setCheckmarkColor(color: .orange)
         self.checkbox.setCheckedBorderColor(color: .orange)
         self.checkbox.setUncheckedBorderColor(color: .orange)
-        self.checkbox.setTitleOption(titleOption: Constantes.TEXTE_VALIDATION_DROIT)
+        self.checkbox.setTitleOption(titleOption: Constantes.TEXTE_FORM_DROIT)
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }

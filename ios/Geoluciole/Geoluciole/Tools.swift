@@ -91,7 +91,7 @@ class Tools {
         var identifier: String = ""
 
         // On vérifie si on a un identifiant de généré
-        let id = UserPrefs.getInstance().string(forKey: "identifier")
+        let id = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_IDENTIFIER)
 
         // Si oui, on le récupère
         if id != "" {
@@ -113,7 +113,7 @@ class Tools {
             identifier = String(hashId[range])
 
             // et on sauvegarde le paramètre
-            UserPrefs.getInstance().setPrefs(key: "identifier", value: identifier)
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_IDENTIFIER, value: identifier)
         }
 
         return identifier

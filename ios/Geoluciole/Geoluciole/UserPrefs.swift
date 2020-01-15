@@ -19,7 +19,11 @@ class UserPrefs {
     static let KEY_LANGUAGE = "language"
     static let KEY_LAST_POINT = "last_point"
     static let DISTANCE = "distance"
+    static let KEY_IDENTIFIER = "identifier"
+    static let KEY_RGPD_CONSENT = "rgpd_consent"
+    static let KEY_FORMULAIRE_CONSENT = "formulaire_consent"
 
+    
     fileprivate init() {
         self.userPrefs = UserDefaults.standard
 
