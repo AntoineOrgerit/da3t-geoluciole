@@ -23,9 +23,16 @@ class LanguageSelectorView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Langue de l'application"
         self.addSubview(titleLabel)
+        
+        let languageSelected = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_LANGUAGE)
 
         frenchOption = CheckBoxFieldView()
-        frenchOption.setTitleOption(titleOption: "Français")
+        frenchOption.setTitleOption(titleOption: Constantes.LANGUAGE_FRENCH)
+        
+        if languageSelected == Constantes.LANGUAGE_FRENCH {
+            frenchOption.setChecked(checked: true)
+        }
+    
         frenchOption.translatesAutoresizingMaskIntoConstraints = false
         frenchOption.onCheckChange = { [weak self] checkBox in
             guard let strongSelf = self else { return }
@@ -35,7 +42,12 @@ class LanguageSelectorView: UIView {
         self.addSubview(frenchOption)
 
         englishOption = CheckBoxFieldView()
-        englishOption.setTitleOption(titleOption: "Anglais")
+        englishOption.setTitleOption(titleOption: Constantes.LANGUAGE_ENGLISH)
+        
+        if languageSelected == Constantes.LANGUAGE_ENGLISH {
+            englishOption.setChecked(checked: true)
+        }
+        
         englishOption.translatesAutoresizingMaskIntoConstraints = false
         englishOption.onCheckChange = { [weak self] checkBox in
             guard let strongSelf = self else { return }
@@ -75,14 +87,20 @@ class LanguageSelectorView: UIView {
     
     fileprivate func saveFrenchChoice() {
         // Décocher toutes les options
+        self.englishOption.setChecked(checked: false)
         
         // Cocher la vraie option
+        self.frenchOption.setChecked(checked: true)
         
         // Save les valeurs
-        //UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LANGUAGE, value: "French")
+        UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LANGUAGE, value: Constantes.LANGUAGE_FRENCH)
     }
     
     fileprivate func saveEnglishChoice() {
+        self.frenchOption.setChecked(checked: false)
         
+        self.englishOption.setChecked(checked: true)
+        
+        UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LANGUAGE, value: Constantes.LANGUAGE_ENGLISH)
     }
 }

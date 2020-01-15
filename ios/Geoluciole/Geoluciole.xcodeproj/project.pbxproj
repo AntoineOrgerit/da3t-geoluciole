@@ -228,6 +228,7 @@
 				23E22D1D23C75EB200C3540E /* Models */,
 				2305CE6723C631CA00354361 /* Geoluciole-Bridging-Header.h */,
 				237AD42E23C606D4009937AB /* Info.plist */,
+				6299A17323CF50E600057652 /* cgu.pdf */,
 				2305CE7B23C632CF00354361 /* geoluciole.sqlite */,
 				2305CE7E23C633B200354361 /* Constantes.swift */,
 				2305CE6A23C631E700354361 /* Database */,
@@ -263,7 +264,6 @@
 		23E22D1D23C75EB200C3540E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6299A17323CF50E600057652 /* cgu.pdf */,
 				2345245523C79F3A001D2CF7 /* Database */,
 				62DAA4DA23C726D4007445A0 /* Location.swift */,
 				223DED2B5B0F5FFE6FA67325 /* ElasticSearchAPIMessage.swift */,
