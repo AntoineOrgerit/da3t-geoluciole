@@ -108,24 +108,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
         }
         
-        if (preferenceUser.object(forKey: UserPrefs.DISTANCE) as? Double) == nil {
+        if (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as? Double) == nil {
             NSLog("set Distance")
-            preferenceUser.setPrefs(key: UserPrefs.DISTANCE, value: 0.0)
+            preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: 0.0)
         }
         NSLog("calcul de la distance")
         
-        let previewDist: Double = (preferenceUser.object(forKey: UserPrefs.DISTANCE) as! Double)
+        let previewDist: Double = (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as! Double)
         
         let coord1 = CLLocation(latitude: (preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) as! [CLLocationDegrees])[0], longitude: (preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) as! [CLLocationDegrees])[1])
         
         let coord2 = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         
-        let tempDist = Tools.getdistance(coordonnee1: coord1, coordonnee2: coord2)
+        let tempDist = Tools.getDistance(coordonnee1: coord1, coordonnee2: coord2)
         NSLog("distance temporaire \(tempDist)")
         let distance = previewDist + tempDist
         NSLog("la distance est :\(distance)")
         //update of the saved data.
-        preferenceUser.setPrefs(key: UserPrefs.DISTANCE, value: distance)
+        preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: distance)
         preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
         
         NSLog("Sortie calcul distance")

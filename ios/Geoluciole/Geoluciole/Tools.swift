@@ -121,18 +121,20 @@ class Tools {
 
     static func convertDate(date: String) -> Date {
         let df = DateFormatter()
-        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.date(from: date)!
     }
 
     static func convertDate(date: Date) -> String {
         let df = DateFormatter()
-        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: date)
     }
-    static func getdistance(coordonnee1: CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
+    
+    static func getDistance(coordonnee1:CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
         return coordonnee1.distance(from: coordonnee2)
     }
+    
     static func getdist_Stat() -> Double {
         guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.DISTANCE) as? Double else {
             return 0
@@ -142,9 +144,18 @@ class Tools {
         return roundDist(dist_parcourue, places: 2)
         
     }
+    
     static func roundDist(_ value: Double, places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
 
         return round(value * divisor) / divisor
+    }
+
+    static func getPreferredLocale() -> Locale {
+        guard let preferredIdentifier = Locale.preferredLanguages.first else {
+            return Locale.current
+        }
+        return Locale(identifier: preferredIdentifier)
+    }
     }
 }
