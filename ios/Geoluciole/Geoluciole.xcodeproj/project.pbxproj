@@ -31,6 +31,7 @@
 		23610E8323CE021C003B6EF8 /* DateFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8223CE021C003B6EF8 /* DateFieldView.swift */; };
 		23610E8523CE3446003B6EF8 /* LanguageSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8423CE3446003B6EF8 /* LanguageSelectorView.swift */; };
 		23610E8723CE3719003B6EF8 /* CheckBoxFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8623CE3719003B6EF8 /* CheckBoxFieldView.swift */; };
+		2366D1BA23CF712A00E1B493 /* FormulaireConsentRGPDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2366D1B923CF712A00E1B493 /* FormulaireConsentRGPDViewController.swift */; };
 		236EE58323CB19560000ADE3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236EE58223CB19560000ADE3 /* UIViewExtension.swift */; };
 		237972DE23CD260600800764 /* LabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237972DD23CD260600800764 /* LabelStyle.swift */; };
 		237972E023CD2E9700800764 /* BadgesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237972DF23CD2E9700800764 /* BadgesCollectionViewCell.swift */; };
@@ -93,6 +94,7 @@
 		23610E8223CE021C003B6EF8 /* DateFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFieldView.swift; sourceTree = "<group>"; };
 		23610E8423CE3446003B6EF8 /* LanguageSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectorView.swift; sourceTree = "<group>"; };
 		23610E8623CE3719003B6EF8 /* CheckBoxFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxFieldView.swift; sourceTree = "<group>"; };
+		2366D1B923CF712A00E1B493 /* FormulaireConsentRGPDViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaireConsentRGPDViewController.swift; sourceTree = "<group>"; };
 		236EE58223CB19560000ADE3 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		237972DD23CD260600800764 /* LabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyle.swift; sourceTree = "<group>"; };
 		237972DF23CD2E9700800764 /* BadgesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 		23E22D1E23C75ECE00C3540E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2366D1B923CF712A00E1B493 /* FormulaireConsentRGPDViewController.swift */,
 				62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */,
 				237AD42223C606D4009937AB /* HomeViewController.swift */,
 				23E22D2023C7645100C3540E /* SettingsViewController.swift */,
@@ -424,6 +427,7 @@
 				2305CE8623C639CE00354361 /* DatabaseManager.swift in Sources */,
 				23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */,
 				2305CE7A23C6321200354361 /* FMResultSet.m in Sources */,
+				2366D1BA23CF712A00E1B493 /* FormulaireConsentRGPDViewController.swift in Sources */,
 				235D45D123C9247A00992B7B /* ParentViewController.swift in Sources */,
 				2305CE7723C6321200354361 /* FMDatabaseQueue.m in Sources */,
 				2305CE8923C63E9700354361 /* LocationTable.swift in Sources */,

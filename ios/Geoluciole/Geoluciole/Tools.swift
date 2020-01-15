@@ -130,21 +130,20 @@ class Tools {
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: date)
     }
-    
-    static func getDistance(coordonnee1:CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
+
+    static func getDistance(coordonnee1: CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
         return coordonnee1.distance(from: coordonnee2)
     }
-    
+
     static func getdist_Stat() -> Double {
-        guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.DISTANCE) as? Double else {
+        guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE) as? Double else {
             return 0
         }
         NSLog("distance parcourue :\(dist_parcourue)")
 
         return roundDist(dist_parcourue, places: 2)
-        
     }
-    
+
     static func roundDist(_ value: Double, places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
 
@@ -156,6 +155,5 @@ class Tools {
             return Locale.current
         }
         return Locale(identifier: preferredIdentifier)
-    }
     }
 }
