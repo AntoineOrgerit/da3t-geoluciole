@@ -50,6 +50,7 @@
 		23E79B3F23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E79B3E23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift */; };
 		23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE123C8C0F400A13999 /* UIColorExtension.swift */; };
 		23F18DE423C8C57000A13999 /* TitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE323C8C57000A13999 /* TitleBarView.swift */; };
+		23F98BAA23CF038800DA7931 /* NoBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F98BA923CF038800DA7931 /* NoBadgeView.swift */; };
 		62330D2D23CDF05F003E7586 /* GPSConsentRGPDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62330D2C23CDF05F003E7586 /* GPSConsentRGPDViewController.swift */; };
 		6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427323CCB926004DFD43 /* CustomUIButton.swift */; };
 		6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427523CCC094004DFD43 /* ButtonStyle.swift */; };
@@ -111,6 +112,7 @@
 		23E79B3E23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationOfEngagementFormView.swift; sourceTree = "<group>"; };
 		23F18DE123C8C0F400A13999 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		23F18DE323C8C57000A13999 /* TitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarView.swift; sourceTree = "<group>"; };
+		23F98BA923CF038800DA7931 /* NoBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoBadgeView.swift; sourceTree = "<group>"; };
 		62330D2C23CDF05F003E7586 /* GPSConsentRGPDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSConsentRGPDViewController.swift; sourceTree = "<group>"; };
 		6263427323CCB926004DFD43 /* CustomUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIButton.swift; sourceTree = "<group>"; };
 		6263427523CCC094004DFD43 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonStyle.swift; path = Geoluciole/UIItems/ButtonStyle.swift; sourceTree = SOURCE_ROOT; };
@@ -294,6 +296,7 @@
 				23610E8223CE021C003B6EF8 /* DateFieldView.swift */,
 				23610E8423CE3446003B6EF8 /* LanguageSelectorView.swift */,
 				23610E8623CE3719003B6EF8 /* CheckBoxFieldView.swift */,
+				23F98BA923CF038800DA7931 /* NoBadgeView.swift */,
 			);
 			path = UIItems;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				235D45D123C9247A00992B7B /* ParentViewController.swift in Sources */,
 				2305CE7723C6321200354361 /* FMDatabaseQueue.m in Sources */,
 				2305CE8923C63E9700354361 /* LocationTable.swift in Sources */,
+				23F98BAA23CF038800DA7931 /* NoBadgeView.swift in Sources */,
 				23610E8523CE3446003B6EF8 /* LanguageSelectorView.swift in Sources */,
 				2305CE7923C6321200354361 /* FMDatabaseAdditions.m in Sources */,
 				223DE77FF88A8044FD599915 /* ElasticSearchAPIMessage.swift in Sources */,

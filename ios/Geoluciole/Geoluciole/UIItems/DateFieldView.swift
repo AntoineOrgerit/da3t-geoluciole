@@ -34,6 +34,8 @@ class DateFieldView: UIView {
         self.dateLabel.adjustsFontForContentSizeCategory = true
         self.dateLabel.translatesAutoresizingMaskIntoConstraints = false
         self.dateLabel.text = Tools.convertDate(date: Date())
+        self.dateLabel.numberOfLines = 0
+        self.dateLabel.textAlignment = .center
         wrapDate.addSubview(self.dateLabel)
 
         let dropDown = UIImageView()

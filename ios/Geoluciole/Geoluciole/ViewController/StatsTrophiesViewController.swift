@@ -8,9 +8,7 @@
 
 import UIKit
 
-class StatsTrophiesViewController: ParentViewController/*,  UICollectionViewDelegateFlowLayout, UICollectionViewDataSource*/  {
-
-//    var collectionData = ["test", "test2", "Test3", "Test4", "Test5", "Test6"]
+class StatsTrophiesViewController: ParentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,52 +17,23 @@ class StatsTrophiesViewController: ParentViewController/*,  UICollectionViewDele
         statView.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(statView)
 
-        self.view.addSubview(statView)
+        let noBadge = NoBadgeView()
+        noBadge.translatesAutoresizingMaskIntoConstraints = false
+        self.rootView.addSubview(noBadge)
+
         NSLayoutConstraint.activate([
             statView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             statView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            statView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
-        ])
+            statView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
 
-//        let layout = UICollectionViewFlowLayout()
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.backgroundColor = .white
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        collectionView.register(BadgesCollectionViewCell.self, forCellWithReuseIdentifier: "BadgesCollectionViewCell")
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-//        collectionView.reloadData()
-//
-//        view.addSubview(statView)
-//        view.addSubview(collectionView)
-//
-//        NSLayoutConstraint.activate([
-//
-//            collectionView.topAnchor.constraint(equalTo: statView.bottomAnchor, constant: 20),
-//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
-//        ])
+            noBadge.topAnchor.constraint(equalTo: statView.bottomAnchor),
+            noBadge.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor),
+            noBadge.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
+            noBadge.rightAnchor.constraint(equalTo: self.rootView.rightAnchor)
+        ])
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-
-//    func collectionView(_ collectionView: UICollectionView, layout UICollectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: collectionView.frame.width / 4, height: collectionView.frame.width / 3)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 10
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BadgesCollectionViewCell", for: indexPath) as! BadgesCollectionViewCell
-//        return cell
-//    }
-//
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
 }
