@@ -1,5 +1,5 @@
 //
-//  GPSConsentRGPD.swift
+//  GPSConsentRGPDViewController.swift
 //  Geoluciole
 //
 //  Created by Jessy BARRITAULT on 14/01/2020.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class GPSConsentRGPD: ParentViewController {
+class GPSConsentRGPDViewController: ParentViewController {
 
     fileprivate var textRGPD: UITextView!
     fileprivate var titreRGPD: UILabel!
@@ -69,7 +69,6 @@ class GPSConsentRGPD: ParentViewController {
         self.button.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            // Il faut dismiss seulement si la checkbox est cochée
             strongSelf.dismiss(animated: true, completion: nil)
         }
         self.rootView.addSubview(self.button)

@@ -75,7 +75,7 @@ class HomeViewController: ParentViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if !userPrefs.bool(forKey: "rgpd_consent") {
-            let rgpdController = GPSConsentRGPD()
+            let rgpdController = GPSConsentRGPDViewController()
             rgpdController.modalPresentationStyle = .fullScreen
             self.present(rgpdController,animated: true, completion: nil)
         }
