@@ -21,13 +21,13 @@ public class PreferencesFragment extends Fragment {
         preferencesViewModel =
                 ViewModelProviders.of(this).get(PreferencesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_preferences, container, false);
-        final TextView textView = root.findViewById(R.id.text_preferences);
+        /*final TextView textView = root.findViewById(R.id.text_preferences);
         preferencesViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 }
