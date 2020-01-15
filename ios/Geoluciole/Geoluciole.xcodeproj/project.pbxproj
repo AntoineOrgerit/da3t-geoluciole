@@ -117,6 +117,7 @@
 		62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTrophiesViewController.swift; sourceTree = "<group>"; };
 		62BF3D6E23C8840E00945C04 /* UserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefs.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		6F10414123CF120000BE044E /* Balade à la rochelle.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Balade à la rochelle.gpx"; path = "../../../../Downloads/Balade à la rochelle.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +199,7 @@
 		237AD41223C606D4009937AB = {
 			isa = PBXGroup;
 			children = (
+				6F10414123CF120000BE044E /* Balade à la rochelle.gpx */,
 				237AD41D23C606D4009937AB /* Geoluciole */,
 				237AD41C23C606D4009937AB /* Products */,
 				237AD43423C60748009937AB /* Frameworks */,
