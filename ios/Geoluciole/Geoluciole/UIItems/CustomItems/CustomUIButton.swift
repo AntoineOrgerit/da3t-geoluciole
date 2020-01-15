@@ -26,25 +26,29 @@ class CustomUIButton: UIButton {
     /// Applique le style définition en paramètre (énumération)
     func setStyle(color: ButtonStyle) {
         var bgColor: UIColor!
-        
-        self.titleEdgeInsets = UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50)
 
         switch color {
         case .buttonLight:
             bgColor = UIColor(red: 255 / 255, green: 220 / 255, blue: 0 / 255, alpha: 1.0)
-            
+
         case .buttonLightDark:
             bgColor = UIColor(red: 250 / 255, green: 188 / 255, blue: 60 / 255, alpha: 1.0)
-            
+
         case .buttonPrimaryDark:
             bgColor = UIColor(red: 241 / 255, green: 145 / 255, blue: 67 / 255, alpha: 1.0)
-            
+
         case .buttonDark:
             bgColor = UIColor(red: 235 / 255, green: 108 / 255, blue: 50 / 255, alpha: 1.0)
-            
+
         case .delete:
             bgColor = .redGeoluciole
-            
+
+        case .CGU:
+            bgColor = .greenGeoluciole
+
+        case .partner:
+            bgColor = .blueGeoluciole
+
         default:
             bgColor = UIColor(red: 255 / 255, green: 178 / 255, blue: 56 / 255, alpha: 1.0)
         }

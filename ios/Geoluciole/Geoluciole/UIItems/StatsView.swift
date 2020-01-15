@@ -27,29 +27,47 @@ class StatsView: UIView {
         lbDistance.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(lbDistance)
 
+        let wrapData = UIView()
+        wrapData.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(wrapData)
+        
         let lbValeurDist = CustomUILabel()
         lbValeurDist.text = "0"
         lbValeurDist.setStyle(style: .Paragraphe)
         lbValeurDist.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(lbValeurDist)
+        wrapData.addSubview(lbValeurDist)
 
         let lbvaleurMetrique = CustomUILabel()
         lbvaleurMetrique.text = "Km"
         lbvaleurMetrique.setStyle(style: .Paragraphe)
         lbvaleurMetrique.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(lbvaleurMetrique)
-
-        
+        wrapData.addSubview(lbvaleurMetrique)
 
         NSLayoutConstraint.activate([
-            lbTitle.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            lbTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            lbDistance.topAnchor.constraint(equalTo: lbTitle.bottomAnchor, constant: 50),
-            lbDistance.leadingAnchor.constraint(equalTo: lbTitle.leadingAnchor, constant: 50),
-            lbValeurDist.topAnchor.constraint(equalTo: lbDistance.topAnchor),
-            lbValeurDist.leadingAnchor.constraint(equalTo: lbDistance.trailingAnchor, constant: 50),
-            lbvaleurMetrique.topAnchor.constraint(equalTo: lbDistance.topAnchor),
-            lbvaleurMetrique.leadingAnchor.constraint(equalTo: lbValeurDist.trailingAnchor, constant: 50)
+            
+            self.bottomAnchor.constraint(equalTo: wrapData.bottomAnchor),
+            
+            lbTitle.topAnchor.constraint(equalTo: self.topAnchor),
+            lbTitle.leftAnchor.constraint(equalTo: self.leftAnchor),
+            lbTitle.rightAnchor.constraint(equalTo: self.rightAnchor),
+            lbTitle.widthAnchor.constraint(equalTo: self.widthAnchor),
+            
+            lbDistance.topAnchor.constraint(equalTo: lbTitle.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            lbDistance.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
+            lbDistance.leftAnchor.constraint(equalTo: self.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            
+            wrapData.topAnchor.constraint(equalTo: lbTitle.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            wrapData.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
+            wrapData.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            wrapData.leftAnchor.constraint(equalTo: lbDistance.rightAnchor),
+            wrapData.bottomAnchor.constraint(equalTo: lbValeurDist.bottomAnchor),
+            
+            lbValeurDist.topAnchor.constraint(equalTo: wrapData.topAnchor),
+            lbValeurDist.leftAnchor.constraint(equalTo: wrapData.leftAnchor),
+            
+            lbvaleurMetrique.topAnchor.constraint(equalTo: wrapData.topAnchor),
+            lbvaleurMetrique.leftAnchor.constraint(equalTo: lbValeurDist.rightAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            lbvaleurMetrique.bottomAnchor.constraint(equalTo: wrapData.bottomAnchor)
         ])
     }
 

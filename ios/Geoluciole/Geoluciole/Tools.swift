@@ -88,7 +88,7 @@ class Tools {
 
     /// Retourne l'identifiant de l'utilisateur
     static func getIdentifier() -> String {
-        var identifier: String
+        var identifier: String = ""
 
         // On vérifie si on a un identifiant de généré
         let id = UserPrefs.getInstance().string(forKey: "identifier")
@@ -101,21 +101,35 @@ class Tools {
         } else {
             print("Aucun identifiant existant ! Génération en cours ...")
 
-            // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
-            let uuid = UIDevice.current.identifierForVendor?.uuidString
+            while (identifier == "" || identifier.starts(with: "00")) {
+                // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
+                let uuid = UIDevice.current.identifierForVendor?.uuidString
 
-            // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
-            let hashId = String(-1 * uuid!.hashCode())
+                // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
+                let hashId = String(-1 * uuid!.hashCode())
 
-            // équivalent identifier.substring(2, 8)
-            let range = hashId.index(hashId.startIndex, offsetBy: 2)..<hashId.index(hashId.startIndex, offsetBy: 9)
-            identifier = String(hashId[range])
+                // équivalent identifier.substring(2, 8)
+                let range = hashId.index(hashId.startIndex, offsetBy: 2)..<hashId.index(hashId.startIndex, offsetBy: 9)
+                identifier = String(hashId[range])
+            }
 
             // et on sauvegarde le paramètre
             UserPrefs.getInstance().setPrefs(key: "identifier", value: identifier)
         }
 
         return identifier
+    }
+
+    static func convertDate(date: String) -> Date {
+        let df = DateFormatter()
+        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        return df.date(from: date)!
+    }
+
+    static func convertDate(date: Date) -> String {
+        let df = DateFormatter()
+        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        return df.string(from: date)
     }
     static func getdistance(coordonnee1:CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
         return coordonnee1.distance(from: coordonnee2)

@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class CustomUILabel: UILabel {
-
+    
     func setStyle (style: LabelStyle) {
         self.adjustsFontForContentSizeCategory = true
         

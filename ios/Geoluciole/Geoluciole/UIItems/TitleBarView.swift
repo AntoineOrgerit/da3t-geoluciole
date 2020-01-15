@@ -18,7 +18,7 @@ class TitleBarView: UIView, UIGestureRecognizerDelegate {
 
         let statusBarHeight = Tools.getStatusBarHeight()
 
-        let titleLabel = UILabel(frame: .zero)
+        let titleLabel = UILabel()
         titleLabel.font = UIFont.preferredFont(forTextStyle: .title1)
         titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -61,9 +61,24 @@ class HomeViewController: ParentViewController {
             self.collectDataSwitchView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
             self.collectDataSwitchView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
         ])
-        
+
         for view in self.rootView.subviews {
             view.clipsToBounds = true
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let send = self.userPrefs.bool(forKey: "send_data")
+        self.collectDataSwitchView.setSwitch(value: send)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !userPrefs.bool(forKey: "rgpd_consent") {
+            let rgpdController = GPSConsentRGPDViewController()
+            rgpdController.modalPresentationStyle = .fullScreen
+            self.present(rgpdController,animated: true, completion: nil)
         }
     }
 

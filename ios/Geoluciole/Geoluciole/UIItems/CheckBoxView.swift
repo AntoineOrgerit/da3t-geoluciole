@@ -83,9 +83,7 @@ open class CheckBoxView: UIControl {
     }
     
     private func setupViews() {
-        
         self.backgroundColor = .clear
-        
     }
     
     //Define the above UIImpactFeedbackGenerator object, and prepare the engine to be ready to provide feedback.
@@ -118,7 +116,7 @@ open class CheckBoxView: UIControl {
         let newRect = rect.insetBy(dx: borderWidth / 2, dy: borderWidth / 2)
         
         let context = UIGraphicsGetCurrentContext()!
-        context.setStrokeColor(self.isChecked ? checkedBorderColor.cgColor : tintColor.cgColor)
+        context.setStrokeColor(self.isChecked ? checkedBorderColor.cgColor : uncheckedBorderColor.cgColor)
         context.setFillColor(checkboxBackgroundColor.cgColor)
         context.setLineWidth(borderWidth)
         
