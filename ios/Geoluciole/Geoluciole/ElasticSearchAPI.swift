@@ -32,7 +32,7 @@ class ElasticSearchAPI {
 
         // On génère une string exemple pour l'index
         let index = "{\"index\": {}}"
-        let idStr = "\"id\": \(identifier)"
+        let idStr = "\"id\": \"\(identifier)\""
 
         for location in locations {
             if location.toString() != "" {

@@ -51,9 +51,11 @@
 		23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE123C8C0F400A13999 /* UIColorExtension.swift */; };
 		23F18DE423C8C57000A13999 /* TitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F18DE323C8C57000A13999 /* TitleBarView.swift */; };
 		23F98BAA23CF038800DA7931 /* NoBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F98BA923CF038800DA7931 /* NoBadgeView.swift */; };
+		62188B9923CF1C9B00D33B43 /* CGUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62188B9823CF1C9B00D33B43 /* CGUViewController.swift */; };
 		62330D2D23CDF05F003E7586 /* GPSConsentRGPDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62330D2C23CDF05F003E7586 /* GPSConsentRGPDViewController.swift */; };
 		6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427323CCB926004DFD43 /* CustomUIButton.swift */; };
 		6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427523CCC094004DFD43 /* ButtonStyle.swift */; };
+		6299A17423CF50E600057652 /* cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 6299A17323CF50E600057652 /* cgu.pdf */; };
 		62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */; };
 		62BF3D6F23C8840E00945C04 /* UserPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6E23C8840E00945C04 /* UserPrefs.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
@@ -113,13 +115,14 @@
 		23F18DE123C8C0F400A13999 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		23F18DE323C8C57000A13999 /* TitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarView.swift; sourceTree = "<group>"; };
 		23F98BA923CF038800DA7931 /* NoBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoBadgeView.swift; sourceTree = "<group>"; };
+		62188B9823CF1C9B00D33B43 /* CGUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGUViewController.swift; sourceTree = "<group>"; };
 		62330D2C23CDF05F003E7586 /* GPSConsentRGPDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSConsentRGPDViewController.swift; sourceTree = "<group>"; };
 		6263427323CCB926004DFD43 /* CustomUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIButton.swift; sourceTree = "<group>"; };
 		6263427523CCC094004DFD43 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonStyle.swift; path = Geoluciole/UIItems/ButtonStyle.swift; sourceTree = SOURCE_ROOT; };
+		6299A17323CF50E600057652 /* cgu.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cgu.pdf; sourceTree = "<group>"; };
 		62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTrophiesViewController.swift; sourceTree = "<group>"; };
 		62BF3D6E23C8840E00945C04 /* UserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefs.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		6F10414123CF120000BE044E /* Balade à la rochelle.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Balade à la rochelle.gpx"; path = "../../../../Downloads/Balade à la rochelle.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +204,6 @@
 		237AD41223C606D4009937AB = {
 			isa = PBXGroup;
 			children = (
-				6F10414123CF120000BE044E /* Balade à la rochelle.gpx */,
 				237AD41D23C606D4009937AB /* Geoluciole */,
 				237AD41C23C606D4009937AB /* Products */,
 				237AD43423C60748009937AB /* Frameworks */,
@@ -261,6 +263,7 @@
 		23E22D1D23C75EB200C3540E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6299A17323CF50E600057652 /* cgu.pdf */,
 				2345245523C79F3A001D2CF7 /* Database */,
 				62DAA4DA23C726D4007445A0 /* Location.swift */,
 				223DED2B5B0F5FFE6FA67325 /* ElasticSearchAPIMessage.swift */,
@@ -276,6 +279,7 @@
 				23E22D2023C7645100C3540E /* SettingsViewController.swift */,
 				235D45D023C9247A00992B7B /* ParentViewController.swift */,
 				62330D2C23CDF05F003E7586 /* GPSConsentRGPDViewController.swift */,
+				62188B9823CF1C9B00D33B43 /* CGUViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -374,6 +378,7 @@
 				2305CE7C23C632CF00354361 /* geoluciole.sqlite in Resources */,
 				237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */,
 				237AD42A23C606D4009937AB /* Assets.xcassets in Resources */,
+				6299A17423CF50E600057652 /* cgu.pdf in Resources */,
 				237AD42823C606D4009937AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +434,7 @@
 				223DE1F1F98FC28DC8BB65A5 /* ElasticSearchAPI.swift in Sources */,
 				223DE3DD94FAE639A3D40CFF /* CharacterExtension.swift in Sources */,
 				23CB178523CCFFCF00B1BF73 /* LastTrophyView.swift in Sources */,
+				62188B9923CF1C9B00D33B43 /* CGUViewController.swift in Sources */,
 				223DE23B94A8E5B52FE2D6E2 /* StringExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,14 +581,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKVA2U4NBE;
+				DEVELOPMENT_TEAM = 3HYBSBSWZP;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciole";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geolucioleee";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -597,14 +603,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKVA2U4NBE;
+				DEVELOPMENT_TEAM = 3HYBSBSWZP;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciole";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geolucioleee";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
