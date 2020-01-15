@@ -101,17 +101,16 @@ class Tools {
         } else {
             print("Aucun identifiant existant ! Génération en cours ...")
 
-            while (identifier == "" || identifier.starts(with: "00")) {
-                // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
-                let uuid = UIDevice.current.identifierForVendor?.uuidString
 
-                // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
-                let hashId = String(-1 * uuid!.hashCode())
+            // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
+            let uuid = UIDevice.current.identifierForVendor?.uuidString
 
-                // équivalent identifier.substring(2, 8)
-                let range = hashId.index(hashId.startIndex, offsetBy: 2)..<hashId.index(hashId.startIndex, offsetBy: 9)
-                identifier = String(hashId[range])
-            }
+            // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
+            let hashId = String(-1 * uuid!.hashCode())
+
+            // équivalent identifier.substring(2, 8)
+            let range = hashId.index(hashId.startIndex, offsetBy: 2)..<hashId.index(hashId.startIndex, offsetBy: 9)
+            identifier = String(hashId[range])
 
             // et on sauvegarde le paramètre
             UserPrefs.getInstance().setPrefs(key: "identifier", value: identifier)
@@ -131,7 +130,8 @@ class Tools {
         df.dateFormat = "dd/MM/yyyy HH:mm:ss"
         return df.string(from: date)
     }
-    static func getdistance(coordonnee1:CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
+
+    static func getdistance(coordonnee1: CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
         return coordonnee1.distance(from: coordonnee2)
     }
 }

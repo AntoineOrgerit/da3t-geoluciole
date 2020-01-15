@@ -37,7 +37,8 @@ class SettingsViewController: ParentViewController {
         let cguButton = CustomUIButton()
         cguButton.setTitle("CONSULTER LES CGU", for: .normal)
         cguButton.onClick = { button in
-            print("Clic sur les CGU")
+            let cguController = CGUViewController()
+            self.present(cguController, animated: true, completion: nil)
         }
         cguButton.setStyle(color: .CGU)
         cguButton.translatesAutoresizingMaskIntoConstraints = false

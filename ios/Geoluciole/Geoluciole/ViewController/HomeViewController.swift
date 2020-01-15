@@ -14,7 +14,6 @@ class HomeViewController: ParentViewController {
     fileprivate var lastTrophyView: LastTrophyView!
     fileprivate var collectDataSwitchView: CollectDataSwitchView!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -75,7 +74,6 @@ class HomeViewController: ParentViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
 //        if !userPrefs.bool(forKey: "rgpd_consent") {
 //            let rgpdController = GPSConsentRGPDViewController()
 //            rgpdController.modalPresentationStyle = .fullScreen
