@@ -9,18 +9,16 @@
 import UIKit
 
 class StatsTrophiesViewController: ParentViewController {
-
+    
+    let noBadge = NoBadgeView()
+    var statView = StatsView()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let statView = StatsView()
+        
         statView.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(statView)
-
-        let noBadge = NoBadgeView()
         noBadge.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(noBadge)
-
         NSLayoutConstraint.activate([
             statView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             statView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
@@ -35,5 +33,7 @@ class StatsTrophiesViewController: ParentViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        statView.setValeurDist()
+        
     }
 }
