@@ -9,7 +9,7 @@
 import UIKit
 
 class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
-
+    
     var collectionData = ["test", "test2", "Test3", "Test4", "Test5", "Test6"]
 
     override func viewDidLoad() {
@@ -44,6 +44,7 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
         ])
+      
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,4 +67,6 @@ class StatsTrophiesViewController: ParentViewController,  UICollectionViewDelega
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+    
 }

@@ -50,8 +50,9 @@ class ParentViewController: UIViewController {
             self.titleBar.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
             self.titleBar.rightAnchor.constraint(equalTo: self.rootView.rightAnchor)
         ])
-
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(ParentViewController.tappedRightButton))
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action:
+            #selector(ParentViewController.tappedRightButton))
         swipeLeft.direction = .left
         self.rootView.addGestureRecognizer(swipeLeft)
 

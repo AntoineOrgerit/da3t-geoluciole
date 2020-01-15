@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class Tools {
 
@@ -115,5 +116,8 @@ class Tools {
         }
 
         return identifier
+    }
+    static func getdistance(coordonnee1:CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
+        return coordonnee1.distance(from: coordonnee2)
     }
 }

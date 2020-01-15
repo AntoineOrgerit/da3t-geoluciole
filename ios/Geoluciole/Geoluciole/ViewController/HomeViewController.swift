@@ -14,6 +14,7 @@ class HomeViewController: ParentViewController {
     fileprivate var lastTrophyView: LastTrophyView!
     fileprivate var collectDataSwitchView: CollectDataSwitchView!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -16,6 +16,8 @@ class UserPrefs {
     static let KEY_DUREE_ENGAGEMENT = "duree_engagement"
     static let KEY_TYPE_ENGAGEMENT = "type_engagement"
     static let KEY_SEND_DATA = "send_data"
+    static let KEY_LAST_POINT = "last_point"
+    static let DISTANCE = "distance"
 
     fileprivate init() {
         self.userPrefs = UserDefaults.standard
