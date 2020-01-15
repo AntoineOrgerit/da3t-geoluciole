@@ -100,10 +100,10 @@ public class MainActivity extends LocationActivity {
                     case R.id.navigation_home:
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.navigation_dashboard:
+                    case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
                         break;
-                    case R.id.navigation_notifications:
+                    case R.id.navigation_dashboard:
                         viewPager.setCurrentItem(2);
                         break;
                 }
