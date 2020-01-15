@@ -5,6 +5,7 @@
     <string name="title_notifications">Notifications</string>
 
     <string name="action_validate">Valider</string>
+    <string name="action_loader">Chargement</string>
 
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole en fonctionnement</string>
