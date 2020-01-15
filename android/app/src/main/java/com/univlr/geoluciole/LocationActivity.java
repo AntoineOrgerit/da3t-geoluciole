@@ -140,6 +140,7 @@ public abstract class LocationActivity extends AppCompatActivity {
                     break;
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     protected abstract void onGPSEnabled();

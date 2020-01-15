@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_achievements"
-        android:name="com.univlr.geoluciole.ui.dashboard.DashboardFragment"
+        android:name="com.univlr.geoluciole.ui.achievements.AchievementsFragment"
         android:label="@string/title_achievements"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_achievements" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.univlr.geoluciole.ui.notifications.NotificationsFragment"
+        android:name="com.univlr.geoluciole.ui.preferences.PreferencesFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_preferences" />
 </navigation>
