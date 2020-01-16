@@ -21,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
+import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
@@ -72,6 +74,9 @@ public class MainActivity extends LocationActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FormModel form = (FormModel) getIntent().getSerializableExtra("Form");
+        System.out.println("Main Activity form retrieved : " + form);
+
         super.onCreate(savedInstanceState);
 
         // temporary receiver
