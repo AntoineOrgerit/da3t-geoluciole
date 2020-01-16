@@ -22,9 +22,9 @@ import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.permissions.Permission;
-import com.univlr.geoluciole.ui.dashboard.DashboardFragment;
+import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
-import com.univlr.geoluciole.ui.notifications.NotificationsFragment;
+import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 
 import java.util.ArrayList;
 
@@ -67,8 +67,8 @@ public class MainActivity extends LocationActivity {
     private ViewPager viewPager;
 
     private HomeFragment homeFragment;
-    private DashboardFragment dashboardFragment;
-    private NotificationsFragment notificationsFragment;
+    private AchievementsFragment dashboardFragment;
+    private PreferencesFragment notificationsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +89,10 @@ public class MainActivity extends LocationActivity {
                     case R.id.navigation_home:
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.navigation_dashboard:
+                    case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
                         break;
-                    case R.id.navigation_notifications:
+                    case R.id.navigation_dashboard:
                         viewPager.setCurrentItem(2);
                         break;
                 }
@@ -131,8 +131,8 @@ public class MainActivity extends LocationActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         homeFragment=new HomeFragment();
-        dashboardFragment =new DashboardFragment();
-        notificationsFragment = new NotificationsFragment();
+        dashboardFragment =new AchievementsFragment();
+        notificationsFragment = new PreferencesFragment();
         adapter.addFragment(homeFragment);
         adapter.addFragment(dashboardFragment);
         adapter.addFragment(notificationsFragment);

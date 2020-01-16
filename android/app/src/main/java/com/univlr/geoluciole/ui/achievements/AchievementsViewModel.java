@@ -1,16 +1,16 @@
-package com.univlr.geoluciole.ui.notifications;
+package com.univlr.geoluciole.ui.achievements;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class AchievementsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public AchievementsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("This is achievements fragment");
     }
 
     public LiveData<String> getText() {

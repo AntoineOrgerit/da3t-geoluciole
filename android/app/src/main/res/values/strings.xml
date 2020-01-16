@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Géoluciole</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_achievements">Stickers</string>
+    <string name="title_dashboard">Preferences</string>
 
     <string name="action_validate">Validate</string>
     <string name="action_loader">Loading</string>
@@ -52,4 +52,15 @@
     <string name="data_collection">Data collection</string>
     <string name="data_collection_activated">ON</string>
     <string name="data_collection_deactivated">OFF</string>
+
+    <!-- PREFERENCES FRAGMENT -->
+    <string name="dates_settings">Commitment period</string>
+    <string name="dates_settings_start">Start date</string>
+    <string name="dates_settings_end">End date</string>
+    <string name="app_language">App language</string>
+    <string name="french_language">French</string>
+    <string name="english_language">English</string>
+    <string name="partners">Consult partners</string>
+    <string name="licence_agreement">Consult the EULA</string>
+    <string name="revoke_consent">Revoke my consent</string>
 </resources>
