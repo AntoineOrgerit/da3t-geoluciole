@@ -7,4 +7,5 @@
     <color name="text_disabled">#000000</color>
     <color name="text_white">#FFFFFF</color>
     <color name="text_question">#5A6978</color>
+    <color name="my_spinner_text_color">#EB6C32</color>
 </resources>

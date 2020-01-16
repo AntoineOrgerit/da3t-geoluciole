@@ -19,7 +19,9 @@
 
     <!-- CONSTANT FORM -->
     <string name="form_title">Formulaire</string>
-    <string name="form_step">1/3</string>
+    <string name="form_step_one_three">1/3</string>
+    <string name="form_step_two_three">2/3</string>
+    <string name="form_step_three_three">3/3</string>
     <!-- GENERAL INFO FORM LABELS -->
     <string name="form_lastname">Nom</string>
     <string name="form_firstname">Prénom</string>
@@ -36,19 +38,21 @@
     <string name="form_date_out_hint">02–01–2020</string>
     <string name="form_time_out_hint">17:00</string>
     <!-- QUESTIONS FORM -->
-    <string name="form_with_whom_title">Avec qui voyagez-vous ?</string>
+    <string name="form_with_whom_title">Avec qui voyagez-vous ?*</string>
     <string-array name="form_responses_whom_array">
+        <item>Choisir une réponse</item>
         <item>Seul</item>
         <item>En Famille</item>
         <item>Entre amis</item>
         <item>En groupe</item>
-        <item>Présence d\'enfants de moins de 13 ans</item>
-        <item>Présence d\'adolescents (13–18 ans)</item>
         <item>Autre</item>
     </string-array>
+    <string name="presence_children">Présence d\'enfants de moins de 13 ans*</string>
+    <string name="presence_teens">Présence d\'adolescents (13–18 ans)*</string>
 
-    <string name="form_transport_title">Comment êtes-vous arrivé à La Rochelle ?</string>
+    <string name="form_transport_title">Comment êtes-vous arrivé à La Rochelle ?*</string>
     <string-array name="form_responses_transport_array">
+        <item>Choisir une réponse</item>
         <item>Voiture personnelle</item>
         <item>Covoiturage / Stop</item>
         <item>Bus</item>
@@ -61,10 +65,10 @@
     </string-array>
 
     <!-- RADIO QUESTIONS -->
-    <string name="form_first_visit_title">Visitez-vous La Rochelle pour la première fois ?</string>
-    <string name="form_know_city_title">Diriez-vous que vous connaissez bien La Rochelle ?</string>
-    <string name="form_more_five_times_title">Êtes-vous déjà venus à La Rochelle + de 5 fois ?</string>
-    <string name="form_more_two_months_title">Avez-vous déjà vécu plus de deux mois à La Rochelle ?</string>
+    <string name="form_first_visit_title">Visitez-vous La Rochelle pour la première fois ?*</string>
+    <string name="form_know_city_title">Diriez-vous que vous connaissez bien La Rochelle ?*</string>
+    <string name="form_more_five_times_title">Êtes-vous déjà venus à La Rochelle + de 5 fois ?*</string>
+    <string name="form_more_two_months_title">Avez-vous déjà vécu plus de deux mois à La Rochelle ?*</string>
     <string name="form_yes_response">Oui</string>
     <string name="form_no_response">Non</string>
 
@@ -72,5 +76,11 @@
     <string name="form_continue">Suivant</string>
     <string name="form_previous">Précédent</string>
     <string name="form_submit">Valider</string>
+
+    <!-- VALIDATION MESSAGES FORM -->
+    <string name="form_err_required">Champ requis</string>
+    <string name="form_err_mail">Adresse mail non valide</string>
+    <string name="form_err_radio">Veuillez sélectionner une réponse</string>
+    <string name="form_required">*champs requis</string>
 
 </resources>

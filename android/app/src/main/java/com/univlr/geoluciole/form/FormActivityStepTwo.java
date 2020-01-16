@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
 
@@ -25,9 +29,17 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private TextView step;
 
     // variables dates et heures
+    @Order(1)
+    @NotEmpty(messageResId = R.string.form_err_required)
     private EditText txtDateArrivee;
+    @Order(2)
+    @NotEmpty(messageResId = R.string.form_err_required)
     private EditText txtTimeArrivee;
+    @Order(3)
+    @NotEmpty(messageResId = R.string.form_err_required)
     private EditText txtDateDepart;
+    @Order(4)
+    @NotEmpty(messageResId = R.string.form_err_required)
     private EditText txtTimeDepart;
 
     // variables boutons dates et heures
@@ -48,13 +60,18 @@ public class FormActivityStepTwo extends AppCompatActivity {
 
     private FormModel form;
 
+    // validation
+    ValidationFormListener validatorListener;
+    Validator validator;
+    TextWatcherListener textWatcherListener;
+    TextWatcher textWatcher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_activity_step_two);
         // recuperation de l'objet formulaire
         form = (FormModel) getIntent().getSerializableExtra("Form");
-
         // init éléments du form
         initUI();
         // desactive les keyboards des inputs
@@ -63,6 +80,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
         initListenersInput();
         // init listeners boutons
         initListenersButtons();
+        // init validation
+        initValidatorListener();
     }
 
     /**
@@ -71,8 +90,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private void initUI() {
         // step
         this.step = (TextView) findViewById(R.id.form_step);
-        if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/true) {
-            this.step.setText("2/3");
+        if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/false) {
+            this.step.setText("1/2");
         }
         // date et heure arrivée boutons
         this.btnDatePickerArrivee = (Button) findViewById(R.id.btn_in_date);
@@ -88,14 +107,14 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.txtDateDepart = (EditText) findViewById(R.id.out_date);
         // heure départ input
         this.txtTimeDepart = (EditText) findViewById(R.id.out_time);
-        // bouton envoi
-        this.btnContinue = (Button) findViewById(R.id.btn_next);
         // bouton précédent
         this.btnPrevious = (Button) findViewById(R.id.btn_prev);
         // cacher le bouton precedent si pas de consentement
         if (/*!UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/false) {
             this.btnPrevious.setVisibility(View.INVISIBLE);
         }
+        // bouton suivant
+        this.btnContinue = (Button) findViewById(R.id.btn_next);
     }
 
     /**
@@ -118,6 +137,9 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.txtTimeDepart.setOnClickListener(getAndSetTextTime(txtTimeDepart));
     }
 
+    /**
+     * Méthode pour ajouter les listeners
+     */
     private void initListenersButtons() {
         // boutons listeners
         this.btnDatePickerArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee));
@@ -131,6 +153,21 @@ public class FormActivityStepTwo extends AppCompatActivity {
     }
 
     /**
+     * Méthode initialisant le validateur
+     */
+    private void initValidatorListener() {
+        validator = new Validator(FormActivityStepTwo.this);
+        validatorListener = new ValidationFormListener(FormActivityStepTwo.this, FormActivityStepThree.class, form);
+        validator.setValidationListener(validatorListener);
+        //validator.setValidationMode(Validator.Mode.IMMEDIATE);
+        textWatcherListener = new TextWatcherListener(this.validator);
+        txtDateArrivee.addTextChangedListener(textWatcherListener);
+        txtTimeArrivee.addTextChangedListener(textWatcherListener);
+        txtDateDepart.addTextChangedListener(textWatcherListener);
+        txtTimeDepart.addTextChangedListener(textWatcherListener);
+    }
+
+    /**
      * Méthode récupérant les données dates et heures d'arrivée et départ de La Rochelle
      * de l'utilisateur, met à jour l'objet formulaire avec les données
      *
@@ -140,6 +177,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 form.setDateIn(String.valueOf(txtDateArrivee.getText()));
                 form.setTimeIn(String.valueOf(txtTimeArrivee.getText()));
                 form.setDateOut(String.valueOf(txtDateDepart.getText()));
@@ -154,12 +192,9 @@ public class FormActivityStepTwo extends AppCompatActivity {
                         ,
 
                         Toast.LENGTH_SHORT).show();
-                System.out.println(form.toString());
-                Intent intent = new Intent(getApplicationContext(),
-                        FormActivityStepTwo.class);
-                intent.putExtra("Form", form);
-                startActivity(intent);
-                finish();
+                validatorListener.setRedirect(true);
+                validator.validate();
+                validatorListener.setRedirect(false);
 
             }
 
@@ -264,6 +299,4 @@ public class FormActivityStepTwo extends AppCompatActivity {
 
         };
     }
-
-
 }

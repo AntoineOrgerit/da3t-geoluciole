@@ -39,7 +39,7 @@
             android:id="@+id/form_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/form_step"
+            android:text="@string/form_step_two_three"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -204,9 +204,6 @@
         <!-- OUT LA ROCHELLE DATE - END-->
 
         <!-- OUT LA ROCHELLE TIME - BEGIN-->
-        <!-- OUT LA ROCHELLE TIME - END-->
-
-        <!-- BUTTONS PREVIOUS - NEXT -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/out_time_layout"
             android:layout_width="0dp"
@@ -244,7 +241,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- OUT LA ROCHELLE TIME - END-->
 
+        <!-- BUTTON PREVIOUS -->
         <Button
             android:id="@+id/btn_prev"
             android:layout_width="wrap_content"
@@ -255,6 +254,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- BUTTON NEXT -->
         <Button
             android:id="@+id/btn_next"
             android:layout_width="wrap_content"

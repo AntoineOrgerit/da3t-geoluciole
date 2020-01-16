@@ -77,10 +77,10 @@ public class FormActivity extends AppCompatActivity {
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
         // boutons listeners
-        btnDatePickerArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee));
+        /*btnDatePickerArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee));
         btnTimePickerArrivee.setOnClickListener(getAndSetTextTime(txtTimeArrivee));
         btnDatePickerDepart.setOnClickListener(getAndSetTextDate(txtDateDepart));
-        btnTimePickerDepart.setOnClickListener(getAndSetTextTime(txtTimeDepart));
+        btnTimePickerDepart.setOnClickListener(getAndSetTextTime(txtTimeDepart));*/
         btnSubmit.setOnClickListener(getAllValuesFromForm());
 
         // listes déroulantes listeners
@@ -135,7 +135,7 @@ public class FormActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnClickListener getAndSetTextDate(final EditText text) {
+    /*private View.OnClickListener getAndSetTextDate(final EditText text) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,9 +155,9 @@ public class FormActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         };
-    }
+    }*/
 
-    private View.OnClickListener getAndSetTextTime(final EditText text) {
+    /*private View.OnClickListener getAndSetTextTime(final EditText text) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,7 +177,7 @@ public class FormActivity extends AppCompatActivity {
             }
 
         };
-    }
+    }*/
 
 
     public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener() {

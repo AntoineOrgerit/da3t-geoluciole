@@ -34,6 +34,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".form.FormActivityStepTwo"
             android:screenOrientation="portrait" />
+        <activity android:name=".form.FormActivityStepThree"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".location.LocationUpdatesService"

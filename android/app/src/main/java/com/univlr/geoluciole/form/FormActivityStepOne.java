@@ -1,6 +1,5 @@
 package com.univlr.geoluciole.form;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,38 +9,58 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModelWithoutConsent;
+
 
 public class FormActivityStepOne extends AppCompatActivity {
 
     // variables infos générales
+    @NotEmpty(messageResId = R.string.form_err_required)
     private TextInputEditText lastname;
+    @NotEmpty(messageResId = R.string.form_err_required)
     private TextInputEditText firstname;
+    @NotEmpty(messageResId = R.string.form_err_required)
+    @Email(messageResId = R.string.form_err_mail)
     private TextInputEditText email;
 
     // formulaire
     private FormModelWithoutConsent formWithoutConsent;
 
+    // validation
+    ValidationFormListener validatorListener;
+    Validator validator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_activity_step_one);
-
         // init form
         formWithoutConsent = new FormModelWithoutConsent();
-
         // attributs set
-        lastname = (TextInputEditText) findViewById(R.id.lastname);
-        firstname = (TextInputEditText) findViewById(R.id.firstname);
-        email = (TextInputEditText) findViewById(R.id.email);
-
+        lastname = findViewById(R.id.lastname);
+        firstname = findViewById(R.id.firstname);
+        email = findViewById(R.id.email);
         // cacher keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
         // bouton envoi
         Button btnContinue = (Button) findViewById(R.id.btn_next);
         btnContinue.setOnClickListener(getPersonalData());
+        // init validator
+        initValidatorListener();
+
+    }
+
+    /**
+     * Méthode initialisant le validateur
+     */
+    private void initValidatorListener() {
+        validator = new Validator(FormActivityStepOne.this);
+        validatorListener = new ValidationFormListener(FormActivityStepOne.this, FormActivityStepTwo.class, formWithoutConsent);
+        validator.setValidationListener(validatorListener);
     }
 
     /**
@@ -64,21 +83,12 @@ public class FormActivityStepOne extends AppCompatActivity {
                                 "\nEmail : " + email.getText()
                         ,
                         Toast.LENGTH_SHORT).show();
-
-                // redirection vers la seconde étape du form
-                Intent intent = new Intent(getApplicationContext(),
-                        FormActivityStepTwo.class);
-
-                // on passe l'objet form à la seconde vue
-                intent.putExtra("Form", formWithoutConsent);
-                startActivity(intent);
-
-                // ajout d'une transition type swipe
-                overridePendingTransition(R.transition.trans_left_in, R.transition.trans_left_out);
-                finish();
-
+                validatorListener.setRedirect(true);
+                validator.validate();
+                validatorListener.setRedirect(false);
             }
 
         };
     }
+
 }

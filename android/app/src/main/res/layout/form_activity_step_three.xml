@@ -1,0 +1,443 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- FORM TITLE - BEGIN-->
+        <TextView
+            android:id="@+id/form_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/form_title"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!-- FORM TITLE - END -->
+
+        <!-- FORM STEP - BEGIN -->
+        <TextView
+            android:id="@+id/form_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/form_step_three_three"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!-- FORM STEP - END -->
+
+        <!-- WITH WHOM QUESTION - BEGIN -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/inner_question_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="32dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/with_whom_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/form_with_whom_title"
+                        android:textColor="@color/text_question"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/spinner_list_whom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:entries="@array/form_responses_whom_array"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/with_whom_title" />
+                    <!-- WITH WHOM QUESTION - END -->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/presence_children_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner_list_whom">
+
+                        <TextView
+                            android:id="@+id/presence_children_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/presence_children"
+                            android:textColor="@color/text_question"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/radio_group_presence_children"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/presence_children_title">
+
+                            <RadioButton
+                                android:id="@+id/radio_yes_children"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="@string/form_yes_response" />
+
+                            <RadioButton
+                                android:id="@+id/radio_no_children"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:text="@string/form_no_response" />
+                        </RadioGroup>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/presence_teens_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/presence_children_layout">
+
+                        <TextView
+                            android:id="@+id/presence_teens_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="32dp"
+                            android:text="@string/presence_teens"
+                            android:textColor="@color/text_question"
+                            app:layout_constraintBottom_toTopOf="@+id/radio_group_presence_teens"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/radio_group_presence_teens"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/presence_teens_title">
+
+                            <RadioButton
+                                android:id="@+id/radio_yes_teens"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="@string/form_yes_response" />
+
+                            <RadioButton
+                                android:id="@+id/radio_no_teens"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:text="@string/form_no_response" />
+                        </RadioGroup>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- FIRST TIME QUESTION - BEGIN -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/first_visit_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/presence_teens_layout">
+
+                        <TextView
+                            android:id="@+id/first_time_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/form_first_visit_title"
+                            android:textColor="@color/text_question"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/radio_group_first_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/first_time_title">
+
+                            <RadioButton
+                                android:id="@+id/radio_yes_first"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="@string/form_yes_response" />
+
+                            <RadioButton
+                                android:id="@+id/radio_no_first"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:text="@string/form_no_response" />
+                        </RadioGroup>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- FIRST TIME QUESTION - END -->
+
+                    <!-- KNOW CITY QUESTION - BEGIN -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/know_city_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/first_visit_layout">
+
+                        <TextView
+                            android:id="@+id/know_city_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/form_know_city_title"
+                            android:textColor="@color/text_question"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/radio_group_know_city"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/know_city_title">
+
+                            <RadioButton
+                                android:id="@+id/radio_yes_know"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:text="@string/form_yes_response" />
+
+                            <RadioButton
+                                android:id="@+id/radio_no_know"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:text="@string/form_no_response" />
+                        </RadioGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- KNOW CITY QUESTION - END -->
+
+                    <!-- MORE FIVE QUESTION - BEGIN -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/five_times_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/know_city_layout">
+
+                        <TextView
+                            android:id="@+id/five_times_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/form_more_five_times_title"
+                            android:textColor="@color/text_question"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/radio_group_five_times"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/five_times_title">
+
+                            <RadioButton
+                                android:id="@+id/radio_yes_five"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:text="@string/form_yes_response" />
+
+                            <RadioButton
+                                android:id="@+id/radio_no_five"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:text="@string/form_no_response" />
+                        </RadioGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- MORE FIVE QUESTION - END -->
+
+                    <!-- MORE TWO MONTHS QUESTION - BEGIN -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/two_months_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/five_times_layout">
+
+                        <TextView
+                            android:id="@+id/two_months_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/form_more_two_months_title"
+                            android:textColor="@color/text_question"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/radio_group_two_months"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/two_months_title">
+
+                            <RadioButton
+                                android:id="@+id/radio_yes_two"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:text="@string/form_yes_response" />
+
+                            <RadioButton
+                                android:id="@+id/radio_no_two"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:text="@string/form_no_response" />
+                        </RadioGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- MORE TWO MONTHS QUESTION - END -->
+
+                    <!-- TRANSPORT QUESTION - BEGIN -->
+                    <TextView
+                        android:id="@+id/transport_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/form_transport_title"
+                        android:textColor="@color/text_question"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/two_months_layout" />
+
+                    <Spinner
+                        android:id="@+id/spinner_list_transport"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:entries="@array/form_responses_transport_array"
+                        android:padding="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/transport_title" />
+
+                    <!-- TRANSPORT QUESTION - END -->
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/required"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/form_required"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </LinearLayout>
+        </ScrollView><!-- BUTTON PREVIOUS -->
+        <Button
+            android:id="@+id/btn_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="@string/form_previous"
+            android:textColor="@color/text_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- BUTTON NEXT -->
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="@string/form_submit"
+            android:textColor="@color/text_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
