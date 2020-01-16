@@ -28,7 +28,7 @@ class CustomTimer {
 
     // Lancement du timer pour déclencher l'envoi des données de localisation au serveur
     func startTimerLocalisation() {
-        self.timer = Timer(timeInterval: Constantes.TIMER_SEND_DATA, target: self, selector: #selector(sendPostElasticSearch), userInfo: nil, repeats: true)
+        self.timer = Timer(timeInterval: Constantes.TIMER_SEND_DATA, target: self, selector: #selector(sendPostLocationElasticSearch), userInfo: nil, repeats: true)
         self.timer?.tolerance = 60.0 // (en s) ajout d'une tolérance pour permettre d'effectuer l'action dans une intervalle étendue
         RunLoop.current.add(self.timer!, forMode: .common)
     }
@@ -41,7 +41,7 @@ class CustomTimer {
     // Envoi serveur PART
 
     /// Envoi les données de localisation de l'utilisateur au serveur
-    @objc func sendPostElasticSearch() {
+    @objc func sendPostLocationElasticSearch() {
         if Constantes.DEBUG {
             print("Timer déclenché")
         }
