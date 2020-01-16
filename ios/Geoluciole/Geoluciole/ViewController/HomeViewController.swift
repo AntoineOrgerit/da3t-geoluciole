@@ -43,7 +43,6 @@ class HomeViewController: ParentViewController {
 
         // CollectDataSwitch
         self.collectDataSwitchView = CollectDataSwitchView()
-        self.collectDataSwitchView.isHidden = !self.userPrefs.bool(forKey: UserPrefs.KEY_RGPD_CONSENT)
         self.collectDataSwitchView.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(self.collectDataSwitchView)
 
@@ -95,6 +94,8 @@ class HomeViewController: ParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.collectDataSwitchView.isHidden = !self.userPrefs.bool(forKey: UserPrefs.KEY_RGPD_CONSENT)
 
         let send = self.userPrefs.bool(forKey: "send_data")
         self.collectDataSwitchView.setSwitch(value: send)
@@ -112,11 +113,11 @@ class HomeViewController: ParentViewController {
         }
 
         // On affiche ensuite le constement pour le formulaire
-        if !self.userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
-            let formRgpdController = FormulaireConsentRGPDViewController()
-            formRgpdController.modalPresentationStyle = .fullScreen
-            self.present(formRgpdController, animated: true)
-        }
+//        if !self.userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
+//            let formRgpdController = FormulaireConsentRGPDViewController()
+//            formRgpdController.modalPresentationStyle = .fullScreen
+//            self.present(formRgpdController, animated: true)
+//        }
     }
 
     override func didReceiveMemoryWarning() {
