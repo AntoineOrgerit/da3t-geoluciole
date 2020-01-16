@@ -39,6 +39,7 @@ class SettingsViewController: ParentViewController {
         cguButton.setTitle("CONSULTER LES CGU", for: .normal)
         cguButton.onClick = { button in
             let cguController = CGUViewController()
+            cguController.modalPresentationStyle = .fullScreen
             self.present(cguController, animated: true, completion: nil)
         }
         cguButton.setStyle(style: .settingLight)
@@ -64,6 +65,15 @@ class SettingsViewController: ParentViewController {
         deleteButton.setStyle(style: .settingDark)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(deleteButton)
+        
+        let sendDataManually = CustomUIButton()
+        sendDataManually.setTitle("ENVOYER MES DONNÉES", for: .normal)
+        sendDataManually.onClick = { button in
+            CustomTimer.getInstance().sendPostElasticSearch()
+        }
+        sendDataManually.setStyle(style: .settingLight)
+        sendDataManually.translatesAutoresizingMaskIntoConstraints = false
+        wrapButtons.addSubview(sendDataManually)
 
         // Constraints DurationOfEngagementFormView
         NSLayoutConstraint.activate([
@@ -86,11 +96,15 @@ class SettingsViewController: ParentViewController {
             wrapButtons.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
             wrapButtons.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor),
             
-            deleteButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            sendDataManually.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            sendDataManually.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            sendDataManually.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            
+            deleteButton.bottomAnchor.constraint(equalTo: sendDataManually.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             deleteButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
             deleteButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
             
-            cguButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            cguButton.bottomAnchor.constraint(equalTo: sendDataManually.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             cguButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
             cguButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             
