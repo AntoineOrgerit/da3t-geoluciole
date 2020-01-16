@@ -16,7 +16,15 @@ class HomeViewController: ParentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let dhDeb = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT)
+        let dhFin = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT)
+        if  dhDeb == "" ||  dhFin == "" {
+            let currentDate = Date()
+            let dateEnd = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_START_ENGAGEMENT, value: Tools.convertDate(date: currentDate))
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_END_ENGAGEMENT, value: Tools.convertDate(date: dateEnd!))
+        }
+        
         // LevelView
         self.showLevelView = ShowLevelView()
         self.showLevelView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,14 +75,19 @@ class HomeViewController: ParentViewController {
     }
     
     func calcProgress() {
-        let currentDate = Date()
-        let dateDebut = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)
-        let dateFin = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
+        let date = Date()
+        let stringDate = Tools.convertDate(date: date)
+        let currentDate = Tools.convertDate(date: stringDate)
         
-        let pct : Float = Float((100 * currentDate.timeIntervalSince(dateDebut!) / ((dateFin?.timeIntervalSince(dateDebut!))!))/100)
+        let dateDebut = Tools.convertDateGMT01(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT))
+        let dateFin = Tools.convertDateGMT01(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT))
+        
+        let pct : Float = Float((100 * currentDate.timeIntervalSince(dateDebut) / (dateFin.timeIntervalSince(dateDebut)))/100)
         print(pct)
         self.showLevelView.setProgress(value: pct)
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

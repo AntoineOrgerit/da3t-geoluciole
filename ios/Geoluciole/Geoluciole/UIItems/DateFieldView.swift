@@ -126,10 +126,22 @@ class DateFieldView: UIView, UIGestureRecognizerDelegate {
         self.dateLabel.text = Tools.convertDate(date: self.datePicker.date)
     }
 
-    func setMinimumDate(date: Date) {
+    func getDate() -> Date {
+        return self.datePicker.date
+    }
+    
+    func setDate(date: Date) {
+        self.datePicker.date = date
+    }
+    
+    func setMaximumDate(date: Date) {
+        self.datePicker.maximumDate = date
+    }
+    
+    func setMinimumDate(date : Date) {
         self.datePicker.minimumDate = date
     }
-
+    
     func setDateLabel(date: String) {
         self.dateLabel.text = date
     }

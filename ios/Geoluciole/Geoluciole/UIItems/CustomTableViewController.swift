@@ -22,9 +22,9 @@ class CustomTableViewController: UITableViewController {
     }
     
     override func viewDidLoad() {
-        <#code#>
+        
     }
     override func viewWillAppear(_ animated: Bool) {
-        <#code#>
+        
     }
 }

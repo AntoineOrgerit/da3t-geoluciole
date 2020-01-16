@@ -11,6 +11,9 @@ import UIKit
 
 class DurationOfEngagementFormView: UIView {
 
+    fileprivate var dateStartField : DateFieldView!
+    fileprivate var dateEndField : DateFieldView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -25,30 +28,35 @@ class DurationOfEngagementFormView: UIView {
         title.textAlignment = .left
         self.addSubview(title)
 
-        let dateStartField = DateFieldView()
-        dateStartField.setTitle(title: "Date de début")
-        dateStartField.setDateLabel(date: minimumDateString)
+        self.dateStartField = DateFieldView()
+        self.dateEndField = DateFieldView()
+        
+        self.dateStartField.setTitle(title: "Date de début")
+        self.dateStartField.setDateLabel(date: minimumDateString)
         if UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT) != "" {
             let dateValue = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT)
-            dateStartField.setDateLabel(date: dateValue)
+            self.dateStartField.setDateLabel(date: dateValue)
+            self.dateEndField.setMinimumDate(date: Tools.convertDate(date: dateValue))
         }
-        dateStartField.setMinimumDate(date: minimumDate)
-        dateStartField.translatesAutoresizingMaskIntoConstraints = false
-        dateStartField.onDateValidate = { date in
+        self.dateStartField.setMinimumDate(date: minimumDate)
+        
+        self.dateStartField.translatesAutoresizingMaskIntoConstraints = false
+        self.dateStartField.onDateValidate = { date in
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_START_ENGAGEMENT, value: Tools.convertDate(date: date))
         }
         self.addSubview(dateStartField)
 
-        let dateEndField = DateFieldView()
-        dateEndField.setMinimumDate(date: minimumDate)
-        dateEndField.setDateLabel(date: minimumDateString)
-        dateEndField.setTitle(title: "Date de fin")
+        
+        self.dateEndField.setMinimumDate(date: minimumDate)
+        self.dateEndField.setDateLabel(date: minimumDateString)
+        self.dateEndField.setTitle(title: "Date de fin")
         if UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT) != "" {
             let dateValue = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT)
             dateEndField.setDateLabel(date: dateValue)
+            self.dateStartField.setMaximumDate(date: Tools.convertDate(date: dateValue))
         }
-        dateEndField.translatesAutoresizingMaskIntoConstraints = false
-        dateEndField.onDateValidate = { date in
+        self.dateEndField.translatesAutoresizingMaskIntoConstraints = false
+        self.dateEndField.onDateValidate = { date in
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_END_ENGAGEMENT, value: Tools.convertDate(date: date))
         }
         self.addSubview(dateEndField)
@@ -62,18 +70,28 @@ class DurationOfEngagementFormView: UIView {
             title.leftAnchor.constraint(equalTo: self.leftAnchor),
             title.rightAnchor.constraint(equalTo: self.rightAnchor),
 
-            dateStartField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            dateStartField.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
-            dateStartField.leftAnchor.constraint(equalTo: self.leftAnchor),
-            dateStartField.rightAnchor.constraint(equalTo: dateEndField.leftAnchor),
+            self.dateStartField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.dateStartField.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
+            self.dateStartField.leftAnchor.constraint(equalTo: self.leftAnchor),
+            self.dateStartField.rightAnchor.constraint(equalTo: dateEndField.leftAnchor),
 
-            dateEndField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            dateEndField.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
-            dateEndField.leftAnchor.constraint(equalTo: dateStartField.rightAnchor),
-            dateEndField.rightAnchor.constraint(equalTo: self.rightAnchor)
+            self.dateEndField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.dateEndField.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
+            self.dateEndField.leftAnchor.constraint(equalTo: dateStartField.rightAnchor),
+            self.dateEndField.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
     }
 
+    
+//    func setStartDate(date: Date){
+//        self.dateStartField.setDate(date: date)
+//    }
+//
+//    func setEndDate(date: Date){
+//        self.dateEndField.setDate(date: date)
+//    }
+    
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

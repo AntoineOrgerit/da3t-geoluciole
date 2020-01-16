@@ -10,14 +10,18 @@ import Foundation
 import UIKit
 
 class PartenaireViewController: ParentViewController, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//    }
     
     let mytableView = UITableViewController(style: UITableView.Style.grouped )
     override func viewDidLoad() {
@@ -28,11 +32,11 @@ class PartenaireViewController: ParentViewController, UITableViewDelegate, UITab
         
         let laboImage = createImage(name: "logo_l3i")
         let univImageView = createImage(name: "logo_ULR")
-        let liensImageView = createImage(name: <#T##String#>)
+        //let liensImageView = createImage(name: <#T##String#>)
 
         self.rootView.addSubview(laboImage)
         self.rootView.addSubview(univImageView)
-        self.rootView.addSubview(liensImageView)
+        //self.rootView.addSubview(liensImageView)
 
         NSLayoutConstraint.activate([
 
