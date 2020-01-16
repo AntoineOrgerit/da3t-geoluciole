@@ -9,6 +9,8 @@ public class FormModel implements Serializable {
     private String timeOut;
 
     private String withWhom;
+    private boolean presenceChildren;
+    private boolean presenceTeens;
     private boolean firstTime;
     private boolean knowCity;
     private boolean fiveTimes;
@@ -99,6 +101,22 @@ public class FormModel implements Serializable {
         this.timeOut = timeOut;
     }
 
+    public boolean isPresenceChildren() {
+        return presenceChildren;
+    }
+
+    public void setPresenceChildren(boolean presenceChildren) {
+        this.presenceChildren = presenceChildren;
+    }
+
+    public boolean isPresenceTeens() {
+        return presenceTeens;
+    }
+
+    public void setPresenceTeens(boolean presenceTeens) {
+        this.presenceTeens = presenceTeens;
+    }
+
     @Override
     public String toString() {
         return "FormModel{" +
@@ -107,6 +125,8 @@ public class FormModel implements Serializable {
                 ", dateOut='" + dateOut + '\'' +
                 ", timeOut='" + timeOut + '\'' +
                 ", withWhom='" + withWhom + '\'' +
+                ", presenceChildren=" + presenceChildren +
+                ", presenceTeens=" + presenceTeens +
                 ", firstTime=" + firstTime +
                 ", knowCity=" + knowCity +
                 ", fiveTimes=" + fiveTimes +

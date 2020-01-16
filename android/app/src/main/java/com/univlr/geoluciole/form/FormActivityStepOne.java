@@ -13,6 +13,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.FormModelWithoutConsent;
 
 
@@ -38,12 +39,10 @@ public class FormActivityStepOne extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_activity_step_one);
-        // init form
-        formWithoutConsent = new FormModelWithoutConsent();
         // attributs set
-        lastname = findViewById(R.id.lastname);
-        firstname = findViewById(R.id.firstname);
-        email = findViewById(R.id.email);
+        initUI();
+        // set le form si defini
+        formSetter();
         // cacher keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // bouton envoi
@@ -51,7 +50,34 @@ public class FormActivityStepOne extends AppCompatActivity {
         btnContinue.setOnClickListener(getPersonalData());
         // init validator
         initValidatorListener();
+        // lastname.setText(formWithoutConsent.getLastname());
+        // firstname.setText(formWithoutConsent.getFirstname());
+        // email.setText(formWithoutConsent.getEmail());
 
+    }
+
+    /**
+     * Méthode pour initialiser les éléments UI
+     */
+    private void initUI() {
+        lastname = findViewById(R.id.lastname);
+        firstname = findViewById(R.id.firstname);
+        email = findViewById(R.id.email);
+    }
+
+    /**
+     * Méthode permettant de gérer le formulaire
+     */
+    private void formSetter() {
+        formWithoutConsent = (FormModelWithoutConsent) getIntent().getSerializableExtra("Form");
+        if (formWithoutConsent == null) {
+            formWithoutConsent = new FormModelWithoutConsent();
+        } else {
+            lastname.setText(formWithoutConsent.getLastname());
+            firstname.setText(formWithoutConsent.getFirstname());
+            email.setText(formWithoutConsent.getEmail());
+            System.out.println("ETAPE 1/3 retrieved : " + formWithoutConsent);
+        }
     }
 
     /**

@@ -23,6 +23,8 @@ import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
 
 public class FormActivityStepThree extends AppCompatActivity {
+    // variable title
+    private TextView title;
     // variable step
     private TextView step;
 
@@ -42,13 +44,6 @@ public class FormActivityStepThree extends AppCompatActivity {
     @Checked(messageResId = R.string.form_err_radio)
     private RadioGroup radiogroupTwoMonths;
 
-   /* private RadioButton radioFirstTime;
-    private RadioButton radioKnowCity;
-    @Checked(messageResId = R.string.form_err_required)
-    private RadioButton radioFiveTimes;
-    @Checked(messageResId = R.string.form_err_required)
-    private RadioButton radioTwoMonths;*/
-
     // variables bouton précédent
     private Button btnPrevious;
     // bouton de validation
@@ -65,10 +60,10 @@ public class FormActivityStepThree extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_activity_step_three);
-        // recuperation de l'objet formulaire
-        form = (FormModel) getIntent().getSerializableExtra("Form");
         // init éléments du form
         initUI();
+        // recuperation de l'objet formulaire
+        formSetter();
         // init listeners
         initListenersButtons();
         // init validation
@@ -79,9 +74,12 @@ public class FormActivityStepThree extends AppCompatActivity {
      * Méthode pour initialiser les éléments UI
      */
     private void initUI() {
+        // title
+        this.title = (TextView) findViewById(R.id.form_title);
         // step
         this.step = (TextView) findViewById(R.id.form_step);
         if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/false) {
+            this.title.setText("Formulaire anonypisé");
             this.step.setText("2/2");
         }
         // liste déroulante
@@ -93,10 +91,21 @@ public class FormActivityStepThree extends AppCompatActivity {
         this.radiogroupKnowCity = (RadioGroup) findViewById(R.id.radio_group_know_city);
         this.radiogroupFiveTimes = (RadioGroup) findViewById(R.id.radio_group_five_times);
         this.radiogroupTwoMonths = (RadioGroup) findViewById(R.id.radio_group_two_months);
+
+        // radiobuttons
+
         // bouton précédent
         this.btnPrevious = (Button) findViewById(R.id.btn_prev);
         // bouton envoi
         this.btnSubmit = (Button) findViewById(R.id.btn_next);
+    }
+
+    /**
+     * Méthode permettant de gérer le formulaire
+     */
+    private void formSetter() {
+        form = (FormModel) getIntent().getSerializableExtra("Form");
+        System.out.println("ETAPE 3/3 retrieved : " + form);
     }
 
     /**
@@ -121,6 +130,7 @@ public class FormActivityStepThree extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveToForm();
                 back();
             }
         };
@@ -145,6 +155,7 @@ public class FormActivityStepThree extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/ true) {
+            saveToForm();
             back();
         }
     }
@@ -158,6 +169,24 @@ public class FormActivityStepThree extends AppCompatActivity {
         validator.setValidationListener(validatorListener);
     }
 
+    private void saveToForm() {
+        // get selected radio button from radioGroup
+        int selectedIdFirstTime = radiogroupFirstTime.getCheckedRadioButtonId();
+        int selectedIdFKnowCity = radiogroupKnowCity.getCheckedRadioButtonId();
+        int selectedIdFiveTimes = radiogroupFiveTimes.getCheckedRadioButtonId();
+        int selectedIdTwoMonths = radiogroupTwoMonths.getCheckedRadioButtonId();
+
+        // set spinner to form
+        form.setWithWhom(String.valueOf(spinnerWhomList.getSelectedItem()));
+        form.setTransport(String.valueOf(spinnerTransportList.getSelectedItem()));
+
+        // find the radiobutton by returned id - set the form
+        form.setFirstTime(getRadioButtonValue(selectedIdFirstTime));
+        form.setKnowCity(getRadioButtonValue(selectedIdFKnowCity));
+        form.setFiveTimes(getRadioButtonValue(selectedIdFiveTimes));
+        form.setTwoMonths(getRadioButtonValue(selectedIdTwoMonths));
+    }
+
     /**
      * Méthode récupérant les réponses de l'utilisateur
      * met à jour l'objet formulaire avec les données
@@ -169,17 +198,7 @@ public class FormActivityStepThree extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // get selected radio button from radioGroup
-                int selectedIdFirstTime = radiogroupFirstTime.getCheckedRadioButtonId();
-                int selectedIdFKnowCity = radiogroupKnowCity.getCheckedRadioButtonId();
-                int selectedIdFiveTimes = radiogroupFiveTimes.getCheckedRadioButtonId();
-                int selectedIdTwoMonths = radiogroupTwoMonths.getCheckedRadioButtonId();
-
-                // find the radiobutton by returned id
-                form.setFirstTime(getRadioButtonValue(selectedIdFirstTime));
-                form.setKnowCity(getRadioButtonValue(selectedIdFKnowCity));
-                form.setFiveTimes(getRadioButtonValue(selectedIdFiveTimes));
-                form.setTwoMonths(getRadioButtonValue(selectedIdTwoMonths));
+                saveToForm();
 
                 Toast.makeText(FormActivityStepThree.this,
                         "OnClickListener : " +

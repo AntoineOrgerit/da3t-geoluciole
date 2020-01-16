@@ -25,6 +25,8 @@ import com.univlr.geoluciole.model.FormModel;
 import java.util.Calendar;
 
 public class FormActivityStepTwo extends AppCompatActivity {
+    // variable title
+    private TextView title;
     // variable step
     private TextView step;
 
@@ -70,10 +72,10 @@ public class FormActivityStepTwo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_activity_step_two);
-        // recuperation de l'objet formulaire
-        form = (FormModel) getIntent().getSerializableExtra("Form");
         // init éléments du form
         initUI();
+        // set le form si defini
+        formSetter();
         // desactive les keyboards des inputs
         disableKeyboardOnInputClick();
         // init listeners inputs
@@ -88,9 +90,12 @@ public class FormActivityStepTwo extends AppCompatActivity {
      * Méthode pour initialiser les éléments UI
      */
     private void initUI() {
+        // title
+        this.title = (TextView) findViewById(R.id.form_title);
         // step
         this.step = (TextView) findViewById(R.id.form_step);
         if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/false) {
+            this.title.setText("Formulaire anonypisé");
             this.step.setText("1/2");
         }
         // date et heure arrivée boutons
@@ -115,6 +120,22 @@ public class FormActivityStepTwo extends AppCompatActivity {
         }
         // bouton suivant
         this.btnContinue = (Button) findViewById(R.id.btn_next);
+    }
+
+    /**
+     * Méthode permettant de gérer le formulaire
+     */
+    private void formSetter() {
+        form = (FormModel) getIntent().getSerializableExtra("Form");
+        if (form == null) {
+            form = new FormModel();
+        } else {
+            txtDateArrivee.setText(form.getDateIn());
+            txtTimeArrivee.setText(form.getTimeIn());
+            txtDateDepart.setText(form.getDateOut());
+            txtTimeDepart.setText(form.getTimeOut());
+            System.out.println("ETAPE 2/3 retrieved : " + form);
+        }
     }
 
     /**
@@ -167,6 +188,13 @@ public class FormActivityStepTwo extends AppCompatActivity {
         txtTimeDepart.addTextChangedListener(textWatcherListener);
     }
 
+    private void saveToForm() {
+        form.setDateIn(String.valueOf(txtDateArrivee.getText()));
+        form.setTimeIn(String.valueOf(txtTimeArrivee.getText()));
+        form.setDateOut(String.valueOf(txtDateDepart.getText()));
+        form.setTimeOut(String.valueOf(txtTimeDepart.getText()));
+    }
+
     /**
      * Méthode récupérant les données dates et heures d'arrivée et départ de La Rochelle
      * de l'utilisateur, met à jour l'objet formulaire avec les données
@@ -178,10 +206,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                form.setDateIn(String.valueOf(txtDateArrivee.getText()));
-                form.setTimeIn(String.valueOf(txtTimeArrivee.getText()));
-                form.setDateOut(String.valueOf(txtDateDepart.getText()));
-                form.setTimeOut(String.valueOf(txtTimeDepart.getText()));
+                saveToForm();
 
                 Toast.makeText(FormActivityStepTwo.this,
                         "OnClickListener : " +
@@ -210,6 +235,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveToForm();
                 back();
             }
         };
@@ -235,6 +261,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/ true) {
+            saveToForm();
             back();
         } else {
             super.onBackPressed();

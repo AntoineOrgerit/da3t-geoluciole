@@ -39,6 +39,8 @@
     <string name="form_time_out_hint">17:00</string>
     <!-- QUESTIONS FORM -->
     <string name="form_with_whom_title">Avec qui voyagez-vous ?*</string>
+    <string name="form_prompt_whom">Choisir une réponse</string>
+
     <string-array name="form_responses_whom_array">
         <item>Choisir une réponse</item>
         <item>Seul</item>
@@ -51,6 +53,7 @@
     <string name="presence_teens">Présence d\'adolescents (13–18 ans)*</string>
 
     <string name="form_transport_title">Comment êtes-vous arrivé à La Rochelle ?*</string>
+    <string name="form_prompt_transport">Choisir une réponse</string>
     <string-array name="form_responses_transport_array">
         <item>Choisir une réponse</item>
         <item>Voiture personnelle</item>
