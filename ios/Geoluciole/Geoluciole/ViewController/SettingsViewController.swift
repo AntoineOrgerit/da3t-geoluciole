@@ -48,6 +48,8 @@ class SettingsViewController: ParentViewController {
         partnersButton.setTitle("VOIR LA LISTE DES PARTENAIRES", for: .normal)
         partnersButton.onClick = { button in
             print("Clic sur les partenaires")
+            let partenaire = PartenaireViewController()
+            self.present(partenaire, animated: true, completion: nil)
         }
         partnersButton.setStyle(color: .partner)
         partnersButton.translatesAutoresizingMaskIntoConstraints = false
