@@ -1,12 +1,10 @@
 package com.univlr.geoluciole;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.transition.Slide;
 import android.view.Gravity;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
@@ -47,8 +45,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                spinner.clearAnimation();
-                spinner.setVisibility(View.GONE);
                 UserPreferences userPreferences = UserPreferences.getInstance(SplashScreenActivity.this);
                 Intent intent;
                 if (userPreferences.hasGiveConsent()) {
@@ -56,7 +52,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 } else {
                     intent = new Intent(getApplicationContext(), RGPDConsentementGPSActivity.class);
                 }
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SplashScreenActivity.this).toBundle());
+                startActivity(intent);
+                overridePendingTransition(R.transition.trans_left_in, R.transition.trans_left_out);
                 finish();
             }
         }, 1500);

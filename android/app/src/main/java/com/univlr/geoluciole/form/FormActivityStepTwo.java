@@ -95,7 +95,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.title = (TextView) findViewById(R.id.form_title);
         // step
         this.step = (TextView) findViewById(R.id.form_step);
-        if (UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
+        if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
             this.step.setText("1/2");
         }

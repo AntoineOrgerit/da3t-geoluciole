@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#F19143</color>
     <color name="colorPrimaryDark">#EB6C32</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#EB6C32</color>
     <color name="navigationBarColor">#EB6C32</color>
     <color name="text_disabled">#000000</color>
     <color name="text_white">#FFFFFF</color>
