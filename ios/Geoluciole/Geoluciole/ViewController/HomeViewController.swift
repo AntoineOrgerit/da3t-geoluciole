@@ -79,7 +79,7 @@ class HomeViewController: ParentViewController {
     func calcProgress() {
         let date = Date()
         let stringDate = Tools.convertDate(date: date)
-        let currentDate = Tools.convertDate(date: stringDate)
+        let currentDate = Tools.convertDateGMT01(date: stringDate)
 
         let dateDebut = Tools.convertDateGMT01(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT))
         let dateFin = Tools.convertDateGMT01(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT))

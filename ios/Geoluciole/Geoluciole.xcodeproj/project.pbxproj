@@ -597,14 +597,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3HYBSBSWZP;
+				DEVELOPMENT_TEAM = GBCJ2RX3MM;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geolucioleee";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciolee";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -619,14 +619,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3HYBSBSWZP;
+				DEVELOPMENT_TEAM = GBCJ2RX3MM;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geolucioleee";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciolee";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
