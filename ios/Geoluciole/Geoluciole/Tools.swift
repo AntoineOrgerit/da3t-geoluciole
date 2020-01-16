@@ -91,7 +91,7 @@ class Tools {
         var identifier: String = ""
 
         // On vérifie si on a un identifiant de généré
-        let id = UserPrefs.getInstance().string(forKey: "identifier")
+        let id = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_IDENTIFIER)
 
         // Si oui, on le récupère
         if id != "" {
@@ -113,7 +113,7 @@ class Tools {
             identifier = String(hashId[range])
 
             // et on sauvegarde le paramètre
-            UserPrefs.getInstance().setPrefs(key: "identifier", value: identifier)
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_IDENTIFIER, value: identifier)
         }
 
         return identifier
@@ -121,30 +121,39 @@ class Tools {
 
     static func convertDate(date: String) -> Date {
         let df = DateFormatter()
-        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.date(from: date)!
     }
 
     static func convertDate(date: Date) -> String {
         let df = DateFormatter()
-        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: date)
     }
-    static func getdistance(coordonnee1: CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
+
+    static func getDistance(coordonnee1: CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
         return coordonnee1.distance(from: coordonnee2)
     }
+
     static func getdist_Stat() -> Double {
-        guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.DISTANCE) as? Double else {
+        guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE) as? Double else {
             return 0
         }
         NSLog("distance parcourue :\(dist_parcourue)")
 
         return roundDist(dist_parcourue, places: 2)
-        
     }
+
     static func roundDist(_ value: Double, places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
 
         return round(value * divisor) / divisor
+    }
+
+    static func getPreferredLocale() -> Locale {
+        guard let preferredIdentifier = Locale.preferredLanguages.first else {
+            return Locale.current
+        }
+        return Locale(identifier: preferredIdentifier)
     }
 }

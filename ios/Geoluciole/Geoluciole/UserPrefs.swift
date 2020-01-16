@@ -18,8 +18,14 @@ class UserPrefs {
     static let KEY_SEND_DATA = "send_data"
     static let KEY_LANGUAGE = "language"
     static let KEY_LAST_POINT = "last_point"
-    static let DISTANCE = "distance"
+    static let KEY_DISTANCE = "distance"
+    static let KEY_IDENTIFIER = "identifier"
+    static let KEY_RGPD_CONSENT = "rgpd_consent"
+    static let KEY_FORMULAIRE_CONSENT = "formulaire_consent"
+    static let KEY_DATE_START_ENGAGEMENT = "date_start_engagement"
+    static let KEY_DATE_END_ENGAGEMENT = "date_end_engagement"
 
+    
     fileprivate init() {
         self.userPrefs = UserDefaults.standard
 
@@ -35,6 +41,25 @@ class UserPrefs {
 
         if self.userPrefs.object(forKey: UserPrefs.KEY_SEND_DATA) == nil {
             self.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+        }
+        
+        // Si la langue n'est pas définit, on prend la langue du système par défaut
+        if self.userPrefs.object(forKey: UserPrefs.KEY_LANGUAGE) == nil {
+            // on récupère la langue du système
+            let languageCode = Locale.current.regionCode?.lowercased()
+            
+            var language = ""
+            
+            if languageCode != nil {
+                // Si le français est défini, on le prend
+                if languageCode == "fr" {
+                    language = Constantes.LANGUAGE_FRENCH
+                // Sinon on met anglais par défaut
+                } else {
+                    language = Constantes.LANGUAGE_ENGLISH
+                }
+            }
+            self.setPrefs(key: UserPrefs.KEY_LANGUAGE, value: language)
         }
     }
 

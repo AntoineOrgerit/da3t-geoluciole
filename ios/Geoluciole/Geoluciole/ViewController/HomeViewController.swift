@@ -66,19 +66,36 @@ class HomeViewController: ParentViewController {
         }
     }
     
+    func calcProgress() {
+        let currentDate = Date()
+        let dateDebut = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)
+        let dateFin = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
+        
+        let pct : Float = Float((100 * currentDate.timeIntervalSince(dateDebut!) / ((dateFin?.timeIntervalSince(dateDebut!))!))/100)
+        print(pct)
+        self.showLevelView.setProgress(value: pct)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let send = self.userPrefs.bool(forKey: "send_data")
         self.collectDataSwitchView.setSwitch(value: send)
+        calcProgress()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        if !userPrefs.bool(forKey: "rgpd_consent") {
-//            let rgpdController = GPSConsentRGPDViewController()
-//            rgpdController.modalPresentationStyle = .fullScreen
-//            self.present(rgpdController,animated: true, completion: nil)
-//        }
+        if !userPrefs.bool(forKey: UserPrefs.KEY_RGPD_CONSENT) {
+            let rgpdController = GPSConsentRGPDViewController()
+            rgpdController.modalPresentationStyle = .fullScreen
+            self.present(rgpdController,animated: true, completion: nil)
+       }
+        
+        if !userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
+             let formRgpdController = FormulaireConsentRGPDViewController()
+             formRgpdController.modalPresentationStyle = .fullScreen
+             self.present(formRgpdController,animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
