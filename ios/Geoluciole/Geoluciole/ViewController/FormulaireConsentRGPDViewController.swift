@@ -40,7 +40,7 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         self.subtitleRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.subtitleRGPD.text = Constantes.TEXT_SUB_TITLE_RGPD
         self.subtitleRGPD.textColor = .backgroundDefault
-        self.subtitleRGPD.font = UIFont.preferredFont(forTextStyle: .title3)
+        self.subtitleRGPD.font = UIFont.preferredFont(forTextStyle: .title2)
         self.rootView.addSubview(self.subtitleRGPD)
 
         // texte rgpd
@@ -53,19 +53,17 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.textRGPD.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 500), for: NSLayoutConstraint.Axis.vertical)
         self.textRGPD.isEditable = false
-        self.textRGPD.textColor = .clear
-        self.textRGPD.backgroundColor = .clear
-        self.textRGPD.font = UIFont(name: self.textRGPD.font!.fontName, size: 18)
         self.textRGPD.textColor = .black
+        self.textRGPD.backgroundColor = .clear
+        self.textRGPD.font = UIFont.preferredFont(forTextStyle: .body)
         self.textRGPD.textAlignment = .justified
         self.rootView.addSubview(self.textRGPD)
 
         // button
         self.button = CustomUIButton()
-        self.button.layer.cornerRadius = 10
-        self.button.backgroundColor = .lightGray
+        self.button.setStyle(style: .disabled)
         self.button.isUserInteractionEnabled = false
-        self.button.setTitle("Valider", for: .normal)
+        self.button.setTitle("ACCEPTER", for: .normal)
         self.button.translatesAutoresizingMaskIntoConstraints = false
         self.button.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
@@ -88,16 +86,14 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }
+            
             if strongSelf.checkbox.isChecked() {
-                strongSelf.button.isUserInteractionEnabled = true
-                strongSelf.button.backgroundColor = .backgroundDefault
+                strongSelf.button.setStyle(style: .active)
             } else {
-                strongSelf.button.isUserInteractionEnabled = false
-                strongSelf.button.backgroundColor = .lightGray
+                strongSelf.button.setStyle(style: .disabled)
             }
-            // Faire le save prefs dans methode click du bouton
-            // Si la checkbox est cochée alors activer le bouton et le mettre en orange
-            // Si la checkbox est décochée alors désactiver le bouton et le remettre en gris
+            
+            strongSelf.button.isUserInteractionEnabled = strongSelf.checkbox.isChecked()
         }
         self.rootView.addSubview(self.checkbox)
         
@@ -150,7 +146,7 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         ])
     }
 
-    func sendDataCompte(){
+    fileprivate func sendDataCompte(){
         let msg = ElasticSearchAPI.getInstance().generateMessageCompte()
         ElasticSearchAPI.getInstance().postCompte(message: msg)
     }

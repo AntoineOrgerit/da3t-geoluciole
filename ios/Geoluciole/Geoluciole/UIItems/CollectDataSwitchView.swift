@@ -35,7 +35,7 @@ class CollectDataSwitchView: UIView {
         // Off Label
         self.offLabel = UILabel()
         self.offLabel.text = "OFF"
-        self.offLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        self.offLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.offLabel.adjustsFontForContentSizeCategory = true
         self.offLabel.translatesAutoresizingMaskIntoConstraints = false
         wrapSwitch.addSubview(self.offLabel)
@@ -43,7 +43,7 @@ class CollectDataSwitchView: UIView {
         // On Label
         self.onLabel = UILabel()
         self.onLabel.text = "ON"
-        self.onLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        self.onLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.onLabel.adjustsFontForContentSizeCategory = true
         self.onLabel.translatesAutoresizingMaskIntoConstraints = false
         wrapSwitch.addSubview(self.onLabel)
@@ -82,8 +82,15 @@ class CollectDataSwitchView: UIView {
         super.init(coder: coder)
     }
 
-    @objc func switchSenderData() {
+    @objc fileprivate func switchSenderData() {
         self.userPrefs.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: self.switchData.isOn)
+        
+        // On démarre le timer de localisation si la collecte est autorisée
+        if self.switchData.isOn {
+            CustomTimer.getInstance().startTimerLocalisation()
+        } else {
+            CustomTimer.getInstance().stopTimerLocation()
+        }
     }
 
     func setSwitch(value: Bool) {

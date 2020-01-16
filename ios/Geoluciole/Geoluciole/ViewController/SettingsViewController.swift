@@ -27,6 +27,7 @@ class SettingsViewController: ParentViewController {
         self.rootView.addSubview(durationOfEngagementFormView)
 
         let languageSelectorView = LanguageSelectorView()
+        languageSelectorView.isHidden = true
         languageSelectorView.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(languageSelectorView)
 
@@ -40,25 +41,27 @@ class SettingsViewController: ParentViewController {
             let cguController = CGUViewController()
             self.present(cguController, animated: true, completion: nil)
         }
-        cguButton.setStyle(color: .CGU)
+        cguButton.setStyle(style: .settingLight)
         cguButton.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(cguButton)
 
         let partnersButton = CustomUIButton()
+        partnersButton.isHidden = true
         partnersButton.setTitle("VOIR LA LISTE DES PARTENAIRES", for: .normal)
         partnersButton.onClick = { button in
-            print("Clic sur les partenaires")
+            
         }
-        partnersButton.setStyle(color: .partner)
+        partnersButton.setStyle(style: .settingLight)
         partnersButton.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(partnersButton)
 
         let deleteButton = CustomUIButton()
+        deleteButton.isHidden = true
         deleteButton.setTitle("RÉVOQUER MON CONSENTEMENT", for: .normal)
         deleteButton.onClick = { button in
-            print("Clic sur le consentement")
+            
         }
-        deleteButton.setStyle(color: .delete)
+        deleteButton.setStyle(style: .settingDark)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(deleteButton)
 
@@ -82,21 +85,18 @@ class SettingsViewController: ParentViewController {
             wrapButtons.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
             wrapButtons.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
             wrapButtons.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor),
-
-            cguButton.topAnchor.constraint(equalTo: wrapButtons.topAnchor),
-            cguButton.centerXAnchor.constraint(equalTo: wrapButtons.centerXAnchor),
-            cguButton.heightAnchor.constraint(equalTo: deleteButton.heightAnchor),
-            cguButton.widthAnchor.constraint(equalTo: deleteButton.widthAnchor),
-
-            partnersButton.topAnchor.constraint(equalTo: cguButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            partnersButton.centerXAnchor.constraint(equalTo: wrapButtons.centerXAnchor),
-            partnersButton.heightAnchor.constraint(equalTo: deleteButton.heightAnchor),
-            partnersButton.widthAnchor.constraint(equalTo: deleteButton.widthAnchor),
-
-            deleteButton.topAnchor.constraint(equalTo: partnersButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            deleteButton.centerXAnchor.constraint(equalTo: wrapButtons.centerXAnchor),
-            deleteButton.heightAnchor.constraint(equalTo: deleteButton.titleLabel!.heightAnchor, constant: 40),
-            deleteButton.widthAnchor.constraint(equalTo: deleteButton.titleLabel!.widthAnchor, constant: 40)
+            
+            deleteButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            deleteButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
+            deleteButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            
+            cguButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            cguButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
+            cguButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            
+            partnersButton.bottomAnchor.constraint(equalTo: cguButton.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            partnersButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            partnersButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL)
         ])
     }
 }

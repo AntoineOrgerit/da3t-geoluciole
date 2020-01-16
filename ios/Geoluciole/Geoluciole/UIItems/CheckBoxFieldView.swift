@@ -27,7 +27,7 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
 
         self.optionLabel = UILabel()
         self.optionLabel.numberOfLines = 0
-        self.optionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        self.optionLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.optionLabel.adjustsFontForContentSizeCategory = true
         self.optionLabel.translatesAutoresizingMaskIntoConstraints = false
         self.optionLabel.text = ""

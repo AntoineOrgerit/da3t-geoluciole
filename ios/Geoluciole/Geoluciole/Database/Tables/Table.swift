@@ -81,7 +81,9 @@ class Table {
                 completion(true, queryResult, nil)
                 self.db.close()
             } catch {
-                print("SELECT ERROR " + self.tableName + " : " + error.localizedDescription)
+                if Constantes.DEBUG {
+                    print("SELECT ERROR " + self.tableName + " : " + error.localizedDescription)
+                }
                 completion(false, [], error)
                 self.db.close()
             }
@@ -109,7 +111,9 @@ class Table {
                 let success = self.db.executeUpdate(sql, withParameterDictionary: arguments)
 
                 if !success {
-                    print("INSERT ERROR " + self.tableName + " : " + self.db.lastErrorMessage())
+                    if Constantes.DEBUG {
+                        print("INSERT ERROR " + self.tableName + " : " + self.db.lastErrorMessage())
+                    }
                 }
 
                 self.db.close()
@@ -128,7 +132,9 @@ class Table {
                 try self.db.executeUpdate(sql, values: [])
                 self.db.close()
             } catch {
-                print("DELETE ERROR " + self.tableName + " : " + error.localizedDescription)
+                if Constantes.DEBUG {
+                    print("DELETE ERROR " + self.tableName + " : " + error.localizedDescription)
+                }
                 self.db.close()
             }
         }

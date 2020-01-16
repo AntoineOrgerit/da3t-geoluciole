@@ -10,18 +10,15 @@ import Foundation
 import UIKit
 
 class PartenaireViewController: ParentViewController, UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // nop
+        return UITableViewCell()
+    }
     
     let mytableView = UITableViewController(style: UITableView.Style.grouped )
     override func viewDidLoad() {

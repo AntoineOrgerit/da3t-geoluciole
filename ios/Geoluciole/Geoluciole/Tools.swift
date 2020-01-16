@@ -38,9 +38,13 @@ class Tools {
             }
 
             if let error = error {
-                print("Error Occured : \(error.localizedDescription)")
+                if Constantes.DEBUG {
+                    print("Error Occured : \(error.localizedDescription)")
+                }
             } else {
-                print("Successfully Copy : Your file copy successfully")
+                if Constantes.DEBUG {
+                    print("Successfully Copy : Your file copy successfully")
+                }
             }
         }
     }
@@ -99,7 +103,9 @@ class Tools {
 
             // Sinon, on en génère un
         } else {
-            print("Aucun identifiant existant ! Génération en cours ...")
+            if Constantes.DEBUG {
+                print("Aucun identifiant existant ! Génération en cours ...")
+            }
 
 
             // pour ne pas identifier directement le terminal, on génère un identifier à partir de l'uuid
@@ -147,11 +153,14 @@ class Tools {
         return coordonnee1.distance(from: coordonnee2)
     }
 
-    static func getdist_Stat() -> Double {
+    static func getDistStat() -> Double {
         guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE) as? Double else {
             return 0
         }
-        NSLog("distance parcourue :\(dist_parcourue)")
+        
+        if Constantes.DEBUG {
+            print("Distance parcourue :\(dist_parcourue)")
+        }
 
         return roundDist(dist_parcourue, places: 2)
     }

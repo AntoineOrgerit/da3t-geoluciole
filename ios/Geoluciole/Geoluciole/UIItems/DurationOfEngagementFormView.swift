@@ -22,6 +22,7 @@ class DurationOfEngagementFormView: UIView {
 
         let title = UILabel()
         title.text = "Durée d'engagement"
+        title.font = UIFont.preferredFont(forTextStyle: .title2)
         title.adjustsFontForContentSizeCategory = true
         title.font = UIFont.preferredFont(forTextStyle: .title2)
         title.translatesAutoresizingMaskIntoConstraints = false
