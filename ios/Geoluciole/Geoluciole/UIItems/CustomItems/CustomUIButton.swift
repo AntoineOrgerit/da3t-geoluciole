@@ -16,6 +16,8 @@ class CustomUIButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        self.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
+        self.titleLabel?.numberOfLines = 0
         self.addTarget(self, action: #selector(CustomUIButton.touchOnUIButton), for: .touchUpInside)
     }
 
@@ -24,38 +26,61 @@ class CustomUIButton: UIButton {
     }
 
     /// Applique le style définition en paramètre (énumération)
-    func setStyle(color: ButtonStyle) {
-        var bgColor: UIColor!
+    func setStyle(style: ButtonStyle) {
 
-        switch color {
-        case .buttonLight:
-            bgColor = UIColor(red: 255 / 255, green: 220 / 255, blue: 0 / 255, alpha: 1.0)
+        self.titleLabel?.textAlignment = .center
+        self.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
+        self.titleLabel?.adjustsFontForContentSizeCategory = true
 
-        case .buttonLightDark:
-            bgColor = UIColor(red: 250 / 255, green: 188 / 255, blue: 60 / 255, alpha: 1.0)
+        switch style {
+        case .settingLight:
+            self.backgroundColor = .white
+            self.layer.borderColor = UIColor.settingsButtonDark.cgColor
+            self.layer.borderWidth = 3
+            self.layer.cornerRadius = 5
+            self.setTitleColor(.settingsButtonDark, for: .normal)
+            self.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
-        case .buttonPrimaryDark:
-            bgColor = UIColor(red: 241 / 255, green: 145 / 255, blue: 67 / 255, alpha: 1.0)
+        case .settingDark:
+            self.backgroundColor = .settingsButtonDark
+            self.layer.borderColor = UIColor.settingsButtonDark.cgColor
+            self.layer.borderWidth = 3
+            self.layer.cornerRadius = 5
+            self.setTitleColor(.settingsButtonLight, for: .normal)
+            self.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
-        case .buttonDark:
-            bgColor = UIColor(red: 235 / 255, green: 108 / 255, blue: 50 / 255, alpha: 1.0)
+        case .disabled:
+            self.backgroundColor = .disabledButton
+            self.layer.borderColor = UIColor.disabledButton.cgColor
+            self.layer.borderWidth = 3
+            self.layer.cornerRadius = 5
+            self.setTitleColor(.white, for: .normal)
+            self.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+
+        case .active:
+            self.backgroundColor = .activeButton
+            self.layer.borderColor = UIColor.activeButton.cgColor
+            self.layer.borderWidth = 3
+            self.layer.cornerRadius = 5
+            self.setTitleColor(.white, for: .normal)
+            self.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
         case .delete:
-            bgColor = .redGeoluciole
-
-        case .CGU:
-            bgColor = .greenGeoluciole
-
-        case .partner:
-            bgColor = .blueGeoluciole
-
-        default:
-            bgColor = UIColor(red: 255 / 255, green: 178 / 255, blue: 56 / 255, alpha: 1.0)
+            self.backgroundColor = .delete
+            self.layer.borderColor = UIColor.delete.cgColor
+            self.layer.borderWidth = 3
+            self.layer.cornerRadius = 5
+            self.setTitleColor(.white, for: .normal)
+            self.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+            
+        case .defaultStyle:
+            self.backgroundColor = .white
+            self.layer.borderColor = UIColor.settingsButtonDark.cgColor
+            self.layer.borderWidth = 3
+            self.layer.cornerRadius = 5
+            self.setTitleColor(.settingsButtonDark, for: .normal)
+            self.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
-
-        // On applique le style au background
-        self.layer.backgroundColor = bgColor.cgColor
-        self.layer.cornerRadius = 5 // bords arrondis de 5px
     }
 
     @objc fileprivate func touchOnUIButton() {

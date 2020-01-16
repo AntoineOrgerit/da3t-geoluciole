@@ -14,6 +14,7 @@ class ShowLevelView: UIView {
     fileprivate var levelNumberLabel: UILabel!
     fileprivate var progressBar: UIProgressView!
     fileprivate let progressBarHeight: CGFloat = 15
+    var onProgressBarFinish: (()-> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +34,7 @@ class ShowLevelView: UIView {
         self.progressBar.layer.cornerRadius = self.progressBarHeight / 2
         self.progressBar.clipsToBounds = true
         self.progressBar.progressTintColor = .colorProgressBar
-        self.progressBar.setProgress(2, animated: true)
+        self.progressBar.setProgress(0, animated: true)
         self.addSubview(self.progressBar)
 
         NSLayoutConstraint.activate([
@@ -55,6 +56,9 @@ class ShowLevelView: UIView {
 
     func setProgress(value: Float) {
         self.progressBar.progress = value
+        if self.progressBar.progress >= 1 {
+            self.onProgressBarFinish?()
+        }
     }
 
     required init?(coder: NSCoder) {

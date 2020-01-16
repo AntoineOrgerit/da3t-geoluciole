@@ -14,16 +14,17 @@ class GPSConsentRGPDViewController: ParentViewController {
     fileprivate var textRGPD: UITextView!
     fileprivate var titreRGPD: UILabel!
     fileprivate var subtitleRGPD: UILabel!
-    fileprivate var button: CustomUIButton!
+    fileprivate var acceptButton: CustomUIButton!
+    fileprivate var refuseButton: CustomUIButton!
     fileprivate var checkbox: CheckBoxFieldView!
     fileprivate var consentLabel: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // On doit mettre rootView en blanc et je sais pas pourquoi
         self.rootView.backgroundColor = .white
-        
+
         // titre
         self.titreRGPD = UILabel()
         self.titreRGPD.text = "Consentement RGPD"
@@ -59,23 +60,37 @@ class GPSConsentRGPDViewController: ParentViewController {
         self.textRGPD.textAlignment = .justified
         self.rootView.addSubview(self.textRGPD)
 
-        // button
-        self.button = CustomUIButton()
-        self.button.layer.cornerRadius = 10
-        self.button.backgroundColor = .lightGray
-        self.button.isUserInteractionEnabled = false
-        self.button.setTitle("Valider", for: .normal)
-        self.button.translatesAutoresizingMaskIntoConstraints = false
-        self.button.onClick = { [weak self] _ in
+        // button Accpeter
+        self.acceptButton = CustomUIButton()
+        self.acceptButton.setStyle(style: .disabled)
+        self.acceptButton.isUserInteractionEnabled = false
+        self.acceptButton.setTitle("ACCEPTER", for: .normal)
+        self.acceptButton.translatesAutoresizingMaskIntoConstraints = false
+        self.acceptButton.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
+            
             if strongSelf.checkbox.isChecked() {
                 strongSelf.sendDataCompte()
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
             }
-            strongSelf.dismiss(animated: true, completion: nil)
+
+            strongSelf.dismiss(animated: true)
         }
-        self.rootView.addSubview(self.button)
-        
+        self.rootView.addSubview(self.acceptButton)
+
+        // button Refuser
+        self.refuseButton = CustomUIButton()
+        self.refuseButton.setStyle(style: .delete)
+        self.refuseButton.setTitle("REFUSER", for: .normal)
+        self.refuseButton.translatesAutoresizingMaskIntoConstraints = false
+        self.refuseButton.onClick = { [weak self] _ in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: false)
+            strongSelf.dismiss(animated: true)
+        }
+        self.rootView.addSubview(self.refuseButton)
+
         // Checkbox
         self.checkbox = CheckBoxFieldView()
         self.checkbox.setStyle(style: .tick)
@@ -87,59 +102,60 @@ class GPSConsentRGPDViewController: ParentViewController {
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }
+            
             if strongSelf.checkbox.isChecked() {
-                strongSelf.button.isUserInteractionEnabled = true
-                strongSelf.button.backgroundColor = .backgroundDefault
+                strongSelf.acceptButton.setStyle(style: .active)
             } else {
-                strongSelf.button.isUserInteractionEnabled = false
-                strongSelf.button.backgroundColor = .lightGray
+                strongSelf.acceptButton.setStyle(style: .disabled)
             }
-            // Faire le save prefs dans methode click du bouton
-            // Si la checkbox est cochée alors activer le bouton et le mettre en orange
-            // Si la checkbox est décochée alors désactiver le bouton et le remettre en gris
+            strongSelf.acceptButton.isUserInteractionEnabled = strongSelf.checkbox.isChecked()
         }
         self.rootView.addSubview(self.checkbox)
-        
+
         // Masquer un bout en bas de l'écran
-        let subStatusBarView  = UIView()
+        let subStatusBarView = UIView()
         subStatusBarView.backgroundColor = .white
         subStatusBarView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(subStatusBarView)
-        
+
         NSLayoutConstraint.activate([
             subStatusBarView.topAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor),
             subStatusBarView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor),
             subStatusBarView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             subStatusBarView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
         ])
-        
+
         // Titre RGPD
         NSLayoutConstraint.activate([
             self.titreRGPD.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             self.titreRGPD.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             self.titreRGPD.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL)
         ])
-        
+
         // Subtitle RGPD
         NSLayoutConstraint.activate([
             self.subtitleRGPD.topAnchor.constraint(equalTo: self.titreRGPD.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             self.subtitleRGPD.centerXAnchor.constraint(equalTo: self.rootView.centerXAnchor)
         ])
-        
-        // Bouton Accepter
+
+        // Boutons
         NSLayoutConstraint.activate([
-            self.button.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.button.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            self.button.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL)
+            self.acceptButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            self.acceptButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            self.acceptButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
+            
+            self.refuseButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            self.refuseButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            self.refuseButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
         ])
-        
+
         // CheckBox
         NSLayoutConstraint.activate([
-            self.checkbox.bottomAnchor.constraint(equalTo: self.button.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            self.checkbox.bottomAnchor.constraint(equalTo: self.refuseButton.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             self.checkbox.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             self.checkbox.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL)
         ])
-        
+
         // Texte RGPD
         NSLayoutConstraint.activate([
             self.textRGPD.bottomAnchor.constraint(equalTo: self.checkbox.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
@@ -149,11 +165,11 @@ class GPSConsentRGPDViewController: ParentViewController {
         ])
     }
 
-    func sendDataCompte(){
+    func sendDataCompte() {
         let msg = ElasticSearchAPI.getInstance().generateMessageCompte()
         ElasticSearchAPI.getInstance().postCompte(message: msg)
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

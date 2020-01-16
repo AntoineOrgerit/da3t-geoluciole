@@ -10,80 +10,90 @@ import Foundation
 import UIKit
 
 class StatsView: UIView {
-    var uniteMetrique = CustomUILabel()
-    let lbTitle = CustomUILabel()
-    let lbDistance = CustomUILabel()
-    let wrapData = UIView()
-    var lbValeurDist = CustomUILabel()
-    
+
+    fileprivate var uniteMetrique: CustomUILabel!
+    fileprivate var lbTitle: CustomUILabel!
+    fileprivate var lbDistance: CustomUILabel!
+    fileprivate var wrapData: UIView!
+    fileprivate var lbValeurDist: CustomUILabel!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.translatesAutoresizingMaskIntoConstraints = false
 
-        lbTitle.text = "Statistiques"
-        lbTitle.setStyle(style: .TitreSectionBadges)
-        lbTitle.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(lbTitle)
+//        self.translatesAutoresizingMaskIntoConstraints = false
 
-        lbDistance.text = "Distance parcourue"
-        lbDistance.setStyle(style: .Paragraphe)
-        lbDistance.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(lbDistance)
+        self.lbTitle = CustomUILabel()
+        self.lbTitle.text = "Statistiques"
+        self.lbTitle.font = UIFont.preferredFont(forTextStyle: .title2)
+        self.lbTitle.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.lbTitle)
 
-        wrapData.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(wrapData)
+        self.lbDistance = CustomUILabel()
+        self.lbDistance.text = "Distance parcourue"
+        self.lbDistance.font = UIFont.preferredFont(forTextStyle: .body)
+        self.lbDistance.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.lbDistance)
 
+        self.wrapData = UIView()
+        self.wrapData.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.wrapData)
+
+        self.lbValeurDist = CustomUILabel()
+        self.lbValeurDist.text = "0"
+        self.lbValeurDist.font = UIFont.preferredFont(forTextStyle: .body)
+        self.lbValeurDist.translatesAutoresizingMaskIntoConstraints = false
+        self.wrapData.addSubview(self.lbValeurDist)
+
+        self.uniteMetrique = CustomUILabel()
+        self.uniteMetrique.text = "Km"
+        self.uniteMetrique.setStyle(style: .Paragraphe)
+        self.uniteMetrique.translatesAutoresizingMaskIntoConstraints = false
+        self.wrapData.addSubview(self.uniteMetrique)
         
-        setValeurDist()
-        lbValeurDist.setStyle(style: .Paragraphe)
-        lbValeurDist.translatesAutoresizingMaskIntoConstraints = false
-        wrapData.addSubview(lbValeurDist)
-
-        uniteMetrique.text = "Km"
-        uniteMetrique.setStyle(style: .Paragraphe)
-        uniteMetrique.translatesAutoresizingMaskIntoConstraints = false
-        wrapData.addSubview(uniteMetrique)
+        self.setValeurDist()
 
         NSLayoutConstraint.activate([
 
-            self.bottomAnchor.constraint(equalTo: wrapData.bottomAnchor),
+            self.bottomAnchor.constraint(equalTo: self.wrapData.bottomAnchor),
 
-            lbTitle.topAnchor.constraint(equalTo: self.topAnchor),
-            lbTitle.leftAnchor.constraint(equalTo: self.leftAnchor),
-            lbTitle.rightAnchor.constraint(equalTo: self.rightAnchor),
-            lbTitle.widthAnchor.constraint(equalTo: self.widthAnchor),
+            self.lbTitle.topAnchor.constraint(equalTo: self.topAnchor),
+            self.lbTitle.leftAnchor.constraint(equalTo: self.leftAnchor),
+            self.lbTitle.rightAnchor.constraint(equalTo: self.rightAnchor),
+            self.lbTitle.widthAnchor.constraint(equalTo: self.widthAnchor),
 
-            lbDistance.topAnchor.constraint(equalTo: lbTitle.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            lbDistance.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
-            lbDistance.leftAnchor.constraint(equalTo: self.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            self.lbDistance.topAnchor.constraint(equalTo: self.lbTitle.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.lbDistance.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
+            self.lbDistance.leftAnchor.constraint(equalTo: self.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
 
-            wrapData.topAnchor.constraint(equalTo: lbTitle.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            wrapData.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
-            wrapData.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
-            wrapData.leftAnchor.constraint(equalTo: lbDistance.rightAnchor),
-            wrapData.bottomAnchor.constraint(equalTo: lbValeurDist.bottomAnchor),
+            self.wrapData.topAnchor.constraint(equalTo: self.lbTitle.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.wrapData.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
+            self.wrapData.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            self.wrapData.leftAnchor.constraint(equalTo: self.lbDistance.rightAnchor),
+            self.wrapData.bottomAnchor.constraint(equalTo: self.lbValeurDist.bottomAnchor),
 
-            lbValeurDist.topAnchor.constraint(equalTo: wrapData.topAnchor),
-            lbValeurDist.leftAnchor.constraint(equalTo: wrapData.leftAnchor),
+            self.lbValeurDist.topAnchor.constraint(equalTo: self.wrapData.topAnchor),
+            self.lbValeurDist.leftAnchor.constraint(equalTo: self.wrapData.leftAnchor),
 
-            uniteMetrique.topAnchor.constraint(equalTo: wrapData.topAnchor),
-            uniteMetrique.leftAnchor.constraint(equalTo: lbValeurDist.rightAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            uniteMetrique.bottomAnchor.constraint(equalTo: wrapData.bottomAnchor)
+            self.uniteMetrique.topAnchor.constraint(equalTo: self.wrapData.topAnchor),
+            self.uniteMetrique.leftAnchor.constraint(equalTo: self.lbValeurDist.rightAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            self.uniteMetrique.bottomAnchor.constraint(equalTo: self.wrapData.bottomAnchor)
         ])
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
     func setValeurDist() {
-        var valeur_dist = Tools.getdist_Stat()
-        if valeur_dist < 1000 {
-            uniteMetrique.text = "m"
-        } else {
-            valeur_dist = Tools.roundDist(valeur_dist / 1000 , places: 2)
-            uniteMetrique.text = "Km"
-        }
+        var valeurDist = Tools.getDistStat()
         
-        lbValeurDist.text = String(valeur_dist)
+        if valeurDist < 1000 {
+            self.uniteMetrique.text = "m"
+        } else {
+            valeurDist = Tools.roundDist(valeurDist / 1000, places: 2)
+            self.uniteMetrique.text = "Km"
+        }
+
+        self.lbValeurDist.text = String(valeurDist)
     }
 }

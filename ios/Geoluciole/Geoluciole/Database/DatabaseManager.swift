@@ -52,7 +52,9 @@ class DatabaseManager {
             do {
                 try DatabaseManager.getInstance().executeUpdate(table.prepareSQLForCreateTable(), values: nil)
             } catch {
-                print(error.localizedDescription)
+                if Constantes.DEBUG {
+                    print(error.localizedDescription)
+                }
             }
             DatabaseManager.getInstance().close()
         }
