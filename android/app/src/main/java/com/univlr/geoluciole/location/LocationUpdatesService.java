@@ -311,7 +311,7 @@ public class LocationUpdatesService extends Service {
         Utils.setRequestingLocationUpdates(this, true);
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
-            mLocationManager.requestLocationUpdates(10000, 10, mCriteria, mLocationListener, Looper.myLooper());
+            mLocationManager.requestLocationUpdates(500, 10, mCriteria, mLocationListener, Looper.myLooper());
             /*mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                     mLocationCallback, Looper.myLooper());*/
         } catch (SecurityException unlikely) {
