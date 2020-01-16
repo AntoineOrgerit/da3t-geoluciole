@@ -16,7 +16,8 @@ class PartenaireViewController: ParentViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        // nop
+        return UITableViewCell()
     }
     
     let mytableView = UITableViewController(style: UITableView.Style.grouped )
@@ -28,11 +29,11 @@ class PartenaireViewController: ParentViewController, UITableViewDelegate, UITab
         
         let laboImage = createImage(name: "logo_l3i")
         let univImageView = createImage(name: "logo_ULR")
-        let liensImageView = createImage(name: <#T##String#>)
+        //let liensImageView = createImage(name: <#T##String#>)
 
         self.rootView.addSubview(laboImage)
         self.rootView.addSubview(univImageView)
-        self.rootView.addSubview(liensImageView)
+        //self.rootView.addSubview(liensImageView)
 
         NSLayoutConstraint.activate([
 

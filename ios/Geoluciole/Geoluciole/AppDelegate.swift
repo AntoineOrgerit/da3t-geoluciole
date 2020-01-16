@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     let locationManager = CLLocationManager()
     let userNotificationCenter = UNUserNotificationCenter.current()
-    var timer: Timer? // timer permettant l'envoi des données au serveur de manière régulière
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -24,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
-        
+
         // Copie des CGU dans le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.CGU_NAME)
 
@@ -46,10 +45,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         userNotificationCenter.delegate = self
         requestNotificationAuthorization()
 
-        // init de la tâche d'envoi au serveur
-        timer = Timer(timeInterval: Constantes.TIMER_SEND_DATA, target: self, selector: #selector(sendPostElasticSearch), userInfo: nil, repeats: true)
-        timer?.tolerance = 60.0 // ajout d'une tolerance (en s) pour permettre l'envoi entre le temps défini + 1 min
-        RunLoop.current.add(timer!, forMode: .common) // permet de mettre le timer dans un thread à part pour le déclencher même en cas d'interaction utilisateur
+
+        // On démarre la timer de localisation si la collecte des données est activée
+        let sendData = UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_SEND_DATA)
+
+        if sendData {
+            CustomTimer.getInstance().startTimerLocalisation()
+        }
+
 
         return true
     }
@@ -59,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         NSLog("App killed")
 
         // On doit invalider le timer lorsque l'on quitte l'application
-        timer?.invalidate()
+        CustomTimer.getInstance().stopTimerLocation()
 
         if CLLocationManager.locationServicesEnabled() {
             sendNotificationStopTracking()
@@ -107,19 +110,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             NSLog("set last point")
             preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
         }
-        
+
         if (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as? Double) == nil {
             NSLog("set Distance")
             preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: 0.0)
         }
         NSLog("calcul de la distance")
-        
+
         let previewDist: Double = (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as! Double)
-        
+
         let coord1 = CLLocation(latitude: (preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) as! [CLLocationDegrees])[0], longitude: (preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) as! [CLLocationDegrees])[1])
-        
+
         let coord2 = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
+
         let tempDist = Tools.getDistance(coordonnee1: coord1, coordonnee2: coord2)
         NSLog("distance temporaire \(tempDist)")
         let distance = previewDist + tempDist
@@ -127,41 +130,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         //update of the saved data.
         preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: distance)
         preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
-        
+
         NSLog("Sortie calcul distance")
-        
-        }
+
+    }
 
 
 
 /// Appelé lorsqu'une erreur liée à la localisation est capturée
-        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-            if let err = error as? CLError {
-                switch err {
-                case CLError.locationUnknown:
-                    NSLog("Position inconnue")
-                case CLError.denied:
-                    locationManager.stopUpdatingLocation()
-                default:
-                    NSLog("Erreur inconnue : \(err.localizedDescription)")
-                }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        if let err = error as? CLError {
+            switch err {
+            case CLError.locationUnknown:
+                NSLog("Position inconnue")
+            case CLError.denied:
+                locationManager.stopUpdatingLocation()
+            default:
+                NSLog("Erreur inconnue : \(err.localizedDescription)")
             }
         }
+    }
 
 
 // Notification PART
 
 /// Demande l'autorisation d'envoyer des notifications à l'utilisateur
-        func requestNotificationAuthorization() {
-            // On définit les élements que l'on veut utiliser pour les notifications
-            let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .sound)
+    func requestNotificationAuthorization() {
+        // On définit les élements que l'on veut utiliser pour les notifications
+        let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .sound)
 
-            self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
-                if let error = error {
-                    NSLog("Erreur lors de l'autorisation des notifications : \(error)")
-                }
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
+            if let error = error {
+                NSLog("Erreur lors de l'autorisation des notifications : \(error)")
             }
         }
+    }
+    
+    
 
     /// Envoi d'une notification lorsque l'on coupe l'application pour informer
     /// l'utilisateur que le tracking va être coupé
@@ -169,67 +174,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Création de la notification
         let notificationContent = UNMutableNotificationContent()
 
-            // définition du contenu
-            notificationContent.title = "\u{26a0} Attention \u{26a0}"
-            notificationContent.body = "La coupure de l'application ne permet pas de suivre vos déplacements. Veuillez relancer l'application pour reprendre le suivi"
+        // définition du contenu
+        notificationContent.title = "\u{26a0} Attention \u{26a0}"
+        notificationContent.body = "La coupure de l'application ne permet pas de suivre vos déplacements. Veuillez relancer l'application pour reprendre le suivi"
 
-            // Ajout d'un icone
-            if let url = Bundle.main.url(forResource: "AppIcon", withExtension: "png") {
-                if let attachment = try? UNNotificationAttachment(identifier: "AppIcon", url: url, options: nil) {
-                    notificationContent.attachments = [attachment]
-                }
-            }
-
-            // gestion de l'émission
-            // temps exprimé en secondes
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-
-            let request = UNNotificationRequest(identifier: "testNotification", content: notificationContent, trigger: trigger)
-
-            // on post la notification pour la prendre en compte
-            userNotificationCenter.add(request) { (error) in
-                if let error = error {
-                    NSLog("Erreur lors de la soumission de la notification : \(error)")
-                }
+        // Ajout d'un icone
+        if let url = Bundle.main.url(forResource: "AppIcon", withExtension: "png") {
+            if let attachment = try? UNNotificationAttachment(identifier: "AppIcon", url: url, options: nil) {
+                notificationContent.attachments = [attachment]
             }
         }
 
-        func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-            completionHandler()
-        }
+        // gestion de l'émission
+        // temps exprimé en secondes
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
 
-        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-            completionHandler([.alert, .sound])
-        }
+        let request = UNNotificationRequest(identifier: "testNotification", content: notificationContent, trigger: trigger)
 
-// Envoi serveur PART
-
-    /// Envoi les données de localisation de l'utilisateur au serveur
-    @objc func sendPostElasticSearch() {
-        print("Timer déclenché !!!")
-        // création du message à envoyer
-
-            // récupération des localisations en BDD SQLite
-            LocationTable.getInstance().selectQuery { (success, result, error) in
-                if result.count > 0 {
-                    var locations: [Location] = [Location]()
-
-                    // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
-                    for location in result {
-                        let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double)
-
-                        locations.append(loc)
-                    }
-
-                    // Si le tableau n'est pas vide, on envoi notre message
-                    if locations.count > 0 {
-                        let identifier = Tools.getIdentifier()
-
-                        let message: String = ElasticSearchAPI.getInstance().generateMessage(locations: locations, identifier: identifier)
-                        ElasticSearchAPI.getInstance().postLocations(message: message)
-                    }
-                }
+        // on post la notification pour la prendre en compte
+        userNotificationCenter.add(request) { (error) in
+            if let error = error {
+                NSLog("Erreur lors de la soumission de la notification : \(error)")
             }
         }
     }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+}
 

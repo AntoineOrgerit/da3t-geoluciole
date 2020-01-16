@@ -49,7 +49,7 @@ class ElasticSearchAPI {
     func postLocations(message: String) {
         NSLog("Envoi au serveur en cours ...")
         // Création de la requête (header + contenu)
-        var request = URLRequest(url: resourceURL.appendingPathComponent("/data/_bulk"))
+        var request = URLRequest(url: resourceURL.appendingPathComponent("data/_bulk"))
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = message.data(using: .utf8)

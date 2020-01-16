@@ -84,6 +84,13 @@ class CollectDataSwitchView: UIView {
 
     @objc func switchSenderData() {
         self.userPrefs.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: self.switchData.isOn)
+        
+        // On démarre le timer de localisation si la collecte est autorisée
+        if self.switchData.isOn {
+            CustomTimer.getInstance().startTimerLocalisation()
+        } else {
+            CustomTimer.getInstance().stopTimerLocation()
+        }
     }
 
     func setSwitch(value: Bool) {
