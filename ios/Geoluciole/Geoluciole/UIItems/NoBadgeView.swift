@@ -21,6 +21,7 @@ class NoBadgeView: UIView {
         
         let label = UILabel()
         label.text = "Aucun badge"
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false

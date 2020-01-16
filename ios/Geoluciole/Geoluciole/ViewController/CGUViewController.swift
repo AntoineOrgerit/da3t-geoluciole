@@ -19,13 +19,12 @@ class CGUViewController: ParentViewController, UIWebViewDelegate {
         self.titleBar.isHidden = true
 
         // Création d'un bouton "OK"
-        let okBtn = UIButton()
-        okBtn.setTitle("OK", for: .normal)
-        okBtn.setTitleColor(.white, for: .normal)
-        okBtn.addTarget(self, action: #selector(closeModal), for: .touchUpInside)
-        okBtn.translatesAutoresizingMaskIntoConstraints = false
-
-        self.rootView.addSubview(okBtn)
+        let closeButton = CustomUIButton()
+        closeButton.setTitle("Fermer", for: .normal)
+        closeButton.setTitleColor(.white, for: .normal)
+        closeButton.addTarget(self, action: #selector(closeModal), for: .touchUpInside)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        self.rootView.addSubview(closeButton)
 
 
         // Affichage du pdf des CGU
@@ -41,13 +40,13 @@ class CGUViewController: ParentViewController, UIWebViewDelegate {
 
         NSLayoutConstraint.activate([
             // bouton ok
-            okBtn.topAnchor.constraint(equalTo: self.rootView.topAnchor, constant: 10),
-            okBtn.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -10),
+            closeButton.topAnchor.constraint(equalTo: self.rootView.topAnchor, constant: 10),
+            closeButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -10),
             
             webView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
             webView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
-            webView.topAnchor.constraint(equalTo: okBtn.bottomAnchor, constant: 10),
-            webView.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor)
+            webView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 10),
+            webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
 

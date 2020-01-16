@@ -19,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         //Afficher chemin vers le dossier Documents de l'app
-        print("DocumentDirectory => \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last ?? "")")
+        if Constantes.DEBUG {
+            print("DocumentDirectory => \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last ?? "")")
+        }
 
         // Copie de la Db du Bundle de l'app vers le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.DB_NAME)
@@ -59,7 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     /// Appelé lorsque l'application va se terminer (coupure via le gestionnaire d'app par exemple)
     func applicationWillTerminate(_ application: UIApplication) {
-        NSLog("App killed")
+        if Constantes.DEBUG {
+            print("App killed")
+        }
 
         // On doit invalider le timer lorsque l'on quitte l'application
         CustomTimer.getInstance().stopTimerLocation()
@@ -95,7 +99,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             return
         }
 
-        NSLog("Location update")
+        if Constantes.DEBUG {
+            print("Location update")
+        }
 
         LocationTable.getInstance().insertQuery([
             LocationTable.ALTITUDE: location.altitude,
@@ -103,19 +109,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             LocationTable.LONGITUDE: location.coordinate.longitude,
             LocationTable.TIMESTAMP: Date().timeIntervalSince1970
         ])
+
         let preferenceUser = UserPrefs.getInstance()
+
         /*si des données sont déjà sauvegardées, le calcul de distance est effectué
         sinon les coordonnées captées sont sauvegardées */
         if preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) == nil {
-            NSLog("set last point")
+            if Constantes.DEBUG {
+                print("set last point")
+            }
             preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
         }
 
         if (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as? Double) == nil {
-            NSLog("set Distance")
+            if Constantes.DEBUG {
+                print("set Distance")
+            }
             preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: 0.0)
         }
-        NSLog("calcul de la distance")
+
+        if Constantes.DEBUG {
+            print("calcul de la distance")
+        }
 
         let previewDist: Double = (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as! Double)
 
@@ -124,15 +139,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let coord2 = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
 
         let tempDist = Tools.getDistance(coordonnee1: coord1, coordonnee2: coord2)
-        NSLog("distance temporaire \(tempDist)")
+        if Constantes.DEBUG {
+            print("distance temporaire \(tempDist)")
+        }
+
         let distance = previewDist + tempDist
-        NSLog("la distance est :\(distance)")
+
+        if Constantes.DEBUG {
+            print("la distance est :\(distance)")
+        }
         //update of the saved data.
         preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: distance)
         preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
 
-        NSLog("Sortie calcul distance")
-
+        if Constantes.DEBUG {
+            print("Sortie calcul distance")
+        }
     }
 
 
@@ -142,11 +164,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if let err = error as? CLError {
             switch err {
             case CLError.locationUnknown:
-                NSLog("Position inconnue")
+                if Constantes.DEBUG {
+                    print("Position inconnue")
+                }
             case CLError.denied:
                 locationManager.stopUpdatingLocation()
             default:
-                NSLog("Erreur inconnue : \(err.localizedDescription)")
+                if Constantes.DEBUG {
+                    print("Erreur inconnue : \(err.localizedDescription)")
+                }
             }
         }
     }
@@ -161,12 +187,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
             if let error = error {
-                NSLog("Erreur lors de l'autorisation des notifications : \(error)")
+                print("Erreur lors de l'autorisation des notifications : \(error)")
             }
         }
     }
-    
-    
+
+
 
     /// Envoi d'une notification lorsque l'on coupe l'application pour informer
     /// l'utilisateur que le tracking va être coupé
@@ -194,7 +220,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // on post la notification pour la prendre en compte
         userNotificationCenter.add(request) { (error) in
             if let error = error {
-                NSLog("Erreur lors de la soumission de la notification : \(error)")
+                print("Erreur lors de la soumission de la notification : \(error)")
             }
         }
     }

@@ -42,7 +42,10 @@ class CustomTimer {
 
     /// Envoi les données de localisation de l'utilisateur au serveur
     @objc func sendPostElasticSearch() {
-        print("Timer déclenché !!!")
+        if Constantes.DEBUG {
+            print("Timer déclenché")
+        }
+        
         // création du message à envoyer
 
         // récupération des localisations en BDD SQLite

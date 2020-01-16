@@ -21,7 +21,7 @@ class DateFieldView: UIView, UIGestureRecognizerDelegate {
         super.init(frame: frame)
 
         self.titleLabel = UILabel()
-        self.titleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        self.titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.titleLabel.adjustsFontForContentSizeCategory = true
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.text = ""

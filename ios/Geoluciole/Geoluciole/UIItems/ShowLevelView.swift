@@ -33,7 +33,7 @@ class ShowLevelView: UIView {
         self.progressBar.layer.cornerRadius = self.progressBarHeight / 2
         self.progressBar.clipsToBounds = true
         self.progressBar.progressTintColor = .colorProgressBar
-        self.progressBar.setProgress(2, animated: true)
+        self.progressBar.setProgress(0, animated: true)
         self.addSubview(self.progressBar)
 
         NSLayoutConstraint.activate([

@@ -47,7 +47,10 @@ class ElasticSearchAPI {
 
     /// Envoi des localisations du terminal au serveur
     func postLocations(message: String) {
-        NSLog("Envoi au serveur en cours ...")
+        if Constantes.DEBUG {
+            print("Envoi au serveur en cours ...")
+        }
+
         // Création de la requête (header + contenu)
         var request = URLRequest(url: resourceURL.appendingPathComponent("data/_bulk"))
         request.httpMethod = "POST"
@@ -59,7 +62,9 @@ class ElasticSearchAPI {
             // Si on récupère pas d'information d'erreur et que l'on a pas de données, on indique
             // que l'on a reçu aucune donnée
             guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
+                if Constantes.DEBUG {
+                    print(error?.localizedDescription ?? "No data")
+                }
                 return
             }
 
@@ -69,11 +74,15 @@ class ElasticSearchAPI {
                 // si on a pas d'erreurs, on supprime les données en base
                 if let err = responseJSON["errors"] as? Int {
                     if err == 0 {
-                        NSLog("Envoi au serveur réussi !")
+                        if Constantes.DEBUG {
+                            print("Envoi au serveur réussi !")
+                        }
                         LocationTable.getInstance().deleteQuery()
                         // Sinon, on indique l'erreur et on garde les données
                     } else {
-                        NSLog("Erreur durant l'envoi au serveur")
+                        if Constantes.DEBUG {
+                            print("Erreur durant l'envoi au serveur")
+                        }
                     }
                 }
 
@@ -83,7 +92,7 @@ class ElasticSearchAPI {
         // mise en file d'attente de la tâche
         task.resume()
     }
-    
+
     /// Génération du message à envoyer au serveur
     func generateMessageCompte() -> String {
         let messageStr = "{\"consentement\":\"\(Constantes.TEXTE_VALIDATION_DROIT)\", \"date\":\"\(Tools.convertDate(date: Date()))\", \"nom\":\"test2\", \"prenom\": \"test2\", \"mail\": \"mail2@gmail.com\"}"
@@ -93,7 +102,9 @@ class ElasticSearchAPI {
 
     /// Envoi des localisations du terminal au serveur
     func postCompte(message: String) {
-        NSLog("Envoi au serveur en cours ...")
+        if Constantes.DEBUG {
+            print("Envoi au serveur en cours ...")
+        }
         // Création de la requête (header + contenu)
         guard let resourceURL = URL(string: Constantes.API_URL_SERVER_TEST) else {
             fatalError()
@@ -109,7 +120,9 @@ class ElasticSearchAPI {
             // Si on récupère pas d'information d'erreur et que l'on a pas de données, on indique
             // que l'on a reçu aucune donnée
             guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
+                if Constantes.DEBUG {
+                    print(error?.localizedDescription ?? "No data")
+                }
                 return
             }
 
@@ -119,10 +132,14 @@ class ElasticSearchAPI {
                 // si on a pas d'erreurs, on supprime les données en base
                 if let err = responseJSON["_shards"] as? [String: Int] {
                     if err["failed"] == 0 {
-                        NSLog("Envoi au serveur réussi !")
+                        if Constantes.DEBUG {
+                            print("Envoi au serveur réussi !")
+                        }
                         // Sinon, on indique l'erreur et on garde les données
                     } else {
-                        NSLog("Erreur durant l'envoi au serveur")
+                        if Constantes.DEBUG {
+                            print("Erreur durant l'envoi au serveur")
+                        }
                     }
                 }
 
