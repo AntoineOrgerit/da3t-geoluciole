@@ -14,6 +14,7 @@ class ShowLevelView: UIView {
     fileprivate var levelNumberLabel: UILabel!
     fileprivate var progressBar: UIProgressView!
     fileprivate let progressBarHeight: CGFloat = 15
+    var onProgressBarFinish: (()-> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,6 +56,9 @@ class ShowLevelView: UIView {
 
     func setProgress(value: Float) {
         self.progressBar.progress = value
+        if self.progressBar.progress >= 1 {
+            self.onProgressBarFinish?()
+        }
     }
 
     required init?(coder: NSCoder) {

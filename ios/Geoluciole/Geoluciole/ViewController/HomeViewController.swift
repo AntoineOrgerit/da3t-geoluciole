@@ -27,6 +27,9 @@ class HomeViewController: ParentViewController {
 
         // LevelView
         self.showLevelView = ShowLevelView()
+        self.showLevelView.onProgressBarFinish = {
+            self.collectDataSwitchView.setSwitch(value: false)
+        }
         self.showLevelView.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(self.showLevelView)
 
@@ -87,6 +90,7 @@ class HomeViewController: ParentViewController {
         let pct : Float = Float((100 * currentDate.timeIntervalSince(dateDebut) / (dateFin.timeIntervalSince(dateDebut)))/100)
         print(pct)
         self.showLevelView.setProgress(value: pct)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
