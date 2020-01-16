@@ -7,13 +7,10 @@
 //
 
 import UIKit
-import CoreLocation
-import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let locationManager = CLLocationManager()
     let userNotificationCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -32,29 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
 
-        // Demande l'autorisation de récupérer la localisation
-        locationManager.requestAlwaysAuthorization()
-
-        // Ecoute de la position uniquement is l'autorisation est donnée
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.allowsBackgroundLocationUpdates = true
-            locationManager.distanceFilter = 10 // on doit bouger de 10m pour détecter un changement
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-        }
-
-        userNotificationCenter.delegate = self
-        requestNotificationAuthorization()
-
-
         // On démarre la timer de localisation si la collecte des données est activée
-        let sendData = UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_SEND_DATA)
-
-        if sendData {
-            CustomTimer.getInstance().startTimerLocalisation()
+        if LocationHandler.getInstance().locationCanBeUsed() {
+            if !LocationHandler.getInstance().locationTracked {
+                LocationHandler.getInstance().startLocationTracking()
+                CustomTimer.getInstance().startTimerLocalisation()
+            }
         }
-
 
         return true
     }
@@ -65,12 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("App killed")
         }
 
-        // On doit invalider le timer lorsque l'on quitte l'application
-        CustomTimer.getInstance().stopTimerLocation()
-
-        if CLLocationManager.locationServicesEnabled() {
-            sendNotificationStopTracking()
-            locationManager.stopUpdatingLocation()
+        if LocationHandler.getInstance().locationCanBeUsed() {
+            if LocationHandler.getInstance().locationTracked {
+                NotificationHandler.getInstance().sendNotificationStopTracking()
+                LocationHandler.getInstance().stopLocationTracking()
+                CustomTimer.getInstance().stopTimerLocation()
+            }
         }
     }
 
@@ -88,149 +69,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
-    // Location PART
-
-    /// Appelé lorsque l'on reçoit une nouvelle position GPS
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // on effectue l'insertion uniquement si la valeur n'est pas nil
-        guard let location = locations.last else {
-            return
-        }
-
-        if Constantes.DEBUG {
-            print("Location update")
-        }
-
-        LocationTable.getInstance().insertQuery([
-            LocationTable.ALTITUDE: location.altitude,
-            LocationTable.LATITUDE: location.coordinate.latitude,
-            LocationTable.LONGITUDE: location.coordinate.longitude,
-            LocationTable.TIMESTAMP: Date().timeIntervalSince1970
-        ])
-
-        let preferenceUser = UserPrefs.getInstance()
-
-        /*si des données sont déjà sauvegardées, le calcul de distance est effectué
-        sinon les coordonnées captées sont sauvegardées */
-        if preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) == nil {
-            if Constantes.DEBUG {
-                print("set last point")
-            }
-            preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
-        }
-
-        if (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as? Double) == nil {
-            if Constantes.DEBUG {
-                print("set Distance")
-            }
-            preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: 0.0)
-        }
-
-        if Constantes.DEBUG {
-            print("calcul de la distance")
-        }
-
-        let previewDist: Double = (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as! Double)
-
-        let coord1 = CLLocation(latitude: (preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) as! [CLLocationDegrees])[0], longitude: (preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) as! [CLLocationDegrees])[1])
-
-        let coord2 = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-
-        let tempDist = Tools.getDistance(coordonnee1: coord1, coordonnee2: coord2)
-        if Constantes.DEBUG {
-            print("distance temporaire \(tempDist)")
-        }
-
-        let distance = previewDist + tempDist
-
-        if Constantes.DEBUG {
-            print("la distance est :\(distance)")
-        }
-        //update of the saved data.
-        preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: distance)
-        preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
-
-        if Constantes.DEBUG {
-            print("Sortie calcul distance")
-        }
-    }
-
-
-
-/// Appelé lorsqu'une erreur liée à la localisation est capturée
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        if let err = error as? CLError {
-            switch err {
-            case CLError.locationUnknown:
-                if Constantes.DEBUG {
-                    print("Position inconnue")
-                }
-            case CLError.denied:
-                locationManager.stopUpdatingLocation()
-            default:
-                if Constantes.DEBUG {
-                    print("Erreur inconnue : \(err.localizedDescription)")
-                }
-            }
-        }
-    }
-
-
-// Notification PART
-
-/// Demande l'autorisation d'envoyer des notifications à l'utilisateur
-    func requestNotificationAuthorization() {
-        // On définit les élements que l'on veut utiliser pour les notifications
-        let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .sound)
-
-        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
-            if let error = error {
-                print("Erreur lors de l'autorisation des notifications : \(error)")
-            }
-        }
-    }
-
-
-
-    /// Envoi d'une notification lorsque l'on coupe l'application pour informer
-    /// l'utilisateur que le tracking va être coupé
-    func sendNotificationStopTracking() {
-        // Création de la notification
-        let notificationContent = UNMutableNotificationContent()
-
-        // définition du contenu
-        notificationContent.title = "\u{26a0} Attention \u{26a0}"
-        notificationContent.body = "La coupure de l'application ne permet pas de suivre vos déplacements. Veuillez relancer l'application pour reprendre le suivi"
-
-        // Ajout d'un icone
-        if let url = Bundle.main.url(forResource: "AppIcon", withExtension: "png") {
-            if let attachment = try? UNNotificationAttachment(identifier: "AppIcon", url: url, options: nil) {
-                notificationContent.attachments = [attachment]
-            }
-        }
-
-        // gestion de l'émission
-        // temps exprimé en secondes
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-
-        let request = UNNotificationRequest(identifier: "testNotification", content: notificationContent, trigger: trigger)
-
-        // on post la notification pour la prendre en compte
-        userNotificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Erreur lors de la soumission de la notification : \(error)")
-            }
-        }
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        completionHandler()
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
     }
 }
 

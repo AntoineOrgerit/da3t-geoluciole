@@ -132,14 +132,15 @@ class Tools {
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.date(from: date)!
     }
-    
+
     static func convertDateGMT01(date: String) -> Date {
-           let df = DateFormatter()
-           df.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-           df.locale = Locale(identifier: Locale.current.regionCode!)
-           df.dateFormat = "dd/MM/yyyy HH:mm"
-           return df.date(from: date)!
-       }
+        let df = DateFormatter()
+        df.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        
+        df.locale = Locale(identifier: Locale.current.regionCode!)
+        df.dateFormat = "dd/MM/yyyy HH:mm"
+        return df.date(from: date)!
+    }
 
     static func convertDate(date: Date) -> String {
         let df = DateFormatter()
@@ -157,7 +158,7 @@ class Tools {
         guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE) as? Double else {
             return 0
         }
-        
+
         if Constantes.DEBUG {
             print("Distance parcourue :\(dist_parcourue)")
         }

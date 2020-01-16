@@ -68,10 +68,17 @@ class GPSConsentRGPDViewController: ParentViewController {
         self.acceptButton.translatesAutoresizingMaskIntoConstraints = false
         self.acceptButton.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
-            
+
             if strongSelf.checkbox.isChecked() {
                 strongSelf.sendDataCompte()
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
+
+                // Avec le consentement, on peut activer la collecte des données
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+
+                // Demande d'autorisation d'utiliser la localisation et d'envoyer des notifications
+                LocationHandler.getInstance().requestLocationAuthorization()
+                NotificationHandler.getInstance().requestNotificationAuthorization()
             }
 
             strongSelf.dismiss(animated: true)
@@ -85,7 +92,7 @@ class GPSConsentRGPDViewController: ParentViewController {
         self.refuseButton.translatesAutoresizingMaskIntoConstraints = false
         self.refuseButton.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
-            
+
             strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: false)
             strongSelf.dismiss(animated: true)
         }
@@ -102,7 +109,7 @@ class GPSConsentRGPDViewController: ParentViewController {
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }
-            
+
             if strongSelf.checkbox.isChecked() {
                 strongSelf.acceptButton.setStyle(style: .active)
             } else {
@@ -143,7 +150,7 @@ class GPSConsentRGPDViewController: ParentViewController {
             self.acceptButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             self.acceptButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
             self.acceptButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
-            
+
             self.refuseButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             self.refuseButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             self.refuseButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),

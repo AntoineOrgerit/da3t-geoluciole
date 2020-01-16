@@ -60,6 +60,8 @@
 		6299A17623CF65E500057652 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6299A17523CF65E500057652 /* CustomTimer.swift */; };
 		62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */; };
 		62BF3D6F23C8840E00945C04 /* UserPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6E23C8840E00945C04 /* UserPrefs.swift */; };
+		62D37A9D23D0A17F00F079C0 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D37A9C23D0A17F00F079C0 /* LocationHandler.swift */; };
+		62D37A9F23D0A4B300F079C0 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D37A9E23D0A4B300F079C0 /* NotificationHandler.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
 		6F92E55D23D06B9C00BEF169 /* LogoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F92E55C23D06B9C00BEF169 /* LogoCollectionCell.swift */; };
 		6FACFC6C23CF58B50036881E /* PartenaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FACFC6B23CF58B50036881E /* PartenaireViewController.swift */; };
@@ -128,6 +130,8 @@
 		6299A17523CF65E500057652 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTrophiesViewController.swift; sourceTree = "<group>"; };
 		62BF3D6E23C8840E00945C04 /* UserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefs.swift; sourceTree = "<group>"; };
+		62D37A9C23D0A17F00F079C0 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
+		62D37A9E23D0A4B300F079C0 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		6F92E55C23D06B9C00BEF169 /* LogoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCollectionCell.swift; sourceTree = "<group>"; };
 		6FACFC6B23CF58B50036881E /* PartenaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartenaireViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 				2392A4C723CCC2E1006606B5 /* CustomUILabel.swift */,
 				6263427323CCB926004DFD43 /* CustomUIButton.swift */,
 				6299A17523CF65E500057652 /* CustomTimer.swift */,
+				62D37A9C23D0A17F00F079C0 /* LocationHandler.swift */,
+				62D37A9E23D0A4B300F079C0 /* NotificationHandler.swift */,
 			);
 			path = CustomItems;
 			sourceTree = "<group>";
@@ -408,6 +414,7 @@
 				23CB178123CCDCFE00B1BF73 /* CollectDataSwitchView.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
 				6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */,
+				62D37A9D23D0A17F00F079C0 /* LocationHandler.swift in Sources */,
 				234C710723CD0F0000DF70FB /* BadgesCollectionView.swift in Sources */,
 				62BF3D6F23C8840E00945C04 /* UserPrefs.swift in Sources */,
 				23610E8123CDF593003B6EF8 /* CheckBoxView.swift in Sources */,
@@ -426,6 +433,7 @@
 				6FACFC6C23CF58B50036881E /* PartenaireViewController.swift in Sources */,
 				2345245423C79E20001D2CF7 /* WhereCondition.swift in Sources */,
 				6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */,
+				62D37A9F23D0A4B300F079C0 /* NotificationHandler.swift in Sources */,
 				2305CE7F23C633B200354361 /* Constantes.swift in Sources */,
 				2305CE8B23C64AD500354361 /* Table.swift in Sources */,
 				237972DE23CD260600800764 /* LabelStyle.swift in Sources */,
