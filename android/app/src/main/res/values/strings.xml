@@ -1,13 +1,49 @@
 <resources>
     <string name="app_name">Géoluciole</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_achievements">Stickers</string>
+    <string name="title_dashboard">Preferences</string>
+
+    <string name="action_validate">Validate</string>
+    <string name="action_loader">Loading</string>
 
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole is running</string>
     <string name="location_notification_content_text">Tracking of your journey in progress</string>
     <string name="location_notification_button_text">Open app</string>
+
+    <!-- RGPD CONTENT -->
+    <string name="rgpd_title_primary">Consentement RGPD</string>
+    <string name="rgpd_title_project">PROJET Région Nouvelle-Aquitaine DA3T</string>
+    <!--RGPD CONTENT : First content -->
+    <string name="rgpd_first_content_1_line">Les données recueillies par l’application font l’objet d’une inscription sur le registre des
+    traitements de la Rochelle Université.</string>
+    <string name="rgpd_first_content_2_line">Les données sont recueillies à des fins de recherche par les chercheurs du LIENSS dans le cadre
+    du projet DA3T.</string>
+    <string name="rgpd_first_content_3_line">Le projet de recherche vise à proposer un dispositif d’analyse des traces géonumériques dans le
+    but d’améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine.</string>
+    <string name="rgpd_first_content_4_line">La finalité de l’étude est d’interroger l’apport supposé des traces géonumériques dans la
+    compréhension de la ville touristique atlantique.</string>
+    <string name="rgpd_first_content_consentement">J’autorise les chercheurs du laboratoire LIENSS à utiliser mes données dans le cadre
+    du projet DA3T</string>
+
+    <!--RGPD CONTENT : Second content -->
+    <string name="rgpd_second_content_1_line">Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par La
+    Rochelle Université, 23 avenue Albert Einstein, 17000 La Rochelle pour améliorer la gestion et
+    la valorisation des territoires touristiques en Nouvelle-Aquitaine. La base légale du traitement
+    est le consentement.</string>
+    <string name="rgpd_second_content_2_line">Les données collectées ne seront communiquées à aucun destinataires.</string>
+    <string name="rgpd_second_content_3_line">Les données sont conservées pendant 5 ans à des fins de recherche scientifique.</string>
+    <string name="rgpd_second_content_4_line">Vous pouvez accéder aux données vous concernant, les rectifier, demander leur effacement ou
+    exercer votre droit à la limitation du traitement de vos données. Vous pouvez retirer à tout
+    moment votre consentement au traitement de vos données ; Vous pouvez également vous
+    opposer au traitement de vos donnée.</string>
+    <string name="rgpd_second_content_5_line">Consultez le site cnil.fr pour plus d’informations sur vos droits.</string>
+    <string name="rgpd_second_content_6_line">Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce
+    dispositif, vous pouvez contacter notre DPO à l’adresse dpo@univ-lr.fr</string>
+    <string name="rgpd_second_content_7_line">Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne sont
+    pas respectés, vous pouvez adresser une réclamation à la CNIL.</string>
+    <string name="rgpd_second_content_consentement">J’autorise les chercheurs du laboratoire LIENSS à me recontacter dans le cadre de cette expérience.</string>
 
     <!-- HOME FRAGMENT -->
     <string name="stay_progression">Progression of your stay</string>
@@ -88,4 +124,14 @@
     <string name="form_err_radio">Select an answer</string>
     <string name="form_required">*required</string>
 
+    <!-- PREFERENCES FRAGMENT -->
+    <string name="dates_settings">Commitment period</string>
+    <string name="dates_settings_start">Start date</string>
+    <string name="dates_settings_end">End date</string>
+    <string name="app_language">App language</string>
+    <string name="french_language">French</string>
+    <string name="english_language">English</string>
+    <string name="partners">Consult partners</string>
+    <string name="licence_agreement">Consult the EULA</string>
+    <string name="revoke_consent">Revoke my consent</string>
 </resources>

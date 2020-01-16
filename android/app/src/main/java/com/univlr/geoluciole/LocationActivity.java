@@ -4,7 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.Location;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -140,6 +140,7 @@ public abstract class LocationActivity extends AppCompatActivity {
                     break;
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     protected abstract void onGPSEnabled();
