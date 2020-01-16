@@ -12,7 +12,7 @@ import UIKit
 class LogoCollectionCell: UITableViewCell {
     var imageLogo: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "logo_l3i")
+        //imageView.image = #imageLiteral(resourceName: "logo_l3i")
         imageView.translatesAutoresizingMaskIntoConstraints = false
 //        imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
@@ -28,17 +28,25 @@ class LogoCollectionCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         contentView.addSubview(imageLogo)
         contentView.addSubview(descrPartenaire)
-        
+        descrPartenaire.numberOfLines = 0
+        descrPartenaire.lineBreakMode = NSLineBreakMode.byWordWrapping
+        descrPartenaire.sizeToFit()
+       
         NSLayoutConstraint.activate([
-            imageLogo.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageLogo.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            imageLogo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            imageLogo.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             imageLogo.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
             imageLogo.heightAnchor.constraint(equalTo: imageLogo.widthAnchor),
             
-            descrPartenaire.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            descrPartenaire.topAnchor.constraint(equalTo: contentView.topAnchor),
+            
             descrPartenaire.leftAnchor.constraint(equalTo: imageLogo.rightAnchor, constant: 10),
+            descrPartenaire.heightAnchor.constraint(equalTo: imageLogo.heightAnchor , multiplier:  0.33),
+            descrPartenaire.centerYAnchor.constraint(equalTo: imageLogo.centerYAnchor),
+            descrPartenaire.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
             
             contentView.bottomAnchor.constraint(equalTo: imageLogo.bottomAnchor)
         ])

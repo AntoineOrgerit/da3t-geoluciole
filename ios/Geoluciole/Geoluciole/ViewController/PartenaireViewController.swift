@@ -13,16 +13,16 @@ import UIKit
 class PartenaireViewController: ParentViewController, UITableViewDelegate, UITableViewDataSource {
 
     let nomDesPartenaires = ["logo_l3i", "logo_ULR"]
-
+    let descriptionPartenaire = ["Le laboratoire d'informatique", "La Rochelle Université\nTechnoforum"]
     let tabView: UITableView = {
         let tableView = UITableView(frame: .zero, style: UITableView.Style.plain)
         tableView.backgroundColor = .blue
         return tableView
     }()
     let btonOk: UIButton = {
-        let okBtn = UIButton()
-        okBtn.setTitle("OK", for: .normal)
-        okBtn.setTitleColor(.white, for: .normal)
+        let okBtn = CustomUIButton()
+        okBtn.setTitle("Fermer", for: .normal)
+        okBtn.setStyle(style: .defaultStyle)
         return okBtn
     }()
 
@@ -39,14 +39,14 @@ class PartenaireViewController: ParentViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return nomDesPartenaires.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tabView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! LogoCollectionCell
-        //cell.backgroundColor = UIColor.white
-        
+        cell.imageLogo.image = UIImage(named: nomDesPartenaires[indexPath.item])
+        cell.descrPartenaire.text = descriptionPartenaire[indexPath.item]
         return cell
     }
     @objc func closeModal() {
