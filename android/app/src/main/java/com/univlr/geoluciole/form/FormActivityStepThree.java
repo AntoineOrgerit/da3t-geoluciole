@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,11 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Select;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.UserPreferences;
 
 public class FormActivityStepThree extends AppCompatActivity {
     // variable title
@@ -78,8 +77,8 @@ public class FormActivityStepThree extends AppCompatActivity {
         this.title = (TextView) findViewById(R.id.form_title);
         // step
         this.step = (TextView) findViewById(R.id.form_step);
-        if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/false) {
-            this.title.setText("Formulaire anonypisé");
+        if (UserPreferences.getInstance(this).isAccountConsent()) {
+            this.title.setText(R.string.form_title_anonym);
             this.step.setText("2/2");
         }
         // liste déroulante
@@ -154,10 +153,8 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/ true) {
-            saveToForm();
-            back();
-        }
+        saveToForm();
+        back();
     }
 
     /**

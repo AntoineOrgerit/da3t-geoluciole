@@ -21,6 +21,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.Calendar;
 
@@ -94,8 +95,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.title = (TextView) findViewById(R.id.form_title);
         // step
         this.step = (TextView) findViewById(R.id.form_step);
-        if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/false) {
-            this.title.setText("Formulaire anonypisé");
+        if (UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
+            this.title.setText(R.string.form_title_anonym);
             this.step.setText("1/2");
         }
         // date et heure arrivée boutons
@@ -115,7 +116,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
         // bouton précédent
         this.btnPrevious = (Button) findViewById(R.id.btn_prev);
         // cacher le bouton precedent si pas de consentement
-        if (/*!UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/false) {
+        if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
             this.btnPrevious.setVisibility(View.INVISIBLE);
         }
         // bouton suivant
@@ -235,7 +236,6 @@ public class FormActivityStepTwo extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveToForm();
                 back();
             }
         };
@@ -245,12 +245,17 @@ public class FormActivityStepTwo extends AppCompatActivity {
      * Méthode permettant de revenir sur la première vue
      */
     private void back() {
-        Intent intent = new Intent(getApplicationContext(),
-                FormActivityStepOne.class);
-        intent.putExtra("Form", form);
-        startActivity(intent);
-        overridePendingTransition(R.transition.trans_right_in, R.transition.trans_right_out);
-        finish();
+        if (UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
+            saveToForm();
+            Intent intent = new Intent(getApplicationContext(),
+                    FormActivityStepOne.class);
+            intent.putExtra("Form", form);
+            startActivity(intent);
+            overridePendingTransition(R.transition.trans_right_in, R.transition.trans_right_out);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**
@@ -260,12 +265,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        if (/*UserPreferences.getInstance(FormActivityStepTwo.this).isConsent()*/ true) {
-            saveToForm();
-            back();
-        } else {
-            super.onBackPressed();
-        }
+        back();
     }
 
     /**

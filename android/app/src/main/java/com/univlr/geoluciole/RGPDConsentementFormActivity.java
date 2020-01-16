@@ -8,6 +8,8 @@ import android.widget.CheckBox;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.univlr.geoluciole.form.FormActivityStepOne;
+import com.univlr.geoluciole.form.FormActivityStepTwo;
 import com.univlr.geoluciole.model.UserPreferences;
 
 public class RGPDConsentementFormActivity extends AppCompatActivity {
@@ -27,11 +29,9 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
                 boolean consentement = consentementCheckbox.isChecked();
                 Intent intent;
                 if (consentement) {
-                    //todo Ajouter pour aller au form step 1
-                    intent = new Intent(getApplicationContext(),MainActivity.class);
+                    intent = new Intent(getApplicationContext(), FormActivityStepOne.class);
                 } else {
-                    //todo Ajouter pour aller au form step 2
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent = new Intent(getApplicationContext(), FormActivityStepTwo.class);
                 }
                 // sauvegarde des préférences
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementFormActivity.this);
