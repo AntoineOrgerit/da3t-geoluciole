@@ -18,7 +18,7 @@ class HomeViewController: ParentViewController {
         super.viewDidLoad()
         let dhDeb = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT)
         let dhFin = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT)
-        if  dhDeb == "" ||  dhFin == "" {
+        if dhDeb == "" || dhFin == "" {
             let currentDate = Date()
             let dateEnd = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_START_ENGAGEMENT, value: Tools.convertDate(date: currentDate))
@@ -77,7 +77,7 @@ class HomeViewController: ParentViewController {
             view.clipsToBounds = true
         }
     }
-    
+
     func calcProgress() {
         let date = Date()
         let stringDate = Tools.convertDate(date: date)
@@ -86,12 +86,14 @@ class HomeViewController: ParentViewController {
         let dateDebut = Tools.convertDateGMT01(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT))
         let dateFin = Tools.convertDateGMT01(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT))
 
-        let pct : Float = Float((100 * currentDate.timeIntervalSince(dateDebut) / (dateFin.timeIntervalSince(dateDebut)))/100)
-        print(pct)
+        let pct: Float = Float((100 * currentDate.timeIntervalSince(dateDebut) / (dateFin.timeIntervalSince(dateDebut))) / 100)
+        if Constantes.DEBUG {
+            print("ProgressBar : \(pct)")
+        }
         self.showLevelView.setProgress(value: pct)
         
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

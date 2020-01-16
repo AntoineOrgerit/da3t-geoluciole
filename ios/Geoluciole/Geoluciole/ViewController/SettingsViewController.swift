@@ -69,7 +69,7 @@ class SettingsViewController: ParentViewController {
         let sendDataManually = CustomUIButton()
         sendDataManually.setTitle("ENVOYER MES DONNÉES", for: .normal)
         sendDataManually.onClick = { button in
-            CustomTimer.getInstance().sendPostElasticSearch()
+            CustomTimer.getInstance().sendPostLocationElasticSearch()
         }
         sendDataManually.setStyle(style: .settingLight)
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false

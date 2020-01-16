@@ -87,8 +87,10 @@ class CollectDataSwitchView: UIView {
         
         // On démarre le timer de localisation si la collecte est autorisée
         if self.switchData.isOn {
+            LocationHandler.getInstance().startLocationTracking()
             CustomTimer.getInstance().startTimerLocalisation()
         } else {
+            LocationHandler.getInstance().stopLocationTracking()
             CustomTimer.getInstance().stopTimerLocation()
         }
     }

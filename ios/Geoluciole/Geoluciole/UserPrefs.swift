@@ -39,8 +39,9 @@ class UserPrefs {
             self.setPrefs(key: UserPrefs.KEY_TYPE_ENGAGEMENT, value: 0)
         }
 
+        // Par défaut, on active pas la collecte de données
         if self.userPrefs.object(forKey: UserPrefs.KEY_SEND_DATA) == nil {
-            self.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+            self.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: false)
         }
         
         // Si la langue n'est pas définit, on prend la langue du système par défaut
