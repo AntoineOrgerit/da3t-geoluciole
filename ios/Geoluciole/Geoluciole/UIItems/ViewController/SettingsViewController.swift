@@ -91,7 +91,7 @@ class SettingsViewController: ParentViewController {
         deleteButton.onClick = { button in
             
         }
-        deleteButton.setStyle(style: .settingDark)
+        deleteButton.setStyle(style: .settingLight)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(deleteButton)
         
@@ -100,7 +100,7 @@ class SettingsViewController: ParentViewController {
         sendDataManually.onClick = { button in
             CustomTimer.getInstance().sendPostLocationElasticSearch()
         }
-        sendDataManually.setStyle(style: .settingLight)
+        sendDataManually.setStyle(style: .settingDark)
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(sendDataManually)
 

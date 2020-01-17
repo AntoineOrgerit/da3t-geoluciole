@@ -16,6 +16,7 @@ class HomeViewController: ParentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let dhDeb = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT)
         let dhFin = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT)
         if dhDeb == "" || dhFin == "" {
