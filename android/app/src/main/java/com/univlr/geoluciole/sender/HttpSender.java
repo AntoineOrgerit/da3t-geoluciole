@@ -130,13 +130,22 @@ public class HttpSender {
     /**
      * Parse la donnée sous format bulk : json\n json\n
      */
-    public static String parseDataInBulk(List<BulkObject> data) {
+    public static String parseDataInBulk(List<BulkObject> bulkObjects) {
         StringBuilder result = new StringBuilder();
         String index = "{\"index\":{}}\n";
-        for(BulkObject bulk : data) {
-            result.append(index);
-            result.append(bulk.jsonFormat());
-            result.append("\n");
+        for(BulkObject bulk : bulkObjects) {
+            if (bulk.hasMultipleObject()) {
+                List<String> parsed_data = bulk.jsonFormatObject();
+                for (String data : parsed_data) {
+                    result.append(index);
+                    result.append(data);
+                    result.append("\n");
+                }
+            } else {
+              result.append(index);
+              result.append(bulk.jsonFormat());
+              result.append("\n");
+            }
         }
 
         return result.toString();

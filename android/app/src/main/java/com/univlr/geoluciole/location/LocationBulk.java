@@ -4,6 +4,8 @@ import android.location.Location;
 
 import com.univlr.geoluciole.sender.BulkObject;
 
+import java.util.List;
+
 public class LocationBulk implements BulkObject {
 
     private Location location;
@@ -12,6 +14,16 @@ public class LocationBulk implements BulkObject {
     public LocationBulk(Location location, String id) {
         this.location = location;
         this.id = id;
+    }
+
+    @Override
+    public List<String> jsonFormatObject() {
+        return null;
+    }
+
+    @Override
+    public boolean hasMultipleObject() {
+        return false;
     }
 
     @Override
