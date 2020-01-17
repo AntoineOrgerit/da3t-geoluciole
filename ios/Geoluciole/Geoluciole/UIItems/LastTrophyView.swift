@@ -11,13 +11,13 @@ import UIKit
 
 class LastTrophyView: UIView {
 
-    fileprivate let trophy = CustomUIImageView(frame: .zero)
-    fileprivate let label = UILabel()
-    
+    fileprivate var trophy: CustomUIImageView!
+    fileprivate var label: CustomUILabel!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        let label = UILabel()
+        let label = CustomUILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.text = "Badge récemment obtenu"
         label.textAlignment = .left
@@ -32,23 +32,26 @@ class LastTrophyView: UIView {
         self.addSubview(trophy)
 
         NSLayoutConstraint.activate([
-
+            
             label.widthAnchor.constraint(equalTo: self.widthAnchor),
             label.leftAnchor.constraint(equalTo: self.leftAnchor),
             label.rightAnchor.constraint(equalTo: self.rightAnchor),
             label.topAnchor.constraint(equalTo: self.topAnchor),
-
+            
             trophy.topAnchor.constraint(equalTo: label.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             trophy.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.75),
-            trophy.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            trophy.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            trophy.heightAnchor.constraint(equalTo: trophy.widthAnchor),
+            trophy.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            self.bottomAnchor.constraint(equalTo: trophy.bottomAnchor)
+            
         ])
     }
 
-    func setImage(nom: String){
+    func setImage(nom: String) {
         self.trophy.image = UIImage(named: nom)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

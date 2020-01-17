@@ -26,8 +26,8 @@ class StatsTrophiesViewController: ParentViewController {
 
         NSLayoutConstraint.activate([
             self.statView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            self.statView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            self.statView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
+            self.statView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.statView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
             self.noBadge.topAnchor.constraint(equalTo: self.statView.bottomAnchor),
             self.noBadge.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor),

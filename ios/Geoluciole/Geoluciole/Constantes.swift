@@ -21,9 +21,9 @@ class Constantes {
     static let DB_VERSION = 1
 
     static let TITLE_BAR_PADDING_HORIZONTAL: CGFloat = 10
-    static let PAGE_PADDING_HORIZONTAL: CGFloat = 10
+    static let PAGE_PADDING: CGFloat = 10
     static let FIELD_SPACING_HORIZONTAL: CGFloat = 10
-    static let FIELD_SPACING_VERTICAL: CGFloat = 20
+    static let FIELD_SPACING_VERTICAL: CGFloat = 15
 
     static let TEXT_SUB_TITLE_RGPD = "PROJET Région Nouvelle-Aquitaine DA3T"
     static let DESC_PROJET = "Les données recueillies par l’application font l’objet d’une inscription sur le registre des traitements de la Rochelle Université. Les données sont recueillies à des fins de recherche par les chercheurs du LIENSs dans le cadre du projet DA3T.\n Le projet de recherche vise à proposer un dispositif d’analyse des traces géonumériques dans le but d’améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine. \n La finalité de l’étude est d’interroger l’apport supposé des traces géonumériques dans la compréhension de la ville touristique atlantique. "

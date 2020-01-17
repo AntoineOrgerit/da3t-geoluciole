@@ -9,21 +9,17 @@
 import Foundation
 import UIKit
 
-class GPSConsentRGPDViewController: ParentViewController {
+class GPSConsentRGPDViewController: ParentModalViewController {
 
-    fileprivate var textRGPD: UITextView!
     fileprivate var titreRGPD: UILabel!
     fileprivate var subtitleRGPD: UILabel!
+    fileprivate var textRGPD: UITextView!
+    fileprivate var checkbox: CheckBoxFieldView!
     fileprivate var acceptButton: CustomUIButton!
     fileprivate var refuseButton: CustomUIButton!
-    fileprivate var checkbox: CheckBoxFieldView!
-    fileprivate var consentLabel: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // On doit mettre rootView en blanc et je sais pas pourquoi
-        self.rootView.backgroundColor = .white
 
         // titre
         self.titreRGPD = UILabel()
@@ -36,6 +32,7 @@ class GPSConsentRGPDViewController: ParentViewController {
 
         // sous titre
         self.subtitleRGPD = UILabel()
+        self.subtitleRGPD.textAlignment = .center
         self.subtitleRGPD.numberOfLines = 0
         self.subtitleRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.subtitleRGPD.text = Constantes.TEXT_SUB_TITLE_RGPD
@@ -115,22 +112,12 @@ class GPSConsentRGPDViewController: ParentViewController {
             } else {
                 strongSelf.acceptButton.setStyle(style: .disabled)
             }
+            
+            // Autorisation à cliquer sur les boutons
             strongSelf.acceptButton.isUserInteractionEnabled = strongSelf.checkbox.isChecked()
+            strongSelf.refuseButton.isUserInteractionEnabled = !strongSelf.checkbox.isChecked()
         }
         self.rootView.addSubview(self.checkbox)
-
-        // Masquer un bout en bas de l'écran
-        let subStatusBarView = UIView()
-        subStatusBarView.backgroundColor = .white
-        subStatusBarView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(subStatusBarView)
-
-        NSLayoutConstraint.activate([
-            subStatusBarView.topAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor),
-            subStatusBarView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor),
-            subStatusBarView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            subStatusBarView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
-        ])
 
         // Titre RGPD
         NSLayoutConstraint.activate([
@@ -142,32 +129,33 @@ class GPSConsentRGPDViewController: ParentViewController {
         // Subtitle RGPD
         NSLayoutConstraint.activate([
             self.subtitleRGPD.topAnchor.constraint(equalTo: self.titreRGPD.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            self.subtitleRGPD.centerXAnchor.constraint(equalTo: self.rootView.centerXAnchor)
+            self.subtitleRGPD.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.subtitleRGPD.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
 
         // Boutons
         NSLayoutConstraint.activate([
             self.acceptButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.acceptButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            self.acceptButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
             self.acceptButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
 
             self.refuseButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.refuseButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            self.refuseButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
             self.refuseButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
         ])
 
         // CheckBox
         NSLayoutConstraint.activate([
             self.checkbox.bottomAnchor.constraint(equalTo: self.refuseButton.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.checkbox.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            self.checkbox.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL)
+            self.checkbox.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.checkbox.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
 
         // Texte RGPD
         NSLayoutConstraint.activate([
             self.textRGPD.bottomAnchor.constraint(equalTo: self.checkbox.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.textRGPD.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            self.textRGPD.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            self.textRGPD.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.textRGPD.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
             self.textRGPD.topAnchor.constraint(equalTo: self.subtitleRGPD.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL)
         ])
     }

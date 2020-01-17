@@ -50,16 +50,16 @@ class HomeViewController: ParentViewController {
         // Constraints ShowLevelView
         NSLayoutConstraint.activate([
             self.showLevelView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            self.showLevelView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            self.showLevelView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
+            self.showLevelView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.showLevelView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
 
         // Constraints LastTrophyView
         NSLayoutConstraint.activate([
-            wrap.topAnchor.constraint(equalTo: self.showLevelView.bottomAnchor),
-            wrap.bottomAnchor.constraint(equalTo: self.collectDataSwitchView.topAnchor),
-            wrap.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            wrap.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL),
+            wrap.topAnchor.constraint(equalTo: self.showLevelView.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            wrap.bottomAnchor.constraint(equalTo: self.collectDataSwitchView.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            wrap.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            wrap.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
             self.lastTrophyView.centerXAnchor.constraint(equalTo: wrap.centerXAnchor),
             self.lastTrophyView.centerYAnchor.constraint(equalTo: wrap.centerYAnchor),
@@ -69,14 +69,9 @@ class HomeViewController: ParentViewController {
         // Constraints CollectDataSwitchView
         NSLayoutConstraint.activate([
             self.collectDataSwitchView.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.collectDataSwitchView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            self.collectDataSwitchView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
+            self.collectDataSwitchView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.collectDataSwitchView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
-
-        // Il faudra virer ça à terme
-        for view in self.rootView.subviews {
-            view.clipsToBounds = true
-        }
     }
 
     func calcProgress() {
