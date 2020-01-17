@@ -133,4 +133,14 @@
     <string name="partners">Consulter les partenaires</string>
     <string name="licence_agreement">Consulter les CGU</string>
     <string name="revoke_consent">Révoquer mon consentement</string>
+
+    <!-- ACHIEVEMENTS FRAGMENT -->
+    <string name="text_stats_title">Statistiques</string>
+    <string name="text_distance">Distance parcourue : </string>
+    <string name="text_distance_value">0km</string>
+    <string name="no_achievement_picture_description">Oups aucun badge</string>
+    <string name="achievement_title">Badges obtenus</string>
+
 </resources>
+
+

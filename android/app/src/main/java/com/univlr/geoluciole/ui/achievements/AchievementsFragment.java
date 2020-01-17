@@ -21,13 +21,13 @@ public class AchievementsFragment extends Fragment {
         achievementsViewModel =
                 ViewModelProviders.of(this).get(AchievementsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_achievements, container, false);
-        final TextView textView = root.findViewById(R.id.text_achievements);
+      /*  final TextView textView = root.findViewById(R.id.text_achievements);
         achievementsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 }
