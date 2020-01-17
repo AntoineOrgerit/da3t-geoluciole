@@ -47,7 +47,7 @@ class SettingsViewController: ParentViewController {
         wrapButtons.addSubview(cguButton)
 
         let partnersButton = CustomUIButton()
-        partnersButton.isHidden = true
+        partnersButton.isHidden = false
         partnersButton.setTitle("VOIR LA LISTE DES PARTENAIRES", for: .normal)
         partnersButton.onClick = { button in
             let partenaire = PartenaireViewController()
