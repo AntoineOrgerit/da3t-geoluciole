@@ -12,9 +12,6 @@ import UIKit
 
 class PartenaireViewController: ParentViewController /*UITableViewDelegate, UITableViewDataSource*/ {
 
-    let nomDesPartenaires = ["logo_l3i", "logo_ULR"]
-    let descriptionPartenaire = ["Le laboratoire d'informatique", "La Rochelle Université\nTechnoforum"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.rootView.backgroundColor = .white
