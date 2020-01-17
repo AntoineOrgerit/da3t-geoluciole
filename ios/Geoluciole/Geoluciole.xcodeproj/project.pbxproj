@@ -221,8 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				237AD41D23C606D4009937AB /* Geoluciole */,
-				237AD41C23C606D4009937AB /* Products */,
-				237AD43423C60748009937AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -232,30 +230,33 @@
 				237AD41B23C606D4009937AB /* Geoluciole.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		237AD41D23C606D4009937AB /* Geoluciole */ = {
 			isa = PBXGroup;
 			children = (
-				2385EE2D23CCB5DE0093C454 /* Enum */,
-				23F18DE023C8C07D00A13999 /* Extensions */,
-				23F18DDF23C8C03800A13999 /* UIItems */,
-				23E22D1E23C75ECE00C3540E /* ViewController */,
-				23E22D1D23C75EB200C3540E /* Models */,
 				2305CE6723C631CA00354361 /* Geoluciole-Bridging-Header.h */,
-				237AD42E23C606D4009937AB /* Info.plist */,
 				6299A17323CF50E600057652 /* cgu.pdf */,
+				237AD42E23C606D4009937AB /* Info.plist */,
 				2305CE7B23C632CF00354361 /* geoluciole.sqlite */,
-				2305CE7E23C633B200354361 /* Constantes.swift */,
-				2305CE6A23C631E700354361 /* Database */,
 				237AD41E23C606D4009937AB /* AppDelegate.swift */,
+				2305CE7E23C633B200354361 /* Constantes.swift */,
+				223DE612CD17EC476DAA208D /* ElasticSearchAPI.swift */,
 				237AD42023C606D4009937AB /* SceneDelegate.swift */,
 				2305CE8023C6347A00354361 /* Tools.swift */,
-				237AD42623C606D4009937AB /* Main.storyboard */,
-				237AD42923C606D4009937AB /* Assets.xcassets */,
-				237AD42B23C606D4009937AB /* LaunchScreen.storyboard */,
 				62BF3D6E23C8840E00945C04 /* UserPrefs.swift */,
-				223DE612CD17EC476DAA208D /* ElasticSearchAPI.swift */,
+				237AD42923C606D4009937AB /* Assets.xcassets */,
+				2305CE6A23C631E700354361 /* Database */,
+				2385EE2D23CCB5DE0093C454 /* Enum */,
+				23F18DE023C8C07D00A13999 /* Extensions */,
+				237AD43423C60748009937AB /* Frameworks */,
+				23E22D1D23C75EB200C3540E /* Models */,
+				237AD41C23C606D4009937AB /* Products */,
+				23F18DDF23C8C03800A13999 /* UIItems */,
+				237AD42623C606D4009937AB /* Main.storyboard */,
+				237AD42B23C606D4009937AB /* LaunchScreen.storyboard */,
+				23E22D1E23C75ECE00C3540E /* ViewController */,
 			);
 			path = Geoluciole;
 			sourceTree = "<group>";
@@ -266,6 +267,7 @@
 				237AD43523C60748009937AB /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		2385EE2D23CCB5DE0093C454 /* Enum */ = {
