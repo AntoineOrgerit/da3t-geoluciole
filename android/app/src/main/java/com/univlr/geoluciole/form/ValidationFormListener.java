@@ -1,7 +1,6 @@
 package com.univlr.geoluciole.form;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +13,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.sender.HttpSender;
 
 import java.util.List;
 
@@ -34,6 +34,10 @@ public class ValidationFormListener implements Validator.ValidationListener {
     public void onValidationSucceeded() {
         Toast.makeText(this.activity, "Formulaire valide", Toast.LENGTH_SHORT).show();
         if (this.redirect) {
+            if (activity.getClass() == FormActivityStepThree.class) {
+                HttpSender.testForm(this.form);
+            }
+
             Intent intent = new Intent(this.activity, dest);
 
             // on passe l'objet form à la seconde vue

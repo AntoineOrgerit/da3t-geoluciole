@@ -3,7 +3,10 @@ package com.univlr.geoluciole.model;
 import com.univlr.geoluciole.sender.BulkObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FormModel implements Serializable, BulkObject {
@@ -152,8 +155,25 @@ public class FormModel implements Serializable, BulkObject {
                 '}';
     }
 
+    private Date convertToDate(String sdt, String stime) {
+        sdt += " "+stime;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date date;
+        try {
+            date = format.parse(sdt);
+        } catch (ParseException e) {
+            date = new Date();
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    private String convertToTimestamp(String sdt, String stime) {
+        return "" + convertToDate(sdt, stime).getTime();
+    }
+
     private String InJson(String value, int id_question) {
-        return "id_user:"+id_user+",id_question:"+id_question+",reponse:"+value+"}";
+        return "{\"id_user\":"+id_user+",\"id_question\":"+id_question+",\"reponse\":\""+value+"\"}";
     }
 
     private String booleanToString(boolean bool) {
@@ -163,8 +183,8 @@ public class FormModel implements Serializable, BulkObject {
     @Override
     public List<String> jsonFormatObject() {
         List<String> result = new ArrayList<>();
-        result.add(InJson(dateIn, ID_QUESTION_DATE_IN)); //todo attention au format des dates à synchro avec IOS
-        result.add(InJson(dateOut, ID_QUESTION_DATE_OUT));
+        result.add(InJson(convertToTimestamp(dateIn, timeIn), ID_QUESTION_DATE_IN));
+        result.add(InJson(convertToTimestamp(dateOut, timeOut), ID_QUESTION_DATE_OUT));
         result.add(InJson(withWhom, ID_QUESTION_WITH_WHOM));
         result.add(InJson(booleanToString(presenceChildren), ID_QUESTION_PRESENCE_CHILDREN));
         result.add(InJson(booleanToString(presenceTeens), ID_QUESTION_PRESENCE_TEEN));

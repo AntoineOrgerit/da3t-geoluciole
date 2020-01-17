@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.univlr.geoluciole.database.LocationTable;
+import com.univlr.geoluciole.model.FormModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -130,6 +132,15 @@ public class HttpSender {
     /**
      * Parse la donnée sous format bulk : json\n json\n
      */
+    public static String parseDataInBulk(BulkObject bulkObject) {
+        List<BulkObject> bulkObjects = new ArrayList<>();
+        bulkObjects.add(bulkObject);
+        return parseDataInBulk(bulkObjects);
+    }
+
+    /**
+     * Parse la donnée sous format bulk : json\n json\n
+     */
     public static String parseDataInBulk(List<BulkObject> bulkObjects) {
         StringBuilder result = new StringBuilder();
         String index = "{\"index\":{}}\n";
@@ -156,6 +167,16 @@ public class HttpSender {
         String url = "http://datamuseum.univ-lr.fr/geolucioles/data/_bulk";
         // String content = "{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\n";
         String content = HttpSender.parseDataInBulk(new LocationTable(context).getAll());
+        new HttpSender()
+                .setUrl(url)
+                .setData(content)
+                .send();
+    }
+
+    public static void testForm(FormModel form) {
+        //String url = "http://86.233.189.163:9200/geolucioles/data/_bulk";
+        String url = "http://datamuseum.univ-lr.fr:80/da3t_formulaire/_doc/_bulk";
+        String content = HttpSender.parseDataInBulk(form);
         new HttpSender()
                 .setUrl(url)
                 .setData(content)

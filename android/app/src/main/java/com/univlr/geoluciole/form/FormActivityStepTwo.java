@@ -129,7 +129,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private void formSetter() {
         form = (FormModel) getIntent().getSerializableExtra("Form");
         if (form == null) {
-            form = new FormModel();
+            UserPreferences userPref = UserPreferences.getInstance(FormActivityStepTwo.this);
+            form = new FormModel(userPref.getId());
         } else {
             txtDateArrivee.setText(form.getDateIn());
             txtTimeArrivee.setText(form.getTimeIn());
