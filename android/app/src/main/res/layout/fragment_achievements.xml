@@ -139,7 +139,7 @@
          android:id="@+id/no_achievement_image6"
          android:layout_width="200dp"
          android:layout_height="200dp"
-         android:layout_marginTop="32dp"
+         android:layout_marginTop="30dp"
          android:contentDescription="@string/no_achievement_picture_description"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintStart_toStartOf="parent"
