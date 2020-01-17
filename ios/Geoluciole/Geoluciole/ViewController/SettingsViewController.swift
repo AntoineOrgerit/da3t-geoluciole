@@ -107,12 +107,12 @@ class SettingsViewController: ParentViewController {
         // Constraints DurationOfEngagementFormView
         NSLayoutConstraint.activate([
             zoneId.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            zoneId.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            zoneId.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
+            zoneId.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            zoneId.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: Constantes.PAGE_PADDING),
             zoneId.heightAnchor.constraint(equalTo: self.rootView.heightAnchor, multiplier: 0.10),
             durationOfEngagementFormView.topAnchor.constraint(equalTo: zoneId.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL*2),
-            durationOfEngagementFormView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING_HORIZONTAL),
-            durationOfEngagementFormView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING_HORIZONTAL)
+            durationOfEngagementFormView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            durationOfEngagementFormView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
 
         // Constraints LanguageSelectorView
