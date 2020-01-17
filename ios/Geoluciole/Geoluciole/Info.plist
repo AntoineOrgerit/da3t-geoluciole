@@ -26,11 +26,11 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>L'accès à votre position permet de calculer la distance parcourue</string>
+	<string>L&apos;accès à votre position permet de calculer la distance parcourue</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>L'accès à votre position permet de calculer la distance parcourue</string>
+	<string>L&apos;accès à votre position permet de calculer la distance parcourue</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>L'accès à votre position permet de calculer la distance parcourue</string>
+	<string>L&apos;accès à votre position permet de calculer la distance parcourue</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

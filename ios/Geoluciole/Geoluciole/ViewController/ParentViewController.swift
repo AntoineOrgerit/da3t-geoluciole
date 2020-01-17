@@ -25,32 +25,54 @@ class ParentViewController: UIViewController {
         subStatusBarView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(subStatusBarView)
 
-        self.rootView = UIView(frame: .zero)
+        self.rootView = UIView()
         self.rootView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.rootView)
 
-        self.titleBar = TitleBarView(frame: .zero)
+        self.titleBar = TitleBarView()
         self.titleBar.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(self.titleBar)
 
-        NSLayoutConstraint.activate([
-            subStatusBarView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            subStatusBarView.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
-            subStatusBarView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            subStatusBarView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            
-            self.rootView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor),
-            self.rootView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor),
-            self.rootView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            self.rootView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+        // Constraints for iOS 11 and later
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+                subStatusBarView.topAnchor.constraint(equalTo: self.view.topAnchor),
+                subStatusBarView.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
+                subStatusBarView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+                subStatusBarView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
 
-            self.titleBar.widthAnchor.constraint(equalTo: self.rootView.widthAnchor),
-            self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
-            self.titleBar.topAnchor.constraint(equalTo: self.rootView.topAnchor),
-            self.titleBar.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
-            self.titleBar.rightAnchor.constraint(equalTo: self.rootView.rightAnchor)
-        ])
-        
+                self.rootView.topAnchor.constraint(equalTo: /*self.topLayoutGuide.bottomAnchor*/subStatusBarView.bottomAnchor),
+                self.rootView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+                self.rootView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+                self.rootView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+
+                self.titleBar.widthAnchor.constraint(equalTo: self.rootView.widthAnchor),
+                self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
+                self.titleBar.topAnchor.constraint(equalTo: self.rootView.topAnchor),
+                self.titleBar.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
+                self.titleBar.rightAnchor.constraint(equalTo: self.rootView.rightAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                subStatusBarView.topAnchor.constraint(equalTo: self.view.topAnchor),
+                subStatusBarView.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
+                subStatusBarView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+                subStatusBarView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+
+                self.rootView.topAnchor.constraint(equalTo:subStatusBarView.bottomAnchor),
+                // On retire 49 car c'est la taille de la TabBar
+                self.rootView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -49),
+                self.rootView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+                self.rootView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+
+                self.titleBar.widthAnchor.constraint(equalTo: self.rootView.widthAnchor),
+                self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
+                self.titleBar.topAnchor.constraint(equalTo: self.rootView.topAnchor),
+                self.titleBar.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
+                self.titleBar.rightAnchor.constraint(equalTo: self.rootView.rightAnchor)
+            ])
+        }
+
         let swipeLeft = UISwipeGestureRecognizer(target: self, action:
             #selector(ParentViewController.tappedRightButton))
         swipeLeft.direction = .left
