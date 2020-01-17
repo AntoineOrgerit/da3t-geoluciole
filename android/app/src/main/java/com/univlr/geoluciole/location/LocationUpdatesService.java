@@ -25,7 +25,8 @@
  *  - update of package name and string value of PACKAGE_NAME variable;
  *  - update notification channel name;
  *  - remove stopping activity from notifications;
- *  - changing accuracy to be balanced with the battery.
+ *  - adapting to Android 8 and 9 versions;
+ *  - update of Location retrieve system.
  */
 
 package com.univlr.geoluciole.location;
@@ -311,7 +312,7 @@ public class LocationUpdatesService extends Service {
         Utils.setRequestingLocationUpdates(this, true);
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
-            mLocationManager.requestLocationUpdates(500, 10, mCriteria, mLocationListener, Looper.myLooper());
+            mLocationManager.requestLocationUpdates(2000, 10, mCriteria, mLocationListener, Looper.myLooper());
             /*mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                     mLocationCallback, Looper.myLooper());*/
         } catch (SecurityException unlikely) {
