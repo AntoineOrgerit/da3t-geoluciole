@@ -47,10 +47,7 @@ public class UserPreferences {
 
     private String generateID(Context context) {
         String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        System.out.println("Android ID " + androidId);
-        String newID = Long.toString(androidId.hashCode()*-1);
-        System.out.println("Android ID hashé et tronqué" + newID) ;
-        return newID;
+        return Long.toString(Math.abs(androidId.hashCode()));
     }
 
     public boolean hasGiveConsent() {
