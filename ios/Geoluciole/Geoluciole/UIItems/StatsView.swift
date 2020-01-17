@@ -16,7 +16,7 @@ class StatsView: UIView {
     fileprivate var lbDistance: CustomUILabel!
     fileprivate var wrapData: UIView!
     fileprivate var lbValeurDist: CustomUILabel!
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 

@@ -45,7 +45,7 @@ class GPSConsentRGPDViewController: ParentViewController {
 
         // texte rgpd
         self.textRGPD = UITextView()
-        self.textRGPD.text = Constantes.TEXT_RGPD
+        self.textRGPD.text = Constantes.DESC_PROJET
         self.textRGPD.isUserInteractionEnabled = true
         self.textRGPD.isScrollEnabled = true
         self.textRGPD.showsVerticalScrollIndicator = true

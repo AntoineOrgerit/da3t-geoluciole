@@ -254,7 +254,6 @@
 				23E22D1D23C75EB200C3540E /* Models */,
 				237AD41C23C606D4009937AB /* Products */,
 				23F18DDF23C8C03800A13999 /* UIItems */,
-				23E22D1E23C75ECE00C3540E /* ViewController */,
 				237AD42623C606D4009937AB /* Main.storyboard */,
 				237AD42B23C606D4009937AB /* LaunchScreen.storyboard */,
 			);
@@ -309,6 +308,7 @@
 			children = (
 				237972E123CD2F1B00800764 /* Cells */,
 				236EE58623CB1D360000ADE3 /* CustomItems */,
+				23E22D1E23C75ECE00C3540E /* ViewController */,
 				23CB178023CCDCFE00B1BF73 /* CollectDataSwitchView.swift */,
 				23CB178223CCE9AC00B1BF73 /* ShowLevelView.swift */,
 				23CB178423CCFFCF00B1BF73 /* LastTrophyView.swift */,
