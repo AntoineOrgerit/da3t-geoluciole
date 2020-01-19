@@ -4,6 +4,7 @@
     <string name="title_achievements">Badges</string>
     <string name="title_dashboard">Préférences</string>
 
+    <string name="action_refused">Refuser</string>
     <string name="action_validate">Valider</string>
     <string name="action_loader">Chargement</string>
 
