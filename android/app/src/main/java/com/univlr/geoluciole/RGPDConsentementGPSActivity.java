@@ -47,7 +47,7 @@ public class RGPDConsentementGPSActivity extends AppCompatActivity {
 
                 // sauvegarde des préférences
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementGPSActivity.this);
-                u.setGpsConsent(consent);
+                u.setGpsConsent(true);
                 UserPreferences.storeInstance(RGPDConsentementGPSActivity.this, u);
 
                 startActivity(intent);
