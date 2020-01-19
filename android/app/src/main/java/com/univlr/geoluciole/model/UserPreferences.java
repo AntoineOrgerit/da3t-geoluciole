@@ -53,6 +53,10 @@ public class UserPreferences {
         return newID;
     }
 
+    public void setConsent() {
+        this.consent = true;
+    }
+
     public boolean hasGiveConsent() {
         return this.consent;
     }
@@ -67,12 +71,10 @@ public class UserPreferences {
 
     public void setGpsConsent(boolean consent) {
         this.gpsConsent = consent;
-        this.consent = true;
     }
 
     public void setAccountConsent(boolean consent) {
         this.accountConsent = consent;
-        this.consent = true;
     }
 
     public long getValidityDuration() {

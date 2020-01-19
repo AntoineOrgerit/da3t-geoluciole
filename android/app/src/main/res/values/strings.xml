@@ -4,6 +4,7 @@
     <string name="title_achievements">Stickers</string>
     <string name="title_dashboard">Preferences</string>
 
+    <string name="action_refused">Refuse</string>
     <string name="action_validate">Validate</string>
     <string name="action_loader">Loading</string>
 
