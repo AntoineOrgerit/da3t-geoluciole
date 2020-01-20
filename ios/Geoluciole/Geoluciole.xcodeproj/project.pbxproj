@@ -296,6 +296,7 @@
 		23E22D1E23C75ECE00C3540E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				6F7C067123D5E9BC006924F6 /* Formulaire */,
 				2366D1B923CF712A00E1B493 /* FormulaireConsentRGPDViewController.swift */,
 				62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */,
 				237AD42223C606D4009937AB /* HomeViewController.swift */,
@@ -340,6 +341,13 @@
 				223DE8E297A0FB9F407CBAC7 /* StringExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6F7C067123D5E9BC006924F6 /* Formulaire */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Formulaire;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
