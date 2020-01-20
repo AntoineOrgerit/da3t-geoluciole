@@ -37,7 +37,7 @@
             android:id="@+id/form_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/form_step_three_three"
+            android:text="@string/form_step_three_four"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

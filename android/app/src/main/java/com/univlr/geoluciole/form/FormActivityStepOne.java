@@ -76,7 +76,7 @@ public class FormActivityStepOne extends AppCompatActivity {
             lastname.setText(formWithoutConsent.getLastname());
             firstname.setText(formWithoutConsent.getFirstname());
             email.setText(formWithoutConsent.getEmail());
-            System.out.println("ETAPE 1/3 retrieved : " + formWithoutConsent);
+            System.out.println("ETAPE 1/4 retrieved : " + formWithoutConsent);
         }
     }
 

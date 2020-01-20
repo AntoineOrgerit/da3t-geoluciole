@@ -39,7 +39,7 @@
             android:id="@+id/form_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/form_step_two_three"
+            android:text="@string/form_step_two_four"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -164,7 +164,7 @@
 
         <!-- OUT LA ROCHELLE DATE - BEGIN-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/out_date_layout"
+            android:id="@+id/deb_date_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -219,7 +219,7 @@
             android:weightSum="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/out_date_layout">
+            app:layout_constraintTop_toBottomOf="@+id/deb_date_layout">
 
             <EditText
                 android:id="@+id/out_time"

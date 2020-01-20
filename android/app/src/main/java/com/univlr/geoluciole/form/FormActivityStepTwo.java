@@ -98,7 +98,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.step = (TextView) findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
-            this.step.setText("1/2");
+            this.step.setText("1/3");
         }
         // date et heure arrivée boutons
         this.btnDatePickerArrivee = (Button) findViewById(R.id.btn_in_date);
@@ -137,7 +137,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
             txtTimeArrivee.setText(form.getTimeIn());
             txtDateDepart.setText(form.getDateOut());
             txtTimeDepart.setText(form.getTimeOut());
-            System.out.println("ETAPE 2/3 retrieved : " + form);
+            System.out.println("ETAPE 2/4 retrieved : " + form);
         }
     }
 

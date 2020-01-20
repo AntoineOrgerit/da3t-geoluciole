@@ -79,7 +79,7 @@ public class FormActivityStepThree extends AppCompatActivity {
         this.step = (TextView) findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
-            this.step.setText("2/2");
+            this.step.setText("2/3");
         }
         // liste déroulante
         this.spinnerWhomList = (Spinner) findViewById(R.id.spinner_list_whom);
@@ -104,7 +104,7 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void formSetter() {
         form = (FormModel) getIntent().getSerializableExtra("Form");
-        System.out.println("ETAPE 3/3 retrieved : " + form);
+        System.out.println("ETAPE 3/4 retrieved : " + form);
     }
 
     /**
