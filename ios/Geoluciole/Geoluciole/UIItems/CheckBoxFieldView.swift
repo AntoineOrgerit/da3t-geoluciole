@@ -27,6 +27,7 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
 
         self.optionLabel = UILabel()
         self.optionLabel.numberOfLines = 0
+        self.optionLabel.textAlignment = .justified
         self.optionLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.optionLabel.adjustsFontForContentSizeCategory = true
         self.optionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +43,7 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
         NSLayoutConstraint.activate([
 
             self.topAnchor.constraint(equalTo: self.optionLabel.topAnchor),
-            self.bottomAnchor.constraint(equalTo: self.checkbox.bottomAnchor),
+            self.bottomAnchor.constraint(equalTo: self.optionLabel.bottomAnchor),
             self.leftAnchor.constraint(equalTo: self.checkbox.leftAnchor),
             self.rightAnchor.constraint(equalTo: self.optionLabel.rightAnchor),
 

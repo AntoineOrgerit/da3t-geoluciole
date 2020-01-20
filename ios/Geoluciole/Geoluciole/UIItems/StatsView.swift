@@ -20,8 +20,6 @@ class StatsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-//        self.translatesAutoresizingMaskIntoConstraints = false
-
         self.lbTitle = CustomUILabel()
         self.lbTitle.text = "Statistiques"
         self.lbTitle.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -66,9 +64,8 @@ class StatsView: UIView {
             self.lbDistance.leftAnchor.constraint(equalTo: self.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
 
             self.wrapData.topAnchor.constraint(equalTo: self.lbTitle.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            self.wrapData.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
-            self.wrapData.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
-            self.wrapData.leftAnchor.constraint(equalTo: self.lbDistance.rightAnchor),
+            self.wrapData.rightAnchor.constraint(equalTo: self.rightAnchor),
+            self.wrapData.leftAnchor.constraint(equalTo: self.lbDistance.rightAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             self.wrapData.bottomAnchor.constraint(equalTo: self.lbValeurDist.bottomAnchor),
 
             self.lbValeurDist.topAnchor.constraint(equalTo: self.wrapData.topAnchor),
@@ -91,7 +88,7 @@ class StatsView: UIView {
             self.uniteMetrique.text = "m"
         } else {
             valeurDist = Tools.roundDist(valeurDist / 1000, places: 2)
-            self.uniteMetrique.text = "Km"
+            self.uniteMetrique.text = "km"
         }
 
         self.lbValeurDist.text = String(valeurDist)

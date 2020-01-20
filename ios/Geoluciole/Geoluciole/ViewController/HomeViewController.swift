@@ -16,7 +16,7 @@ class HomeViewController: ParentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let dhDeb = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT)
         let dhFin = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT)
         if dhDeb == "" || dhFin == "" {
@@ -87,12 +87,12 @@ class HomeViewController: ParentViewController {
             print("ProgressBar : \(pct)")
         }
         self.showLevelView.setProgress(value: pct)
-        
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         self.collectDataSwitchView.isHidden = !self.userPrefs.bool(forKey: UserPrefs.KEY_RGPD_CONSENT)
 
         let send = self.userPrefs.bool(forKey: "send_data")
