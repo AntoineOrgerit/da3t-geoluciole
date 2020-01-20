@@ -23,13 +23,11 @@ public class FormModel implements Serializable, BulkObject {
     private static final int ID_QUESTION_TWO_MONTH = 9;
     private static final int ID_QUESTION_TRANSPORT = 10;
 
-    private Calendar datetimeStart;
-    private Calendar datetimeEnd;
     private String id_user;
-    private String dateIn;
-    private String timeIn;
-    private String dateOut;
-    private String timeOut;
+    private Date dateIn;
+    private Time timeIn;
+    private Date dateOut;
+    private Time timeOut;
 
     private String withWhom;
     private boolean presenceChildren;
@@ -92,45 +90,53 @@ public class FormModel implements Serializable, BulkObject {
         this.transport = transport;
     }
 
-    public String getDateIn() {
+    public Date getDateIn() {
         return dateIn;
     }
 
-
-    public Calendar getDatetimeEnd() {
-        return datetimeEnd;
-    }
-
-    public Calendar getDatetimeStart() {
-        return datetimeStart;
-    }
-
-    public void setDatetimeEnd(Calendar datetimeEnd) {
-        this.datetimeEnd = datetimeEnd;
-        this.dateOut = this.datetimeEnd.get(Calendar.DAY_OF_MONTH) + "-" + this.datetimeEnd.get(Calendar.MONTH)
-                + "-" + this.datetimeEnd.get(Calendar.YEAR);
-        this.timeOut = this.datetimeEnd.get(Calendar.HOUR_OF_DAY) + ":" + this.datetimeEnd.get(Calendar.MINUTE);
-    }
-
-    public void setDatetimeStart(Calendar datetimeStart) {
-        this.datetimeStart = datetimeStart;
-        this.dateIn = this.datetimeStart.get(Calendar.DAY_OF_MONTH) + "-" + this.datetimeStart.get(Calendar.MONTH)
-                + "-" + this.datetimeStart.get(Calendar.YEAR);
-        this.timeIn = this.datetimeStart.get(Calendar.HOUR_OF_DAY) + ":" + this.datetimeStart.get(Calendar.MINUTE);
-    }
-
-    public String getTimeIn() {
+    public Time getTimeIn() {
         return timeIn;
     }
 
 
-    public String getDateOut() {
+    public Date getDateOut() {
         return dateOut;
     }
 
-
-    public String getTimeOut() {
+    public Time getTimeOut() {
         return timeOut;
+    }
+
+    public void setDateIn(Date dateIn) {
+        this.dateIn = dateIn;
+    }
+
+    public void setDateOut(Date dateOut) {
+        this.dateOut = dateOut;
+    }
+
+    public void setTimeIn(Time timeIn) {
+        this.timeIn = timeIn;
+    }
+
+    public void setTimeOut(Time timeOut) {
+        this.timeOut = timeOut;
+    }
+
+    public long getTimestampStart() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateIn);
+        calendar.set(Calendar.HOUR_OF_DAY, timeIn.getHours());
+        calendar.set(Calendar.MINUTE, timeIn.getMinutes());
+        return calendar.getTime().getTime();
+    }
+
+    public long getTimestampEnd() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateOut);
+        calendar.set(Calendar.HOUR_OF_DAY, timeOut.getHours());
+        calendar.set(Calendar.MINUTE, timeOut.getMinutes());
+        return calendar.getTime().getTime();
     }
 
     public boolean isPresenceChildren() {
@@ -149,9 +155,52 @@ public class FormModel implements Serializable, BulkObject {
         this.presenceTeens = presenceTeens;
     }
 
+    public static String datetimeToString(Date date, Time time) {
+        return dateToString(date) + " " + timeToString(time);
+    }
+
+
+    public static String datetimeToString(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return datetimeToString(calendar);
+    }
+
+    public static String datetimeToString(Calendar c) {
+        return FormModel.dateToString(c) + " " + FormModel.timeToString(c);
+    }
+
+    public static String timeToString(Calendar calendar) {
+        return timeToString(new Time(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
+    }
+
+    public static String timeToString(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return timeToString(calendar);
+    }
+
+    public static String timeToString(Time time) {
+        return time.toString();
+    }
+
+    public static String dateToString(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return dateToString(calendar);
+    }
+
+    public static String dateToString(Calendar c) {
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String sday = day  < 10 ? "0"+day : ""+day;
+        int month = c.get(Calendar.MONTH);
+        String smonth = month < 10 ? "0"+(month+1) : ""+(month+1);
+        return  sday + "-" + smonth + "-" + c.get(Calendar.YEAR);
+    }
+
     @Override
     public String toString() {
-        String res = "FormModel{" +
+        return "FormModel{" +
                 "dateIn='" + dateIn + '\'' +
                 ", timeIn='" + timeIn + '\'' +
                 ", dateOut='" + dateOut + '\'' +
@@ -163,15 +212,8 @@ public class FormModel implements Serializable, BulkObject {
                 ", knowCity=" + knowCity +
                 ", fiveTimes=" + fiveTimes +
                 ", twoMonths=" + twoMonths +
-                ", transport='" + transport + '\'';
-        if (datetimeStart != null) {
-            res += ", datetimeStart='" + datetimeStart.getTime().getTime()+"'";
-        }
-        if (datetimeEnd != null) {
-            res += ", datetimeEnd='" + datetimeEnd.getTime().getTime()+"'";
-        }
-
-        return res + '}';
+                ", transport='" + transport + '\''
+        + '}';
     }
 
     private Date convertToDate(String sdt, String stime) {
@@ -202,8 +244,8 @@ public class FormModel implements Serializable, BulkObject {
     @Override
     public List<String> jsonFormatObject() {
         List<String> result = new ArrayList<>();
-        result.add(InJson(""+datetimeStart.getTime().getTime(), ID_QUESTION_DATE_IN));
-        result.add(InJson(""+datetimeEnd.getTime().getTime(), ID_QUESTION_DATE_OUT));
+        result.add(InJson(""+getTimestampStart(), ID_QUESTION_DATE_IN));
+        result.add(InJson(""+getTimestampEnd(), ID_QUESTION_DATE_OUT));
         result.add(InJson(withWhom, ID_QUESTION_WITH_WHOM));
         result.add(InJson(booleanToString(presenceChildren), ID_QUESTION_PRESENCE_CHILDREN));
         result.add(InJson(booleanToString(presenceTeens), ID_QUESTION_PRESENCE_TEEN));

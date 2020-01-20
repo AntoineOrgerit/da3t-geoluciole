@@ -1,11 +1,16 @@
 package com.univlr.geoluciole.form;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +19,11 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.Time;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class FormActivityStepEnd extends AppCompatActivity {
 
@@ -24,6 +31,11 @@ public class FormActivityStepEnd extends AppCompatActivity {
     private TextView title;
     // variable step
     private TextView step;
+
+    private Date startDate;
+    private Date endDate;
+    private Time startTime;
+    private Time endTime;
 
     // variables bouton précédent
     private Button btnPrevious;
@@ -44,7 +56,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.form_activity_step_three);
+        setContentView(R.layout.activity_form_step_end);
         // init éléments du form
         initUI();
         // recuperation de l'objet formulaire
@@ -53,6 +65,12 @@ public class FormActivityStepEnd extends AppCompatActivity {
         initListenersButtons();
         // init validation
         initValidatorListener();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initText();
     }
 
     /**
@@ -77,8 +95,14 @@ public class FormActivityStepEnd extends AppCompatActivity {
         this.startValidityPeriodBtn = findViewById(R.id.start_validity_period_btn);
         this.endValidityPeriodBtn = findViewById(R.id.end_validity_period_btn);
         // editext
-        this.startValidityPeriodEditext = findViewById(R.id.start_validity_period_editext);
-        this.endValidityPeriodEditext = findViewById(R.id.end_validity_period_editext);
+        this.startValidityPeriodEditext = findViewById(R.id.start_validity_period_editText);
+        this.endValidityPeriodEditext = findViewById(R.id.end_validity_period_editText);
+
+    }
+
+    private void  initText() {
+        this.startValidityPeriodEditext.setText(FormModel.datetimeToString(this.startDate, this.startTime));
+        this.endValidityPeriodEditext.setText(FormModel.datetimeToString(this.endDate, this.endTime));
     }
 
     /**
@@ -86,6 +110,23 @@ public class FormActivityStepEnd extends AppCompatActivity {
      */
     private void formSetter() {
         form = (FormModel) getIntent().getSerializableExtra("Form");
+        Calendar c = Calendar.getInstance();
+        // start
+        if (form.getTimestampStart() < c.getTime().getTime()) {
+            this.startDate = c.getTime();
+            this.startTime = new Time(8,0);
+        } else {
+            this.startDate = form.getDateIn();
+            this.startTime = form.getTimeIn();
+        }
+        // end
+        if (form.getTimestampEnd()< c.getTime().getTime()) {
+            this.endDate = c.getTime();
+            this.endTime = new Time(22,0);
+        } else {
+            this.endDate = form.getDateOut();
+            this.endTime = form.getTimeOut();
+        }
     }
 
     /**
@@ -97,9 +138,75 @@ public class FormActivityStepEnd extends AppCompatActivity {
         // bouton suivant
         this.btnSubmit.setOnClickListener(getAllResponsesFromForm());
 
-        Calendar c;
+        this.startValidityPeriodBtn.setOnClickListener(onClickListenerStartDatet(true));
+        this.startValidityPeriodEditext.setOnClickListener(onClickListenerStartDatet(true));
+        this.endValidityPeriodBtn.setOnClickListener(onClickListenerStartDatet(false));
+        this.endValidityPeriodEditext.setOnClickListener(onClickListenerStartDatet(false));
     }
 
+    private View.OnClickListener onClickListenerStartDatet(final boolean start) {
+        final Calendar c = Calendar.getInstance();
+        if (start) {
+            c.setTime(this.startDate);
+        } else {
+            c.setTime(this.endDate);
+        }
+        final int mYear = c.get(Calendar.YEAR);
+        final int mMonth = c.get(Calendar.MONTH);
+        final int mDay = c.get(Calendar.DAY_OF_MONTH);
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(FormActivityStepEnd.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        String month = monthOfYear < 10 ? "0" + (monthOfYear + 1) : (monthOfYear + 1) + "";
+                        String day = dayOfMonth < 10 ? "0" + (dayOfMonth) : (dayOfMonth) + "";
+                        c.set(year, monthOfYear, dayOfMonth);
+                        if (start) {
+                            startDate = c.getTime();
+                        } else {
+                            endDate = c.getTime();
+                        }
+                    }
+                }, mYear, mMonth, mDay);
+                datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        openTimer(start);
+                    }
+                });
+                datePickerDialog.show();
+            }
+        };
+    }
+
+    private void openTimer(final boolean start) {
+        int mMinute = 0;
+        int hours = 0;
+        if (start) {
+            mMinute = this.form.getTimeIn().getMinutes();
+            hours = this.form.getTimeIn().getHours();
+        } else {
+            mMinute = this.form.getTimeOut().getMinutes();
+            hours = this.form.getTimeOut().getHours();
+        }
+        TimePickerDialog timePickerDialog = new TimePickerDialog(FormActivityStepEnd.this, 0, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String time;
+                if (start) {
+                    startTime = new Time(hourOfDay, minute);
+                    startValidityPeriodEditext.setText(FormModel.datetimeToString(startDate,startTime));
+                } else {
+                   endTime = new Time(hourOfDay, minute);
+                   endValidityPeriodEditext.setText(FormModel.datetimeToString(endDate, endTime));
+                }
+            }
+        }, hours, mMinute, true);
+        timePickerDialog.show();
+    }
     /**
      * Listener pour le bouton précédent, retour sur la vue précédente
      *

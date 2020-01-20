@@ -35,7 +35,7 @@ public class ValidationFormListener implements Validator.ValidationListener {
     public void onValidationSucceeded() {
         Toast.makeText(this.activity, "Formulaire valide", Toast.LENGTH_SHORT).show();
         if (this.redirect) {
-            if (activity.getClass() == FormActivityStepThree.class) {
+            if (activity.getClass() == FormActivityStepEnd.class) {
                 UserPreferences userPreferences = UserPreferences.getInstance(this.activity);
                 userPreferences.setConsent();
                 HttpSender.testForm(this.form);

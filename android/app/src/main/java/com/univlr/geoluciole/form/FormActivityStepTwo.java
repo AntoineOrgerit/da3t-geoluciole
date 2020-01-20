@@ -20,9 +20,11 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.Time;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class FormActivityStepTwo extends AppCompatActivity {
     // variable title
@@ -61,8 +63,11 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private int mMinute;
 
     private FormModel form;
-    private Calendar dateDepart;
-    private Calendar dateArrive;
+    private Date dateDepart;
+    private Date dateArrive;
+    private Time timeDepart;
+    private Time timeArrive;
+
     // validation
     ValidationFormListener validatorListener;
     Validator validator;
@@ -131,10 +136,16 @@ public class FormActivityStepTwo extends AppCompatActivity {
             UserPreferences userPref = UserPreferences.getInstance(FormActivityStepTwo.this);
             form = new FormModel(userPref.getId());
         } else {
-            txtDateArrivee.setText(form.getDateIn());
-            txtTimeArrivee.setText(form.getTimeIn());
-            txtDateDepart.setText(form.getDateOut());
-            txtTimeDepart.setText(form.getTimeOut());
+            this.dateArrive = form.getDateIn();
+            this.timeArrive = form.getTimeIn();
+            this.dateDepart = form.getDateOut();
+            this.timeDepart = form.getTimeOut();
+            if(this.dateDepart != null && dateArrive != null) {
+                txtDateArrivee.setText(FormModel.dateToString(this.dateArrive));
+                txtTimeArrivee.setText(FormModel.timeToString(this.timeArrive));
+                txtDateDepart.setText(FormModel.dateToString(this.dateDepart));
+                txtTimeDepart.setText(FormModel.timeToString(this.timeDepart));
+            }
             System.out.println("ETAPE 2/4 retrieved : " + form);
         }
     }
@@ -190,8 +201,17 @@ public class FormActivityStepTwo extends AppCompatActivity {
     }
 
     private void saveToForm() {
-        form.setDatetimeStart(dateArrive);
-        form.setDatetimeEnd(dateDepart);
+        Calendar cal = Calendar.getInstance();
+        // depart
+        if (dateDepart != null && timeDepart != null) {
+            form.setDateOut(this.dateDepart);
+            form.setTimeOut(this.timeDepart);
+        }
+        // arrive
+        if (dateArrive != null && timeArrive != null) {
+            form.setTimeIn(this.timeArrive);
+            form.setDateIn(this.dateArrive);
+        }
     }
 
     /**
@@ -288,23 +308,12 @@ public class FormActivityStepTwo extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         String month = monthOfYear < 10 ? "0" + (monthOfYear + 1) : (monthOfYear + 1) + "";
                         String day = dayOfMonth < 10 ? "0" + (dayOfMonth) : (dayOfMonth) + "";
-                        text.setText(day + "-" + month + "-" + year);
-
                         c.set(year, monthOfYear, dayOfMonth);
+                        text.setText(day + "-" + month + "-" + year);
                         if (depart) {
-                            if (dateDepart == null) {
-                                dateDepart = c;
-                            }
-                            dateDepart.set(Calendar.YEAR, year);
-                            dateDepart.set(Calendar.MONTH, monthOfYear);
-                            dateDepart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            dateDepart = c.getTime();
                         } else {
-                            if (dateArrive == null) {
-                                dateArrive = c;
-                            }
-                            dateArrive.set(Calendar.YEAR, year);
-                            dateArrive.set(Calendar.MONTH, monthOfYear);
-                            dateArrive.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            dateArrive = c.getTime();
                         }
                     }
                 }, mYear, mMonth, mDay);
@@ -329,14 +338,10 @@ public class FormActivityStepTwo extends AppCompatActivity {
         cal.set(Calendar.MILLISECOND, cal.getMinimum(Calendar.MILLISECOND));
 
         if (depart && dateArrive != null) {
-            cal.set(Calendar.YEAR, dateArrive.get(Calendar.YEAR));
-            cal.set(Calendar.MONTH, dateArrive.get(Calendar.MONTH));
-            cal.set(Calendar.DATE, dateArrive.get(Calendar.DATE));
+            cal.setTime(this.dateArrive);
             datePicker.setMinDate(cal.getTimeInMillis());
         } else if (!depart && dateDepart != null) {
-            cal.set(Calendar.YEAR, dateDepart.get(Calendar.YEAR));
-            cal.set(Calendar.MONTH, dateDepart.get(Calendar.MONTH));
-            cal.set(Calendar.DATE, dateDepart.get(Calendar.DATE));
+            cal.setTime(this.dateDepart);
             datePicker.setMaxDate(cal.getTimeInMillis());
         }
     }
@@ -361,23 +366,23 @@ public class FormActivityStepTwo extends AppCompatActivity {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(FormActivityStepTwo.this, 0, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        String minutes = minute < 10 ? "0" + (minute) : minute + "";
-                        String hours = hourOfDay < 10 ? "0" + (hourOfDay) : hourOfDay + "";
-                        String time =  hours + ":" + minutes;
-                        text.setText(time);
+                        String time;
                         if (depart) {
-                            if (dateDepart == null) {
-                                dateDepart = c;
+                            if (timeDepart == null) {
+                                timeDepart = new Time();
                             }
-                            dateDepart.set(Calendar.MINUTE, minute);
-                            dateDepart.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                            timeDepart.setHours(hourOfDay);
+                            timeDepart.setMinutes(minute);
+                            time = timeDepart.toString();
                         } else {
-                            if (dateArrive == null) {
-                                dateArrive = c;
+                            if (timeArrive == null) {
+                                timeArrive = new Time();
                             }
-                            dateArrive.set(Calendar.MINUTE, minute);
-                            dateArrive.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                            timeArrive.setHours(hourOfDay);
+                            timeArrive.setMinutes(minute);
+                            time = timeArrive.toString();
                         }
+                        text.setText(time);
                     }
                 }, mHour, mMinute, true);
                 timePickerDialog.show();
