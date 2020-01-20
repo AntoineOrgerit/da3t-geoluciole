@@ -16,6 +16,7 @@ class LocationTable: Table {
     static let LONGITUDE = "longitude"
     static let ALTITUDE = "altitude"
     static let TIMESTAMP = "time_stamp"
+    static let PRECISION = "precision"
 
     fileprivate override init() {
         super.init()
@@ -25,7 +26,8 @@ class LocationTable: Table {
             TableColumn(columnName: LocationTable.LATITUDE, columnType: "DOUBLE", canBeNull: false),
             TableColumn(columnName: LocationTable.LONGITUDE, columnType: "DOUBLE", canBeNull: false),
             TableColumn(columnName: LocationTable.ALTITUDE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.TIMESTAMP, columnType: "TIMESTAMP", canBeNull: false)
+            TableColumn(columnName: LocationTable.TIMESTAMP, columnType: "TIMESTAMP", canBeNull: false),
+            TableColumn(columnName: LocationTable.PRECISION, columnType: "DOUBLE", canBeNull: false)
         ]
     }
     
@@ -37,3 +39,4 @@ class LocationTable: Table {
         return INSTANCE
     }
 }
+

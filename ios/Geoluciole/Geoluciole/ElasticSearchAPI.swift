@@ -11,7 +11,7 @@ class ElasticSearchAPI {
     fileprivate static var INSTANCE: ElasticSearchAPI!
 
     init() {
-        guard let resourceURL = URL(string: Constantes.API_URL_UNIV_LR) else {
+        guard let resourceURL = URL(string: Constantes.API_URL_SERVER_TEST_JESSY) else {
             fatalError()
         }
 
@@ -48,11 +48,11 @@ class ElasticSearchAPI {
     /// Envoi des localisations du terminal au serveur
     func postLocations(message: String) {
         if Constantes.DEBUG {
-            print("Envoi au serveur en cours ...")
+            print("Envoi des données de localisation au serveur en cours ...")
         }
 
         // Création de la requête (header + contenu)
-        var request = URLRequest(url: resourceURL.appendingPathComponent("data/_bulk"))
+        var request = URLRequest(url: resourceURL.appendingPathComponent("/da3t_gps/_doc/_bulk"))
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = message.data(using: .utf8)
@@ -75,13 +75,13 @@ class ElasticSearchAPI {
                 if let err = responseJSON["errors"] as? Int {
                     if err == 0 {
                         if Constantes.DEBUG {
-                            print("Envoi au serveur réussi !")
+                            print("Envoi des données de localisation au serveur réussi !")
                         }
                         LocationTable.getInstance().deleteQuery()
                         // Sinon, on indique l'erreur et on garde les données
                     } else {
                         if Constantes.DEBUG {
-                            print("Erreur durant l'envoi au serveur")
+                            print("Erreur durant l'envoi des données de localisation au serveur")
                         }
                     }
                 }
@@ -103,14 +103,11 @@ class ElasticSearchAPI {
     /// Envoi des localisations du terminal au serveur
     func postCompte(message: String) {
         if Constantes.DEBUG {
-            print("Envoi au serveur en cours ...")
+            print("Envoi des données de compte au serveur en cours ...")
         }
-        // Création de la requête (header + contenu)
-        guard let resourceURL = URL(string: Constantes.API_URL_SERVER_TEST) else {
-            fatalError()
-        }
+        
         let id = UserPrefs.getInstance().string(forKey: "KEY_IDENTIFIER")
-        var request = URLRequest(url: resourceURL.appendingPathComponent("compte/\(id)"))
+        var request = URLRequest(url: resourceURL.appendingPathComponent("/da3t_compte/_doc/\(id)"))
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = message.data(using: .utf8)
@@ -133,12 +130,12 @@ class ElasticSearchAPI {
                 if let err = responseJSON["_shards"] as? [String: Int] {
                     if err["failed"] == 0 {
                         if Constantes.DEBUG {
-                            print("Envoi au serveur réussi !")
+                            print("Envoi des données de compte au serveur réussi !")
                         }
                         // Sinon, on indique l'erreur et on garde les données
                     } else {
                         if Constantes.DEBUG {
-                            print("Erreur durant l'envoi au serveur")
+                            print("Erreur durant l'envoi des données de compte au serveur")
                         }
                     }
                 }

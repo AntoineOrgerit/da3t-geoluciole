@@ -112,11 +112,7 @@ class Tools {
             let uuid = UIDevice.current.identifierForVendor?.uuidString
 
             // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
-            let hashId = String(-1 * uuid!.hashCode())
-
-            // équivalent identifier.substring(2, 8)
-            let range = hashId.index(hashId.startIndex, offsetBy: 2)..<hashId.index(hashId.startIndex, offsetBy: 9)
-            identifier = String(hashId[range])
+            identifier = String(uuid!.hashCode())
 
             // et on sauvegarde le paramètre
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_IDENTIFIER, value: identifier)
@@ -137,7 +133,12 @@ class Tools {
         let df = DateFormatter()
         df.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         
-        df.locale = Locale(identifier: Locale.current.regionCode!)
+        var regionCode = Locale.current.regionCode
+        
+        if regionCode == nil {
+            regionCode = "fr"
+        }
+        df.locale = Locale(identifier: regionCode!)
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.date(from: date)!
     }
