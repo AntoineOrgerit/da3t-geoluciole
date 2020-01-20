@@ -127,36 +127,36 @@
             android:text="@string/partners"
             android:textColor="@color/colorPrimary" />
 
-        <LinearLayout
-            android:id="@+id/layout_buttons_gdpr"
-            style="?attr/buttonBarStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:weightSum="2">
+        <Button
+            android:id="@+id/button_license_agreement"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:text="@string/licence_agreement"
+            android:textColor="@color/colorPrimary" />
 
-            <Button
-                android:id="@+id/button_license_agreement"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_border"
-                android:text="@string/licence_agreement"
-                android:textColor="@color/colorPrimary" />
+        <Button
+            android:id="@+id/button_revoke_consent"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:text="@string/revoke_consent"
+            android:textColor="@color/colorPrimary" />
 
-            <Button
-                android:id="@+id/button_revoke_consent"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:text="@string/revoke_consent"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/button_send_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_highlight"
+            android:text="@string/send_data"
+            android:textColor="@color/text_white" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
