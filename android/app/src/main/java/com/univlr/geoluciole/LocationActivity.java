@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -58,7 +57,7 @@ public abstract class LocationActivity extends AppCompatActivity {
             if (shouldProvideRationale) {
                 Log.i(TAG, "Displaying permission rationale to provide additional context.");
                 Snackbar.make(
-                        findViewById(R.id.splashscreen),
+                        findViewById(R.id.main_layout),
                         "Permission",
                         Snackbar.LENGTH_INDEFINITE)
                         .setAction("OK", new View.OnClickListener() {
