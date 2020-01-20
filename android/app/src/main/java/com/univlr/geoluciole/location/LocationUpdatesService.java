@@ -138,16 +138,6 @@ public class LocationUpdatesService extends Service {
      */
     private LocationRequest mLocationRequest;
 
-    /**
-     * Provides access to the Fused Location Provider API.
-     */
-    private FusedLocationProviderClient mFusedLocationClient;
-
-    /**
-     * Callback for changes in location.
-     */
-    private LocationCallback mLocationCallback;
-
     private Handler mServiceHandler;
 
     /**
@@ -163,30 +153,11 @@ public class LocationUpdatesService extends Service {
 
     @Override
     public void onCreate() {
-        /*mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
-                Location lastLocation = locationResult.getLastLocation();
-                locationTable.insert(lastLocation);
-                onNewLocation(lastLocation);
-            }
-        };
-
-        createLocationRequest();
-        getLastLocation();*/
-
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         mCriteria = new Criteria();
         mCriteria.setAccuracy(Criteria.ACCURACY_FINE);
         mCriteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
         mCriteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
-        /*mCriteria.setAltitudeRequired(true);
-        mCriteria.setBearingRequired(true);
-        mCriteria.setSpeedRequired(true);*/
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -225,22 +196,6 @@ public class LocationUpdatesService extends Service {
             // Set the Notification Channel for the Notification Manager.
             mNotificationManager.createNotificationChannel(mChannel);
         }
-
-        File folder = new File(getFilesDir() + "/LocationTestCSV");
-        if(!folder.exists()) {
-            folder.mkdir();
-        }
-
-        filename = folder.toString() + "/" + "Test.csv";
-        Log.i(TAG, filename);
-        try {
-            FileWriter fw = new FileWriter(filename);
-            fw.append("lat,long,time\n");
-            fw.close();
-        }catch(IOException e) {
-            Log.e(TAG, e.getMessage());
-        }
-
     }
 
     @Override
@@ -316,8 +271,6 @@ public class LocationUpdatesService extends Service {
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
             mLocationManager.requestLocationUpdates(2000, 10, mCriteria, mLocationListener, Looper.myLooper());
-            /*mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                    mLocationCallback, Looper.myLooper());*/
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
@@ -332,7 +285,6 @@ public class LocationUpdatesService extends Service {
         Log.i(TAG, "Removing location updates");
         try {
             mLocationManager.removeUpdates(mLocationListener);
-            //mFusedLocationClient.removeLocationUpdates(mLocationCallback);
             Utils.setRequestingLocationUpdates(this, false);
             stopSelf();
         } catch (SecurityException unlikely) {
@@ -378,39 +330,8 @@ public class LocationUpdatesService extends Service {
         return builder.build();
     }
 
-    private void getLastLocation() {
-        try {
-            mFusedLocationClient.getLastLocation()
-                    .addOnCompleteListener(new OnCompleteListener<Location>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Location> task) {
-                            if (task.isSuccessful() && task.getResult() != null) {
-                                mLocation = task.getResult();
-                            } else {
-                                Log.w(TAG, "Failed to get location.");
-                            }
-                        }
-                    });
-        } catch (SecurityException unlikely) {
-            Log.e(TAG, "Lost location permission." + unlikely);
-        }
-    }
-
     private void onNewLocation(Location location) {
         Log.i(TAG, "New location: " + location);
-
-        try {
-            File f = new File(filename);
-            FileOutputStream fos = new FileOutputStream(f, true);
-            String content = location.getLatitude() + "," + location.getLongitude() + "," + location.getTime() + "\n";
-            fos.write(content.getBytes());
-            Log.i(TAG, "position logged in csv");
-            fos.flush();
-            fos.close();
-        }catch(IOException e) {
-            Log.e(TAG, e.getMessage());
-        }
-
 
         mLocation = location;
 
@@ -423,16 +344,6 @@ public class LocationUpdatesService extends Service {
         if (serviceIsRunningInForeground(this)) {
             mNotificationManager.notify(NOTIFICATION_ID, getNotification());
         }
-    }
-
-    /**
-     * Sets the location request parameters.
-     */
-    private void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
     /**
