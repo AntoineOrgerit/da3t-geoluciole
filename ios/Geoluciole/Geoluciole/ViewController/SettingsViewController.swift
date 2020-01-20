@@ -61,9 +61,9 @@ class SettingsViewController: ParentViewController {
         wrapButtons.addSubview(cguButton)
 
         let partnersButton = CustomUIButton()
-        partnersButton.setTitle("VOIR LA LISTE DES PARTENAIRES", for: .normal)
+        partnersButton.setTitle("NOTRE PROJET", for: .normal)
         partnersButton.onClick = { button in
-            let partenaire = PartenaireViewController()
+            let partenaire = PartnersViewController()
             self.present(partenaire, animated: true, completion: nil)
         }
         partnersButton.setStyle(style: .settingLight)
