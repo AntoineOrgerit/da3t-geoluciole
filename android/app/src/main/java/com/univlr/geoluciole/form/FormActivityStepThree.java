@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.Select;
-import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.UserPreferences;
@@ -79,7 +78,7 @@ public class FormActivityStepThree extends AppCompatActivity {
         this.step = (TextView) findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
-            this.step.setText("2/2");
+            this.step.setText("2/3");
         }
         // liste déroulante
         this.spinnerWhomList = (Spinner) findViewById(R.id.spinner_list_whom);
@@ -104,7 +103,7 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void formSetter() {
         form = (FormModel) getIntent().getSerializableExtra("Form");
-        System.out.println("ETAPE 3/3 retrieved : " + form);
+        System.out.println("ETAPE 3/4 retrieved : " + form);
     }
 
     /**
@@ -162,7 +161,7 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void initValidatorListener() {
         validator = new Validator(FormActivityStepThree.this);
-        validatorListener = new ValidationFormListener(FormActivityStepThree.this, MainActivity.class, form);
+        validatorListener = new ValidationFormListener(FormActivityStepThree.this, FormActivityStepEnd.class, form);
         validator.setValidationListener(validatorListener);
     }
 

@@ -178,7 +178,7 @@
                     android:textColor="@color/colorPrimaryDark"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/out_date_layout"
+                    android:id="@+id/deb_date_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
