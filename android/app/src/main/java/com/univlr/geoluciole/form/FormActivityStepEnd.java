@@ -112,7 +112,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
         form = (FormModel) getIntent().getSerializableExtra("Form");
         Calendar c = Calendar.getInstance();
         // start
-        if (form.getTimestampStart() < c.getTime().getTime()) {
+        if (form.getDateIn().getTime() < c.getTime().getTime()) {
             this.startDate = c.getTime();
             this.startTime = new Time(8,0);
         } else {
@@ -120,7 +120,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
             this.startTime = form.getTimeIn();
         }
         // end
-        if (form.getTimestampEnd()< c.getTime().getTime()) {
+        if (form.getDateOut().getTime() < c.getTime().getTime()) {
             this.endDate = c.getTime();
             this.endTime = new Time(22,0);
         } else {
@@ -177,6 +177,8 @@ public class FormActivityStepEnd extends AppCompatActivity {
                         openTimer(start);
                     }
                 });
+                setBound(start, datePickerDialog.getDatePicker());
+
                 datePickerDialog.show();
             }
         };
@@ -186,16 +188,15 @@ public class FormActivityStepEnd extends AppCompatActivity {
         int mMinute = 0;
         int hours = 0;
         if (start) {
-            mMinute = this.form.getTimeIn().getMinutes();
-            hours = this.form.getTimeIn().getHours();
+            mMinute = this.startTime.getMinutes();
+            hours = this.startTime.getHours();
         } else {
-            mMinute = this.form.getTimeOut().getMinutes();
-            hours = this.form.getTimeOut().getHours();
+            mMinute = this.endTime.getMinutes();
+            hours = this.endTime.getHours();
         }
         TimePickerDialog timePickerDialog = new TimePickerDialog(FormActivityStepEnd.this, 0, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String time;
                 if (start) {
                     startTime = new Time(hourOfDay, minute);
                     startValidityPeriodEditext.setText(FormModel.datetimeToString(startDate,startTime));
@@ -220,6 +221,14 @@ public class FormActivityStepEnd extends AppCompatActivity {
                 back();
             }
         };
+    }
+
+    private void setBound(boolean start, DatePicker picker) {
+        if (start) {
+            picker.setMinDate(Calendar.getInstance().getTimeInMillis());
+        } else {
+            picker.setMaxDate(form.getDateOut().getTime());
+        }
     }
 
     /**
