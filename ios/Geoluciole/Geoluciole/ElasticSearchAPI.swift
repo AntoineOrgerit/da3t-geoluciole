@@ -46,10 +46,12 @@ class ElasticSearchAPI {
     }
 
     /// Envoi des localisations du terminal au serveur
-    func postLocations(message: String) {
+    func postLocations(message: String, before doBefore: (() -> Void)? = nil, after doIfSuccess: (() -> Void)? = nil) {
         if Constantes.DEBUG {
             print("Envoi des données de localisation au serveur en cours ...")
         }
+        
+        doBefore?()
 
         // Création de la requête (header + contenu)
         var request = URLRequest(url: resourceURL.appendingPathComponent("/da3t_gps/_doc/_bulk"))
@@ -77,7 +79,11 @@ class ElasticSearchAPI {
                         if Constantes.DEBUG {
                             print("Envoi des données de localisation au serveur réussi !")
                         }
+                        
                         LocationTable.getInstance().deleteQuery()
+                        
+                        doIfSuccess?()
+                        
                         // Sinon, on indique l'erreur et on garde les données
                     } else {
                         if Constantes.DEBUG {
@@ -85,7 +91,6 @@ class ElasticSearchAPI {
                         }
                     }
                 }
-
             }
         }
 
@@ -105,7 +110,7 @@ class ElasticSearchAPI {
         if Constantes.DEBUG {
             print("Envoi des données de compte au serveur en cours ...")
         }
-        
+
         let id = UserPrefs.getInstance().string(forKey: "KEY_IDENTIFIER")
         var request = URLRequest(url: resourceURL.appendingPathComponent("/da3t_compte/_doc/\(id)"))
         request.httpMethod = "POST"

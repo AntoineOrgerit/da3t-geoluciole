@@ -81,8 +81,23 @@ class SettingsViewController: ParentViewController {
 
         let sendDataManually = CustomUIButton()
         sendDataManually.setTitle("ENVOYER MES DONNÉES", for: .normal)
-        sendDataManually.onClick = { button in
-            CustomTimer.getInstance().sendPostLocationElasticSearch()
+        sendDataManually.onClick = { [weak self] _ in
+            guard let strongSelf = self else { return }
+
+            CustomTimer.getInstance().sendPostLocationElasticSearch(before: {
+                DispatchQueue.main.async {
+                    strongSelf.view.makeToast("Envoi des données en cours...", duration: 60, position: .bottom)
+                }
+            }) {
+                DispatchQueue.main.async {
+                    strongSelf.view.hideAllToasts()
+
+                    var style = ToastStyle()
+                    style.backgroundColor = UIColor(red: 145 / 255, green: 208 / 255, blue: 182 / 255, alpha: 0.9)
+                    strongSelf.view.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
+                }
+            }
+
         }
         sendDataManually.setStyle(style: .settingDark)
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +152,7 @@ class SettingsViewController: ParentViewController {
             cguButton.topAnchor.constraint(equalTo: partnersButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             cguButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
             cguButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),
-            
+
             deleteButton.topAnchor.constraint(equalTo: cguButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             deleteButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
             deleteButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),

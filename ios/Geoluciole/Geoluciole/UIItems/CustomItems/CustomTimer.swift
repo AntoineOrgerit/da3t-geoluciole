@@ -41,11 +41,11 @@ class CustomTimer {
     // Envoi serveur PART
 
     /// Envoi les données de localisation de l'utilisateur au serveur
-    @objc func sendPostLocationElasticSearch() {
+    @objc func sendPostLocationElasticSearch(before doBefore: (() -> Void)? = nil, after doIfSuccess: (() -> Void)? = nil) {
         if Constantes.DEBUG {
             print("Timer déclenché")
         }
-        
+
         // création du message à envoyer
 
         // récupération des localisations en BDD SQLite
@@ -65,7 +65,7 @@ class CustomTimer {
                     let identifier = Tools.getIdentifier()
 
                     let message: String = ElasticSearchAPI.getInstance().generateMessage(locations: locations, identifier: identifier)
-                    ElasticSearchAPI.getInstance().postLocations(message: message)
+                    ElasticSearchAPI.getInstance().postLocations(message: message, before: doBefore, after: doIfSuccess)
                 }
             }
         }

@@ -164,6 +164,4 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
             }
         }
     }
-
-
 }
