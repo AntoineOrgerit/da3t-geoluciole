@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.Select;
-import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.UserPreferences;
@@ -162,7 +161,7 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void initValidatorListener() {
         validator = new Validator(FormActivityStepThree.this);
-        validatorListener = new ValidationFormListener(FormActivityStepThree.this, MainActivity.class, form);
+        validatorListener = new ValidationFormListener(FormActivityStepThree.this, FormActivityStepEnd.class, form);
         validator.setValidationListener(validatorListener);
     }
 

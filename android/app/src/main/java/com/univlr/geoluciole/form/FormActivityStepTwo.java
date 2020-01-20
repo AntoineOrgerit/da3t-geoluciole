@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -68,7 +67,6 @@ public class FormActivityStepTwo extends AppCompatActivity {
     ValidationFormListener validatorListener;
     Validator validator;
     TextWatcherListener textWatcherListener;
-    TextWatcher textWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,10 +190,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
     }
 
     private void saveToForm() {
-        form.setDateIn(String.valueOf(txtDateArrivee.getText()));
-        form.setTimeIn(String.valueOf(txtTimeArrivee.getText()));
-        form.setDateOut(String.valueOf(txtDateDepart.getText()));
-        form.setTimeOut(String.valueOf(txtTimeDepart.getText()));
+        form.setDatetimeStart(dateArrive);
+        form.setDatetimeEnd(dateDepart);
     }
 
     /**

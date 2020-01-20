@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class FormModel implements Serializable, BulkObject {
     private static final int ID_QUESTION_TWO_MONTH = 9;
     private static final int ID_QUESTION_TRANSPORT = 10;
 
+    private Calendar datetimeStart;
+    private Calendar datetimeEnd;
     private String id_user;
     private String dateIn;
     private String timeIn;
@@ -93,32 +96,41 @@ public class FormModel implements Serializable, BulkObject {
         return dateIn;
     }
 
-    public void setDateIn(String dateIn) {
-        this.dateIn = dateIn;
+
+    public Calendar getDatetimeEnd() {
+        return datetimeEnd;
+    }
+
+    public Calendar getDatetimeStart() {
+        return datetimeStart;
+    }
+
+    public void setDatetimeEnd(Calendar datetimeEnd) {
+        this.datetimeEnd = datetimeEnd;
+        this.dateOut = this.datetimeEnd.get(Calendar.DAY_OF_MONTH) + "-" + this.datetimeEnd.get(Calendar.MONTH)
+                + "-" + this.datetimeEnd.get(Calendar.YEAR);
+        this.timeOut = this.datetimeEnd.get(Calendar.HOUR_OF_DAY) + ":" + this.datetimeEnd.get(Calendar.MINUTE);
+    }
+
+    public void setDatetimeStart(Calendar datetimeStart) {
+        this.datetimeStart = datetimeStart;
+        this.dateIn = this.datetimeStart.get(Calendar.DAY_OF_MONTH) + "-" + this.datetimeStart.get(Calendar.MONTH)
+                + "-" + this.datetimeStart.get(Calendar.YEAR);
+        this.timeIn = this.datetimeStart.get(Calendar.HOUR_OF_DAY) + ":" + this.datetimeStart.get(Calendar.MINUTE);
     }
 
     public String getTimeIn() {
         return timeIn;
     }
 
-    public void setTimeIn(String timeIn) {
-        this.timeIn = timeIn;
-    }
 
     public String getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(String dateOut) {
-        this.dateOut = dateOut;
-    }
 
     public String getTimeOut() {
         return timeOut;
-    }
-
-    public void setTimeOut(String timeOut) {
-        this.timeOut = timeOut;
     }
 
     public boolean isPresenceChildren() {
@@ -139,7 +151,7 @@ public class FormModel implements Serializable, BulkObject {
 
     @Override
     public String toString() {
-        return "FormModel{" +
+        String res = "FormModel{" +
                 "dateIn='" + dateIn + '\'' +
                 ", timeIn='" + timeIn + '\'' +
                 ", dateOut='" + dateOut + '\'' +
@@ -151,8 +163,15 @@ public class FormModel implements Serializable, BulkObject {
                 ", knowCity=" + knowCity +
                 ", fiveTimes=" + fiveTimes +
                 ", twoMonths=" + twoMonths +
-                ", transport='" + transport + '\'' +
-                '}';
+                ", transport='" + transport + '\'';
+        if (datetimeStart != null) {
+            res += ", datetimeStart='" + datetimeStart.getTime().getTime()+"'";
+        }
+        if (datetimeEnd != null) {
+            res += ", datetimeEnd='" + datetimeEnd.getTime().getTime()+"'";
+        }
+
+        return res + '}';
     }
 
     private Date convertToDate(String sdt, String stime) {
@@ -183,8 +202,8 @@ public class FormModel implements Serializable, BulkObject {
     @Override
     public List<String> jsonFormatObject() {
         List<String> result = new ArrayList<>();
-        result.add(InJson(convertToTimestamp(dateIn, timeIn), ID_QUESTION_DATE_IN));
-        result.add(InJson(convertToTimestamp(dateOut, timeOut), ID_QUESTION_DATE_OUT));
+        result.add(InJson(""+datetimeStart.getTime().getTime(), ID_QUESTION_DATE_IN));
+        result.add(InJson(""+datetimeEnd.getTime().getTime(), ID_QUESTION_DATE_OUT));
         result.add(InJson(withWhom, ID_QUESTION_WITH_WHOM));
         result.add(InJson(booleanToString(presenceChildren), ID_QUESTION_PRESENCE_CHILDREN));
         result.add(InJson(booleanToString(presenceTeens), ID_QUESTION_PRESENCE_TEEN));
