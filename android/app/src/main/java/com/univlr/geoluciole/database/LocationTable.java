@@ -3,8 +3,12 @@ package com.univlr.geoluciole.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.location.Location;
 import android.util.Log;
+
+import com.univlr.geoluciole.location.LocationBulk;
+import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +30,10 @@ public class LocationTable extends Table {
         super();
         this.tableName = LOCATION_TABLE_NAME;
         this.columns = new TableColumn[]{
-                new TableColumn(LATITUDE, "DOUBLE", false),
-                new TableColumn(LONGITUDE, "DOUBLE", false),
+                new TableColumn(LATITUDE, "DOUBLE", true),
+                new TableColumn(LONGITUDE, "DOUBLE", true),
                 new TableColumn(TIMESTAMP, "TIMESTAMP", false),
-                new TableColumn(ALTITUDE, "DOUBLE", false),
+                new TableColumn(ALTITUDE, "DOUBLE", true),
         };
     }
 
@@ -48,7 +52,7 @@ public class LocationTable extends Table {
      * @param o Object a inserer dans la table
      */
     @Override
-    public void insertObject(Object o) {
+    protected void insertObject(Object o) {
         Location l = (Location) o;
         ContentValues values = new ContentValues();
         values.put(LocationTable.LATITUDE, l.getLatitude());
@@ -65,7 +69,7 @@ public class LocationTable extends Table {
      * Permet de supprimer tous les objets de la table
      */
     @Override
-    public void removeAllObject() {
+    protected void removeAllObject() {
         this.dbSQLite.getDb().delete(LocationTable.LOCATION_TABLE_NAME, null, null);
     }
 
@@ -75,13 +79,15 @@ public class LocationTable extends Table {
      * @return List de tous les objets Locations
      */
     @Override
-    public List getAllObject() {
-        List<Location> locationList = new ArrayList();
+    protected List getAllObject() {
+        List<LocationBulk> locationList = new ArrayList();
         String[] columnArray = {
                 LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + "," +
                         LocationTable.TIMESTAMP + "," + LocationTable.ALTITUDE};
         Cursor cursor = this.dbSQLite.getDb().query(LocationTable.LOCATION_TABLE_NAME,
                 columnArray, null, null, null, null, null, null);
+
+        UserPreferences userPref = UserPreferences.getInstance(this.context);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -91,7 +97,7 @@ public class LocationTable extends Table {
                 location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LONGITUDE)));
                 location.setTime(cursor.getInt(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
                 location.setAltitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.ALTITUDE)));
-                locationList.add(location);
+                locationList.add(new LocationBulk(location, userPref.getId()));
             } while (cursor.moveToNext());
             cursor.close();
         } else {
@@ -102,4 +108,10 @@ public class LocationTable extends Table {
     }
 
 
+    public long countAll() {
+        this.dbSQLite.open();
+        long count = DatabaseUtils.queryNumEntries(this.dbSQLite.getDb(), LOCATION_TABLE_NAME);
+        this.dbSQLite.close();
+        return count;
+    }
 }

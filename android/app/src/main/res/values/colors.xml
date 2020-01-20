@@ -2,6 +2,12 @@
 <resources>
     <color name="colorPrimary">#F19143</color>
     <color name="colorPrimaryDark">#EB6C32</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#EB6C32</color>
     <color name="navigationBarColor">#EB6C32</color>
+    <color name="text_disabled">#000000</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_question">#5A6978</color>
+    <color name="my_spinner_text_color">#EB6C32</color>
+    <color name="colorRefused">#F79498</color>
+    <color name="colorDisabled">#747477</color>
 </resources>

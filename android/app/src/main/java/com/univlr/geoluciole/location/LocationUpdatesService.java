@@ -51,12 +51,11 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -67,6 +66,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.database.LocationTable;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -169,7 +169,10 @@ public class LocationUpdatesService extends Service {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
-                onNewLocation(locationResult.getLastLocation());
+                LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
+                Location lastLocation = locationResult.getLastLocation();
+                locationTable.insert(lastLocation);
+                onNewLocation(lastLocation);
             }
         };
 

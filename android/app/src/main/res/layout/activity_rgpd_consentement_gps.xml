@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RGPDConsentementGPSActivity">
+
+    <TextView
+        android:id="@+id/rgpd_title_primary_textview"
+        style="@style/textviewTitle"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/rgpd_title_primary"
+        android:textAlignment="center"
+        android:textAppearance="@style/rgpd_title_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rgpd_title_project_textview"
+        style="@style/textviewTitle_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/rgpd_title_project"
+        app:layout_constraintBottom_toTopOf="@+id/scrollview_rgdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgpd_title_primary_textview" />
+
+    <ScrollView
+        android:id="@+id/scrollview_rgdp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/rgpd_first_content_consentement_checkbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgpd_title_project_textview">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rgpd_first_content_2_line_texview"
+                style="@style/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rgpd_first_content_2_line" />
+
+            <TextView
+                android:id="@+id/rgpd_first_content_3_line_texview"
+                style="@style/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rgpd_first_content_3_line" />
+
+            <TextView
+                android:id="@+id/rgpd_first_content_1_line_texview"
+                style="@style/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rgpd_first_content_1_line" />
+
+            <TextView
+                android:id="@+id/rgpd_first_content_4_line_texview"
+                style="@style/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rgpd_first_content_4_line" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <CheckBox
+        android:id="@+id/rgpd_first_content_consentement_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/rgpd_horizontal_margin_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/rgpd_horizontal_margin_content"
+        android:layout_marginBottom="32dp"
+        android:buttonTint="@color/colorPrimary"
+        android:text="@string/rgpd_first_content_consentement"
+        android:textAppearance="@style/textviewContent"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/rgpd_first_validate_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollview_rgdp" />
+
+    <Button
+        android:id="@+id/rgpd_first_validate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/colorDisabled"
+        android:text="@string/action_validate"
+        android:textColor="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgpd_first_content_consentement_checkbox" />
+
+    <Button
+        android:id="@+id/rgpd_gps_consent_refused"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/colorRefused"
+        android:text="@string/action_refused"
+        android:textColor="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgpd_first_content_consentement_checkbox"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

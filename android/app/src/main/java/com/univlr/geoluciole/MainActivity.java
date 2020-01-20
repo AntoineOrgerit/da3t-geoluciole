@@ -1,9 +1,5 @@
 package com.univlr.geoluciole;
 
-import com.univlr.geoluciole.location.LocationUpdatesService;
-import com.univlr.geoluciole.location.Utils;
-import com.univlr.geoluciole.permissions.Permission;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,27 +8,30 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.MenuItem;
-
-import android.os.IBinder;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
-import com.univlr.geoluciole.ui.dashboard.DashboardFragment;
+import com.univlr.geoluciole.location.LocationUpdatesService;
+import com.univlr.geoluciole.location.Utils;
+import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.permissions.Permission;
+import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
-import com.univlr.geoluciole.ui.notifications.NotificationsFragment;
-
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 
 import java.util.ArrayList;
 
 public class MainActivity extends LocationActivity {
-
+    public static final String PREFERENCES = "Saved_Pref";
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private LocationUpdatesService mService = null;
@@ -51,7 +50,7 @@ public class MainActivity extends LocationActivity {
 
             // checking permissions
             ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
-            if(!unauthorizedPermissions.isEmpty()) {
+            if (!unauthorizedPermissions.isEmpty()) {
                 requestPermissions(unauthorizedPermissions);
             } else {
                 enableGPSIfNeeded();
@@ -70,11 +69,14 @@ public class MainActivity extends LocationActivity {
     private ViewPager viewPager;
 
     private HomeFragment homeFragment;
-    private DashboardFragment dashboardFragment;
-    private NotificationsFragment notificationsFragment;
+    private AchievementsFragment dashboardFragment;
+    private PreferencesFragment notificationsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FormModel form = (FormModel) getIntent().getSerializableExtra("Form");
+        System.out.println("Main Activity form retrieved : " + form);
+
         super.onCreate(savedInstanceState);
 
         // temporary receiver
@@ -92,10 +94,10 @@ public class MainActivity extends LocationActivity {
                     case R.id.navigation_home:
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.navigation_dashboard:
+                    case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
                         break;
-                    case R.id.navigation_notifications:
+                    case R.id.navigation_dashboard:
                         viewPager.setCurrentItem(2);
                         break;
                 }
@@ -134,8 +136,8 @@ public class MainActivity extends LocationActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         homeFragment=new HomeFragment();
-        dashboardFragment =new DashboardFragment();
-        notificationsFragment = new NotificationsFragment();
+        dashboardFragment =new AchievementsFragment();
+        notificationsFragment = new PreferencesFragment();
         adapter.addFragment(homeFragment);
         adapter.addFragment(dashboardFragment);
         adapter.addFragment(notificationsFragment);
@@ -197,3 +199,5 @@ public class MainActivity extends LocationActivity {
     }
 
 }
+
+

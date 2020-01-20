@@ -1,8 +1,6 @@
 package com.univlr.geoluciole.database;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-
 
 import java.util.List;
 
@@ -16,11 +14,14 @@ public abstract class Table {
 
     protected DatabaseHandler dbSQLite;
 
+    protected Context context;
+
     public Table() {
     }
 
     public Table(Context context) {
         dbSQLite = DatabaseHandler.getInstance(context);
+        this.context = context;
     }
 
     /**
@@ -77,7 +78,7 @@ public abstract class Table {
      *
      * @param o Object a sauvegarder
      */
-    public abstract void insertObject(Object o);
+    protected abstract void insertObject(Object o);
 
     /**
      * Permet de supprimer tous les objets en base
@@ -91,7 +92,7 @@ public abstract class Table {
     /**
      * Permet de supprimer tous les objets en base
      */
-    public abstract void removeAllObject();
+    protected abstract void removeAllObject();
 
     /**
      * Permet de recuperer tous les objets de la base
@@ -110,5 +111,5 @@ public abstract class Table {
      *
      * @return List des objets
      */
-    public abstract List getAllObject();
+    protected abstract List getAllObject();
 }
