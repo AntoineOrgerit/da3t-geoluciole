@@ -115,20 +115,7 @@ class SettingsViewController: ParentViewController {
         sendDataManually.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            CustomTimer.getInstance().sendPostLocationElasticSearch(before: {
-                DispatchQueue.main.async {
-                    strongSelf.view.makeToast("Envoi des données en cours...", duration: 60, position: .bottom)
-                }
-            }) {
-                DispatchQueue.main.async {
-                    strongSelf.view.hideAllToasts()
-
-                    var style = ToastStyle()
-                    style.backgroundColor = UIColor(red: 145 / 255, green: 208 / 255, blue: 182 / 255, alpha: 0.9)
-                    strongSelf.view.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
-                }
-            }
-
+            CustomTimer.getInstance().sendPostLocationElasticSearch(viewController: strongSelf)
         }
         sendDataManually.setStyle(style: .settingDark)
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false
