@@ -3,8 +3,6 @@ package com.univlr.geoluciole.model;
 import com.univlr.geoluciole.sender.BulkObject;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -159,6 +157,14 @@ public class FormModel implements Serializable, BulkObject {
         return dateToString(date) + " " + timeToString(time);
     }
 
+    public static long formatToTimestamp(Date date, Time time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.MINUTE, time.getMinutes());
+        calendar.set(Calendar.HOUR_OF_DAY, time.getHours());
+        return calendar.getTimeInMillis();
+    }
+
 
     public static String datetimeToString(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -214,23 +220,6 @@ public class FormModel implements Serializable, BulkObject {
                 ", twoMonths=" + twoMonths +
                 ", transport='" + transport + '\''
         + '}';
-    }
-
-    private Date convertToDate(String sdt, String stime) {
-        sdt += " "+stime;
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date date;
-        try {
-            date = format.parse(sdt);
-        } catch (ParseException e) {
-            date = new Date();
-            e.printStackTrace();
-        }
-        return date;
-    }
-
-    private String convertToTimestamp(String sdt, String stime) {
-        return "" + convertToDate(sdt, stime).getTime();
     }
 
     private String InJson(String value, int id_question) {

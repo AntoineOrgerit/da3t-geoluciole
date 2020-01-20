@@ -11,7 +11,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -63,8 +62,6 @@ public class FormActivityStepEnd extends AppCompatActivity {
         formSetter();
         // init listeners
         initListenersButtons();
-        // init validation
-        initValidatorListener();
     }
 
     @Override
@@ -136,10 +133,13 @@ public class FormActivityStepEnd extends AppCompatActivity {
         // bouton précédent
         this.btnPrevious.setOnClickListener(previousView());
         // bouton suivant
-        this.btnSubmit.setOnClickListener(getAllResponsesFromForm());
+        this.btnSubmit.setOnClickListener(finalizeForm());
 
+        // bouton periode
         this.startValidityPeriodBtn.setOnClickListener(onClickListenerStartDatet(true));
         this.startValidityPeriodEditext.setOnClickListener(onClickListenerStartDatet(true));
+
+        // editText periode
         this.endValidityPeriodBtn.setOnClickListener(onClickListenerStartDatet(false));
         this.endValidityPeriodEditext.setOnClickListener(onClickListenerStartDatet(false));
     }
@@ -185,8 +185,8 @@ public class FormActivityStepEnd extends AppCompatActivity {
     }
 
     private void openTimer(final boolean start) {
-        int mMinute = 0;
-        int hours = 0;
+        int mMinute;
+        int hours;
         if (start) {
             mMinute = this.startTime.getMinutes();
             hours = this.startTime.getHours();
@@ -217,7 +217,6 @@ public class FormActivityStepEnd extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveToForm();
                 back();
             }
         };
@@ -249,21 +248,14 @@ public class FormActivityStepEnd extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        saveToForm();
         back();
     }
 
-    /**
-     * Méthode initialisant le validateur
-     */
-    private void initValidatorListener() {
-        validator = new Validator(FormActivityStepEnd.this);
-        validatorListener = new ValidationFormListener(FormActivityStepEnd.this, MainActivity.class, form);
-        validator.setValidationListener(validatorListener);
-    }
-
-    private void saveToForm() {
-
+    private void savePeriod() {
+        UserPreferences userPreferences = UserPreferences.getInstance(this);
+        userPreferences.setConsent();
+        userPreferences.setPeriodValid(this.startDate, this.startTime, this.endDate, this.endTime);
+        userPreferences.store(this);
     }
 
     /**
@@ -272,21 +264,22 @@ public class FormActivityStepEnd extends AppCompatActivity {
      *
      * @return View.OnClickListener
      */
-    private View.OnClickListener getAllResponsesFromForm() {
+    private View.OnClickListener finalizeForm() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                savePeriod();
+                //todo send http form
+                //todo send http compte
 
-                saveToForm();
+                Intent intent = new Intent(FormActivityStepEnd.this, MainActivity.class);
 
-                Toast.makeText(FormActivityStepEnd.this,
-                        "OnClickListener : ",
-                        Toast.LENGTH_SHORT).show();
+                // on passe l'objet form à la seconde vue
+                startActivity(intent);
 
-                validatorListener.setRedirect(true);
-                validator.validate();
-                validatorListener.setRedirect(false);
-
+                // ajout d'une transition type swipe
+                overridePendingTransition(R.transition.trans_left_in, R.transition.trans_left_out);
+                finish();
             }
 
         };
