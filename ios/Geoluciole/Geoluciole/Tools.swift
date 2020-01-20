@@ -112,7 +112,7 @@ class Tools {
             let uuid = UIDevice.current.identifierForVendor?.uuidString
 
             // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
-            identifier = String(uuid!.hashCode())
+            identifier = String(abs(uuid!.hashCode()))
 
             // et on sauvegarde le paramètre
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_IDENTIFIER, value: identifier)
