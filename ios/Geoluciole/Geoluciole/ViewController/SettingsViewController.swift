@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 class SettingsViewController: ParentViewController {
-    
-    
-    
+
+    fileprivate var scrollView: UIScrollView!
+    fileprivate var contentView: UIView!
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -24,44 +24,30 @@ class SettingsViewController: ParentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let zoneId = UIView()
-        zoneId.translatesAutoresizingMaskIntoConstraints = false
-        let lbId = CustomUILabel()
-        lbId.setStyle(style: LabelStyle.TitreSectionBadges)
-        lbId.text = "Mon identifiant : "
-        lbId.translatesAutoresizingMaskIntoConstraints = false
-        let Id = CustomUILabel()
-        Id.text = Tools.getIdentifier()
-        Id.translatesAutoresizingMaskIntoConstraints = false
-        zoneId.addSubview(lbId)
-        zoneId.addSubview(Id)
-        
-        NSLayoutConstraint.activate([
-            lbId.topAnchor.constraint(equalTo: zoneId.topAnchor),
-            lbId.leftAnchor.constraint(equalTo: zoneId.leftAnchor),
-            lbId.widthAnchor.constraint(equalTo: zoneId.widthAnchor),
-            lbId.heightAnchor.constraint(equalTo: zoneId.heightAnchor, multiplier: 0.5),
-            
-            Id.topAnchor.constraint(equalTo: lbId.bottomAnchor),
-            Id.leftAnchor.constraint(equalTo: lbId.centerXAnchor),
-            Id.rightAnchor.constraint(equalTo: zoneId.rightAnchor),
-            Id.heightAnchor.constraint(equalTo: zoneId.heightAnchor, multiplier: 0.5)
-        ])
-        self.rootView.addSubview(zoneId)
-        
+
+        self.scrollView = UIScrollView()
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
+        self.rootView.addSubview(self.scrollView)
+
+        self.contentView = UIView()
+        self.contentView.translatesAutoresizingMaskIntoConstraints = false
+        self.scrollView.addSubview(self.contentView)
+
+        let identifierView = IdentifierView()
+        identifierView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(identifierView)
+
         let durationOfEngagementFormView = DurationOfEngagementFormView()
         durationOfEngagementFormView.translatesAutoresizingMaskIntoConstraints = false
-        self.rootView.addSubview(durationOfEngagementFormView)
+        self.contentView.addSubview(durationOfEngagementFormView)
 
         let languageSelectorView = LanguageSelectorView()
-        languageSelectorView.isHidden = false
         languageSelectorView.translatesAutoresizingMaskIntoConstraints = false
-        self.rootView.addSubview(languageSelectorView)
+        self.contentView.addSubview(languageSelectorView)
 
         let wrapButtons = UIView()
         wrapButtons.translatesAutoresizingMaskIntoConstraints = false
-        self.rootView.addSubview(wrapButtons)
+        self.contentView.addSubview(wrapButtons)
 
         let cguButton = CustomUIButton()
         cguButton.setTitle("CONSULTER LES CGU", for: .normal)
@@ -75,7 +61,6 @@ class SettingsViewController: ParentViewController {
         wrapButtons.addSubview(cguButton)
 
         let partnersButton = CustomUIButton()
-        partnersButton.isHidden = false
         partnersButton.setTitle("VOIR LA LISTE DES PARTENAIRES", for: .normal)
         partnersButton.onClick = { button in
             let partenaire = PartenaireViewController()
@@ -86,15 +71,14 @@ class SettingsViewController: ParentViewController {
         wrapButtons.addSubview(partnersButton)
 
         let deleteButton = CustomUIButton()
-        deleteButton.isHidden = false
         deleteButton.setTitle("RÉVOQUER MON CONSENTEMENT", for: .normal)
         deleteButton.onClick = { button in
-            
+
         }
         deleteButton.setStyle(style: .settingLight)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(deleteButton)
-        
+
         let sendDataManually = CustomUIButton()
         sendDataManually.setTitle("ENVOYER MES DONNÉES", for: .normal)
         sendDataManually.onClick = { button in
@@ -104,46 +88,70 @@ class SettingsViewController: ParentViewController {
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(sendDataManually)
 
+        // Constraints ScrollView
+        NSLayoutConstraint.activate([
+
+            self.scrollView.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor),
+            self.scrollView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
+            self.scrollView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
+            self.scrollView.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor),
+
+            self.contentView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
+            self.contentView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor),
+            self.contentView.widthAnchor.constraint(equalTo: self.rootView.widthAnchor),
+            self.contentView.bottomAnchor.constraint(equalTo: wrapButtons.bottomAnchor)
+        ])
+
+        // Constraints IdentifierView
+        NSLayoutConstraint.activate([
+            identifierView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            identifierView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            identifierView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING)
+        ])
+
         // Constraints DurationOfEngagementFormView
         NSLayoutConstraint.activate([
-            zoneId.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            zoneId.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
-            zoneId.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: Constantes.PAGE_PADDING),
-            zoneId.heightAnchor.constraint(equalTo: self.rootView.heightAnchor, multiplier: 0.10),
-            durationOfEngagementFormView.topAnchor.constraint(equalTo: zoneId.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL*2),
-            durationOfEngagementFormView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
-            durationOfEngagementFormView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING)
+            durationOfEngagementFormView.topAnchor.constraint(equalTo: identifierView.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            durationOfEngagementFormView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            durationOfEngagementFormView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
 
         // Constraints LanguageSelectorView
         NSLayoutConstraint.activate([
             languageSelectorView.topAnchor.constraint(equalTo: durationOfEngagementFormView.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            languageSelectorView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
-            languageSelectorView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING)
+            languageSelectorView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            languageSelectorView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
 
         // Constraints WrapButtons
         NSLayoutConstraint.activate([
-            wrapButtons.topAnchor.constraint(equalTo: languageSelectorView.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            wrapButtons.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
-            wrapButtons.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
-            wrapButtons.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor),
+            wrapButtons.topAnchor.constraint(equalTo: languageSelectorView.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL * 2),
+            wrapButtons.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            wrapButtons.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            wrapButtons.bottomAnchor.constraint(equalTo: sendDataManually.bottomAnchor),
+
+            partnersButton.topAnchor.constraint(equalTo: wrapButtons.topAnchor),
+            partnersButton.rightAnchor.constraint(equalTo: wrapButtons.rightAnchor),
+            partnersButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),
+
+            cguButton.topAnchor.constraint(equalTo: partnersButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            cguButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
+            cguButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),
             
-            sendDataManually.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            sendDataManually.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
-            sendDataManually.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            
-            deleteButton.bottomAnchor.constraint(equalTo: sendDataManually.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            deleteButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
-            deleteButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
-            
-            cguButton.bottomAnchor.constraint(equalTo: sendDataManually.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            cguButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
-            cguButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            
-            partnersButton.bottomAnchor.constraint(equalTo: cguButton.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            partnersButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
-            partnersButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL)
+            deleteButton.topAnchor.constraint(equalTo: cguButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            deleteButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
+            deleteButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),
+
+            sendDataManually.topAnchor.constraint(equalTo: deleteButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            sendDataManually.rightAnchor.constraint(equalTo: wrapButtons.rightAnchor),
+            sendDataManually.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor)
         ])
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Permet de resize le content pour permettre le scroll
+        scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
     }
 }

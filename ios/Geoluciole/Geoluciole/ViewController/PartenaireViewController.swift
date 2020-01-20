@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 
 
-class PartenaireViewController: ParentViewController /*UITableViewDelegate, UITableViewDataSource*/ {
+class PartenaireViewController: ParentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.rootView.backgroundColor = .white
         let tv = UITextView()
         tv.translatesAutoresizingMaskIntoConstraints = false

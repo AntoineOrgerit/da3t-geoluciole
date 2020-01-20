@@ -42,7 +42,7 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
         NSLayoutConstraint.activate([
 
             self.topAnchor.constraint(equalTo: self.optionLabel.topAnchor),
-            self.bottomAnchor.constraint(equalTo: self.optionLabel.bottomAnchor),
+            self.bottomAnchor.constraint(equalTo: self.checkbox.bottomAnchor),
             self.leftAnchor.constraint(equalTo: self.checkbox.leftAnchor),
             self.rightAnchor.constraint(equalTo: self.optionLabel.rightAnchor),
 
@@ -52,6 +52,7 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
             self.checkbox.widthAnchor.constraint(equalTo: self.checkbox.heightAnchor),
 
             self.optionLabel.leftAnchor.constraint(equalTo: self.checkbox.rightAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            self.optionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 

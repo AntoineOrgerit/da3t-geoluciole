@@ -10,50 +10,70 @@ import Foundation
 import UIKit
 import PDFKit
 
-class CGUViewController: ParentViewController, UIWebViewDelegate {
+class CGUViewController: ParentModalViewController, UIWebViewDelegate {
 
     fileprivate var webView: UIWebView!
+    fileprivate var wrapContent: UIView!
+    fileprivate var loader: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.rootView.backgroundColor = .backgroundDefault
-        self.titleBar.isHidden = true
-
-        // Création d'un bouton "OK"
-        let closeButton = CustomUIButton()
-        closeButton.setTitle("Fermer", for: .normal)
-        closeButton.setStyle(style: .defaultStyle)
-        closeButton.addTarget(self, action: #selector(closeModal), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        self.rootView.addSubview(closeButton)
-
 
         // Affichage du pdf des CGU
         guard let pathCGU = Bundle.main.url(forResource: "cgu", withExtension: "pdf") else {
             return
         }
 
+        self.titleBar.isHidden = true
+
+        // Création d'un bouton "OK"
+        let closeButton = CustomUIButton()
+        closeButton.setTitle("Fermer", for: .normal)
+        closeButton.setStyle(style: .defaultStyle)
+        closeButton.onClick = { [weak self] _ in
+            guard let strongSelf = self else { return }
+
+            strongSelf.dismiss(animated: true)
+        }
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        self.rootView.addSubview(closeButton)
+
+        self.wrapContent = UIView()
+        self.wrapContent.translatesAutoresizingMaskIntoConstraints = false
+        self.rootView.addSubview(self.wrapContent)
+
         self.webView = UIWebView()
         self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.delegate = self
         self.webView.loadRequest(URLRequest(url: pathCGU))
-        self.rootView.addSubview(self.webView)
+        self.webView.scrollView.minimumZoomScale = 1.0
+        self.webView.scrollView.maximumZoomScale = 5.0
+        self.webView.stringByEvaluatingJavaScript(from: "document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable = 1;', false);")
+        self.wrapContent.addSubview(self.webView)
+
+        self.loader = UIActivityIndicatorView()
+        self.loader.color = .backgroundDefault
+        self.loader.hidesWhenStopped = true
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        self.wrapContent.addSubview(self.loader)
 
         NSLayoutConstraint.activate([
-            // bouton ok
             closeButton.topAnchor.constraint(equalTo: self.rootView.topAnchor, constant: 5),
             closeButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -5),
 
-            self.webView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
-            self.webView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
-            self.webView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 5),
-            self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
-    }
+            self.wrapContent.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
+            self.wrapContent.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
+            self.wrapContent.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 5),
+            self.wrapContent.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor),
 
-    @objc func closeModal() {
-        dismiss(animated: true, completion: nil)
+            self.webView.leftAnchor.constraint(equalTo: self.wrapContent.leftAnchor),
+            self.webView.rightAnchor.constraint(equalTo: self.wrapContent.rightAnchor),
+            self.webView.topAnchor.constraint(equalTo: self.wrapContent.topAnchor),
+            self.webView.bottomAnchor.constraint(equalTo: self.wrapContent.bottomAnchor),
+
+            self.loader.centerXAnchor.constraint(equalTo: self.wrapContent.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.wrapContent.centerYAnchor)
+        ])
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,8 +81,15 @@ class CGUViewController: ParentViewController, UIWebViewDelegate {
     }
 
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        self.webView.scrollView.minimumZoomScale = 1.0
-        self.webView.scrollView.maximumZoomScale = 5.0
-        self.webView.stringByEvaluatingJavaScript(from: "document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable = 1;', false); ")
+        self.loader.stopAnimating()
+    }
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+        self.loader.startAnimating()
+        return true
+    }
+    
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        self.loader.stopAnimating()
     }
 }

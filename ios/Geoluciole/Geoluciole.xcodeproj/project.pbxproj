@@ -47,6 +47,7 @@
 		23CB178123CCDCFE00B1BF73 /* CollectDataSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CB178023CCDCFE00B1BF73 /* CollectDataSwitchView.swift */; };
 		23CB178323CCE9AC00B1BF73 /* ShowLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CB178223CCE9AC00B1BF73 /* ShowLevelView.swift */; };
 		23CB178523CCFFCF00B1BF73 /* LastTrophyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CB178423CCFFCF00B1BF73 /* LastTrophyView.swift */; };
+		23D42F3A23D387A000BBCDD8 /* IdentifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D42F3923D387A000BBCDD8 /* IdentifierView.swift */; };
 		23D8423A23D1F7C400E7802E /* ParentModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8423923D1F7C400E7802E /* ParentModalViewController.swift */; };
 		23E22D2123C7645100C3540E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E22D2023C7645100C3540E /* SettingsViewController.swift */; };
 		23E79B3F23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E79B3E23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift */; };
@@ -118,6 +119,7 @@
 		23CB178023CCDCFE00B1BF73 /* CollectDataSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectDataSwitchView.swift; sourceTree = "<group>"; };
 		23CB178223CCE9AC00B1BF73 /* ShowLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLevelView.swift; sourceTree = "<group>"; };
 		23CB178423CCFFCF00B1BF73 /* LastTrophyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTrophyView.swift; sourceTree = "<group>"; };
+		23D42F3923D387A000BBCDD8 /* IdentifierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierView.swift; sourceTree = "<group>"; };
 		23D8423923D1F7C400E7802E /* ParentModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentModalViewController.swift; sourceTree = "<group>"; };
 		23E22D2023C7645100C3540E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		23E79B3E23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationOfEngagementFormView.swift; sourceTree = "<group>"; };
@@ -298,10 +300,10 @@
 				62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */,
 				237AD42223C606D4009937AB /* HomeViewController.swift */,
 				23E22D2023C7645100C3540E /* SettingsViewController.swift */,
-				235D45D023C9247A00992B7B /* ParentViewController.swift */,
 				62330D2C23CDF05F003E7586 /* GPSConsentRGPDViewController.swift */,
 				62188B9823CF1C9B00D33B43 /* CGUViewController.swift */,
 				6FACFC6B23CF58B50036881E /* PartenaireViewController.swift */,
+				235D45D023C9247A00992B7B /* ParentViewController.swift */,
 				23D8423923D1F7C400E7802E /* ParentModalViewController.swift */,
 			);
 			path = ViewController;
@@ -324,6 +326,7 @@
 				23610E8423CE3446003B6EF8 /* LanguageSelectorView.swift */,
 				23610E8623CE3719003B6EF8 /* CheckBoxFieldView.swift */,
 				23F98BA923CF038800DA7931 /* NoBadgeView.swift */,
+				23D42F3923D387A000BBCDD8 /* IdentifierView.swift */,
 			);
 			path = UIItems;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				62D37A9D23D0A17F00F079C0 /* LocationHandler.swift in Sources */,
 				234C710723CD0F0000DF70FB /* BadgesCollectionView.swift in Sources */,
 				62BF3D6F23C8840E00945C04 /* UserPrefs.swift in Sources */,
+				23D42F3A23D387A000BBCDD8 /* IdentifierView.swift in Sources */,
 				23610E8123CDF593003B6EF8 /* CheckBoxView.swift in Sources */,
 				2392A4C823CCC2E1006606B5 /* CustomUILabel.swift in Sources */,
 				62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */,

@@ -47,7 +47,7 @@ class ParentViewController: UIViewController {
                 self.rootView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
 
                 self.titleBar.widthAnchor.constraint(equalTo: self.rootView.widthAnchor),
-                self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight()),
+                self.titleBar.heightAnchor.constraint(equalToConstant: Tools.getStatusBarHeight() + 5),
                 self.titleBar.topAnchor.constraint(equalTo: self.rootView.topAnchor),
                 self.titleBar.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
                 self.titleBar.rightAnchor.constraint(equalTo: self.rootView.rightAnchor)
