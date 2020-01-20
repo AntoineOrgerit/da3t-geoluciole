@@ -4,8 +4,9 @@ import android.Manifest;
 
 public enum Permission {
 
-    INTERNET_PERMISSION(Manifest.permission.INTERNET, 1),
-    FINE_LOCATION_PERMISSION(Manifest.permission.ACCESS_FINE_LOCATION, 2);
+    IGNORE_BATTERY_OPTIMIZATIONS_PERMISSION(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, 1),
+    INTERNET_PERMISSION(Manifest.permission.INTERNET, 2),
+    FINE_LOCATION_PERMISSION(Manifest.permission.ACCESS_FINE_LOCATION, 3);
 
     private String manifestValue;
     private int uniqueID;

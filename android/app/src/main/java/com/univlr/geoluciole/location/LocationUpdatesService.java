@@ -25,7 +25,8 @@
  *  - update of package name and string value of PACKAGE_NAME variable;
  *  - update notification channel name;
  *  - remove stopping activity from notifications;
- *  - changing accuracy to be balanced with the battery.
+ *  - adapting to Android 8 and 9 versions;
+ *  - update of Location retrieve system.
  */
 
 package com.univlr.geoluciole.location;
@@ -39,9 +40,13 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -62,6 +67,11 @@ import com.google.android.gms.tasks.Task;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -128,16 +138,6 @@ public class LocationUpdatesService extends Service {
      */
     private LocationRequest mLocationRequest;
 
-    /**
-     * Provides access to the Fused Location Provider API.
-     */
-    private FusedLocationProviderClient mFusedLocationClient;
-
-    /**
-     * Callback for changes in location.
-     */
-    private LocationCallback mLocationCallback;
-
     private Handler mServiceHandler;
 
     /**
@@ -145,23 +145,41 @@ public class LocationUpdatesService extends Service {
      */
     private Location mLocation;
 
+    private String filename;
+
+    private LocationManager mLocationManager;
+    private Criteria mCriteria;
+    private LocationListener mLocationListener;
+
     @Override
     public void onCreate() {
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        mLocationCallback = new LocationCallback() {
+        mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        mCriteria = new Criteria();
+        mCriteria.setAccuracy(Criteria.ACCURACY_FINE);
+        mCriteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
+        mCriteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
+        mLocationListener = new LocationListener() {
             @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
-                Location lastLocation = locationResult.getLastLocation();
-                locationTable.insert(lastLocation);
-                onNewLocation(lastLocation);
+            public void onLocationChanged(Location location) {
+                onNewLocation(location);
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.i(TAG, "onStatusChanger: "+ provider + " " + status + " " + extras.toString());
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                Log.i(TAG, "onProviderEnabled: "+ provider);
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Log.i(TAG, "onProviderDisabled: "+ provider);
             }
         };
 
-        createLocationRequest();
-        getLastLocation();
 
         HandlerThread handlerThread = new HandlerThread(TAG);
         handlerThread.start();
@@ -252,8 +270,7 @@ public class LocationUpdatesService extends Service {
         Utils.setRequestingLocationUpdates(this, true);
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                    mLocationCallback, Looper.myLooper());
+            mLocationManager.requestLocationUpdates(2000, 10, mCriteria, mLocationListener, Looper.myLooper());
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
@@ -267,7 +284,7 @@ public class LocationUpdatesService extends Service {
     public void removeLocationUpdates() {
         Log.i(TAG, "Removing location updates");
         try {
-            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+            mLocationManager.removeUpdates(mLocationListener);
             Utils.setRequestingLocationUpdates(this, false);
             stopSelf();
         } catch (SecurityException unlikely) {
@@ -313,24 +330,6 @@ public class LocationUpdatesService extends Service {
         return builder.build();
     }
 
-    private void getLastLocation() {
-        try {
-            mFusedLocationClient.getLastLocation()
-                    .addOnCompleteListener(new OnCompleteListener<Location>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Location> task) {
-                            if (task.isSuccessful() && task.getResult() != null) {
-                                mLocation = task.getResult();
-                            } else {
-                                Log.w(TAG, "Failed to get location.");
-                            }
-                        }
-                    });
-        } catch (SecurityException unlikely) {
-            Log.e(TAG, "Lost location permission." + unlikely);
-        }
-    }
-
     private void onNewLocation(Location location) {
         Log.i(TAG, "New location: " + location);
 
@@ -345,16 +344,6 @@ public class LocationUpdatesService extends Service {
         if (serviceIsRunningInForeground(this)) {
             mNotificationManager.notify(NOTIFICATION_ID, getNotification());
         }
-    }
-
-    /**
-     * Sets the location request parameters.
-     */
-    private void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
     /**
