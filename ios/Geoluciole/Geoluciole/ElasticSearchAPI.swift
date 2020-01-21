@@ -28,12 +28,12 @@ class ElasticSearchAPI {
     }
 
     /// Génération du message à envoyer au serveur
-    func generateMessage(locations: [Location], identifier: String) -> String {
+    func generateMessage(locations: [Location], identifier: Int) -> String {
         var messageStr = ""
 
         // On génère une string exemple pour l'index
         let index = "{\"index\": {}}"
-        let idStr = "\"id\": \"\(identifier)\""
+        let idStr = "\"id_user\": \(identifier)"
 
         for location in locations {
             if location.toString() != "" {
@@ -41,6 +41,7 @@ class ElasticSearchAPI {
                 messageStr += location.toString() + ", \(idStr)}\n"
             }
 
+            
         }
 
         return messageStr
