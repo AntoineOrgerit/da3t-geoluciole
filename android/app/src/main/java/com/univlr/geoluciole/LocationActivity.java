@@ -4,8 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,7 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.univlr.geoluciole.permissions.Permission;
 
 import java.util.ArrayList;
@@ -46,11 +47,37 @@ public abstract class LocationActivity extends AppCompatActivity {
     }
 
     protected void requestPermissions(ArrayList<Permission> unauthorizedPermissions) {
-        for (Permission permission : unauthorizedPermissions) {
+        for (final Permission permission : unauthorizedPermissions) {
             Log.w(TAG, "Requesting permission for " + permission.getManifestValue());
-            ActivityCompat.requestPermissions(this,
-                    new String[]{permission.getManifestValue()},
-                    permission.getUniqueID());
+            boolean shouldProvideRationale =
+                    ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            permission.getManifestValue());
+            // Provide an additional rationale to the user. This would happen if the user denied the
+            // request previously, but didn't check the "Don't ask again" checkbox.
+            if (shouldProvideRationale) {
+                Log.i(TAG, "Displaying permission rationale to provide additional context.");
+                Snackbar.make(
+                        findViewById(R.id.main_layout),
+                        "Permission",
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Request permission
+                                ActivityCompat.requestPermissions(LocationActivity.this,
+                                        new String[]{permission.getManifestValue()},
+                                        permission.getUniqueID());
+                            }
+                        })
+                        .show();
+            } else {
+                // Request permission. It's possible this can be auto answered if device policy
+                // sets the permission in a given state or the user denied the permission
+                // previously and checked "Never ask again".
+                ActivityCompat.requestPermissions(LocationActivity.this,
+                        new String[]{permission.getManifestValue()},
+                        permission.getUniqueID());
+            }
         }
     }
 

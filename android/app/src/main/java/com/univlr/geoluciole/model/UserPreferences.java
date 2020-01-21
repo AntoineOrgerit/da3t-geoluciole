@@ -3,6 +3,7 @@ package com.univlr.geoluciole.model;
 import android.content.Context;
 import android.provider.Settings;
 
+import java.util.Date;
 import java.util.Locale;
 
 import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
@@ -17,7 +18,8 @@ public class UserPreferences {
     private boolean consent;
     private boolean gpsConsent;
     private boolean accountConsent;
-    private long validityDuration;
+    private long startValidity;
+    private long endValidity;
     private String language;
 
 
@@ -26,7 +28,8 @@ public class UserPreferences {
         this.consent = false;
         this.gpsConsent = false;
         this.accountConsent = false;
-        this.validityDuration = 0;
+        this.startValidity = 0;
+        this.endValidity = 0;
         this.language = language;
 
     }
@@ -44,10 +47,23 @@ public class UserPreferences {
         saveObjectToSharedPreference(context, UserPreferences.USER_PREFERENCE_FILENAME, UserPreferences.USER_PREFERENCE_KEY, u);
     }
 
+    public void setPeriodValid(Date dateStart, Time timeStart, Date dateEnd, Time timeEnd) {
+        setPeriodValid(FormModel.formatToTimestamp(dateStart, timeStart),
+                FormModel.formatToTimestamp(dateEnd, timeEnd));
+    }
+
+    public void setPeriodValid(long dateStart, long dateEnd) {
+        this.startValidity = dateStart;
+        this.endValidity = dateEnd;
+    }
 
     private String generateID(Context context) {
         String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         return Long.toString(Math.abs(androidId.hashCode()));
+    }
+
+    public void store(Context context) {
+        UserPreferences.storeInstance(context, this);
     }
 
     public boolean hasGiveConsent() {
@@ -62,22 +78,16 @@ public class UserPreferences {
         return accountConsent;
     }
 
+    public void setConsent() {
+        this.consent = true;
+    }
+
     public void setGpsConsent(boolean consent) {
         this.gpsConsent = consent;
-        this.consent = true;
     }
 
     public void setAccountConsent(boolean consent) {
         this.accountConsent = consent;
-        this.consent = true;
-    }
-
-    public long getValidityDuration() {
-        return validityDuration;
-    }
-
-    public void setValidityDuration(long validityDuration) {
-        this.validityDuration = validityDuration;
     }
 
     public String getLanguage() {
@@ -99,7 +109,8 @@ public class UserPreferences {
                 ", consent=" + consent+
                 ", gpsConsent=" + gpsConsent +
                 ", accountConsent=" + accountConsent +
-                ", validityDuration=" + validityDuration +
+                ", startValidity=" + startValidity+
+                ", endValidity=" + endValidity+
                 ", language='" + language + '\'' +
                 '}';
     }

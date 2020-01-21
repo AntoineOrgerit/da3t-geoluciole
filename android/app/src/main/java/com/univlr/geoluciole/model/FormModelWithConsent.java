@@ -1,11 +1,12 @@
 package com.univlr.geoluciole.model;
 
-public class FormModelWithoutConsent extends FormModel{
+public class FormModelWithConsent extends FormModel{
     private String lastname;
     private String firstname;
     private String email;
 
-    public FormModelWithoutConsent() {
+    public FormModelWithConsent(String id_user) {
+        super(id_user);
     }
 
     public String getLastname() {
@@ -34,7 +35,7 @@ public class FormModelWithoutConsent extends FormModel{
 
     @Override
     public String toString() {
-        return super.toString() + "FormModelWithoutConsent{" +
+        return super.toString() + "FormModelWithConsent{" +
                 "lastname='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", email='" + email + '\'' +

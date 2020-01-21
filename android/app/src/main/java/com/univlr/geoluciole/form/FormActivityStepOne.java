@@ -13,8 +13,8 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.univlr.geoluciole.R;
-import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.FormModelWithoutConsent;
+import com.univlr.geoluciole.model.FormModelWithConsent;
+import com.univlr.geoluciole.model.UserPreferences;
 
 
 public class FormActivityStepOne extends AppCompatActivity {
@@ -29,7 +29,7 @@ public class FormActivityStepOne extends AppCompatActivity {
     private TextInputEditText email;
 
     // formulaire
-    private FormModelWithoutConsent formWithoutConsent;
+    private FormModelWithConsent formWithoutConsent;
 
     // validation
     ValidationFormListener validatorListener;
@@ -69,14 +69,14 @@ public class FormActivityStepOne extends AppCompatActivity {
      * Méthode permettant de gérer le formulaire
      */
     private void formSetter() {
-        formWithoutConsent = (FormModelWithoutConsent) getIntent().getSerializableExtra("Form");
+        formWithoutConsent = (FormModelWithConsent) getIntent().getSerializableExtra("Form");
         if (formWithoutConsent == null) {
-            formWithoutConsent = new FormModelWithoutConsent();
+            formWithoutConsent = new FormModelWithConsent(UserPreferences.getInstance(this).getId());
         } else {
             lastname.setText(formWithoutConsent.getLastname());
             firstname.setText(formWithoutConsent.getFirstname());
             email.setText(formWithoutConsent.getEmail());
-            System.out.println("ETAPE 1/3 retrieved : " + formWithoutConsent);
+            System.out.println("ETAPE 1/4 retrieved : " + formWithoutConsent);
         }
     }
 

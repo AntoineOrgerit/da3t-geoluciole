@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -21,9 +20,11 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.Time;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class FormActivityStepTwo extends AppCompatActivity {
     // variable title
@@ -62,12 +63,15 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private int mMinute;
 
     private FormModel form;
+    private Date dateDepart;
+    private Date dateArrive;
+    private Time timeDepart;
+    private Time timeArrive;
 
     // validation
     ValidationFormListener validatorListener;
     Validator validator;
     TextWatcherListener textWatcherListener;
-    TextWatcher textWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +101,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.step = (TextView) findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
-            this.step.setText("1/2");
+            this.step.setText("1/3");
         }
         // date et heure arrivée boutons
         this.btnDatePickerArrivee = (Button) findViewById(R.id.btn_in_date);
@@ -129,13 +133,20 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private void formSetter() {
         form = (FormModel) getIntent().getSerializableExtra("Form");
         if (form == null) {
-            form = new FormModel();
+            UserPreferences userPref = UserPreferences.getInstance(FormActivityStepTwo.this);
+            form = new FormModel(userPref.getId());
         } else {
-            txtDateArrivee.setText(form.getDateIn());
-            txtTimeArrivee.setText(form.getTimeIn());
-            txtDateDepart.setText(form.getDateOut());
-            txtTimeDepart.setText(form.getTimeOut());
-            System.out.println("ETAPE 2/3 retrieved : " + form);
+            this.dateArrive = form.getDateIn();
+            this.timeArrive = form.getTimeIn();
+            this.dateDepart = form.getDateOut();
+            this.timeDepart = form.getTimeOut();
+            if(this.dateDepart != null && dateArrive != null) {
+                txtDateArrivee.setText(FormModel.dateToString(this.dateArrive));
+                txtTimeArrivee.setText(FormModel.timeToString(this.timeArrive));
+                txtDateDepart.setText(FormModel.dateToString(this.dateDepart));
+                txtTimeDepart.setText(FormModel.timeToString(this.timeDepart));
+            }
+            System.out.println("ETAPE 2/4 retrieved : " + form);
         }
     }
 
@@ -153,10 +164,10 @@ public class FormActivityStepTwo extends AppCompatActivity {
      * Méthode pour ajouter les listeners de DatePicker et Timepicker sur les inputs
      */
     private void initListenersInput() {
-        this.txtDateArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee));
-        this.txtTimeArrivee.setOnClickListener(getAndSetTextTime(txtTimeArrivee));
-        this.txtDateDepart.setOnClickListener(getAndSetTextDate(txtDateDepart));
-        this.txtTimeDepart.setOnClickListener(getAndSetTextTime(txtTimeDepart));
+        this.txtDateArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee, false));
+        this.txtTimeArrivee.setOnClickListener(getAndSetTextTime(txtTimeArrivee, false));
+        this.txtDateDepart.setOnClickListener(getAndSetTextDate(txtDateDepart, true));
+        this.txtTimeDepart.setOnClickListener(getAndSetTextTime(txtTimeDepart, true));
     }
 
     /**
@@ -164,10 +175,10 @@ public class FormActivityStepTwo extends AppCompatActivity {
      */
     private void initListenersButtons() {
         // boutons listeners
-        this.btnDatePickerArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee));
-        this.btnTimePickerArrivee.setOnClickListener(getAndSetTextTime(txtTimeArrivee));
-        this.btnDatePickerDepart.setOnClickListener(getAndSetTextDate(txtDateDepart));
-        this.btnTimePickerDepart.setOnClickListener(getAndSetTextTime(txtTimeDepart));
+        this.btnDatePickerArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee, false));
+        this.btnTimePickerArrivee.setOnClickListener(getAndSetTextTime(txtTimeArrivee, false));
+        this.btnDatePickerDepart.setOnClickListener(getAndSetTextDate(txtDateDepart, true));
+        this.btnTimePickerDepart.setOnClickListener(getAndSetTextTime(txtTimeDepart, true));
         // bouton précédent
         this.btnPrevious.setOnClickListener(previousView());
         // bouton suivant
@@ -190,10 +201,17 @@ public class FormActivityStepTwo extends AppCompatActivity {
     }
 
     private void saveToForm() {
-        form.setDateIn(String.valueOf(txtDateArrivee.getText()));
-        form.setTimeIn(String.valueOf(txtTimeArrivee.getText()));
-        form.setDateOut(String.valueOf(txtDateDepart.getText()));
-        form.setTimeOut(String.valueOf(txtTimeDepart.getText()));
+        Calendar cal = Calendar.getInstance();
+        // depart
+        if (dateDepart != null && timeDepart != null) {
+            form.setDateOut(this.dateDepart);
+            form.setTimeOut(this.timeDepart);
+        }
+        // arrive
+        if (dateArrive != null && timeArrive != null) {
+            form.setTimeIn(this.timeArrive);
+            form.setDateIn(this.dateArrive);
+        }
     }
 
     /**
@@ -275,7 +293,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
      * @param text EditText à setter
      * @return View.OnClickListener
      */
-    private View.OnClickListener getAndSetTextDate(final EditText text) {
+    private View.OnClickListener getAndSetTextDate(final EditText text, final boolean depart) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,12 +307,43 @@ public class FormActivityStepTwo extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         String month = monthOfYear < 10 ? "0" + (monthOfYear + 1) : (monthOfYear + 1) + "";
-                        text.setText(dayOfMonth + "-" + month + "-" + year);
+                        String day = dayOfMonth < 10 ? "0" + (dayOfMonth) : (dayOfMonth) + "";
+                        c.set(year, monthOfYear, dayOfMonth);
+                        text.setText(day + "-" + month + "-" + year);
+                        if (depart) {
+                            dateDepart = c.getTime();
+                        } else {
+                            dateArrive = c.getTime();
+                        }
                     }
                 }, mYear, mMonth, mDay);
+
+                setBound(datePickerDialog.getDatePicker(), depart);
+
                 datePickerDialog.show();
             }
         };
+    }
+
+    /**
+     * Validation for datepicker
+     * @param datePicker datepicker
+     * @param depart is date for depart
+     */
+    private void setBound(DatePicker datePicker, boolean depart) {
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, cal.getMinimum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, cal.getMinimum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, cal.getMinimum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, cal.getMinimum(Calendar.MILLISECOND));
+
+        if (depart && dateArrive != null) {
+            cal.setTime(this.dateArrive);
+            datePicker.setMinDate(cal.getTimeInMillis());
+        } else if (!depart && dateDepart != null) {
+            cal.setTime(this.dateDepart);
+            datePicker.setMaxDate(cal.getTimeInMillis());
+        }
     }
 
     /**
@@ -304,7 +353,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
      * @param text EditText à setter
      * @return View.OnClickListener
      */
-    private View.OnClickListener getAndSetTextTime(final EditText text) {
+    private View.OnClickListener getAndSetTextTime(final EditText text, final boolean depart) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -317,8 +366,23 @@ public class FormActivityStepTwo extends AppCompatActivity {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(FormActivityStepTwo.this, 0, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        String minutes = minute < 10 ? "0" + (minute + 1) : minute + "";
-                        text.setText(hourOfDay + ":" + minutes);
+                        String time;
+                        if (depart) {
+                            if (timeDepart == null) {
+                                timeDepart = new Time();
+                            }
+                            timeDepart.setHours(hourOfDay);
+                            timeDepart.setMinutes(minute);
+                            time = timeDepart.toString();
+                        } else {
+                            if (timeArrive == null) {
+                                timeArrive = new Time();
+                            }
+                            timeArrive.setHours(hourOfDay);
+                            timeArrive.setMinutes(minute);
+                            time = timeArrive.toString();
+                        }
+                        text.setText(time);
                     }
                 }, mHour, mMinute, true);
                 timePickerDialog.show();

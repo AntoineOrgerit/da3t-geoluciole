@@ -4,6 +4,7 @@
     <string name="title_achievements">Stickers</string>
     <string name="title_dashboard">Preferences</string>
 
+    <string name="action_refused">Refuse</string>
     <string name="action_validate">Validate</string>
     <string name="action_loader">Loading</string>
 
@@ -56,9 +57,10 @@
     <!-- CONSTANT FORM -->
     <string name="form_title">Form</string>
     <string name="form_title_anonym">Anonymous form</string>
-    <string name="form_step_one_three">1/3</string>
-    <string name="form_step_two_three">2/3</string>
-    <string name="form_step_three_three">3/3</string>
+    <string name="form_step_one_four">1/4</string>
+    <string name="form_step_two_four">2/4</string>
+    <string name="form_step_three_four">3/4</string>
+    <string name="form_step_four_four">4/4</string>
     <!-- GENERAL INFO FORM LABELS -->
     <string name="form_lastname">Lastname</string>
     <string name="form_firstname">FirstName</string>
@@ -137,4 +139,13 @@
     <string name="revoke_consent">Revoke my consent</string>
     <string name="title_my_identifier">My identifier</string>
     <string name="no_identifier">No identifier</string>
+    <string name="send_data">Send data</string>
+
+    <!-- ACHIEVEMENTS FRAGMENT -->
+    <string name="text_stats_title">Statistiques</string>
+    <string name="text_distance">Distance traveled : </string>
+    <string name="text_distance_value">0km</string>
+    <string name="no_achievement_picture_description">Oops no badges</string>
+    <string name="achievement_title">Badges obtained</string>
+
 </resources>
