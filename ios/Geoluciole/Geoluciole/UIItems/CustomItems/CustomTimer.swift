@@ -59,7 +59,7 @@ class CustomTimer {
 
                 // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
                 for location in result {
-                    let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double, precision: location[LocationTable.PRECISION] as! Double)
+                    let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double, precision: location[LocationTable.PRECISION] as! Double, vitesse: location[LocationTable.VITESSE] as! Double)
 
                     locations.append(loc)
                 }
