@@ -16,9 +16,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.model.badge.BadgeManager;
 
@@ -33,10 +37,12 @@ public class AchievementsFragment extends Fragment {
     private static final int MARGIN = 30;
     private static final int PADDING = 10;
     private AchievementsViewModel achievementsViewModel;
+    private MainActivity context;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.achievementsViewModel = ViewModelProviders.of(this).get(AchievementsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_achievements, container, false);
+        this.context = (MainActivity) root.getContext();
         TableLayout mTableLayout = (TableLayout) root.findViewById(R.id.table_badges);
         // get instance des preferences user
         UserPreferences userPref = UserPreferences.getInstance(root.getContext());
@@ -137,13 +143,14 @@ public class AchievementsFragment extends Fragment {
             case "10":
                 return R.mipmap.no_badge;
             case "11":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_saint_nicolas;
             case "12":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_saint_nicolas2;
             case "13":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_1km;
             default:
                 return 0;
         }
     }
+
 }

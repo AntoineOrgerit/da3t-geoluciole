@@ -2,6 +2,8 @@ package com.univlr.geoluciole.model.badge;
 
 import android.content.Context;
 import android.location.Location;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.univlr.geoluciole.model.UserPreferences;
@@ -191,7 +193,7 @@ public class BadgeManager {
      * @param userLocation Location de l'utilisateur
      * @param context      Context
      */
-    public void unlockBadges(Location userLocation, Context context) {
+    public void unlockBadges(Location userLocation, Context context, Handler handler) {
         for (Map.Entry<String, Badge> entry : this.hashmapBadges.entrySet()) {
             Badge b = entry.getValue();
             if (b instanceof BadgePlace) {
@@ -204,6 +206,8 @@ public class BadgeManager {
                     // userPref.getListUnlockedBadges().clear();
                     // enregistre les badges débloqués
                     userPref.store(context);
+                    Message message = handler.obtainMessage(0, true);
+                    message.sendToTarget();
                     Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + b.getName());
                 }
             } else if (b instanceof BadgeDistance) {

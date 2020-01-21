@@ -8,7 +8,10 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -39,7 +42,7 @@ public class MainActivity extends LocationActivity {
 
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
-
+    private Handler handlerBadge;
     // The BroadcastReceiver used to listen from broadcasts from the service.
     private MyReceiver myReceiver;
 
@@ -55,7 +58,7 @@ public class MainActivity extends LocationActivity {
             ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
             if (!unauthorizedPermissions.isEmpty()) {
                 requestPermissions(unauthorizedPermissions);
-                if(!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)) {
+                if (!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)) {
                     enableGPSIfNeeded();
                 }
             } else {
@@ -86,7 +89,16 @@ public class MainActivity extends LocationActivity {
         System.out.println("Main Activity form retrieved : " + form);
 
         super.onCreate(savedInstanceState);
-
+        this.handlerBadge = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                boolean reload = (boolean) msg.obj;
+                if (reload) {
+                    setupViewPager(viewPager);
+                }
+            }
+        };
         // temporary receiver
         myReceiver = new MyReceiver();
 
@@ -140,7 +152,7 @@ public class MainActivity extends LocationActivity {
         setupViewPager(viewPager);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    public void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         homeFragment = new HomeFragment();
         dashboardFragment = new AchievementsFragment();
@@ -166,37 +178,12 @@ public class MainActivity extends LocationActivity {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
                 new IntentFilter(LocationUpdatesService.ACTION_BROADCAST));
-        System.out.println("OnResume");
-        setupViewPager(viewPager);
-
     }
 
     @Override
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(myReceiver);
         super.onPause();
-       /* Fragment newFragment = new AchievementsFragment();
-        adapter.getmFragmentList().set(1, newFragment);
-        adapter.notifyDataSetChanged();*/
-
-
-        //   FragmentManager fragmentManager = getSupportFragmentManager();
-        //  Fragment fragment = adapter.getItem(1);
-        //  long id = adapter.getItemId(1);
-        // System.out.println("ID3 "+ id);
-
-        // adapter.getmFragmentList().set(1,frg);
-//adapter.notifyDataSetChanged();
-
-      /*  FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.remove(fragment);
-        fragment = new AchievementsFragment();
-
-        transaction.add(R.id.viewpager, fragment);
-
-       // transaction.addToBackStack("");
-        transaction.commit();
-*/
     }
 
 
@@ -228,7 +215,7 @@ public class MainActivity extends LocationActivity {
                 Toast.makeText(MainActivity.this, Utils.getLocationText(location),
                         Toast.LENGTH_SHORT).show();
                 BadgeManager badgeManager = BadgeManager.getInstance(context);
-                badgeManager.unlockBadges(location, context);
+                badgeManager.unlockBadges(location, context, handlerBadge);
             }
         }
     }
@@ -239,4 +226,11 @@ public class MainActivity extends LocationActivity {
         System.out.println("resumeFragment");
     }
 
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
+    public ViewPagerAdapter getAdapter() {
+        return adapter;
+    }
 }
