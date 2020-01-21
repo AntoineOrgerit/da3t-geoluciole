@@ -190,6 +190,7 @@
             android:id="@+id/button_send_data"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:background="@drawable/button_highlight"
             android:text="@string/send_data"
             android:textColor="@color/text_white"
