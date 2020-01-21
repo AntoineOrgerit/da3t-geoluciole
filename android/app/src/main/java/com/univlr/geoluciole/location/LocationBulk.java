@@ -29,7 +29,7 @@ public class LocationBulk implements BulkObject {
     @Override
     public String jsonFormat() {
         StringBuilder stringBuilder = new StringBuilder("{");
-        stringBuilder.append("\"id\":").append(id).append(",");
+        stringBuilder.append("\"id\":").append("\"").append(id).append("\"").append(",");
         stringBuilder.append("\"latitude\":").append(location.getLatitude()).append(",");
         stringBuilder.append("\"longitude\":").append(location.getLongitude()).append(",");
         stringBuilder.append("\"altitude\":").append(location.getAltitude()).append(",");

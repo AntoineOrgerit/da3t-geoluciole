@@ -95,7 +95,7 @@ public class LocationTable extends Table {
                 Location location = new Location("");
                 location.setLatitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LATITUDE)));
                 location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LONGITUDE)));
-                location.setTime(cursor.getInt(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
+                location.setTime(cursor.getLong(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
                 location.setAltitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.ALTITUDE)));
                 locationList.add(new LocationBulk(location, userPref.getId()));
             } while (cursor.moveToNext());
