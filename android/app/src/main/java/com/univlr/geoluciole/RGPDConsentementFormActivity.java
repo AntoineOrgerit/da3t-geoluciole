@@ -32,8 +32,10 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
                 boolean consent = consentementCheckbox.isChecked();
                 if (consent) {
                     validate_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    refused_button.setBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 } else {
                     validate_button.setBackgroundColor(getResources().getColor(R.color.colorDisabled));
+                    refused_button.setBackgroundColor(getResources().getColor(R.color.colorRefused));
                 }
             }
         });
@@ -61,6 +63,10 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
         this.refused_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean consent = consentementCheckbox.isChecked();
+                if (consent) {
+                    return;
+                }
                 Intent intent = new Intent(getApplicationContext(), FormActivityStepTwo.class);
 
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementFormActivity.this);
