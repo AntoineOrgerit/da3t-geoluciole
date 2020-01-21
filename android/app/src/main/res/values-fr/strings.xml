@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Géoluciole</string>
-    <string name="title_home">Acceuil</string>
+    <string name="title_home">Accueil</string>
     <string name="title_achievements">Badges</string>
     <string name="title_dashboard">Préférences</string>
 
+    <string name="action_refused">Refuser</string>
     <string name="action_validate">Valider</string>
     <string name="action_loader">Chargement</string>
 
@@ -56,9 +57,10 @@
     <!-- CONSTANT FORM -->
     <string name="form_title">Formulaire</string>
     <string name="form_title_anonym">Formulaire anonyme</string>
-    <string name="form_step_one_three">1/3</string>
-    <string name="form_step_two_three">2/3</string>
-    <string name="form_step_three_three">3/3</string>
+    <string name="form_step_one_four">1/4</string>
+    <string name="form_step_two_four">2/4</string>
+    <string name="form_step_three_four">3/4</string>
+    <string name="form_step_four_four">4/4</string>
     <!-- GENERAL INFO FORM LABELS -->
     <string name="form_lastname">Nom</string>
     <string name="form_firstname">Prénom</string>
@@ -133,6 +135,7 @@
     <string name="partners">Consulter les partenaires</string>
     <string name="licence_agreement">Consulter les CGU</string>
     <string name="revoke_consent">Révoquer mon consentement</string>
+    <string name="send_data">Envoyer mes données</string>
 
     <!-- ACHIEVEMENTS FRAGMENT -->
     <string name="text_stats_title">Statistiques</string>

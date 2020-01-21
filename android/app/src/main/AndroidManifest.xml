@@ -3,8 +3,9 @@
     package="com.univlr.geoluciole">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CguActivity"></activity>
+        <activity android:name=".form.FormActivityStepEnd"></activity>
+        <activity android:name=".CguActivity" />
         <activity android:name=".RGPDConsentementFormActivity" />
         <activity android:name=".RGPDConsentementGPSActivity" />
         <activity
@@ -30,13 +32,17 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".FormActivity"
+        <activity
+            android:name=".FormActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".form.FormActivityStepOne"
+        <activity
+            android:name=".form.FormActivityStepOne"
             android:screenOrientation="portrait" />
-        <activity android:name=".form.FormActivityStepTwo"
+        <activity
+            android:name=".form.FormActivityStepTwo"
             android:screenOrientation="portrait" />
-        <activity android:name=".form.FormActivityStepThree"
+        <activity
+            android:name=".form.FormActivityStepThree"
             android:screenOrientation="portrait" />
 
         <service
