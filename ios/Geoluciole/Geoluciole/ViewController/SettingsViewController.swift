@@ -8,43 +8,49 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
 class SettingsViewController: ParentViewController {
 
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
 
-    
+
     func openRevokConsent() {
-        let alert = UIAlertController(title: "Révoquer mon consentement", message: "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante : \(Constantes.REVOQ_CONSENT_MAIL) \n En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique(si compte lié).", preferredStyle: .alert)
+        var message = "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante : \n\n\n\(Constantes.REVOQ_CONSENT_MAIL)"
+        if MFMailComposeViewController.canSendMail() {
+            message += "\n\nEn cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique(si compte lié)."
+        }
         
-        alert.addAction(UIAlertAction(title: "Je continue", style: .destructive, handler: openMailApp))
-        alert.addAction(UIAlertAction(title: "Copier identifiant dans le presse papier", style: .default, handler: saveToClipBoard))
+        let alert = UIAlertController(title: "Révoquer mon consentement", message: message, preferredStyle: .alert)
+        if MFMailComposeViewController.canSendMail() {
+            alert.addAction(UIAlertAction(title: "CONTINUER", style: .destructive, handler: openMailApp))
+        }
+        alert.addAction(UIAlertAction(title: "Copier mon identifiant dans le presse papier", style: .default, handler: saveToClipBoard))
         alert.addAction(UIAlertAction(title: "Annuler", style: .default, handler: nil))
-        
-        self.present(alert, animated: true,completion: nil)
-    }
-    
-    func saveToClipBoard(action: UIAlertAction ){
-        UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
+
+        self.present(alert, animated: true, completion: nil)
     }
 
-    func openMailApp(action: UIAlertAction ){
-        let userPref = UserPrefs.getInstance()
+    func saveToClipBoard(action: UIAlertAction) {
+        UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
+        self.view.makeToast("Identifiant copié !", duration: 2, position: .bottom)
+    }
+
+    func openMailApp(action: UIAlertAction) {
         let email = Constantes.REVOQ_CONSENT_MAIL
-        
-        
-        if let url = URL(string:
-            "mailto:\(email)?subject=Revoquer%20mon%20consentement&body=L%27utilisateur%20\(userPref.string(forKey: UserPrefs.KEY_IDENTIFIER))%20souhaite%20r%C3%A9voquer%20mes%20données"){
-          if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url)
-          } else {
-            UIApplication.shared.openURL(url)
-          }
+
+        let identifiant = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
+        if let url = URL(string:"mailto:\(email)?subject=Revoquer%20mon%20consentement&body=\(identifiant)%20demande%20la%20suppression%20de%20ses%20donn%C3%A9es") {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
     }
-    
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
