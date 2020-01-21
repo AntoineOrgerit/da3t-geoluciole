@@ -1,5 +1,9 @@
 package com.univlr.geoluciole.model.badge;
 
+/**
+ * classe BadgeConstantes défissant les noms des éléments
+ * à récupérer dans le fichier JSON contenant les badges à créer
+ */
 public class BadgeConstantes {
 
     public static final String ID = "id";
@@ -14,6 +18,5 @@ public class BadgeConstantes {
     public static final String PLACE = "place";
 
     private BadgeConstantes() {
-
     }
 }

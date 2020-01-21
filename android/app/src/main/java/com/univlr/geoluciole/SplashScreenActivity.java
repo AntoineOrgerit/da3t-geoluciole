@@ -47,11 +47,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 UserPreferences userPreferences = UserPreferences.getInstance(SplashScreenActivity.this);
                 Intent intent;
-                if (userPreferences.hasGiveConsent()) {
+              //  if (userPreferences.hasGiveConsent()) {
                     intent = new Intent(getApplicationContext(), MainActivity.class);
-                } else {
-                    intent = new Intent(getApplicationContext(), RGPDConsentementGPSActivity.class);
-                }
+              //  } else {
+              //      intent = new Intent(getApplicationContext(), RGPDConsentementGPSActivity.class);
+              //  }
                 startActivity(intent);
                 overridePendingTransition(R.transition.trans_left_in, R.transition.trans_left_out);
                 finish();

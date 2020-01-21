@@ -2,8 +2,11 @@ package com.univlr.geoluciole.model;
 
 import android.content.Context;
 import android.provider.Settings;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
@@ -13,6 +16,7 @@ import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedP
 public class UserPreferences {
     public static final String USER_PREFERENCE_KEY = "userPreferenceKey";
     public static final String USER_PREFERENCE_FILENAME = "UserPreference";
+    private static final String TAG = UserPreferences.class.getSimpleName();
 
     private String id;
     private boolean consent;
@@ -21,9 +25,9 @@ public class UserPreferences {
     private long startValidity;
     private long endValidity;
     private String language;
+    private List<String> listUnlockedBadges;
 
-
-    public UserPreferences(String language, Context context) {
+    private UserPreferences(String language, Context context) {
         this.id = generateID(context);
         this.consent = false;
         this.gpsConsent = false;
@@ -31,11 +35,11 @@ public class UserPreferences {
         this.startValidity = 0;
         this.endValidity = 0;
         this.language = language;
-
+        this.listUnlockedBadges = new ArrayList<>();
     }
 
     public static UserPreferences getInstance(Context context) {
-        UserPreferences userPreferences =  getSavedObjectFromPreference(context, UserPreferences.USER_PREFERENCE_FILENAME, UserPreferences.USER_PREFERENCE_KEY, UserPreferences.class);
+        UserPreferences userPreferences = getSavedObjectFromPreference(context, UserPreferences.USER_PREFERENCE_FILENAME, UserPreferences.USER_PREFERENCE_KEY, UserPreferences.class);
         if (userPreferences == null) {
             String lang = Locale.getDefault().getDisplayLanguage();
             userPreferences = new UserPreferences(lang, context);
@@ -43,6 +47,12 @@ public class UserPreferences {
         return userPreferences;
     }
 
+    /**
+     * Méthode permettant d'enregistrer les préférences de l'utilisateur
+     *
+     * @param context Context
+     * @param u       UserPréférences objet à sauvegarder
+     */
     public static void storeInstance(Context context, UserPreferences u) {
         saveObjectToSharedPreference(context, UserPreferences.USER_PREFERENCE_FILENAME, UserPreferences.USER_PREFERENCE_KEY, u);
     }
@@ -57,11 +67,18 @@ public class UserPreferences {
         this.endValidity = dateEnd;
     }
 
+    /**
+     * Méthode permettant de générer un id unique correspondant à l'utilisateur
+     * Se base sur le numéro du device
+     *
+     * @param context Context
+     * @return String correspondant à l'id généré
+     */
     private String generateID(Context context) {
         String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        System.out.println("Android ID " + androidId);
-        String newID = Long.toString(androidId.hashCode()*-1);
-        System.out.println("Android ID hashé et tronqué" + newID) ;
+        Log.i(TAG, "generateID, android ID " + androidId);
+        String newID = Long.toString(androidId.hashCode() * -1);
+        Log.i(TAG, "generateID, android ID modifié " + newID);
         return newID;
     }
 
@@ -105,15 +122,19 @@ public class UserPreferences {
         return id;
     }
 
+    public List<String> getListUnlockedBadges() {
+        return listUnlockedBadges;
+    }
+
     @Override
     public String toString() {
         return "UserPreferences{" +
                 "id='" + id + '\'' +
-                ", consent=" + consent+
+                ", consent=" + consent +
                 ", gpsConsent=" + gpsConsent +
                 ", accountConsent=" + accountConsent +
-                ", startValidity=" + startValidity+
-                ", endValidity=" + endValidity+
+                ", startValidity=" + startValidity +
+                ", endValidity=" + endValidity +
                 ", language='" + language + '\'' +
                 '}';
     }

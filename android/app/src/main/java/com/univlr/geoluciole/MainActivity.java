@@ -14,6 +14,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
@@ -22,7 +25,7 @@ import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.model.badge.BadgeManager;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
@@ -52,6 +55,9 @@ public class MainActivity extends LocationActivity {
             ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
             if (!unauthorizedPermissions.isEmpty()) {
                 requestPermissions(unauthorizedPermissions);
+                if(!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)) {
+                    enableGPSIfNeeded();
+                }
             } else {
                 enableGPSIfNeeded();
             }
@@ -71,6 +77,8 @@ public class MainActivity extends LocationActivity {
     private HomeFragment homeFragment;
     private AchievementsFragment dashboardFragment;
     private PreferencesFragment notificationsFragment;
+
+    private ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +128,6 @@ public class MainActivity extends LocationActivity {
                 Log.d(TAG, "onPageSelected: " + position);
                 navView.getMenu().getItem(position).setChecked(true);
                 prevMenuItem = navView.getMenu().getItem(position);
-
             }
 
 
@@ -134,9 +141,9 @@ public class MainActivity extends LocationActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        homeFragment=new HomeFragment();
-        dashboardFragment =new AchievementsFragment();
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        homeFragment = new HomeFragment();
+        dashboardFragment = new AchievementsFragment();
         notificationsFragment = new PreferencesFragment();
         adapter.addFragment(homeFragment);
         adapter.addFragment(dashboardFragment);
@@ -159,13 +166,39 @@ public class MainActivity extends LocationActivity {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
                 new IntentFilter(LocationUpdatesService.ACTION_BROADCAST));
+        System.out.println("OnResume");
+        setupViewPager(viewPager);
+
     }
 
     @Override
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(myReceiver);
         super.onPause();
+       /* Fragment newFragment = new AchievementsFragment();
+        adapter.getmFragmentList().set(1, newFragment);
+        adapter.notifyDataSetChanged();*/
+
+
+        //   FragmentManager fragmentManager = getSupportFragmentManager();
+        //  Fragment fragment = adapter.getItem(1);
+        //  long id = adapter.getItemId(1);
+        // System.out.println("ID3 "+ id);
+
+        // adapter.getmFragmentList().set(1,frg);
+//adapter.notifyDataSetChanged();
+
+      /*  FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.remove(fragment);
+        fragment = new AchievementsFragment();
+
+        transaction.add(R.id.viewpager, fragment);
+
+       // transaction.addToBackStack("");
+        transaction.commit();
+*/
     }
+
 
     @Override
     protected void onStop() {
@@ -194,10 +227,16 @@ public class MainActivity extends LocationActivity {
             if (location != null) {
                 Toast.makeText(MainActivity.this, Utils.getLocationText(location),
                         Toast.LENGTH_SHORT).show();
+                BadgeManager badgeManager = BadgeManager.getInstance(context);
+                badgeManager.unlockBadges(location, context);
             }
         }
     }
 
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        System.out.println("resumeFragment");
+    }
+
 }
-
-

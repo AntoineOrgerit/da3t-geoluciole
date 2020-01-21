@@ -1,7 +1,10 @@
 package com.univlr.geoluciole.model.badge;
 
 import android.content.Context;
+import android.location.Location;
 import android.util.Log;
+
+import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,7 +13,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Exemple de formattage du fichier Json contenant les badges
@@ -35,31 +39,36 @@ import java.util.ArrayList;
  * ]
  * }
  */
+
+/**
+ * Classe permettant de gérer les badges
+ */
 public class BadgeManager {
+    private static final String TAG = BadgeManager.class.getSimpleName();
+    // nom du fichier contenant les badges
     private static final String BADGES_JSON = "badges.json";
-    private ArrayList<Badge> arrayBadges;
-    private Context context;
+    // map contenant les badges à débloquer, sont accessibles grâce à leur clé 'id'
+    private HashMap<String, Badge> hashmapBadges;
+    // instance singleton
     private static BadgeManager badgeInstance;
 
     /**
      * Constructeur instanciant le tableau de badges à débloquer
-     *
-     * @param context Context
      */
-    private BadgeManager(Context context) {
-        this.arrayBadges = new ArrayList<>();
-        this.context = context;
+    private BadgeManager() {
+        this.hashmapBadges = new HashMap<>();
     }
+
 
     /**
      * Singleton BadgeManager
      *
-     * @param context Context
      * @return BadgeManager
      */
     public static synchronized BadgeManager getInstance(Context context) {
         if (badgeInstance == null) {
-            badgeInstance = new BadgeManager(context.getApplicationContext());
+            badgeInstance = new BadgeManager();
+            badgeInstance.instanciateObjFromJson(context);
         }
         return badgeInstance;
     }
@@ -83,7 +92,7 @@ public class BadgeManager {
             badge.getLocation().setLongitude(Double.valueOf(badgeLongitude));
             badge.setProximity(Double.valueOf(badgeProximity));
         } catch (JSONException e) {
-            Log.e("BadgeManager", "instanciateBadgePlace, " + e.getMessage());
+            Log.e(TAG, "instanciateBadgePlace, " + e.getMessage());
         }
         return badge;
     }
@@ -102,7 +111,7 @@ public class BadgeManager {
             badge.setDescription(jsonObjectBadge.getString(BadgeConstantes.DESCRIPTION));
             badge.setDistance(Double.valueOf(jsonObjectBadge.getString(BadgeConstantes.DISTANCE)));
         } catch (JSONException e) {
-            Log.e("BadgeManager", "instanciateBadgeDistance, " + e.getMessage());
+            Log.e(TAG, "instanciateBadgeDistance, " + e.getMessage());
         }
         return badge;
     }
@@ -112,18 +121,18 @@ public class BadgeManager {
      *
      * @return String correspondant au fichier json chargé
      */
-    private String loadJSONFromAsset() {
+    private String loadJSONFromAsset(Context context) {
         String json;
         try {
-            InputStream is = this.context.getAssets().open(BADGES_JSON);
+            InputStream is = context.getAssets().open(BADGES_JSON);
             int size = is.available();
             byte[] buffer = new byte[size];
             int count = is.read(buffer);
-            Log.i("BadgeManager", "loadJSONFromAsset, " + count + " bytes lus");
+            Log.i(TAG, "loadJSONFromAsset, " + count + " bytes lus");
             is.close();
             json = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException ex) {
-            Log.e("BadgeManager", "loadJSONFromAsset, " + ex.getMessage());
+            Log.e(TAG, "loadJSONFromAsset, " + ex.getMessage());
             return null;
         }
         return json;
@@ -132,25 +141,27 @@ public class BadgeManager {
     /**
      * Méthode pour instancier les badges à partir du json
      */
-    public void instanciateObjFromJson() {
+    private void instanciateObjFromJson(Context context) {
         Badge badge = null;
         try {
-            JSONObject jsonObject = new JSONObject(loadJSONFromAsset());
+            JSONObject jsonObject = new JSONObject(loadJSONFromAsset(context));
             JSONArray jsonArray = jsonObject.getJSONArray(BadgeConstantes.BADGES_LIST);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectBadge = jsonArray.getJSONObject(i);
                 if (jsonObjectBadge.getString(BadgeConstantes.TYPE).equalsIgnoreCase(BadgeConstantes.PLACE)) {
                     badge = instanciateBadgePlace(jsonObjectBadge);
-                    Log.i("BadgeManager", "instanciateObjFromJson, BadgePlace instancié - " + badge.getName());
+                    Log.i(TAG, "instanciateObjFromJson, BadgePlace instancié - " + badge.getName());
                 } else if (jsonObjectBadge.getString(BadgeConstantes.TYPE).equalsIgnoreCase(BadgeConstantes.DISTANCE)) {
                     badge = instanciateBadgeDistance(jsonObjectBadge);
-                    Log.i("BadgeManager", "instanciateObjFromJson, BadgeDistance instancié - " + badge.getName());
+                    Log.i(TAG, "instanciateObjFromJson, BadgeDistance instancié - " + badge.getName());
                 }
                 // ajout des badges initialisés dans la liste
-                this.arrayBadges.add(badge);
+                if (badge != null) {
+                    this.hashmapBadges.put(badge.getId(), badge);
+                }
             }
         } catch (JSONException e) {
-            Log.e("BadgeManager", "instanciateObjFromJson," + e.getMessage());
+            Log.e(TAG, "instanciateObjFromJson, " + e.getMessage());
         }
     }
 
@@ -158,9 +169,54 @@ public class BadgeManager {
      * Méthode pour afficher les badges instanciés
      */
     public void displayBadgesList() {
-        for (Badge b : this.arrayBadges) {
-            Log.i("BadgeManager", String.valueOf(b));
+        for (Map.Entry<String, Badge> entry : this.hashmapBadges.entrySet()) {
+            Log.i(TAG, String.valueOf(entry.getValue()));
         }
+    }
+
+    /**
+     * Méthode pour récupérer la map de badges instanciés
+     *
+     * @return HashMap<String, Badge> String: id du badge, Badge associé à la clé
+     */
+    public Map<String, Badge> getArrayBadges() {
+        return hashmapBadges;
+    }
+
+    /**
+     * Méthode pour débloqué les badges en fonction de la position de l'utilisateur
+     * Calcul de la distance de l'utilisateur par rapport à la position du point d'intérêt
+     * Comparaison avec la proximité
+     *
+     * @param userLocation Location de l'utilisateur
+     * @param context      Context
+     */
+    public void unlockBadges(Location userLocation, Context context) {
+        for (Map.Entry<String, Badge> entry : this.hashmapBadges.entrySet()) {
+            Badge b = entry.getValue();
+            if (b instanceof BadgePlace) {
+                Location locationPlace = ((BadgePlace) b).getLocation();
+                double distance = userLocation.distanceTo(locationPlace);
+                if (distance <= ((BadgePlace) b).getProximity() && !UserPreferences.getInstance(context).getListUnlockedBadges().contains(b.getId())) {
+                    UserPreferences userPref = UserPreferences.getInstance(context);
+                    // ajout du badge débloqué dans les prefs utilisateur
+                    userPref.getListUnlockedBadges().add(b.getId());
+                    // userPref.getListUnlockedBadges().clear();
+                    // enregistre les badges débloqués
+                    userPref.store(context);
+                    Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + b.getName());
+                }
+            } else if (b instanceof BadgeDistance) {
+                // TODO - compute distance
+                double distanceWalked = 0.5;
+                if (distanceWalked >= ((BadgeDistance) b).getDistance() && !UserPreferences.getInstance(context).getListUnlockedBadges().contains(b.getId())) {
+                    UserPreferences.getInstance(context).getListUnlockedBadges().add(b.getId());
+                    Log.i(TAG, "checkPlaceLocation, BadgeDistance unlocked, " + b.getName());
+                }
+            }
+        }
+
+
     }
 
 }

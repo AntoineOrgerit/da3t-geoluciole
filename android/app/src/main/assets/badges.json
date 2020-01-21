@@ -10,20 +10,120 @@
     {
       "id": 1,
       "type": "place",
-      "name": "L'Aquarium",
-      "description": "Bravo! Vous venez de découvrir l'Aquarium",
-      "latitude": 46.153467,
-      "longitude": -1.150615,
-      "proximity": 15
+      "name": "Tour Saint Nicolas",
+      "description": "Bravo ! Vous venez de découvrir la Tour Saint Nicolas",
+      "latitude": 46.155774242053234,
+      "longitude": -1.153366641086827,
+      "proximity": 900
     },
     {
       "id": 2,
       "type": "place",
+      "name": "Tour de la Chaîne",
+      "description": "Bravo ! Vous venez de découvrir la Tour de la Chaîne",
+      "latitude": 46.155766361503389,
+      "longitude": -1.154115269255245,
+      "proximity": 200
+    },
+    {
+      "id": 3,
+      "type": "place",
+      "name": "Tour de la Lanterne",
+      "description": "Bravo ! Vous venez de découvrir la Tour de la Lanterne",
+      "latitude": 46.155785129464434,
+      "longitude": -1.157122772795885,
+      "proximity": 200
+    },
+    {
+      "id": 4,
+      "type": "place",
+      "name": "Plage de la Concurrence",
+      "description": "Bravo ! Vous venez de découvrir la Plage de la Concurrence",
+      "latitude": 46.154966099507341,
+      "longitude": -1.160335679642659,
+      "proximity": 200
+    },
+    {
+      "id": 5,
+      "type": "place",
+      "name": "Aquarium de La Rochelle",
+      "description": "Bravo ! Vous venez de découvrir l'Aquarium de La Rochelle",
+      "latitude": 46.153278029059102,
+      "longitude": -1.150613223029379,
+      "proximity": 200
+    },
+    {
+      "id": 6,
+      "type": "place",
+      "name": "Plage des Minimes",
+      "description": "Bravo! Vous venez de découvrir la Plage des Minimes",
+      "latitude": 46.14120420348177,
+      "longitude": -1.171689179468023,
+      "proximity": 200
+    },
+    {
+      "id": 7,
+      "type": "place",
+      "name": "Place de Verdun",
+      "description": "Bravo ! Vous venez de découvrir la Place de Verdun",
+      "latitude": 46.16257597016866,
+      "longitude": -1.153556468182943,
+      "proximity": 200
+    },
+    {
+      "id": 8,
+      "type": "place",
+      "name": "Eglise Saint-Sauveur",
+      "description": "Bravo ! Vous venez de découvrir l'Eglise Saint-Sauveur",
+      "latitude": 46.158869231604044,
+      "longitude": -1.150290915926521,
+      "proximity": 200
+    },
+    {
+      "id": 9,
+      "type": "place",
+      "name": "Grosse Horloge",
+      "description": "Bravo ! Vous venez de découvrir la Grosse Horloge",
+      "latitude": 46.158139371995802,
+      "longitude": -1.153671329175265,
+      "proximity": 200
+    },
+    {
+      "id": 10,
+      "type": "place",
+      "name": "Marché Central",
+      "description": "Bravo ! Vous venez de découvrir le Marché Central",
+      "latitude": 46.161747064245937,
+      "longitude": -1.149186305243822,
+      "proximity": 200
+    },
+    {
+      "id": 11,
+      "type": "place",
       "name": "Technoforum",
-      "description": "Bravo! Vous venez de découvrir le Technoforum",
+      "description": "Bravo ! Vous venez de découvrir le Technoforum",
       "latitude": 46.147712,
       "longitude": -1.155089,
-      "proximity": 20
+      "proximity": 200
+    },
+    {
+      "id": 12,
+      "type": "place",
+      "name": "Technoforum",
+      "description": "Bravo ! Vous venez de découvrir le Technoforum",
+      "latitude": 46.147712,
+      "longitude": -1.155089,
+      "proximity": 200
+    }
+  ,
+    {
+      "id": 13,
+      "type": "place",
+      "name": "Technoforum",
+      "description": "Bravo ! Vous venez de découvrir le Technoforum",
+      "latitude": 46.147712,
+      "longitude": -1.155089,
+      "proximity": 200
     }
   ]
 }
