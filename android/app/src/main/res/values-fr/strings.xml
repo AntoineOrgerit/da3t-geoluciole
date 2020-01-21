@@ -135,6 +135,8 @@
     <string name="partners">Consulter les partenaires</string>
     <string name="licence_agreement">Consulter les CGU</string>
     <string name="revoke_consent">Révoquer mon consentement</string>
+    <string name="title_my_identifier">Mon identifiant</string>
+    <string name="no_identifier">Pas d\'identifiant</string>
     <string name="send_data">Envoyer mes données</string>
 
     <!-- ACHIEVEMENTS FRAGMENT -->

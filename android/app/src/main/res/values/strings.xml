@@ -137,6 +137,8 @@
     <string name="partners">Consult partners</string>
     <string name="licence_agreement">Consult the EULA</string>
     <string name="revoke_consent">Revoke my consent</string>
+    <string name="title_my_identifier">My identifier</string>
+    <string name="no_identifier">No identifier</string>
     <string name="send_data">Send data</string>
 
     <!-- ACHIEVEMENTS FRAGMENT -->
