@@ -138,4 +138,12 @@
     <string name="licence_agreement">Consult the EULA</string>
     <string name="revoke_consent">Revoke my consent</string>
     <string name="send_data">Send data</string>
+
+    <!-- ACHIEVEMENTS FRAGMENT -->
+    <string name="text_stats_title">Statistiques</string>
+    <string name="text_distance">Distance traveled : </string>
+    <string name="text_distance_value">0km</string>
+    <string name="no_achievement_picture_description">Oops no badges</string>
+    <string name="achievement_title">Badges obtained</string>
+
 </resources>

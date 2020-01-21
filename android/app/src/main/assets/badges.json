@@ -1,0 +1,29 @@
+{
+  "badgesList": [
+    {
+      "id": 0,
+      "type": "distance",
+      "name": "1 km",
+      "description": "Bravo! Vous venez de parcourir 1km",
+      "distance": 1
+    },
+    {
+      "id": 1,
+      "type": "place",
+      "name": "L'Aquarium",
+      "description": "Bravo! Vous venez de découvrir l'Aquarium",
+      "latitude": 46.153467,
+      "longitude": -1.150615,
+      "proximity": 15
+    },
+    {
+      "id": 2,
+      "type": "place",
+      "name": "Technoforum",
+      "description": "Bravo! Vous venez de découvrir le Technoforum",
+      "latitude": 46.147712,
+      "longitude": -1.155089,
+      "proximity": 20
+    }
+  ]
+}
