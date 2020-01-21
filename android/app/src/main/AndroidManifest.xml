@@ -17,6 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".form.FormActivityStepEnd"></activity>
         <activity android:name=".CguActivity" />
+        <activity android:name=".PartnerActivity" />
         <activity android:name=".RGPDConsentementFormActivity" />
         <activity android:name=".RGPDConsentementGPSActivity" />
         <activity

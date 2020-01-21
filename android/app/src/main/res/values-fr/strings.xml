@@ -146,6 +146,13 @@
     <string name="no_achievement_picture_description">Oups aucun badge</string>
     <string name="achievement_title">Badges obtenus</string>
 
+    <!-- PARTNER FRAGMENT -->
+    <string name="logo_desc_larochelle">logo de La Rochelle Université</string>
+    <string name="logo_desc_cnrs">logo du CNRS</string>
+    <string name="logo_desc_lienss">logo du LIENSs</string>
+    <string name="logo_desc_l3i">logo du L3i</string>
+
+
 </resources>
 
 
