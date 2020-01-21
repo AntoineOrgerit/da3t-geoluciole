@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.univlr.geoluciole.CguActivity;
+import com.univlr.geoluciole.PartnerActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 
@@ -35,7 +36,13 @@ public class PreferencesFragment extends Fragment {
                 startActivity(new Intent(root.getContext(), CguActivity.class));
             }
         });
-
+        Button buttonPartners = root.findViewById(R.id.button_partners);
+        buttonPartners.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(root.getContext(), PartnerActivity.class));
+            }
+        });
         return root;
     }
 }
