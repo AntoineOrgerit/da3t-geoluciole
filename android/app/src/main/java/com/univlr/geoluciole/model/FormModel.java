@@ -1,5 +1,8 @@
 package com.univlr.geoluciole.model;
 
+import android.content.Context;
+
+import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.sender.BulkObject;
 
 import java.io.Serializable;
@@ -8,7 +11,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
+import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
+
 public class FormModel implements Serializable, BulkObject {
+    public static final String FORM_KEY = "formModelPreference";
+    public static final String FORM_FILENAME = "formModelFilePreference";
 
     private static final int ID_QUESTION_DATE_IN = 1;
     private static final int ID_QUESTION_DATE_OUT = 2;
@@ -254,5 +262,33 @@ public class FormModel implements Serializable, BulkObject {
     @Override
     public String jsonFormat() {
         return null;
+    }
+
+    public static FormModel getInstance(Context context) {
+        return getSavedObjectFromPreference(context, FormModel.FORM_FILENAME, FormModel.FORM_KEY, FormModel.class);
+    }
+
+    public static void storeInstance(Context context, FormModel form) {
+        saveObjectToSharedPreference(context, FormModel.FORM_FILENAME, FormModel.FORM_KEY, form);
+    }
+
+    public void storeInstance(Context context) {
+        FormModel.storeInstance(context, this);
+    }
+    protected String formatAccount(UserPreferences userPreferences) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",") ;
+        stringBuilder.append("\"date_gps\":").append(userPreferences.getDateConsentementGPS()).append(",");
+        stringBuilder.append("\"consentement_gps\":").append(R.string.rgpd_first_content_consentement);
+        return stringBuilder.toString();
+    }
+
+    public String getStringAccount(UserPreferences userPreferences) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{\"index\":{}}\n");
+        stringBuilder.append("{");
+            stringBuilder.append(this.formatAccount(userPreferences));
+            stringBuilder.append("}").append("\n");
+        return stringBuilder.toString();
     }
 }

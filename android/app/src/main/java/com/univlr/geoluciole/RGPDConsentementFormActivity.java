@@ -12,6 +12,8 @@ import com.univlr.geoluciole.form.FormActivityStepOne;
 import com.univlr.geoluciole.form.FormActivityStepTwo;
 import com.univlr.geoluciole.model.UserPreferences;
 
+import java.util.Date;
+
 public class RGPDConsentementFormActivity extends AppCompatActivity {
 
     private Button validate_button;
@@ -53,6 +55,7 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
                 // sauvegarde des préférences
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementFormActivity.this);
                 u.setAccountConsent(true);
+                u.setDateConsentementForm(new Date().getTime());
                 UserPreferences.storeInstance(RGPDConsentementFormActivity.this, u);
 
                 startActivity(intent);

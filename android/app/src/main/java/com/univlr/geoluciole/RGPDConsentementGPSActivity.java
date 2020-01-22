@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.univlr.geoluciole.model.UserPreferences;
 
+import java.util.Date;
+
 public class RGPDConsentementGPSActivity extends AppCompatActivity {
 
     private CheckBox consentementCheckbox;
@@ -50,6 +52,7 @@ public class RGPDConsentementGPSActivity extends AppCompatActivity {
                 // sauvegarde des préférences
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementGPSActivity.this);
                 u.setGpsConsent(true);
+                u.setDateConsentementGPS(new Date().getTime());
                 UserPreferences.storeInstance(RGPDConsentementGPSActivity.this, u);
 
                 startActivity(intent);
