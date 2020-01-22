@@ -21,7 +21,7 @@ class ShowLevelView: UIView {
         
         // Label indiquant le niveau
         self.levelNumberLabel = UILabel()
-        self.levelNumberLabel.text = "Progression de votre séjour"
+        self.levelNumberLabel.text = Tools.getTranslate(key: "stay_progression")
         self.levelNumberLabel.font = UIFont.preferredFont(forTextStyle: .title2)
         self.levelNumberLabel.adjustsFontForContentSizeCategory = true
         self.levelNumberLabel.translatesAutoresizingMaskIntoConstraints = false

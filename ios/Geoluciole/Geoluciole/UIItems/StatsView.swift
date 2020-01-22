@@ -21,13 +21,13 @@ class StatsView: UIView {
         super.init(frame: frame)
 
         self.lbTitle = CustomUILabel()
-        self.lbTitle.text = "Statistiques"
+        self.lbTitle.text = Tools.getTranslate(key: "text_stats_title")
         self.lbTitle.font = UIFont.preferredFont(forTextStyle: .title2)
         self.lbTitle.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.lbTitle)
 
         self.lbDistance = CustomUILabel()
-        self.lbDistance.text = "Distance parcourue"
+        self.lbDistance.text = Tools.getTranslate(key: "text_distance")
         self.lbDistance.font = UIFont.preferredFont(forTextStyle: .body)
         self.lbDistance.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.lbDistance)

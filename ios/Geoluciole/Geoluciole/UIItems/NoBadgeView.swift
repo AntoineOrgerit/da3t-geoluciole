@@ -20,7 +20,7 @@ class NoBadgeView: UIView {
         self.addSubview(img)
         
         let label = UILabel()
-        label.text = "Aucun badge"
+        label.text = Tools.getTranslate(key: "no_achievement_picture_description")
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true

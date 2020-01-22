@@ -175,4 +175,8 @@ class Tools {
         }
         return Locale(identifier: preferredIdentifier)
     }
+    
+    static func getTranslate(key: String) -> String {
+        return NSLocalizedString(key, comment: key)
+    }
 }

@@ -15,7 +15,7 @@ class IdentifierView: UIView {
         super.init(frame: frame)
         
         let title = CustomUILabel()
-        title.text = "Mon identifiant"
+        title.text = Tools.getTranslate(key: "title_my_identifier")
         title.font = UIFont.preferredFont(forTextStyle: .title2)
         title.adjustsFontForContentSizeCategory = true
         title.translatesAutoresizingMaskIntoConstraints = false

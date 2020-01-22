@@ -13,7 +13,15 @@ class LanguageSelectorView: UIView {
 
     fileprivate var frenchOption: CheckBoxFieldView!
     fileprivate var englishOption: CheckBoxFieldView!
-
+    fileprivate let userPref = UserPrefs.getInstance()
+    var onChange: (()-> Void)?
+    
+    
+    func changeLanguage(langue: String) {
+        self.userPref.setPrefs(key: UserPrefs.APPLE_LANGUAGE_KEY, value: [langue])
+        self.userPref.sync()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -21,16 +29,19 @@ class LanguageSelectorView: UIView {
         titleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
         titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Langue de l'application"
+        titleLabel.text = Tools.getTranslate(key: "app_language")
         self.addSubview(titleLabel)
         
-        let languageSelected = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_LANGUAGE)
-
-        frenchOption = CheckBoxFieldView()
-        frenchOption.setTitleOption(titleOption: Constantes.LANGUAGE_FRENCH)
+        let languageSelected = UserPrefs.getInstance().object(forKey: UserPrefs.APPLE_LANGUAGE_KEY) as! NSArray
         
-        if languageSelected == Constantes.LANGUAGE_FRENCH {
+        let t = languageSelected.firstObject as! String
+        frenchOption = CheckBoxFieldView()
+        frenchOption.setTitleOption(titleOption: NSLocalizedString("french_language", comment: ""))
+        
+        if t == "fr" {
             frenchOption.setChecked(checked: true)
+            changeLanguage(langue: "fr")
+            print("Swap to fr")
         }
     
         frenchOption.translatesAutoresizingMaskIntoConstraints = false
@@ -42,10 +53,12 @@ class LanguageSelectorView: UIView {
         self.addSubview(frenchOption)
 
         englishOption = CheckBoxFieldView()
-        englishOption.setTitleOption(titleOption: Constantes.LANGUAGE_ENGLISH)
+        englishOption.setTitleOption(titleOption: Tools.getTranslate(key: "english_language"))
         
-        if languageSelected == Constantes.LANGUAGE_ENGLISH {
+        if t == "en" {
             englishOption.setChecked(checked: true)
+            changeLanguage(langue: "en")
+            print("Swap to en")
         }
         
         englishOption.translatesAutoresizingMaskIntoConstraints = false
@@ -83,6 +96,8 @@ class LanguageSelectorView: UIView {
         } else if checkBox == self.englishOption {
             self.saveEnglishChoice()
         }
+        self.onChange?()
+        
     }
     
     fileprivate func saveFrenchChoice() {
@@ -93,7 +108,7 @@ class LanguageSelectorView: UIView {
         self.frenchOption.setChecked(checked: true)
         
         // Save les valeurs
-        UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LANGUAGE, value: Constantes.LANGUAGE_FRENCH)
+        UserPrefs.getInstance().setPrefs(key: UserPrefs.APPLE_LANGUAGE_KEY, value: ["fr"])
     }
     
     fileprivate func saveEnglishChoice() {
@@ -101,6 +116,6 @@ class LanguageSelectorView: UIView {
         
         self.englishOption.setChecked(checked: true)
         
-        UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LANGUAGE, value: Constantes.LANGUAGE_ENGLISH)
+        UserPrefs.getInstance().setPrefs(key: UserPrefs.APPLE_LANGUAGE_KEY, value: ["en"])
     }
 }

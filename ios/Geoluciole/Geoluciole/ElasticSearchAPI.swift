@@ -110,7 +110,7 @@ class ElasticSearchAPI {
 
     /// Génération du message à envoyer au serveur
     func generateMessageCompte() -> String {
-        let messageStr = "{\"consentement\":\"\(Constantes.TEXTE_VALIDATION_DROIT)\", \"date\":\"\(Tools.convertDate(date: Date()))\", \"nom\":\"test2\", \"prenom\": \"test2\", \"mail\": \"mail2@gmail.com\"}"
+        let messageStr = "{\"consentement\":\"\(NSLocalizedString("rgpd_first_content_consentement", comment: ""))\", \"date\":\"\(Tools.convertDate(date: Date()))\", \"nom\":\"test2\", \"prenom\": \"test2\", \"mail\": \"mail2@gmail.com\"}"
 
         return messageStr
     }

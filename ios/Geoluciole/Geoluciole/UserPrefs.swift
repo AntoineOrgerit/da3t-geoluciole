@@ -24,7 +24,7 @@ class UserPrefs {
     static let KEY_FORMULAIRE_CONSENT = "formulaire_consent"
     static let KEY_DATE_START_ENGAGEMENT = "date_start_engagement"
     static let KEY_DATE_END_ENGAGEMENT = "date_end_engagement"
-
+    static let APPLE_LANGUAGE_KEY = "AppleLanguages"
     
     fileprivate init() {
         self.userPrefs = UserDefaults.standard
@@ -49,15 +49,16 @@ class UserPrefs {
             // on récupère la langue du système
             let languageCode = Locale.current.regionCode?.lowercased()
             
+            
             var language = ""
             
             if languageCode != nil {
                 // Si le français est défini, on le prend
                 if languageCode == "fr" {
-                    language = Constantes.LANGUAGE_FRENCH
+                    language = NSLocalizedString("french_language", comment: "")
                 // Sinon on met anglais par défaut
                 } else {
-                    language = Constantes.LANGUAGE_ENGLISH
+                    language = NSLocalizedString("english_language", comment: "")
                 }
             }
             self.setPrefs(key: UserPrefs.KEY_LANGUAGE, value: language)
@@ -99,5 +100,9 @@ class UserPrefs {
 
     func object(forKey key: String) -> Any? {
         return self.userPrefs.object(forKey: key)
+    }
+    
+    func sync(){
+        self.userPrefs.synchronize()
     }
 }

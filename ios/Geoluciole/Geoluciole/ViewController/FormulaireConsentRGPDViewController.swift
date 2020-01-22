@@ -27,7 +27,7 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         
         // titre
         self.titreRGPD = UILabel()
-        self.titreRGPD.text = "Consentement RGPD"
+        self.titreRGPD.text = Tools.getTranslate(key: "rgpd_title_primary")
         self.titreRGPD.textColor = .orange
         self.titreRGPD.textAlignment = .center
         self.titreRGPD.translatesAutoresizingMaskIntoConstraints = false
@@ -38,14 +38,14 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         self.subtitleRGPD = UILabel()
         self.subtitleRGPD.numberOfLines = 0
         self.subtitleRGPD.translatesAutoresizingMaskIntoConstraints = false
-        self.subtitleRGPD.text = Constantes.TEXT_SUB_TITLE_RGPD
+        self.subtitleRGPD.text = Tools.getTranslate(key:"rgpd_title_project")
         self.subtitleRGPD.textColor = .backgroundDefault
         self.subtitleRGPD.font = UIFont.preferredFont(forTextStyle: .title2)
         self.rootView.addSubview(self.subtitleRGPD)
 
         // texte rgpd
         self.textRGPD = UITextView()
-        self.textRGPD.text = Constantes.FORM_RGPD
+        self.textRGPD.text = Tools.getTranslate(key:"rgpd_content")
         self.textRGPD.isUserInteractionEnabled = true
         self.textRGPD.isScrollEnabled = true
         self.textRGPD.showsVerticalScrollIndicator = true
@@ -63,7 +63,7 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         self.button = CustomUIButton()
         self.button.setStyle(style: .disabled)
         self.button.isUserInteractionEnabled = false
-        self.button.setTitle("ACCEPTER", for: .normal)
+        self.button.setTitle(Tools.getTranslate(key: "action_accept"), for: .normal)
         self.button.translatesAutoresizingMaskIntoConstraints = false
         self.button.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
@@ -88,7 +88,7 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         self.checkbox.setCheckmarkColor(color: .orange)
         self.checkbox.setCheckedBorderColor(color: .orange)
         self.checkbox.setUncheckedBorderColor(color: .orange)
-        self.checkbox.setTitleOption(titleOption: Constantes.TEXTE_FORM_DROIT)
+        self.checkbox.setTitleOption(titleOption: Tools.getTranslate(key: "rgpd_first_content_consentement"))
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }

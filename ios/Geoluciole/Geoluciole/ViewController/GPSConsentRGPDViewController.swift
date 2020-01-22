@@ -47,7 +47,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         // texte rgpd
         self.textRGPD = CustomUILabel()
         self.textRGPD.numberOfLines = 0
-        self.textRGPD.text = Constantes.DESC_PROJET
+        self.textRGPD.text = NSLocalizedString("rgpd_content", comment: "")
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.textRGPD.font = UIFont.preferredFont(forTextStyle: .body)
         self.textRGPD.textAlignment = .justified
@@ -60,7 +60,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.checkbox.setCheckmarkColor(color: .orange)
         self.checkbox.setCheckedBorderColor(color: .orange)
         self.checkbox.setUncheckedBorderColor(color: .orange)
-        self.checkbox.setTitleOption(titleOption: Constantes.TEXTE_VALIDATION_DROIT)
+        self.checkbox.setTitleOption(titleOption: NSLocalizedString("rgpd_first_content_consentement", comment: ""))
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }
@@ -159,7 +159,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.subtitleRGPD.textAlignment = .center
         self.subtitleRGPD.numberOfLines = 0
         self.subtitleRGPD.translatesAutoresizingMaskIntoConstraints = false
-        self.subtitleRGPD.text = Constantes.TEXT_SUB_TITLE_RGPD
+        self.subtitleRGPD.text = NSLocalizedString("rgpd_title_project", comment: "")
         self.subtitleRGPD.textColor = .backgroundDefault
         self.subtitleRGPD.font = UIFont.preferredFont(forTextStyle: .title3)
         self.rootView.addSubview(self.subtitleRGPD)

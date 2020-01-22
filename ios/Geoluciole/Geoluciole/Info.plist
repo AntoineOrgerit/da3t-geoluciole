@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -28,11 +26,11 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>L&apos;accès à votre position permet de calculer la distance parcourue</string>
+	<string>L'accès à votre position permet de calculer la distance parcourue</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>L&apos;accès à votre position permet de calculer la distance parcourue</string>
+	<string>L'accès à votre position permet de calculer la distance parcourue</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>L&apos;accès à votre position permet de calculer la distance parcourue</string>
+	<string>L'accès à votre position permet de calculer la distance parcourue</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -91,5 +89,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>

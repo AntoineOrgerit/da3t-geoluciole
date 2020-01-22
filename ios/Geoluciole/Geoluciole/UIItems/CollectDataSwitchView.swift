@@ -22,7 +22,7 @@ class CollectDataSwitchView: UIView {
         
         // Title label
         self.titleLabel = UILabel()
-        self.titleLabel.text = "Collecte des données"
+        self.titleLabel.text = Tools.getTranslate(key: "data_collection")
         self.titleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
         self.titleLabel.adjustsFontForContentSizeCategory = true
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class CollectDataSwitchView: UIView {
         
         // Off Label
         self.offLabel = UILabel()
-        self.offLabel.text = "OFF"
+        self.offLabel.text = Tools.getTranslate(key: "data_collection_deactivated")
         self.offLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.offLabel.adjustsFontForContentSizeCategory = true
         self.offLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,7 @@ class CollectDataSwitchView: UIView {
         
         // On Label
         self.onLabel = UILabel()
-        self.onLabel.text = "ON"
+        self.onLabel.text = Tools.getTranslate(key: "data_collection_activated")
         self.onLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.onLabel.adjustsFontForContentSizeCategory = true
         self.onLabel.translatesAutoresizingMaskIntoConstraints = false

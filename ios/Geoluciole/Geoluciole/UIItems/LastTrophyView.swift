@@ -19,7 +19,7 @@ class LastTrophyView: UIView {
 
         let label = CustomUILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
-        label.text = "Badge récemment obtenu"
+        label.text = Tools.getTranslate(key: "last_achievement_obtained")
         label.textAlignment = .left
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
