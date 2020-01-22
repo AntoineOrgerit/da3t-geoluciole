@@ -82,7 +82,8 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
             LocationTable.LATITUDE: location.coordinate.latitude,
             LocationTable.LONGITUDE: location.coordinate.longitude,
             LocationTable.TIMESTAMP: Date().timeIntervalSince1970,
-            LocationTable.PRECISION: location.horizontalAccuracy
+            LocationTable.PRECISION: location.horizontalAccuracy, // rayon d'un cercle en m
+            LocationTable.VITESSE: location.speed // vitesse en m/s
         ])
 
         let preferenceUser = UserPrefs.getInstance()

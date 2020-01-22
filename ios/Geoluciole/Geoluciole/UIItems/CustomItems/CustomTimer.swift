@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class CustomTimer {
 
@@ -28,7 +28,7 @@ class CustomTimer {
 
     // Lancement du timer pour déclencher l'envoi des données de localisation au serveur
     func startTimerLocalisation() {
-        self.timer = Timer(timeInterval: Constantes.TIMER_SEND_DATA, target: self, selector: #selector(sendPostLocationElasticSearch), userInfo: nil, repeats: true)
+        self.timer = Timer(timeInterval: Constantes.TIMER_SEND_DATA, target: self, selector: #selector(sendPostLocationTimer), userInfo: nil, repeats: true)
         self.timer?.tolerance = 60.0 // (en s) ajout d'une tolérance pour permettre d'effectuer l'action dans une intervalle étendue
         RunLoop.current.add(self.timer!, forMode: .common)
     }
@@ -39,9 +39,13 @@ class CustomTimer {
     }
 
     // Envoi serveur PART
+    /// Envoi les données de localisation de façon périodique au serveur
+    @objc func sendPostLocationTimer() {
+        sendPostLocationElasticSearch()
+    }
 
     /// Envoi les données de localisation de l'utilisateur au serveur
-    @objc func sendPostLocationElasticSearch(before doBefore: (() -> Void)? = nil, after doIfSuccess: (() -> Void)? = nil) {
+    func sendPostLocationElasticSearch(viewController: UIViewController? = nil) {
         if Constantes.DEBUG {
             print("Timer déclenché")
         }
@@ -55,7 +59,7 @@ class CustomTimer {
 
                 // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
                 for location in result {
-                    let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double, precision: location[LocationTable.PRECISION] as! Double)
+                    let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double, precision: location[LocationTable.PRECISION] as! Double, vitesse: location[LocationTable.VITESSE] as! Double)
 
                     locations.append(loc)
                 }
@@ -65,7 +69,7 @@ class CustomTimer {
                     let identifier = Tools.getIdentifier()
 
                     let message: String = ElasticSearchAPI.getInstance().generateMessage(locations: locations, identifier: identifier)
-                    ElasticSearchAPI.getInstance().postLocations(message: message, before: doBefore, after: doIfSuccess)
+                    ElasticSearchAPI.getInstance().postLocations(message: message, viewController: viewController)
                 }
             }
         }

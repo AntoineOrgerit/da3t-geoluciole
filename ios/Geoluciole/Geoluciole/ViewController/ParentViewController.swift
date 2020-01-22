@@ -17,6 +17,10 @@ class ParentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            self.overrideUserInterfaceStyle = .light
+        }
 
         self.view.removeAllViews()
 

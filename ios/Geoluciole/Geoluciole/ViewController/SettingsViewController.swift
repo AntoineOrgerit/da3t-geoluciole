@@ -17,16 +17,10 @@ class SettingsViewController: ParentViewController {
 
 
     func openRevokConsent() {
-        var message = "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante : \n\n\n\(Constantes.REVOQ_CONSENT_MAIL)"
-        if MFMailComposeViewController.canSendMail() {
-            message += "\n\nEn cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique(si compte lié)."
-        }
-        
-        let alert = UIAlertController(title: "Révoquer mon consentement", message: message, preferredStyle: .alert)
-        if MFMailComposeViewController.canSendMail() {
-            alert.addAction(UIAlertAction(title: "CONTINUER", style: .destructive, handler: openMailApp))
-        }
-        alert.addAction(UIAlertAction(title: "Copier mon identifiant dans le presse papier", style: .default, handler: saveToClipBoard))
+        let alert = UIAlertController(title: "Révoquer mon consentement", message: "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante : \(Constantes.REVOQ_CONSENT_MAIL) \n En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique(si compte lié).", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Je continue", style: .destructive, handler: openMailApp))
+        alert.addAction(UIAlertAction(title: "Copier identifiant dans le presse papier", style: .default, handler: saveToClipBoard))
         alert.addAction(UIAlertAction(title: "Annuler", style: .default, handler: nil))
 
         self.present(alert, animated: true, completion: nil)
@@ -121,20 +115,7 @@ class SettingsViewController: ParentViewController {
         sendDataManually.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            CustomTimer.getInstance().sendPostLocationElasticSearch(before: {
-                DispatchQueue.main.async {
-                    strongSelf.view.makeToast("Envoi des données en cours...", duration: 60, position: .bottom)
-                }
-            }) {
-                DispatchQueue.main.async {
-                    strongSelf.view.hideAllToasts()
-
-                    var style = ToastStyle()
-                    style.backgroundColor = UIColor(red: 145 / 255, green: 208 / 255, blue: 182 / 255, alpha: 0.9)
-                    strongSelf.view.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
-                }
-            }
-
+            CustomTimer.getInstance().sendPostLocationElasticSearch(viewController: strongSelf)
         }
         sendDataManually.setStyle(style: .settingDark)
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false
