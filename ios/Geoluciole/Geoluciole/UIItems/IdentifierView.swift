@@ -22,7 +22,7 @@ class IdentifierView: UIView {
         self.addSubview(title)
         
         let id = CustomUILabel()
-        id.text = Tools.getIdentifier()
+        id.text = String(Tools.getIdentifier())
         id.font = UIFont.preferredFont(forTextStyle: .body)
         id.adjustsFontForContentSizeCategory = true
         id.translatesAutoresizingMaskIntoConstraints = false

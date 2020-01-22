@@ -14,6 +14,37 @@ class SettingsViewController: ParentViewController {
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
 
+
+    func openRevokConsent() {
+        let alert = UIAlertController(title: "Révoquer mon consentement", message: "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante : \(Constantes.REVOQ_CONSENT_MAIL) \n En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique(si compte lié).", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Je continue", style: .destructive, handler: openMailApp))
+        alert.addAction(UIAlertAction(title: "Copier identifiant dans le presse papier", style: .default, handler: saveToClipBoard))
+        alert.addAction(UIAlertAction(title: "Annuler", style: .default, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    func saveToClipBoard(action: UIAlertAction) {
+        UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
+    }
+
+    func openMailApp(action: UIAlertAction) {
+        let userPref = UserPrefs.getInstance()
+        let email = Constantes.REVOQ_CONSENT_MAIL
+
+
+        if let url = URL(string:
+                "mailto:\(email)?subject=Revoquer%20mon%20consentement&body=L%27utilisateur%20\(userPref.string(forKey: UserPrefs.KEY_IDENTIFIER))%20souhaite%20r%C3%A9voquer%20mes%20données") {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -73,7 +104,7 @@ class SettingsViewController: ParentViewController {
         let deleteButton = CustomUIButton()
         deleteButton.setTitle("RÉVOQUER MON CONSENTEMENT", for: .normal)
         deleteButton.onClick = { button in
-
+            self.openRevokConsent()
         }
         deleteButton.setStyle(style: .settingLight)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -81,8 +112,10 @@ class SettingsViewController: ParentViewController {
 
         let sendDataManually = CustomUIButton()
         sendDataManually.setTitle("ENVOYER MES DONNÉES", for: .normal)
-        sendDataManually.onClick = { button in
-            CustomTimer.getInstance().sendPostLocationElasticSearch()
+        sendDataManually.onClick = { [weak self] _ in
+            guard let strongSelf = self else { return }
+
+            CustomTimer.getInstance().sendPostLocationElasticSearch(viewController: strongSelf)
         }
         sendDataManually.setStyle(style: .settingDark)
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +170,7 @@ class SettingsViewController: ParentViewController {
             cguButton.topAnchor.constraint(equalTo: partnersButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             cguButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
             cguButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),
-            
+
             deleteButton.topAnchor.constraint(equalTo: cguButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             deleteButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
             deleteButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),

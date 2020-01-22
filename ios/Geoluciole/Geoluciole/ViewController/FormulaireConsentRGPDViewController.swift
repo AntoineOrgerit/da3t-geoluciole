@@ -72,8 +72,8 @@ class FormulaireConsentRGPDViewController: ParentViewController {
 
 //                // Avec le consentement, on peut activer la collecte des données
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
-//
-//                // Demande d'autorisation d'utiliser la localisation et d'envoyer des notifications
+                
+                // Demande d'autorisation d'utiliser la localisation et d'envoyer des notifications
                 LocationHandler.getInstance().requestLocationAuthorization()
 //                NotificationHandler.getInstance().requestNotificationAuthorization()
             }
