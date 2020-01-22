@@ -91,14 +91,14 @@ class Tools {
     }
 
     /// Retourne l'identifiant de l'utilisateur
-    static func getIdentifier() -> String {
-        var identifier: String = ""
+    static func getIdentifier() -> Int {
+        var identifier: Int
 
         // On vérifie si on a un identifiant de généré
-        let id = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_IDENTIFIER)
+        let id = UserPrefs.getInstance().int(forKey: UserPrefs.KEY_IDENTIFIER)
 
         // Si oui, on le récupère
-        if id != "" {
+        if id != 0 {
             identifier = id
 
             // Sinon, on en génère un
@@ -112,7 +112,7 @@ class Tools {
             let uuid = UIDevice.current.identifierForVendor?.uuidString
 
             // on récupère le hashCode de notre uuid pour masquer l'identité du terminal
-            identifier = String(uuid!.hashCode())
+            identifier = Int(abs(uuid!.hashCode()))
 
             // et on sauvegarde le paramètre
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_IDENTIFIER, value: identifier)
@@ -123,8 +123,6 @@ class Tools {
 
     static func convertDate(date: String) -> Date {
         let df = DateFormatter()
-        //df.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        //df.locale = Locale(identifier: Locale.current.regionCode!)
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.date(from: date)!
     }
@@ -132,9 +130,9 @@ class Tools {
     static func convertDateGMT01(date: String) -> Date {
         let df = DateFormatter()
         df.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        
+
         var regionCode = Locale.current.regionCode
-        
+
         if regionCode == nil {
             regionCode = "fr"
         }
@@ -145,8 +143,6 @@ class Tools {
 
     static func convertDate(date: Date) -> String {
         let df = DateFormatter()
-        //df.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        //df.locale = Locale(identifier: Locale.current.regionCode!)
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: date)
     }

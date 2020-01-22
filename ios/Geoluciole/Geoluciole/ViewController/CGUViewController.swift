@@ -48,7 +48,7 @@ class CGUViewController: ParentModalViewController, UIWebViewDelegate {
         self.webView.loadRequest(URLRequest(url: pathCGU))
         self.webView.scrollView.minimumZoomScale = 1.0
         self.webView.scrollView.maximumZoomScale = 5.0
-        self.webView.stringByEvaluatingJavaScript(from: "document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable = 1;', false);")
+        self.webView.scalesPageToFit = true
         self.wrapContent.addSubview(self.webView)
 
         self.loader = UIActivityIndicatorView()

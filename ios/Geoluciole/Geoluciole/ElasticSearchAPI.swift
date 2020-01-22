@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ElasticSearchAPI {
 
@@ -11,7 +12,7 @@ class ElasticSearchAPI {
     fileprivate static var INSTANCE: ElasticSearchAPI!
 
     init() {
-        guard let resourceURL = URL(string: Constantes.API_URL_SERVER_TEST_JESSY) else {
+        guard let resourceURL = URL(string: Constantes.API_URL_UNIV_LR) else {
             fatalError()
         }
 
@@ -27,12 +28,12 @@ class ElasticSearchAPI {
     }
 
     /// Génération du message à envoyer au serveur
-    func generateMessage(locations: [Location], identifier: String) -> String {
+    func generateMessage(locations: [Location], identifier: Int) -> String {
         var messageStr = ""
 
         // On génère une string exemple pour l'index
         let index = "{\"index\": {}}"
-        let idStr = "\"id\": \"\(identifier)\""
+        let idStr = "\"id_user\": \(identifier)"
 
         for location in locations {
             if location.toString() != "" {
@@ -40,15 +41,20 @@ class ElasticSearchAPI {
                 messageStr += location.toString() + ", \(idStr)}\n"
             }
 
+            
         }
 
         return messageStr
     }
 
     /// Envoi des localisations du terminal au serveur
-    func postLocations(message: String) {
+    func postLocations(message: String, viewController: UIViewController? = nil) {
         if Constantes.DEBUG {
             print("Envoi des données de localisation au serveur en cours ...")
+        }
+
+        DispatchQueue.main.async {
+            viewController?.view.makeToast("Envoi des données en cours...", duration: 10, position: .bottom)
         }
 
         // Création de la requête (header + contenu)
@@ -77,7 +83,17 @@ class ElasticSearchAPI {
                         if Constantes.DEBUG {
                             print("Envoi des données de localisation au serveur réussi !")
                         }
+
                         LocationTable.getInstance().deleteQuery()
+
+                        DispatchQueue.main.async {
+                            viewController?.view.hideAllToasts()
+
+                            var style = ToastStyle()
+                            style.backgroundColor = UIColor(red: 145 / 255, green: 208 / 255, blue: 182 / 255, alpha: 0.9)
+                            viewController?.view.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
+                        }
+
                         // Sinon, on indique l'erreur et on garde les données
                     } else {
                         if Constantes.DEBUG {
@@ -85,7 +101,6 @@ class ElasticSearchAPI {
                         }
                     }
                 }
-
             }
         }
 
@@ -105,7 +120,7 @@ class ElasticSearchAPI {
         if Constantes.DEBUG {
             print("Envoi des données de compte au serveur en cours ...")
         }
-        
+
         let id = UserPrefs.getInstance().string(forKey: "KEY_IDENTIFIER")
         var request = URLRequest(url: resourceURL.appendingPathComponent("/da3t_compte/_doc/\(id)"))
         request.httpMethod = "POST"
