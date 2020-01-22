@@ -276,7 +276,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
                 HttpProvider.sendForm(FormActivityStepEnd.this, form);
 
                 // send http compte
-                HttpProvider.sendAccount(FormActivityStepEnd.this, form.getStringAccount(userPreferences));
+                HttpProvider.sendAccount(FormActivityStepEnd.this, form.getStringAccount(FormActivityStepEnd.this, userPreferences));
 
                 savePeriod();
 

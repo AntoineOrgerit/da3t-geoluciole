@@ -275,20 +275,19 @@ public class FormModel implements Serializable, BulkObject {
     public void storeInstance(Context context) {
         FormModel.storeInstance(context, this);
     }
-    protected String formatAccount(UserPreferences userPreferences) {
+    protected String formatAccount(Context context, UserPreferences userPreferences) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",") ;
         stringBuilder.append("\"date_gps\":").append(userPreferences.getDateConsentementGPS()).append(",");
-        stringBuilder.append("\"consentement_gps\":").append(R.string.rgpd_first_content_consentement);
+        stringBuilder.append("\"consentement_gps\":").append("\""+context.getResources().getString(R.string.rgpd_first_content_consentement)+"\"");
         return stringBuilder.toString();
     }
 
-    public String getStringAccount(UserPreferences userPreferences) {
+    public String getStringAccount(Context context, UserPreferences userPreferences) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("{\"index\":{}}\n");
         stringBuilder.append("{");
-            stringBuilder.append(this.formatAccount(userPreferences));
-            stringBuilder.append("}").append("\n");
+            stringBuilder.append(this.formatAccount(context, userPreferences));
+            stringBuilder.append("}");
         return stringBuilder.toString();
     }
 }

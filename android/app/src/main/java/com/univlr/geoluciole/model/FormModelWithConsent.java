@@ -1,5 +1,7 @@
 package com.univlr.geoluciole.model;
 
+import android.content.Context;
+
 import com.univlr.geoluciole.R;
 
 public class FormModelWithConsent extends FormModel{
@@ -35,13 +37,13 @@ public class FormModelWithConsent extends FormModel{
         this.email = email;
     }
 
-    protected String formatAccount(UserPreferences userPreferences) {
+    protected String formatAccount(Context context, UserPreferences userPreferences) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.formatAccount(userPreferences)).append(",");
-        stringBuilder.append("\"nom\":").append(lastname).append(",");
-        stringBuilder.append("\"prenom\":").append(firstname).append(",");
-        stringBuilder.append("\"mail\":").append(email).append(",");
-        stringBuilder.append("\"consentement_form\":").append(R.string.rgpd_second_content_consentement).append(",");
+        stringBuilder.append(super.formatAccount(context, userPreferences)).append(",");
+        stringBuilder.append("\"nom\":").append("\""+lastname+"\"").append(",");
+        stringBuilder.append("\"prenom\":").append("\""+firstname+"\"").append(",");
+        stringBuilder.append("\"mail\":").append("\""+email+"\"").append(",");
+        stringBuilder.append("\"consentement_form\":").append("\""+context.getResources().getString(R.string.rgpd_second_content_consentement)+"\"").append(",");
         stringBuilder.append("\"date_form\":").append(userPreferences.getDateConsentementForm());
         //todo ajouter le numero de tel
         return stringBuilder.toString();
