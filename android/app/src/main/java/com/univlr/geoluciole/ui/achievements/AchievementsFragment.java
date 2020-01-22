@@ -1,11 +1,14 @@
 package com.univlr.geoluciole.ui.achievements;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -35,7 +38,7 @@ public class AchievementsFragment extends Fragment {
     private static final int IMG_WIDTH = 250;
     private static final int IMG_HEIGHT = 250;
     private static final int MARGIN = 30;
-    private static final int PADDING = 10;
+    private static final int PADDING = 40;
     private AchievementsViewModel achievementsViewModel;
     private MainActivity context;
 
@@ -57,6 +60,7 @@ public class AchievementsFragment extends Fragment {
             LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
+
             // init de la premiere row
             TableRow row = new TableRow(root.getContext());
             // pour chaque badge debloqués dans la liste
@@ -71,7 +75,7 @@ public class AchievementsFragment extends Fragment {
                 // ajout de l'image a la row
                 row.addView(iv);
                 // ajout de la row a la table
-                if (j % 3 == 0) {
+                if (j % NB_BADGE_PER_ROW == 0) {
                     mTableLayout.addView(row);
                 }
             }
@@ -81,14 +85,26 @@ public class AchievementsFragment extends Fragment {
 
     private ImageView setImage(View root, UserPreferences userPref, int j) {
         ImageView iv = new ImageView(root.getContext());
+        // compute width - height
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int paddingSpace = PADDING * (NB_BADGE_PER_ROW + 1);
+        int widthPerItem = (size.x - paddingSpace) / NB_BADGE_PER_ROW;
+       // int heightPerItem = (size.y - paddingSpace) / NB_BADGE_PER_ROW;
+
         // set ressource
         iv.setImageResource(getRessourceImageBadge(userPref.getListUnlockedBadges().get(j)));
-        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(IMG_WIDTH, IMG_HEIGHT, 1.0f);
-        layoutParams.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        // layoutParams.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
         iv.setPadding(PADDING, PADDING, PADDING, PADDING);
         iv.setLayoutParams(layoutParams);
         iv.setClickable(true);
         iv.bringToFront();
+        iv.setAdjustViewBounds(true);
+        //iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
         iv.setOnClickListener(getBadgeInfo(userPref.getListUnlockedBadges().get(j), root.getContext()));
         Log.i(TAG, "setImage, création de l'image - id :" + userPref.getListUnlockedBadges().get(j));
         return iv;
@@ -118,14 +134,14 @@ public class AchievementsFragment extends Fragment {
      * @param idBadge String id correspondant à un badge
      * @return int reférence vers l'image
      */
-    private int getRessourceImageBadge(String idBadge) {
+    public static int getRessourceImageBadge(String idBadge) {
         switch (idBadge) {
             case "0":
-                return R.mipmap.badge_1km;
+                return R.mipmap.no_badge;
             case "1":
-                return R.mipmap.badge_5km;
+                return R.mipmap.no_badge;
             case "2":
-                return R.mipmap.badge_10km;
+                return R.mipmap.no_badge;
             case "3":
                 return R.mipmap.no_badge;
             case "4":
@@ -143,11 +159,19 @@ public class AchievementsFragment extends Fragment {
             case "10":
                 return R.mipmap.no_badge;
             case "11":
-                return R.mipmap.badge_saint_nicolas;
+                return R.mipmap.no_badge;
             case "12":
-                return R.mipmap.badge_saint_nicolas2;
+                return R.mipmap.logo_app;
             case "13":
-                return R.mipmap.badge_1km;
+                return R.mipmap.logo_app;
+            case "14":
+                return R.mipmap.logo_app;
+            case "15":
+                return R.mipmap.logo_app;
+            case "16":
+                return R.mipmap.logo_app;
+            case "17":
+                return R.mipmap.logo_app;
             default:
                 return 0;
         }

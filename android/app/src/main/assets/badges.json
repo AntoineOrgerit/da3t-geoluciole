@@ -119,11 +119,39 @@
     {
       "id": 13,
       "type": "place",
-      "name": "Technoforum",
+      "name": "Maison de la Charente Maritime",
       "description": "Bravo ! Vous venez de découvrir le Technoforum",
       "latitude": 46.147712,
       "longitude": -1.155089,
       "proximity": 200
+    }
+  ,
+    {
+      "id": 14,
+      "type": "place",
+      "name": "Maison de la Charente Maritime",
+      "description": "Bravo ! Vous venez de découvrir le Technoforum",
+      "latitude": 46.147712,
+      "longitude": -1.155089,
+      "proximity": 200
+    },
+    {
+      "id": 15,
+      "type": "place",
+      "name": "Maison de la Charente Maritime",
+      "description": "Bravo ! Vous venez de découvrir le Technoforum",
+      "latitude": 46.147712,
+      "longitude": -1.155089,
+      "proximity": 200
+    },
+    {
+      "id": 16,
+      "type": "place",
+      "name": "Maison de la Charente Maritime",
+      "description": "Bravo ! Vous venez de découvrir le Technoforum",
+      "latitude": 46.138027,
+      "longitude": -1.151643,
+      "proximity": 400
     }
   ]
 }
