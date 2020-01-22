@@ -151,4 +151,9 @@
     <string name="no_achievement_picture_description">Oops no badges</string>
     <string name="achievement_title">Badges obtained</string>
 
+    <!-- PARTNER FRAGMENT -->
+    <string name="logo_desc_larochelle">logo of La Rochelle Université</string>
+    <string name="logo_desc_cnrs">logo of CNRS</string>
+    <string name="logo_desc_lienss">logo of LIENSs</string>
+    <string name="logo_desc_l3i">logo of L3i</string>
 </resources>
