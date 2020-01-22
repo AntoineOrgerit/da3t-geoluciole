@@ -146,6 +146,18 @@
     <string name="no_achievement_picture_description">Oups aucun badge</string>
     <string name="achievement_title">Badges obtenus</string>
 
+    <!-- DIALOG  -->
+    <string name="back">Retour</string>
+    <string name="copy">Copier mon identifiant dans le presse papier</string>
+    <string name="sendMail">Je continue</string>
+    <string name="send">Envoyer mail</string>
+    <string name="copy_success">L\'identifiant a été copié dans le presse papier</string>
+    <string name="revoke_title">Révoquer mon consentement</string>
+    <string name="revoke_text_1">Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à
+        l\'adresse suivante : </string>
+    <string name="revoke_text_2">En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique (si compte lié).</string>
+    <string name="message_mail_revoke">Je demande la suppression de mes données.</string>
+
 </resources>
 
 
