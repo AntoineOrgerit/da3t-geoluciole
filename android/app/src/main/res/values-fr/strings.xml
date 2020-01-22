@@ -80,6 +80,10 @@
     <string name="form_with_whom_title">Avec qui voyagez-vous ?*</string>
     <string name="form_prompt_whom">Choisir une réponse</string>
 
+    <string name="form_explain_validation_period_text">Texte explicatif du concept de période de collecte des données</string>
+    <string name="form_title_start_date_validation_period">Début de la collecte</string>
+    <string name="form_title_end_date_validation_period">Fin de la collecte</string>
+
     <string-array name="form_responses_whom_array">
         <item>Choisir une réponse</item>
         <item>Seul</item>
