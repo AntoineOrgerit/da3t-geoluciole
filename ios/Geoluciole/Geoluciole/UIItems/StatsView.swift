@@ -46,7 +46,7 @@ class StatsView: UIView {
 
         self.uniteMetrique = CustomUILabel()
         self.uniteMetrique.text = "Km"
-        self.uniteMetrique.setStyle(style: .Paragraphe)
+        self.uniteMetrique.setStyleLabel(style: .Paragraphe)
         self.uniteMetrique.translatesAutoresizingMaskIntoConstraints = false
         self.wrapData.addSubview(self.uniteMetrique)
         

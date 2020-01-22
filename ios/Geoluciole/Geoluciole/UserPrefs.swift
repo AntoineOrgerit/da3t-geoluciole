@@ -24,6 +24,7 @@ class UserPrefs {
     static let KEY_FORMULAIRE_CONSENT = "formulaire_consent"
     static let KEY_DATE_START_ENGAGEMENT = "date_start_engagement"
     static let KEY_DATE_END_ENGAGEMENT = "date_end_engagement"
+    static let KEY_FORMULAIRE_REMPLI = "formulaire_renseigne"
 
     
     fileprivate init() {
@@ -61,6 +62,10 @@ class UserPrefs {
                 }
             }
             self.setPrefs(key: UserPrefs.KEY_LANGUAGE, value: language)
+        }
+        
+        if self.userPrefs.object(forKey: UserPrefs.KEY_FORMULAIRE_REMPLI) == nil {
+            self.setPrefs(key: UserPrefs.KEY_FORMULAIRE_REMPLI, value: false)
         }
     }
 

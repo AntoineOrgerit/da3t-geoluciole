@@ -80,6 +80,13 @@ class CustomUIButton: UIButton {
             self.layer.cornerRadius = 5
             self.setTitleColor(.settingsButtonDark, for: .normal)
             self.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        case .Radio:
+            let imageNorm = UIImage(named: "uncheckedRadioButton")
+            let imageCheck = UIImage(named: "checkedRadioButton")
+            self.setImage(imageNorm, for: .normal)
+            self.setImage(imageCheck, for: .selected)
+            self.translatesAutoresizingMaskIntoConstraints = false
+            
         }
     }
 

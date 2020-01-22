@@ -20,9 +20,14 @@ extension UIView {
         }
     }
 
-    func removeAllViews() {
+    func removeAllViews(removeTitleBar: Bool = false) {
         for view in self.subviews {
-            view.removeFromSuperview()
+            if view.isKind(of: TitleBarView.self) &&  removeTitleBar {
+                view.removeFromSuperview()
+            } else if !view.isKind(of: TitleBarView.self){
+                view.removeFromSuperview()
+            }
+            
         }
     }
 }

@@ -71,11 +71,11 @@ class GPSConsentRGPDViewController: ParentModalViewController {
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
 
                 // Avec le consentement, on peut activer la collecte des données
-                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+                //UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
 
                 // Demande d'autorisation d'utiliser la localisation et d'envoyer des notifications
-                LocationHandler.getInstance().requestLocationAuthorization()
-                NotificationHandler.getInstance().requestNotificationAuthorization()
+//                LocationHandler.getInstance().requestLocationAuthorization()
+//                NotificationHandler.getInstance().requestNotificationAuthorization()
             }
 
             strongSelf.dismiss(animated: true)

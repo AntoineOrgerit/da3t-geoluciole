@@ -9,5 +9,5 @@
 import Foundation
 
 enum ButtonStyle {
-    case settingDark, settingLight, disabled, active, delete, defaultStyle
+    case settingDark, settingLight, disabled, active, delete, defaultStyle, Radio
 }

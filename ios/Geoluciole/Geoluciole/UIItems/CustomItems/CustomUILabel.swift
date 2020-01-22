@@ -10,10 +10,9 @@ import UIKit
 import Foundation
 
 class CustomUILabel: UILabel {
-    
-    func setStyle (style: LabelStyle) {
+
+    func setStyleLabel (style: LabelStyle) {
         self.adjustsFontForContentSizeCategory = true
-        
         switch style {
         case .TitreSectionBadges:
             self.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -21,6 +20,11 @@ class CustomUILabel: UILabel {
             self.font = UIFont.preferredFont(forTextStyle: .title3)
         case .Paragraphe:
             self.font = UIFont.preferredFont(forTextStyle: .body)
+        case .Form:
+            self.textColor = .black
+            self.backgroundColor = .white
+            self.font = UIFont.preferredFont(forTextStyle: .title1)
+            
         }
     }
 }
