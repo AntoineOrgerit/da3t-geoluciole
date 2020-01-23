@@ -20,7 +20,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
         super.init()
         self.locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.distanceFilter = 10 // on doit bouger de 10m pour détecter un changement
+        locationManager.distanceFilter = Constantes.DISTANCE_DETECTION // Définit la distance minimale pour détecter un changement
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
 
@@ -66,6 +66,70 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
         return active
     }
 
+    /// Calcule la distance entre la position courante et la dernière position connue
+    fileprivate func calculateDistance(currentLocation: Location, lastLocation: Location) {
+        let currentPos = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        let lastPos = CLLocation(latitude: lastLocation.latitude, longitude: lastLocation.longitude)
+
+        // On vérifie d'abord que les points ne sont pas les mêmes
+        if (currentPos.coordinate.latitude != lastPos.coordinate.latitude &&
+                currentPos.coordinate.longitude != lastPos.coordinate.longitude) {
+            if Constantes.DEBUG {
+                print("calcul de la distance")
+            }
+
+            // calcul de distance entre les deux points
+            let distance = currentPos.distance(from: lastPos)
+
+            let distMax = Constantes.DISTANCE_DETECTION * 2
+
+            // Pour que la distance soit acceptable, il faut que cette distance soit inférieur ou égale à la distance
+            // max
+            if distance <= distMax {
+                LocationTable.getInstance().insertQuery([
+                    LocationTable.ALTITUDE: currentLocation.altitude,
+                    LocationTable.LATITUDE: currentLocation.latitude,
+                    LocationTable.LONGITUDE: currentLocation.longitude,
+                    LocationTable.TIMESTAMP: currentLocation.timestamp,
+                    LocationTable.PRECISION: currentLocation.precision, // rayon d'un cercle en m
+                    LocationTable.VITESSE: currentLocation.vitesse // vitesse en m/s
+                ])
+                
+                updateDistanceParcourue(newDistance: distance)
+
+                // on sauvegarde la dernière position si elle semble cohérente
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_POINT, value: currentLocation.toDictionary())
+            }
+        }
+    }
+
+    /// Mise à jour de la distance parcourue
+    fileprivate func updateDistanceParcourue(newDistance: Double) {
+        // on regarde si on avait une valeur auparavant
+        let distanceUserPrefs = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE)
+
+        // Si on avait une valeur, on incrémente la valeur
+        if distanceUserPrefs != nil {
+            var distanceParcourue = distanceUserPrefs as! Double
+            distanceParcourue += newDistance
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DISTANCE, value: distanceParcourue)
+            // Sinon, on prend la valeur passé en paramètre
+        } else {
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DISTANCE, value: newDistance)
+        }
+    }
+
+    /// Retourne la dernière localisation de l'utilisateur. Retourne nil si aucune localisation n'est trouvée
+    fileprivate func getLastLocation() -> Location? {
+        var lastLocation: Location?
+
+        if let lastLocationUserPrefs = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_LAST_POINT) as? [String: Any] {
+            lastLocation = Location(lastLocationUserPrefs)
+        }
+
+        return lastLocation
+    }
+
     /// Appelé lorsque l'on reçoit une nouvelle position GPS
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // on effectue l'insertion uniquement si la valeur n'est pas nil
@@ -73,47 +137,36 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
             return
         }
 
-        if Constantes.DEBUG {
-            print("Location update")
+        // Création de l'objet à insérer
+        let currentLocation = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, altitude: location.altitude, timestamp: Date().timeIntervalSince1970, precision: location.horizontalAccuracy, vitesse: location.speed)
+
+        let sendData = UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_SEND_DATA)
+
+        // Si la vitesse est négative ou que la collecte des données n'est pas activée,
+        // on ne prend pas en compte la localisation
+        if currentLocation.vitesse >= 0.0 && sendData {
+            if Constantes.DEBUG {
+                print("Location update")
+            }
+            // Avant de calculer la distance, on regarde si on a déja enregistré un point pour lancer le calcul
+            // Si on a une ancienne position, on lance le calcul de distance
+            if let lastPosition = getLastLocation() {
+                calculateDistance(currentLocation: currentLocation, lastLocation: lastPosition)
+            // Si on a pas de position plus ancienne, on insert les données
+            } else {
+                LocationTable.getInstance().insertQuery([
+                    LocationTable.ALTITUDE: currentLocation.altitude,
+                    LocationTable.LATITUDE: currentLocation.latitude,
+                    LocationTable.LONGITUDE: currentLocation.longitude,
+                    LocationTable.TIMESTAMP: currentLocation.timestamp,
+                    LocationTable.PRECISION: currentLocation.precision, // rayon d'un cercle en m
+                    LocationTable.VITESSE: currentLocation.vitesse // vitesse en m/s
+                ])
+                
+                // on sauvegarde la dernière position si elle semble cohérente
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_POINT, value: currentLocation.toDictionary())
+            }
         }
-
-        LocationTable.getInstance().insertQuery([
-            LocationTable.ALTITUDE: location.altitude,
-            LocationTable.LATITUDE: location.coordinate.latitude,
-            LocationTable.LONGITUDE: location.coordinate.longitude,
-            LocationTable.TIMESTAMP: Date().timeIntervalSince1970,
-            LocationTable.PRECISION: location.horizontalAccuracy, // rayon d'un cercle en m
-            LocationTable.VITESSE: location.speed // vitesse en m/s
-        ])
-
-        let preferenceUser = UserPrefs.getInstance()
-
-        /*si des données sont déjà sauvegardées, le calcul de distance est effectué
-            sinon les coordonnées captées sont sauvegardées */
-        if preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) == nil {
-            preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
-        }
-
-        if (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as? Double) == nil {
-            preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: 0.0)
-        }
-
-        if Constantes.DEBUG {
-            print("calcul de la distance")
-        }
-
-        let previewDist: Double = (preferenceUser.object(forKey: UserPrefs.KEY_DISTANCE) as! Double)
-
-        let coord1 = CLLocation(latitude: (preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) as! [CLLocationDegrees])[0], longitude: (preferenceUser.object(forKey: UserPrefs.KEY_LAST_POINT) as! [CLLocationDegrees])[1])
-
-        let coord2 = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-
-        let tempDist = Tools.getDistance(coordonnee1: coord1, coordonnee2: coord2)
-
-        let distance = previewDist + tempDist
-        //update of the saved data.
-        preferenceUser.setPrefs(key: UserPrefs.KEY_DISTANCE, value: distance)
-        preferenceUser.setPrefs(key: UserPrefs.KEY_LAST_POINT, value: [location.coordinate.latitude, location.coordinate.longitude])
     }
 
 

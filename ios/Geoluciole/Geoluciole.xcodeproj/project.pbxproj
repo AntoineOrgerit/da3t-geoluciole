@@ -703,7 +703,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciole111";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciole";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

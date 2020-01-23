@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import CoreLocation
-import AudioToolbox
 
 class Tools {
 
@@ -146,10 +145,6 @@ class Tools {
         let df = DateFormatter()
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: date)
-    }
-
-    static func getDistance(coordonnee1: CLLocation, coordonnee2: CLLocation) -> CLLocationDistance {
-        return coordonnee1.distance(from: coordonnee2)
     }
 
     static func getDistStat() -> Double {
