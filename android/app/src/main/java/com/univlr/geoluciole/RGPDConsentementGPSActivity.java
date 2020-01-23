@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.univlr.geoluciole.model.UserPreferences;
 
+import java.util.Date;
+
 public class RGPDConsentementGPSActivity extends AppCompatActivity {
 
     private CheckBox consentementCheckbox;
@@ -30,8 +32,10 @@ public class RGPDConsentementGPSActivity extends AppCompatActivity {
                 boolean consent = consentementCheckbox.isChecked();
                 if (consent) {
                     validate_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    refused_button.setBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 } else {
                     validate_button.setBackgroundColor(getResources().getColor(R.color.colorDisabled));
+                    refused_button.setBackgroundColor(getResources().getColor(R.color.colorRefused));
                 }
             }
         });
@@ -48,6 +52,7 @@ public class RGPDConsentementGPSActivity extends AppCompatActivity {
                 // sauvegarde des préférences
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementGPSActivity.this);
                 u.setGpsConsent(true);
+                u.setDateConsentementGPS(new Date().getTime());
                 UserPreferences.storeInstance(RGPDConsentementGPSActivity.this, u);
 
                 startActivity(intent);
@@ -58,6 +63,10 @@ public class RGPDConsentementGPSActivity extends AppCompatActivity {
         this.refused_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean consent = consentementCheckbox.isChecked();
+                if (consent) {
+                    return;
+                }
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementGPSActivity.this);
                 u.setConsent();

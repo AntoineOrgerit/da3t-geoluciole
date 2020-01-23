@@ -80,6 +80,10 @@
     <string name="form_with_whom_title">Avec qui voyagez-vous ?*</string>
     <string name="form_prompt_whom">Choisir une réponse</string>
 
+    <string name="form_explain_validation_period_text">Texte explicatif du concept de période de collecte des données</string>
+    <string name="form_title_start_date_validation_period">Début de la collecte</string>
+    <string name="form_title_end_date_validation_period">Fin de la collecte</string>
+
     <string-array name="form_responses_whom_array">
         <item>Choisir une réponse</item>
         <item>Seul</item>
@@ -157,6 +161,11 @@
         l\'adresse suivante : </string>
     <string name="revoke_text_2">En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique (si compte lié).</string>
     <string name="message_mail_revoke">Je demande la suppression de mes données.</string>
+    <!-- PARTNER FRAGMENT -->
+    <string name="logo_desc_larochelle">logo de La Rochelle Université</string>
+    <string name="logo_desc_cnrs">logo du CNRS</string>
+    <string name="logo_desc_lienss">logo du LIENSs</string>
+    <string name="logo_desc_l3i">logo du L3i</string>
 
     <!-- POPUP VALIDATION DATE -->
     <string name="message_update_date_title">Modification de la date</string>

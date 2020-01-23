@@ -33,8 +33,8 @@ public class LocationBulk implements BulkObject {
         stringBuilder.append("\"latitude\":").append(location.getLatitude()).append(",");
         stringBuilder.append("\"longitude\":").append(location.getLongitude()).append(",");
         stringBuilder.append("\"altitude\":").append(location.getAltitude()).append(",");
-        stringBuilder.append("\"timestamp\":").append(location.getTime());
-        stringBuilder.append("\"vitesse\":").append(location.getSpeed());
+        stringBuilder.append("\"timestamp\":").append(location.getTime()).append(",");
+        stringBuilder.append("\"vitesse\":").append(location.getSpeed()).append(",");
         stringBuilder.append("\"precision\":").append(location.getAccuracy());
         stringBuilder.append("}");
         return stringBuilder.toString();

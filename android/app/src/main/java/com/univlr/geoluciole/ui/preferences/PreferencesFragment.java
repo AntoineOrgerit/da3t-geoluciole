@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.format.DateFormat;
 import android.view.Gravity;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +32,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.univlr.geoluciole.CguActivity;
+import com.univlr.geoluciole.PartnerActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.Time;
 import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.sender.HttpProvider;
+
 
 import java.util.Calendar;
 import java.util.Date;
@@ -58,6 +64,8 @@ public class PreferencesFragment extends Fragment {
     // Sring
     private String startValidityStr; // champ date début format dd-mm-yyyy hh:mm
     private String endValidityStr; // champ date fin format dd-mm-yyyy hh:mm
+
+    private Handler handler;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         PreferencesViewModel preferencesViewModel =
@@ -91,7 +99,35 @@ public class PreferencesFragment extends Fragment {
 
         // definition du listener pour le bouton de révocation
         this.btnRevokeConsent.setOnClickListener(customRevokeBtnOnClickListener());
+        handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message message) {
+                switch (message.what) {
+                    case HttpProvider.CODE_HANDLER_GPS_COUNT:
+                        Toast.makeText(getActivity(), "Send location : " + message.obj, Toast.LENGTH_SHORT).show();
+                        break;
+                    case HttpProvider.CODE_HANDLER_GPS_ERROR:
+                        Toast.makeText(getActivity(), "Error : " + message.obj, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
 
+        Button send_data_btn = root.findViewById(R.id.button_send_data);
+        send_data_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HttpProvider.sendGps(root.getContext(), handler);
+            }
+        });
+
+        Button buttonPartners = root.findViewById(R.id.button_partners);
+        buttonPartners.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(root.getContext(), PartnerActivity.class));
+            }
+        });
         return root;
     }
 
@@ -390,7 +426,6 @@ public class PreferencesFragment extends Fragment {
             }
         });
         dialog.show();
+
     }
-
-
 }
