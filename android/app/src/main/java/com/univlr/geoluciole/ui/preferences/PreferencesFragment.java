@@ -1,19 +1,17 @@
 package com.univlr.geoluciole.ui.preferences;
 
-import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
-import android.view.Gravity;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +39,7 @@ public class PreferencesFragment extends Fragment {
     private Handler handler;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container, Bundle savedInstanceState) {
         PreferencesViewModel preferencesViewModel =
                 ViewModelProviders.of(this).get(PreferencesViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_preferences, container, false);
@@ -117,6 +115,8 @@ public class PreferencesFragment extends Fragment {
                     }
                 });
                 dialog.show();
+            }
+        });
         handler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message message) {
