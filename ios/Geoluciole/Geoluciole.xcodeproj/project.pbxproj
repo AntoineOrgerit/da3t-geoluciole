@@ -59,6 +59,7 @@
 		62330D2D23CDF05F003E7586 /* GPSConsentRGPDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62330D2C23CDF05F003E7586 /* GPSConsentRGPDViewController.swift */; };
 		6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427323CCB926004DFD43 /* CustomUIButton.swift */; };
 		6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427523CCC094004DFD43 /* ButtonStyle.swift */; };
+		627BC8E123D85FE4006BF1E7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 627BC8E323D85FE4006BF1E7 /* Localizable.strings */; };
 		6299A17423CF50E600057652 /* cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 6299A17323CF50E600057652 /* cgu.pdf */; };
 		6299A17623CF65E500057652 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6299A17523CF65E500057652 /* CustomTimer.swift */; };
 		62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */; };
@@ -132,6 +133,8 @@
 		62330D2C23CDF05F003E7586 /* GPSConsentRGPDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSConsentRGPDViewController.swift; sourceTree = "<group>"; };
 		6263427323CCB926004DFD43 /* CustomUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIButton.swift; sourceTree = "<group>"; };
 		6263427523CCC094004DFD43 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonStyle.swift; path = Geoluciole/UIItems/ButtonStyle.swift; sourceTree = SOURCE_ROOT; };
+		627BC8E423D85FF4006BF1E7 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		627BC8E523D86027006BF1E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6299A17323CF50E600057652 /* cgu.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cgu.pdf; sourceTree = "<group>"; };
 		6299A17523CF65E500057652 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTrophiesViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +229,7 @@
 		237AD41223C606D4009937AB = {
 			isa = PBXGroup;
 			children = (
+				627BC8E323D85FE4006BF1E7 /* Localizable.strings */,
 				237AD41D23C606D4009937AB /* Geoluciole */,
 			);
 			sourceTree = "<group>";
@@ -388,6 +392,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 237AD41223C606D4009937AB;
 			productRefGroup = 237AD41C23C606D4009937AB /* Products */;
@@ -405,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2305CE7C23C632CF00354361 /* geoluciole.sqlite in Resources */,
+				627BC8E123D85FE4006BF1E7 /* Localizable.strings in Resources */,
 				237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */,
 				237AD42A23C606D4009937AB /* Assets.xcassets in Resources */,
 				6299A17423CF50E600057652 /* cgu.pdf in Resources */,
@@ -496,6 +502,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		627BC8E323D85FE4006BF1E7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				627BC8E423D85FF4006BF1E7 /* fr */,
+				627BC8E523D86027006BF1E7 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -503,6 +518,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -563,6 +579,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -619,14 +636,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKVA2U4NBE;
+				DEVELOPMENT_TEAM = GBCJ2RX3MM;
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciole";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciole111";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -640,8 +657,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKVA2U4NBE;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Geoluciole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -650,6 +667,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-lr.geoluciole";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Geoluciole/Geoluciole-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
