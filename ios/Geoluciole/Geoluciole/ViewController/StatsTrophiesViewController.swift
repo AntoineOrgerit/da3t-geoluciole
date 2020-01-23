@@ -27,7 +27,7 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
         self.rootView.addSubview(self.statView)
 
         let label = CustomUILabel()
-        label.text =  Tools.getTranslate(key: "text_badges")
+        label.text = Tools.getTranslate(key: "text_badges")
         label.setStyle(style: .subtitleBold)
         label.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(label)
@@ -105,6 +105,17 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
         cell.backgroundColor = UIColor(red: 227 / 255, green: 227 / 255, blue: 227 / 255, alpha: 0.5)
         cell.setImage(name: self.badgesData[indexPath.row].resource)
         cell.layer.cornerRadius = 10
+
+        // Lors du clic on veut afficher un toast
+        let badgeInCell = self.badgesData[indexPath.row]
+        cell.idBadge = badgeInCell.id
+        cell.onClick = { [weak self] _ in
+            guard let strongSelf = self else { return }
+
+            strongSelf.view.hideAllToasts()
+            strongSelf.view.makeToast(badgeInCell.description, duration: 1, title: badgeInCell.name)
+        }
+
         return cell
     }
 

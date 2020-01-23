@@ -12,16 +12,20 @@ import CoreLocation
 class LocationHandler: NSObject, CLLocationManagerDelegate {
 
     fileprivate static var INSTANCE: LocationHandler!
-    fileprivate var locationManager: CLLocationManager
+    fileprivate var locationManager: CLLocationManager!
     var locationTracked: Bool = false
 
     fileprivate override init() {
         self.locationManager = CLLocationManager()
         super.init()
         self.locationManager.delegate = self
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.distanceFilter = Constantes.DISTANCE_DETECTION // Définit la distance minimale pour détecter un changement
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.allowsBackgroundLocationUpdates = true
+        self.locationManager.distanceFilter = Constantes.DISTANCE_DETECTION // Définit la distance minimale pour détecter un changement
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.pausesLocationUpdatesAutomatically = false
+        if #available(iOS 11.0, *) {
+            self.locationManager.showsBackgroundLocationIndicator = true
+        }
     }
 
     static func getInstance() -> LocationHandler {
@@ -166,6 +170,10 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                 // on sauvegarde la dernière position si elle semble cohérente
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_POINT, value: currentLocation.toDictionary())
             }
+            
+            // On redefini les zones pour pas les perdre et on check les badges de distance
+            LocationHandler.startTrackingBadges()
+            self.checkDistanceBadges()
         }
     }
 
@@ -294,7 +302,8 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
 
     fileprivate func checkDistanceBadges() {
         var badgeObtained = [Badge]()
-        let distanceTraveledActually = UserPrefs.getInstance().double(forKey: UserPrefs.KEY_DISTANCE_TRAVELED)
+        // distance en KM
+        let distanceTraveledActually = UserPrefs.getInstance().double(forKey: UserPrefs.KEY_DISTANCE_TRAVELED) / 1000.0
 
         BadgesTable.getInstance().selectQuery([], where: [WhereCondition(onColumn: BadgesTable.TYPE, withCondition: "distance"), WhereCondition(onColumn: BadgesTable.IS_OBTAIN, withCondition: 0)]) { (success, queryResult, error) in
 

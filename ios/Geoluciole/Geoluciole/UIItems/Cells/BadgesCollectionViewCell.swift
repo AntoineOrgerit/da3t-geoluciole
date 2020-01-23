@@ -12,14 +12,21 @@ import UIKit
 class BadgesCollectionViewCell: UICollectionViewCell {
 
     fileprivate var iv: CustomUIImageView!
+    var idBadge = -1
+    var onClick: ((BadgesCollectionViewCell) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         self.iv = CustomUIImageView(frame: .zero)
-        self.iv.image = UIImage(named: "1km")
+        self.iv.image = UIImage(named: "no-img")
         self.iv.contentMode = . scaleAspectFit
         self.iv.translatesAutoresizingMaskIntoConstraints = false
+        self.iv.onClick = { [weak self] _ in
+            guard let strongSelf = self else { return }
+
+            strongSelf.onClick?(strongSelf)
+        }
         self.contentView.addSubview(self.iv)
 
         NSLayoutConstraint.activate([
