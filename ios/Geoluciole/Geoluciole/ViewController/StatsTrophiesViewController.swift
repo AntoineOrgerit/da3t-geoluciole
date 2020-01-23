@@ -133,7 +133,7 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
         // Lancement du loader
         self.loader.startAnimating()
 
-        let queue = DispatchQueue(label: "LoadBadges")
+        let queue = DispatchQueue(label: "LoadBadges", qos: .utility)
         queue.async {
 
             // Récupération des badges qui ont été obtenu

@@ -132,7 +132,12 @@ class SettingsViewController: ParentViewController {
         sendDataManually.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            CustomTimer.getInstance().sendPostLocationElasticSearch(viewController: strongSelf)
+            let queue = DispatchQueue(label: "SendData", qos: .background)
+
+            queue.async {
+                CustomTimer.getInstance().sendPostLocationElasticSearch(viewController: strongSelf)
+            }
+
         }
         sendDataManually.setStyle(style: .settingDark)
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false
