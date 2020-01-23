@@ -17,10 +17,15 @@ public class UserPreferences {
     private String id;
     private boolean consent;
     private boolean gpsConsent;
+    private long dateConsentementGPS;
+    private long dateConsentementForm;
     private boolean accountConsent;
     private long startValidity;
     private long endValidity;
     private String language;
+
+    private boolean isAccountIsSend;
+    private boolean isFormIsSend;
 
 
     public UserPreferences(String language, Context context) {
@@ -28,10 +33,13 @@ public class UserPreferences {
         this.consent = false;
         this.gpsConsent = false;
         this.accountConsent = false;
+        this.isAccountIsSend = false;
+        this.isFormIsSend = false;
+        this.dateConsentementForm = 0;
+        this.dateConsentementGPS= 0;
         this.startValidity = 0;
         this.endValidity = 0;
         this.language = language;
-
     }
 
     public static UserPreferences getInstance(Context context) {
@@ -60,6 +68,39 @@ public class UserPreferences {
     private String generateID(Context context) {
         String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         return Long.toString(Math.abs(androidId.hashCode()));
+    }
+
+
+    public void setFormIsSend(boolean formIsSend) {
+        isFormIsSend = formIsSend;
+    }
+
+    public void setAccountIsSend(boolean accountIsSend) {
+        isAccountIsSend = accountIsSend;
+    }
+
+    public boolean isFormIsSend() {
+        return isFormIsSend;
+    }
+
+    public boolean isAccountIsSend() {
+        return isAccountIsSend;
+    }
+
+    public long getDateConsentementForm() {
+        return dateConsentementForm;
+    }
+
+    public long getDateConsentementGPS() {
+        return dateConsentementGPS;
+    }
+
+    public void setDateConsentementForm(long dateConsentementForm) {
+        this.dateConsentementForm = dateConsentementForm;
+    }
+
+    public void setDateConsentementGPS(long dateConsentementGPS) {
+        this.dateConsentementGPS = dateConsentementGPS;
     }
 
     public void store(Context context) {
@@ -102,6 +143,14 @@ public class UserPreferences {
         return id;
     }
 
+    public long getStartValidity() {
+        return startValidity;
+    }
+
+    public long getEndValidity() {
+        return endValidity;
+    }
+
     @Override
     public String toString() {
         return "UserPreferences{" +
@@ -111,6 +160,8 @@ public class UserPreferences {
                 ", accountConsent=" + accountConsent +
                 ", startValidity=" + startValidity+
                 ", endValidity=" + endValidity+
+                ", dateConsentementGPS='" + dateConsentementGPS+ '\'' +
+                ", dateConsentementForm='" + dateConsentementForm+ '\'' +
                 ", language='" + language + '\'' +
                 '}';
     }
