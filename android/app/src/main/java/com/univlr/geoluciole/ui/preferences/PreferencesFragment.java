@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,9 @@ import com.univlr.geoluciole.sender.HttpProvider;
 
 
 public class PreferencesFragment extends Fragment {
+    private static final String LANG_FR = "fr";
+    private static final String LANG_EN = "en";
+
     private static final String MAIL_REVOQUE = "melanie.mondo1@univ-lr.fr";
     public static final String IDENTIFIANT = "ID : ";
 
@@ -56,6 +60,19 @@ public class PreferencesFragment extends Fragment {
                 startActivity(new Intent(root.getContext(), CguActivity.class));
             }
         });
+
+        String curent_local = Locale.getDefault().getLanguage();
+        RadioButton radioButton_english = root.findViewById(R.id.radioButton_english);
+        RadioButton radioButton_french = root.findViewById(R.id.radioButton_french);
+
+
+
+        if (curent_local.equals(LANG_FR)) {
+            radioButton_french.setChecked(true);
+
+        } else {
+            radioButton_english.setChecked(true);
+        }
 
         Button buttonRevoke = root.findViewById(R.id.button_revoke_consent);
         buttonRevoke.setOnClickListener(new View.OnClickListener() {
