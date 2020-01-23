@@ -50,8 +50,11 @@ public class MainActivity extends LocationActivity {
 
             // checking permissions
             ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
-            if (!unauthorizedPermissions.isEmpty()) {
+            if(!unauthorizedPermissions.isEmpty()) {
                 requestPermissions(unauthorizedPermissions);
+                if(!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)){
+                    enableGPSIfNeeded();
+                }
             } else {
                 enableGPSIfNeeded();
             }
