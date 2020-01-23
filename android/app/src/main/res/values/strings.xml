@@ -160,4 +160,7 @@
     <string name="revoke_text_2">By clicking continue you will be redirected to your email application (if linked account). </string>
     <string name = "message_mail_revoke"> I request the deletion of my data. </string>
 
+    <!-- POPUP VALIDATION DATE -->
+    <string name="message_update_date_title">Update date</string>
+    <string name="message_update_date">Are you sure to update this date ?</string>
 </resources>

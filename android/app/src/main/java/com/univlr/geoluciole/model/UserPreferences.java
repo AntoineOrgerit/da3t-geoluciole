@@ -102,6 +102,14 @@ public class UserPreferences {
         return id;
     }
 
+    public long getStartValidity() {
+        return startValidity;
+    }
+
+    public long getEndValidity() {
+        return endValidity;
+    }
+
     @Override
     public String toString() {
         return "UserPreferences{" +

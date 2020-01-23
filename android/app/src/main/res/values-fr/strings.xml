@@ -158,6 +158,10 @@
     <string name="revoke_text_2">En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique (si compte lié).</string>
     <string name="message_mail_revoke">Je demande la suppression de mes données.</string>
 
+    <!-- POPUP VALIDATION DATE -->
+    <string name="message_update_date_title">Modification de la date</string>
+    <string name="message_update_date">Voulez-vous enregistrer les modifications ?</string>
+
 </resources>
 
 
