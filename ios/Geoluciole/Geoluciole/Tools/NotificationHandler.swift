@@ -60,7 +60,7 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         // temps exprimé en secondes
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
-        let request = UNNotificationRequest(identifier: "testNotification", content: notificationContent, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "exitNotification", content: notificationContent, trigger: trigger)
 
         // on post la notification pour la prendre en compte
         userNotificationCenter.add(request) { (error) in
