@@ -162,10 +162,12 @@
         the following address : </string>
     <string name="revoke_text_2">By clicking continue you will be redirected to your email application (if linked account). </string>
     <string name = "message_mail_revoke"> I request the deletion of my data. </string>
-
     <!-- PARTNER FRAGMENT -->
     <string name="logo_desc_larochelle">logo of La Rochelle Université</string>
     <string name="logo_desc_cnrs">logo of CNRS</string>
     <string name="logo_desc_lienss">logo of LIENSs</string>
     <string name="logo_desc_l3i">logo of L3i</string>
+    <!-- POPUP VALIDATION DATE -->
+    <string name="message_update_date_title">Update date</string>
+    <string name="message_update_date">Are you sure to update this date ?</string>
 </resources>

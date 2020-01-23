@@ -167,6 +167,10 @@
     <string name="logo_desc_lienss">logo du LIENSs</string>
     <string name="logo_desc_l3i">logo du L3i</string>
 
+    <!-- POPUP VALIDATION DATE -->
+    <string name="message_update_date_title">Modification de la date</string>
+    <string name="message_update_date">Voulez-vous enregistrer les modifications ?</string>
+
 </resources>
 
 

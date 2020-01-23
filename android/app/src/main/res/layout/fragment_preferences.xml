@@ -51,6 +51,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
@@ -95,6 +96,20 @@
                             app:layout_constraintStart_toStartOf="parent"
                             tools:layout_conversion_absoluteHeight="19dp"
                             tools:layout_conversion_absoluteWidth="62dp" />
+
+                        <EditText
+                            android:id="@+id/start_validity_period_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:enabled="true"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/form_date_out_hint"
+                            android:inputType="date"
+                            android:textColor="@color/text_disabled"
+                            android:textColorHighlight="@color/colorPrimaryDark"
+                            android:textColorLink="@color/colorPrimary"
+                            tools:ignore="Autofill" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -113,6 +128,21 @@
                             app:layout_constraintStart_toEndOf="@+id/text_date_settings_start"
                             tools:layout_conversion_absoluteHeight="19dp"
                             tools:layout_conversion_absoluteWidth="56dp" />
+
+                        <EditText
+                            android:id="@+id/end_validity_period_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:enabled="true"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/form_date_out_hint"
+                            android:inputType="date"
+                            android:textColor="@color/text_disabled"
+                            android:textColorHighlight="@color/colorPrimaryDark"
+                            android:textColorLink="@color/colorPrimary"
+                            app:layout_constraintTop_toBottomOf="@+id/text_date_settings_end"
+                            tools:ignore="Autofill" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
