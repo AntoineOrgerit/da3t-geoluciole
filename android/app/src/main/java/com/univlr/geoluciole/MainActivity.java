@@ -1,9 +1,5 @@
 package com.univlr.geoluciole;
 
-import com.univlr.geoluciole.location.LocationUpdatesService;
-import com.univlr.geoluciole.location.Utils;
-import com.univlr.geoluciole.permissions.Permission;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -15,12 +11,11 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
-
-import android.os.IBinder;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +24,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
+import com.univlr.geoluciole.location.LocationUpdatesService;
+import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
