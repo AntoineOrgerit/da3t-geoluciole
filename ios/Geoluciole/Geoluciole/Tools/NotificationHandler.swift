@@ -58,7 +58,7 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
 
         // gestion de l'émission
         // temps exprimé en secondes
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         let request = UNNotificationRequest(identifier: "testNotification", content: notificationContent, trigger: trigger)
 
