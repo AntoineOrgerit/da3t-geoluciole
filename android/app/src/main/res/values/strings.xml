@@ -65,6 +65,7 @@
     <string name="form_lastname">Lastname</string>
     <string name="form_firstname">FirstName</string>
     <string name="form_mail">Mail</string>
+    <string name="form_phone">Phone</string>
     <!-- DATE AND HOUR INFO TITLES -->
     <string name="form_in_city_title">Date and hour of arrival in La Rochelle</string>
     <string name="form_out_city_title">Date and hour of departure of La Rochelle</string>
@@ -91,6 +92,7 @@
         <item>With group</item>
         <item>Other</item>
     </string-array>
+    <string name="field_other_title">Other</string>
     <string name="presence_children">Presence of children under 13 years old*</string>
     <string name="presence_teens">Presence of teenagers (13–18 years old)*</string>
 
@@ -153,15 +155,15 @@
 
     <!-- DIALOG  -->
     <string name="back">Back</string>
-    <string name = "copy">Copy my username to the clipboard </string>
+    <string name="copy">Copy my username to the clipboard </string>
     <string name="sendMail">I continue</string>
     <string name="send">Send mail</string>
-    <string name = "copy_success"> The identifier has been copied to the clipboard </string>
+    <string name="copy_success"> The identifier has been copied to the clipboard </string>
     <string name="revoke_title">Revoque my consent</string>
     <string name="revoke_text_1">To revoke your consent and delete the data related to your activity please send an email to
         the following address : </string>
     <string name="revoke_text_2">By clicking continue you will be redirected to your email application (if linked account). </string>
-    <string name = "message_mail_revoke"> I request the deletion of my data. </string>
+    <string name="message_mail_revoke"> I request the deletion of my data. </string>
     <!-- PARTNER FRAGMENT -->
     <string name="logo_desc_larochelle">logo of La Rochelle Université</string>
     <string name="logo_desc_cnrs">logo of CNRS</string>

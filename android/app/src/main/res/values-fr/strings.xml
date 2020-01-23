@@ -65,6 +65,7 @@
     <string name="form_lastname">Nom</string>
     <string name="form_firstname">Prénom</string>
     <string name="form_mail">Email</string>
+    <string name="form_phone">Numéro de téléphone</string>
     <!-- DATE AND HOUR INFO TITLES -->
     <string name="form_in_city_title">Date et heure d\'arrivée à La Rochelle</string>
     <string name="form_out_city_title">Date et heure de départ de La Rochelle</string>
@@ -92,6 +93,7 @@
         <item>En groupe</item>
         <item>Autre</item>
     </string-array>
+    <string name="field_other_title">Autre</string>
     <string name="presence_children">Présence d\'enfants de moins de 13 ans*</string>
     <string name="presence_teens">Présence d\'adolescents (13–18 ans)*</string>
 

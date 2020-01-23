@@ -27,7 +27,8 @@ public class FormActivityStepOne extends AppCompatActivity {
     @NotEmpty(messageResId = R.string.form_err_required)
     @Email(messageResId = R.string.form_err_mail)
     private TextInputEditText email;
-
+    @NotEmpty(messageResId = R.string.form_err_required)
+    private TextInputEditText phone;
     // formulaire
     private FormModelWithConsent formWithoutConsent;
 
@@ -60,9 +61,10 @@ public class FormActivityStepOne extends AppCompatActivity {
      * Méthode pour initialiser les éléments UI
      */
     private void initUI() {
-        lastname = findViewById(R.id.lastname);
-        firstname = findViewById(R.id.firstname);
-        email = findViewById(R.id.email);
+        this.lastname = findViewById(R.id.lastname);
+        this.firstname = findViewById(R.id.firstname);
+        this.email = findViewById(R.id.email);
+        this.phone = findViewById(R.id.phone);
     }
 
     /**
@@ -73,9 +75,10 @@ public class FormActivityStepOne extends AppCompatActivity {
         if (formWithoutConsent == null) {
             formWithoutConsent = new FormModelWithConsent(UserPreferences.getInstance(this).getId());
         } else {
-            lastname.setText(formWithoutConsent.getLastname());
-            firstname.setText(formWithoutConsent.getFirstname());
-            email.setText(formWithoutConsent.getEmail());
+            this.lastname.setText(formWithoutConsent.getLastname());
+            this.firstname.setText(formWithoutConsent.getFirstname());
+            this.email.setText(formWithoutConsent.getEmail());
+            this.phone.setText(formWithoutConsent.getPhone());
             System.out.println("ETAPE 1/4 retrieved : " + formWithoutConsent);
         }
     }
@@ -101,12 +104,14 @@ public class FormActivityStepOne extends AppCompatActivity {
                 formWithoutConsent.setLastname(String.valueOf(lastname.getText()));
                 formWithoutConsent.setFirstname(String.valueOf(firstname.getText()));
                 formWithoutConsent.setEmail(String.valueOf(email.getText()));
+                formWithoutConsent.setPhone(String.valueOf(phone.getText()));
 
                 Toast.makeText(FormActivityStepOne.this,
                         "OnClickListener : " +
                                 "\nNom : " + lastname.getText() +
                                 "\nPrénom : " + firstname.getText() +
-                                "\nEmail : " + email.getText()
+                                "\nEmail : " + email.getText() +
+                                "\nPhone : " + phone.getText()
                         ,
                         Toast.LENGTH_SHORT).show();
                 validatorListener.setRedirect(true);

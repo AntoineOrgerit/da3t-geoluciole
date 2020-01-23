@@ -206,10 +206,10 @@ public class FormModel implements Serializable, BulkObject {
 
     public static String dateToString(Calendar c) {
         int day = c.get(Calendar.DAY_OF_MONTH);
-        String sday = day  < 10 ? "0"+day : ""+day;
+        String sday = day < 10 ? "0" + day : "" + day;
         int month = c.get(Calendar.MONTH);
-        String smonth = month < 10 ? "0"+(month+1) : ""+(month+1);
-        return  sday + "-" + smonth + "-" + c.get(Calendar.YEAR);
+        String smonth = month < 10 ? "0" + (month + 1) : "" + (month + 1);
+        return sday + "-" + smonth + "-" + c.get(Calendar.YEAR);
     }
 
     @Override
@@ -227,11 +227,11 @@ public class FormModel implements Serializable, BulkObject {
                 ", fiveTimes=" + fiveTimes +
                 ", twoMonths=" + twoMonths +
                 ", transport='" + transport + '\''
-        + '}';
+                + '}';
     }
 
     private String InJson(String value, int id_question) {
-        return "{\"id_user\":"+id_user+",\"id_question\":"+id_question+",\"reponse\":\""+value+"\"}";
+        return "{\"id_user\":" + id_user + ",\"id_question\":" + id_question + ",\"reponse\":\"" + value + "\"}";
     }
 
     private String booleanToString(boolean bool) {
@@ -241,8 +241,8 @@ public class FormModel implements Serializable, BulkObject {
     @Override
     public List<String> jsonFormatObject() {
         List<String> result = new ArrayList<>();
-        result.add(InJson(""+getTimestampStart(), ID_QUESTION_DATE_IN));
-        result.add(InJson(""+getTimestampEnd(), ID_QUESTION_DATE_OUT));
+        result.add(InJson("" + getTimestampStart(), ID_QUESTION_DATE_IN));
+        result.add(InJson("" + getTimestampEnd(), ID_QUESTION_DATE_OUT));
         result.add(InJson(withWhom, ID_QUESTION_WITH_WHOM));
         result.add(InJson(booleanToString(presenceChildren), ID_QUESTION_PRESENCE_CHILDREN));
         result.add(InJson(booleanToString(presenceTeens), ID_QUESTION_PRESENCE_TEEN));
@@ -275,19 +275,23 @@ public class FormModel implements Serializable, BulkObject {
     public void storeInstance(Context context) {
         FormModel.storeInstance(context, this);
     }
+
     protected String formatAccount(Context context, UserPreferences userPreferences) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",") ;
+        stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",");
         stringBuilder.append("\"date_gps\":").append(userPreferences.getDateConsentementGPS()).append(",");
-        stringBuilder.append("\"consentement_gps\":").append("\""+context.getResources().getString(R.string.rgpd_first_content_consentement)+"\"");
+        stringBuilder.append("\"type\":").append("\"android\"").append(",");
+        // TODO ajouter version du tel
+        // stringBuilder.append("\"model\":").append("android").append(",");
+        stringBuilder.append("\"consentement_gps\":").append("\"" + context.getResources().getString(R.string.rgpd_first_content_consentement) + "\"");
         return stringBuilder.toString();
     }
 
     public String getStringAccount(Context context, UserPreferences userPreferences) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-            stringBuilder.append(this.formatAccount(context, userPreferences));
-            stringBuilder.append("}");
+        stringBuilder.append(this.formatAccount(context, userPreferences));
+        stringBuilder.append("}");
         return stringBuilder.toString();
     }
 }
