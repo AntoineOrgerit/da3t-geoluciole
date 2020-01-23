@@ -151,6 +151,18 @@
     <string name="no_achievement_picture_description">Oops no badges</string>
     <string name="achievement_title">Badges obtained</string>
 
+    <!-- DIALOG  -->
+    <string name="back">Back</string>
+    <string name = "copy">Copy my username to the clipboard </string>
+    <string name="sendMail">I continue</string>
+    <string name="send">Send mail</string>
+    <string name = "copy_success"> The identifier has been copied to the clipboard </string>
+    <string name="revoke_title">Revoque my consent</string>
+    <string name="revoke_text_1">To revoke your consent and delete the data related to your activity please send an email to
+        the following address : </string>
+    <string name="revoke_text_2">By clicking continue you will be redirected to your email application (if linked account). </string>
+    <string name = "message_mail_revoke"> I request the deletion of my data. </string>
+
     <!-- PARTNER FRAGMENT -->
     <string name="logo_desc_larochelle">logo of La Rochelle Université</string>
     <string name="logo_desc_cnrs">logo of CNRS</string>
