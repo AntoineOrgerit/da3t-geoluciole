@@ -2,6 +2,7 @@
 "action_validate" = "Valider";
 "action_loader" = "Chargement";
 "action_accept" = "ACCEPTER";
+
 /*ALERT*/
 "alert_continue" = "Continuer";
 "alert_cancel" = "Annulez";
@@ -14,14 +15,17 @@
 
 /*TOAST*/
 "toast_copy_id" = "Identifiant copié";
+
 /*TAB BAR*/
 "title_home" = "Accueil";
 "title_achievements" = "Badges";
 "title_dashboard" = "Préférences";
+
 /*NOTIFICATION*/
 "location_notification_content_title" = "Géoluciole est en fonctionnement";
 "location_notification_content_text" = "Le suivi de votre parcours est en cours";
 "location_notification_button_text" = "Ouvrir l'application";
+
 /*RGPD*/
 "rgpd_title_primary" = "Consentement RGPD";
 "rgpd_title_project" = "PROJET Région Nouvelle-Aquitaine DA3T";
@@ -33,8 +37,9 @@
 "last_achievement_obtained" = "Badge récemment obtenu";
 "last_achievement_obtained_picture_description" = "Image du dernier badge obtenu par l'utilisateur.";
 "data_collection" = "Collecte des données";
-"data_collection_activated" = "Activé";
-"data_collection_deactivated" = "Désactivé";
+"data_collection_activated" = "Activée";
+"data_collection_deactivated" = "Désactivée";
+
 /*FORMULAIRE*/
 "form_title" = "Formulaire";
 "form_title_anonym" = "Formulaire anonyme";
@@ -81,6 +86,7 @@
 "form_err_mail" = "Adresse mail non valide";
 "form_err_radio" = "Veuillez sélectionner une réponse";
 "form_required" = "*champs requis";
+
 /*PREFERENCE*/
 "dates_settings" = "Durée d'engagement";
 "dates_settings_start" = "Date de début";
@@ -94,9 +100,10 @@
 "title_my_identifier" = "Mon identifiant";
 "no_identifier" = "No identifier";
 "send_data" = "Envoyer mes données";
+
 /*BADGES*/
 "text_stats_title" = "Statistiques";
 "text_distance" = "Distance parcourue :";
-"no_achievement_picture_description" = "Oups aucun badges";
+"no_achievement_picture_description" = "Aucun badges";
 "achievement_title" = "Badges obtenus";
 "text_badges" = "Mes badges";
