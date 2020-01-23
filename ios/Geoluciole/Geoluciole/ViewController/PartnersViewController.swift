@@ -41,7 +41,7 @@ class PartnersViewController: ParentModalViewController {
 
         let text = CustomUILabel()
         text.text = Tools.getTranslate(key: "rgpd_content")
-        text.font = UIFont.preferredFont(forTextStyle: .body)
+        text.setStyle(style: .bodyRegular)
         text.translatesAutoresizingMaskIntoConstraints = false
         text.textAlignment = .justified
         text.numberOfLines = 0

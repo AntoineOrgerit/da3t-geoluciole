@@ -11,9 +11,9 @@ import UIKit
 
 class CollectDataSwitchView: UIView {
 
-    fileprivate var titleLabel: UILabel!
-    fileprivate var offLabel: UILabel!
-    fileprivate var onLabel: UILabel!
+    fileprivate var titleLabel: CustomUILabel!
+    fileprivate var offLabel: CustomUILabel!
+    fileprivate var onLabel: CustomUILabel!
     fileprivate var switchData: UISwitch!
     fileprivate let userPrefs = UserPrefs.getInstance()
         
@@ -21,10 +21,9 @@ class CollectDataSwitchView: UIView {
         super.init(frame: frame)
         
         // Title label
-        self.titleLabel = UILabel()
+        self.titleLabel = CustomUILabel()
         self.titleLabel.text = Tools.getTranslate(key: "data_collection")
-        self.titleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-        self.titleLabel.adjustsFontForContentSizeCategory = true
+        self.titleLabel.setStyle(style: .subtitleBold)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.titleLabel)
         
@@ -33,18 +32,16 @@ class CollectDataSwitchView: UIView {
         self.addSubview(wrapSwitch)
         
         // Off Label
-        self.offLabel = UILabel()
+        self.offLabel = CustomUILabel()
         self.offLabel.text = Tools.getTranslate(key: "data_collection_deactivated")
-        self.offLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        self.offLabel.adjustsFontForContentSizeCategory = true
+        self.offLabel.setStyle(style: .bodyItalic)
         self.offLabel.translatesAutoresizingMaskIntoConstraints = false
         wrapSwitch.addSubview(self.offLabel)
         
         // On Label
-        self.onLabel = UILabel()
+        self.onLabel = CustomUILabel()
         self.onLabel.text = Tools.getTranslate(key: "data_collection_activated")
-        self.onLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        self.onLabel.adjustsFontForContentSizeCategory = true
+        self.onLabel.setStyle(style: .bodyItalic)
         self.onLabel.translatesAutoresizingMaskIntoConstraints = false
         wrapSwitch.addSubview(self.onLabel)
         

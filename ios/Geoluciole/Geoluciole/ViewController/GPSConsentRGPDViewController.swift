@@ -49,7 +49,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.textRGPD.numberOfLines = 0
         self.textRGPD.text = Tools.getTranslate(key: "rgpd_content")
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
-        self.textRGPD.font = UIFont.preferredFont(forTextStyle: .body)
+        self.textRGPD.setStyle(style: .bodyRegular)
         self.textRGPD.textAlignment = .justified
         self.contentView.addSubview(self.textRGPD)
 
@@ -151,7 +151,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.titreRGPD.textColor = .orange
         self.titreRGPD.textAlignment = .center
         self.titreRGPD.translatesAutoresizingMaskIntoConstraints = false
-        self.titreRGPD.font = UIFont.preferredFont(forTextStyle: .title1)
+        self.titreRGPD.setStyle(style: .titleBold)
         self.rootView.addSubview(self.titreRGPD)
 
         // sous titre
@@ -161,7 +161,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.subtitleRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.subtitleRGPD.text = Tools.getTranslate(key: "rgpd_title_project")
         self.subtitleRGPD.textColor = .backgroundDefault
-        self.subtitleRGPD.font = UIFont.preferredFont(forTextStyle: .title3)
+        self.subtitleRGPD.setStyle(style: .subtitleBold)
         self.rootView.addSubview(self.subtitleRGPD)
     }
 

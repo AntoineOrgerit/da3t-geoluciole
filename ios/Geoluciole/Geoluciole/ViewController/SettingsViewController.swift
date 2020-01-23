@@ -110,8 +110,9 @@ class SettingsViewController: ParentViewController {
         let partnersButton = CustomUIButton()
         partnersButton.setTitle(Tools.getTranslate(key: "partners"), for: .normal)
         partnersButton.onClick = { button in
-            let partenaire = PartnersViewController()
-            self.present(partenaire, animated: true, completion: nil)
+            let partners = PartnersViewController()
+            partners.modalPresentationStyle = .fullScreen
+            self.present(partners, animated: true, completion: nil)
         }
         partnersButton.setStyle(style: .settingLight)
         partnersButton.translatesAutoresizingMaskIntoConstraints = false

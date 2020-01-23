@@ -20,11 +20,9 @@ class DurationOfEngagementFormView: UIView {
         let minimumDate = Date()
         let minimumDateString = Tools.convertDate(date: minimumDate)
 
-        let title = UILabel()
+        let title = CustomUILabel()
         title.text = Tools.getTranslate(key: "dates_settings")
-        title.font = UIFont.preferredFont(forTextStyle: .title2)
-        title.adjustsFontForContentSizeCategory = true
-        title.font = UIFont.preferredFont(forTextStyle: .title2)
+        title.setStyle(style: .subtitleBold)
         title.translatesAutoresizingMaskIntoConstraints = false
         title.textAlignment = .left
         self.addSubview(title)

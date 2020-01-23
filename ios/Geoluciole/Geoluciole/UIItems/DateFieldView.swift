@@ -11,7 +11,7 @@ import UIKit
 
 class DateFieldView: UIView, UIGestureRecognizerDelegate {
 
-    fileprivate var titleLabel: UILabel!
+    fileprivate var titleLabel: CustomUILabel!
     fileprivate var dateLabel: UITextView!
     fileprivate var datePicker: UIDatePicker!
     var onDateValidate: ((Date) -> Void)?
@@ -20,9 +20,8 @@ class DateFieldView: UIView, UIGestureRecognizerDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.titleLabel = UILabel()
-        self.titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        self.titleLabel.adjustsFontForContentSizeCategory = true
+        self.titleLabel = CustomUILabel()
+        self.titleLabel.setStyle(style: .bodyRegular)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.text = ""
         self.titleLabel.textAlignment = .left
@@ -34,8 +33,7 @@ class DateFieldView: UIView, UIGestureRecognizerDelegate {
 
         self.dateLabel = UITextView()
         self.dateLabel.tintColor = .clear
-        self.dateLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        self.dateLabel.adjustsFontForContentSizeCategory = true
+        self.dateLabel.font = UIFont(name: "Roboto-Italic", size: 16)
         self.dateLabel.translatesAutoresizingMaskIntoConstraints = false
         self.dateLabel.text = Tools.convertDate(date: Date())
         self.dateLabel.isScrollEnabled = false

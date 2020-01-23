@@ -12,7 +12,7 @@ import UIKit
 class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
 
     fileprivate var checkbox: CheckBoxView!
-    fileprivate var optionLabel: UILabel!
+    fileprivate var optionLabel: CustomUILabel!
     var onCheckChange: ((CheckBoxFieldView) -> Void)?
 
     override init(frame: CGRect) {
@@ -25,11 +25,10 @@ class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.checkbox)
 
-        self.optionLabel = UILabel()
+        self.optionLabel = CustomUILabel()
         self.optionLabel.numberOfLines = 0
         self.optionLabel.textAlignment = .justified
-        self.optionLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        self.optionLabel.adjustsFontForContentSizeCategory = true
+        self.optionLabel.setStyle(style: .bodyItalic)
         self.optionLabel.translatesAutoresizingMaskIntoConstraints = false
         self.optionLabel.text = ""
         self.addSubview(self.optionLabel)

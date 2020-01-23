@@ -98,6 +98,12 @@ class HomeViewController: ParentViewController {
         let send = self.userPrefs.bool(forKey: "send_data")
         self.collectDataSwitchView.setSwitch(value: send)
         self.calcProgress()
+
+        if let _ = self.userPrefs.object(forKey: UserPrefs.KEY_LAST_BADGE) {
+            self.lastTrophyView.setImage(nom: self.userPrefs.string(forKey: UserPrefs.KEY_LAST_BADGE))
+        } else {
+            self.lastTrophyView.setImage(nom: "no-badge")
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

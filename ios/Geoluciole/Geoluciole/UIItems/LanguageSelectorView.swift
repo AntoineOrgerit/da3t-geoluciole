@@ -25,9 +25,8 @@ class LanguageSelectorView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        let titleLabel = UILabel()
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-        titleLabel.adjustsFontForContentSizeCategory = true
+        let titleLabel = CustomUILabel()
+        titleLabel.setStyle(style: .subtitleBold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = Tools.getTranslate(key: "app_language")
         self.addSubview(titleLabel)
