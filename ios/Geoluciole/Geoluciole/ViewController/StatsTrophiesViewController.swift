@@ -27,7 +27,7 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
         self.rootView.addSubview(self.statView)
 
         let label = CustomUILabel()
-        label.text = "Mes badges"
+        label.text =  Tools.getTranslate(key: "text_badges")
         label.setStyle(style: .subtitleBold)
         label.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(label)
