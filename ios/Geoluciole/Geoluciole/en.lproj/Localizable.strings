@@ -103,7 +103,7 @@
 
 /*BADGES*/
 
-"text_stats_title" = "Statistiques";
+"text_stats_title" = "Statistics";
 "text_distance" = "Distance traveled :";
 "no_achievement_picture_description" = "Oops no badges";
 "achievement_title" = "Badges obtained";
