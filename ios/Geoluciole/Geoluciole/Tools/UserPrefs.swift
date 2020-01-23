@@ -25,9 +25,8 @@ class UserPrefs {
     static let KEY_DATE_END_ENGAGEMENT = "date_end_engagement"
     static let APPLE_LANGUAGE_KEY = "AppleLanguages"
     static let KEY_LAST_BADGE = "last_badge"
-    
+
     fileprivate init() {
-        self.userPrefs = UserDefaults.standard
 
         // si la durée d'engagement est renseigné
         if self.userPrefs.object(forKey: UserPrefs.KEY_DUREE_ENGAGEMENT) == nil {
@@ -100,8 +99,8 @@ class UserPrefs {
     func object(forKey key: String) -> Any? {
         return self.userPrefs.object(forKey: key)
     }
-    
-    func sync(){
+
+    func sync() {
         self.userPrefs.synchronize()
     }
 }
