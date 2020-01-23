@@ -114,7 +114,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
         // start
         if (form.getDateIn().getTime() < c.getTime().getTime()) {
             this.startDate = c.getTime();
-            this.startTime = new Time(8,0);
+            this.startTime = new Time(c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE));
         } else {
             this.startDate = form.getDateIn();
             this.startTime = form.getTimeIn();
@@ -270,6 +270,8 @@ public class FormActivityStepEnd extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                savePeriod();
+
                 // sauvegarde du formulaire
                 form.storeInstance(FormActivityStepEnd.this);
                 // envoi du formulaire
@@ -277,8 +279,6 @@ public class FormActivityStepEnd extends AppCompatActivity {
 
                 // send http compte
                 HttpProvider.sendAccount(FormActivityStepEnd.this, form.getStringAccount(FormActivityStepEnd.this, userPreferences));
-
-                savePeriod();
 
                 Intent intent = new Intent(FormActivityStepEnd.this, MainActivity.class);
 

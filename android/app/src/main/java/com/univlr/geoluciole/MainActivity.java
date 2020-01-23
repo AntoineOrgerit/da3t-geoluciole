@@ -36,6 +36,7 @@ public class MainActivity extends LocationActivity {
 
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
+    private UserPreferences userPreferences;
 
     // The BroadcastReceiver used to listen from broadcasts from the service.
     private MyReceiver myReceiver;
@@ -93,6 +94,12 @@ public class MainActivity extends LocationActivity {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
                         viewPager.setCurrentItem(0);
+                        try {
+                            HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                            fragment.updateProgressBar();
+                        } catch (NullPointerException npe) {
+                            //do nothing
+                        }
                         break;
                     case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
@@ -120,7 +127,14 @@ public class MainActivity extends LocationActivity {
                 Log.d(TAG, "onPageSelected: " + position);
                 navView.getMenu().getItem(position).setChecked(true);
                 prevMenuItem = navView.getMenu().getItem(position);
-
+                if (position == 0) {
+                    try {
+                        HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        fragment.updateProgressBar();
+                    } catch (NullPointerException npe) {
+                        //do nothing
+                    }
+                }
             }
 
 
