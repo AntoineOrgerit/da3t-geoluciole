@@ -2,10 +2,10 @@ package com.univlr.geoluciole.form;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -25,6 +25,8 @@ import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.UserPreferences;
 
 public class FormActivityStepThree extends AppCompatActivity {
+    private static final String TAG = FormActivityStepThree.class.getSimpleName();
+
     // variable title
     private TextView title;
     // variable step
@@ -127,8 +129,7 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void formSetter() {
         form = (FormModel) getIntent().getSerializableExtra("Form");
-        //form = new FormModel("123");
-        System.out.println("ETAPE 3/4 retrieved : " + form);
+        Log.i(TAG, "formSetter, formulaire chargé : " + form);
     }
 
     /**
@@ -199,20 +200,20 @@ public class FormActivityStepThree extends AppCompatActivity {
         int selectedIdFiveTimes = radiogroupFiveTimes.getCheckedRadioButtonId();
         int selectedIdTwoMonths = radiogroupTwoMonths.getCheckedRadioButtonId();
 
-        // set spinner to form
+        // si l'item sélectionné dans le spinner with whom est identique à "Autre" on récupère la valeur
+        // du champ rempli par l'utilisateur sinon on prend la valeur du spinner
         if (String.valueOf(spinnerWhomList.getSelectedItem()).equalsIgnoreCase(getString(R.string.field_other_title))) {
             form.setWithWhom(String.valueOf(otherWithWhom.getText()));
         } else {
             form.setWithWhom(String.valueOf(spinnerWhomList.getSelectedItem()));
         }
+        // si l'item sélectionné dans le spinner transport est identique à "Autre" on récupère la valeur
+        // du champ rempli par l'utilisateur sinon on prend la valeur du spinner
         if (String.valueOf(spinnerTransportList.getSelectedItem()).equalsIgnoreCase(getString(R.string.field_other_title))) {
             form.setTransport(String.valueOf(otherTransport.getText()));
         } else {
             form.setTransport(String.valueOf(spinnerTransportList.getSelectedItem()));
         }
-
-        System.out.println(form.getWithWhom());
-        System.out.println(form.getTransport());
 
         // find the radiobutton by returned id - set the form
         form.setPresenceChildren(getRadioButtonValue(selectedIdPresenceChildren));
@@ -255,12 +256,7 @@ public class FormActivityStepThree extends AppCompatActivity {
 
     private Boolean getRadioButtonValue(int selectedId) {
         RadioButton radioResponse = (RadioButton) findViewById(selectedId);
-        if (radioResponse != null) {
-            if (String.valueOf(radioResponse.getText()).equalsIgnoreCase(getString(R.string.form_yes_response))) {
-                return true;
-            }
-        }
-        return false;
+        return (radioResponse != null && String.valueOf(radioResponse.getText()).equalsIgnoreCase(getString(R.string.form_yes_response)));
     }
 
     public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener(final TextInputLayout inputLayout) {
@@ -278,7 +274,7 @@ public class FormActivityStepThree extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
+                // do nothing
             }
         };
     }

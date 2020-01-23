@@ -29,7 +29,7 @@ public class FormModel implements Serializable, BulkObject {
     private static final int ID_QUESTION_TWO_MONTH = 9;
     private static final int ID_QUESTION_TRANSPORT = 10;
 
-    private String id_user;
+    private String idUser;
     private Date dateIn;
     private Time timeIn;
     private Date dateOut;
@@ -44,8 +44,13 @@ public class FormModel implements Serializable, BulkObject {
     private boolean twoMonths;
     private String transport;
 
-    public FormModel(String id_user) {
-        this.id_user = id_user;
+    private String device;
+    private String version;
+
+    public FormModel(String idUser) {
+        this.idUser = idUser;
+        this.device = "Inconnu";
+        this.version = "";
     }
 
     public String getWithWhom() {
@@ -161,6 +166,22 @@ public class FormModel implements Serializable, BulkObject {
         this.presenceTeens = presenceTeens;
     }
 
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
     public static String datetimeToString(Date date, Time time) {
         return dateToString(date) + " " + timeToString(time);
     }
@@ -230,8 +251,8 @@ public class FormModel implements Serializable, BulkObject {
                 + '}';
     }
 
-    private String InJson(String value, int id_question) {
-        return "{\"id_user\":" + id_user + ",\"id_question\":" + id_question + ",\"reponse\":\"" + value + "\"}";
+    private String InJson(String value, int idQuestion) {
+        return "{\"id_user\":" + idUser + ",\"id_question\":" + idQuestion + ",\"reponse\":\"" + value + "\"}";
     }
 
     private String booleanToString(boolean bool) {
@@ -281,8 +302,8 @@ public class FormModel implements Serializable, BulkObject {
         stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",");
         stringBuilder.append("\"date_gps\":").append(userPreferences.getDateConsentementGPS()).append(",");
         stringBuilder.append("\"type\":").append("\"android\"").append(",");
-        // TODO ajouter version du tel
-        // stringBuilder.append("\"model\":").append("android").append(",");
+        stringBuilder.append("\"model\":").append("\"" + this.device + "\"").append(",");
+        stringBuilder.append("\"version\":").append("\"" + this.version + "\"").append(",");
         stringBuilder.append("\"consentement_gps\":").append("\"" + context.getResources().getString(R.string.rgpd_first_content_consentement) + "\"");
         return stringBuilder.toString();
     }

@@ -1,6 +1,8 @@
 package com.univlr.geoluciole.form;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.jaredrummler.android.device.DeviceName;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -18,6 +21,7 @@ import com.univlr.geoluciole.model.UserPreferences;
 
 
 public class FormActivityStepOne extends AppCompatActivity {
+    private static final String TAG = FormActivityStepOne.class.getSimpleName();
 
     // variables infos générales
     @NotEmpty(messageResId = R.string.form_err_required)
@@ -51,10 +55,6 @@ public class FormActivityStepOne extends AppCompatActivity {
         btnContinue.setOnClickListener(getPersonalData());
         // init validator
         initValidatorListener();
-        // lastname.setText(formWithoutConsent.getLastname());
-        // firstname.setText(formWithoutConsent.getFirstname());
-        // email.setText(formWithoutConsent.getEmail());
-
     }
 
     /**
@@ -79,7 +79,7 @@ public class FormActivityStepOne extends AppCompatActivity {
             this.firstname.setText(formWithoutConsent.getFirstname());
             this.email.setText(formWithoutConsent.getEmail());
             this.phone.setText(formWithoutConsent.getPhone());
-            System.out.println("ETAPE 1/4 retrieved : " + formWithoutConsent);
+            Log.i(TAG, "formSetter, formulaire chargé :" + formWithoutConsent);
         }
     }
 
@@ -101,6 +101,16 @@ public class FormActivityStepOne extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // récupération des infos du device
+                DeviceName.with(FormActivityStepOne.this).request(new DeviceName.Callback() {
+                    @Override
+                    public void onFinished(DeviceName.DeviceInfo info, Exception error) {
+                        String name = info.marketName;
+                        String model = info.model;
+                        formWithoutConsent.setDevice(name + "|" + model);
+                    }
+                });
+                formWithoutConsent.setVersion(getAndroidVersion());
                 formWithoutConsent.setLastname(String.valueOf(lastname.getText()));
                 formWithoutConsent.setFirstname(String.valueOf(firstname.getText()));
                 formWithoutConsent.setEmail(String.valueOf(email.getText()));
@@ -122,4 +132,7 @@ public class FormActivityStepOne extends AppCompatActivity {
         };
     }
 
+    public String getAndroidVersion() {
+        return Build.VERSION.RELEASE;
+    }
 }
