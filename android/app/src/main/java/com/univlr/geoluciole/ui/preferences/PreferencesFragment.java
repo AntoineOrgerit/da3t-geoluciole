@@ -32,6 +32,8 @@ import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.sender.HttpProvider;
 
+import java.util.Locale;
+
 
 public class PreferencesFragment extends Fragment {
     private static final String LANG_FR = "fr";
