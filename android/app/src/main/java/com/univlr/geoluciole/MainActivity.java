@@ -245,8 +245,8 @@ public class MainActivity extends LocationActivity {
         public void onReceive(Context context, Intent intent) {
             Location location = intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
             if (location != null) {
-                /*Toast.makeText(MainActivity.this, Utils.getLocationText(location),
-                        Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(MainActivity.this, Utils.getLocationText(location),
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
