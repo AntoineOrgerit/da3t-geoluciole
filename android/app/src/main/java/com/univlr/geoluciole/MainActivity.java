@@ -27,7 +27,6 @@ import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
@@ -58,7 +57,6 @@ public class MainActivity extends LocationActivity {
 
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
-    private UserPreferences userPreferences;
 
     // The BroadcastReceiver used to listen from broadcasts from the service.
     private MyReceiver myReceiver;
