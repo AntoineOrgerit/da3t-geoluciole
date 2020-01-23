@@ -17,7 +17,7 @@ class UserPrefs {
     static let KEY_TYPE_ENGAGEMENT = "type_engagement"
     static let KEY_SEND_DATA = "send_data"
     static let KEY_LAST_POINT = "last_point"
-    static let KEY_DISTANCE = "distance"
+    static let KEY_DISTANCE_TRAVELED = "distance"
     static let KEY_IDENTIFIER = "identifier"
     static let KEY_RGPD_CONSENT = "rgpd_consent"
     static let KEY_FORMULAIRE_CONSENT = "formulaire_consent"
@@ -98,6 +98,13 @@ class UserPrefs {
 
     func object(forKey key: String) -> Any? {
         return self.userPrefs.object(forKey: key)
+    }
+    
+    func double(forKey key: String, defaultValue: Double = 0) -> Double {
+        if self.userPrefs.object(forKey: key) != nil {
+            return self.userPrefs.double(forKey: key)
+        }
+        return defaultValue
     }
 
     func sync() {

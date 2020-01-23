@@ -35,7 +35,7 @@ class BadgesTable: Table {
             TableColumn(columnName: BadgesTable.LATITUDE, columnType: "DOUBLE", canBeNull: true),
             TableColumn(columnName: BadgesTable.LONGITUDE, columnType: "DOUBLE", canBeNull: true),
             TableColumn(columnName: BadgesTable.PROXIMITY, columnType: "INTEGER", canBeNull: true),
-            TableColumn(columnName: BadgesTable.DISTANCE, columnType: "INTEGER", canBeNull: true),
+            TableColumn(columnName: BadgesTable.DISTANCE, columnType: "DOUBLE", canBeNull: true),
             TableColumn(columnName: BadgesTable.RESOURCE, columnType: "VARCHAR", canBeNull: false),
             TableColumn(columnName: BadgesTable.IS_OBTAIN, columnType: "BOOLEAN", canBeNull: false)
         ]

@@ -148,7 +148,7 @@ class Tools {
     }
 
     static func getDistStat() -> Double {
-        guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE) as? Double else {
+        guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE_TRAVELED) as? Double else {
             return 0
         }
 

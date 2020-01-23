@@ -94,7 +94,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                     LocationTable.PRECISION: currentLocation.precision, // rayon d'un cercle en m
                     LocationTable.VITESSE: currentLocation.vitesse // vitesse en m/s
                 ])
-                
+
                 updateDistanceParcourue(newDistance: distance)
 
                 // on sauvegarde la dernière position si elle semble cohérente
@@ -106,16 +106,16 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
     /// Mise à jour de la distance parcourue
     fileprivate func updateDistanceParcourue(newDistance: Double) {
         // on regarde si on avait une valeur auparavant
-        let distanceUserPrefs = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE)
+        let distanceUserPrefs = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE_TRAVELED)
 
         // Si on avait une valeur, on incrémente la valeur
         if distanceUserPrefs != nil {
             var distanceParcourue = distanceUserPrefs as! Double
             distanceParcourue += newDistance
-            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DISTANCE, value: distanceParcourue)
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DISTANCE_TRAVELED, value: distanceParcourue)
             // Sinon, on prend la valeur passé en paramètre
         } else {
-            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DISTANCE, value: newDistance)
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DISTANCE_TRAVELED, value: newDistance)
         }
     }
 
@@ -152,7 +152,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
             // Si on a une ancienne position, on lance le calcul de distance
             if let lastPosition = getLastLocation() {
                 calculateDistance(currentLocation: currentLocation, lastLocation: lastPosition)
-            // Si on a pas de position plus ancienne, on insert les données
+                // Si on a pas de position plus ancienne, on insert les données
             } else {
                 LocationTable.getInstance().insertQuery([
                     LocationTable.ALTITUDE: currentLocation.altitude,
@@ -162,7 +162,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                     LocationTable.PRECISION: currentLocation.precision, // rayon d'un cercle en m
                     LocationTable.VITESSE: currentLocation.vitesse // vitesse en m/s
                 ])
-                
+
                 // on sauvegarde la dernière position si elle semble cohérente
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_POINT, value: currentLocation.toDictionary())
             }
@@ -284,11 +284,52 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
 
             // On arrete de suivre la region
             LocationHandler.getInstance().locationManager.stopMonitoring(for: region)
-            
+
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_BADGE, value: badge.resource)
 
             // Send notification
-            NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: badge.name, bodyMessage: badge.description)
+            NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: badge.name, bodyMessage: badge.description, idNotification: String(badge!.id))
+        }
+    }
+
+    fileprivate func checkDistanceBadges() {
+        var badgeObtained = [Badge]()
+        let distanceTraveledActually = UserPrefs.getInstance().double(forKey: UserPrefs.KEY_DISTANCE_TRAVELED)
+
+        BadgesTable.getInstance().selectQuery([], where: [WhereCondition(onColumn: BadgesTable.TYPE, withCondition: "distance"), WhereCondition(onColumn: BadgesTable.IS_OBTAIN, withCondition: 0)]) { (success, queryResult, error) in
+
+            if let error = error {
+                if Constantes.DEBUG {
+                    print("\(#function) ERROR : " + error.localizedDescription)
+                }
+                return
+            }
+
+            for object in queryResult {
+                let badge = Badge(object)
+
+                if let distance = badge.distance, distanceTraveledActually >= distance {
+                    badgeObtained.append(badge)
+                }
+            }
+        }
+
+        // On update la base de données
+        for badge in badgeObtained {
+            BadgesTable.getInstance().updateQuery(updateConditions: [UpdateConditions(onColumn: BadgesTable.IS_OBTAIN, newValue: true)], where: [WhereCondition(onColumn: BadgesTable.ID, withCondition: badge.id), WhereCondition(onColumn: BadgesTable.IS_OBTAIN, withCondition: 0)]) { success, error in
+
+                if let error = error {
+                    if Constantes.DEBUG {
+                        print("\(#function) ERROR : " + error.localizedDescription)
+                    }
+                    return
+                }
+
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_BADGE, value: badge.resource)
+
+                // Send notification
+                NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: badge.name, bodyMessage: badge.description, idNotification: String(badge.id))
+            }
         }
     }
 }

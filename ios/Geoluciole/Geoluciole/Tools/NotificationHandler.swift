@@ -70,7 +70,7 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         }
     }
 
-    func sendBadgeUnlocked(titleMessage: String, bodyMessage: String) {
+    func sendBadgeUnlocked(titleMessage: String, bodyMessage: String, idNotification: String) {
         // Création de la notification
         let notificationContent = UNMutableNotificationContent()
 
@@ -85,10 +85,10 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
                 notificationContent.attachments = [attachment]
             }
         }
-        
+
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
-        let request = UNNotificationRequest(identifier: "badgeNotification", content: notificationContent, trigger: trigger)
+        let request = UNNotificationRequest(identifier: idNotification, content: notificationContent, trigger: trigger)
 
         // on post la notification pour la prendre en compte
         userNotificationCenter.add(request) { (error) in
