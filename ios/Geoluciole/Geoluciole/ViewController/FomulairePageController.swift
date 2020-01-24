@@ -16,21 +16,53 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let firstPage = FirstPageFormulaireController()
         let secondPage = SecondPageFormulaire()
         let thirdPage = ThirdPageFormulaire()
         let fourthPage = FourthPageFormulaire()
 
+        firstPage.onNextButton = { [weak self] in
+            guard let strongSelf = self else { return }
+
+            strongSelf.setViewControllers([secondPage], direction: .forward, animated: true, completion: nil)
+        }
+
+        secondPage.onPreviousButton = { [weak self] in
+            guard let strSelf = self else {
+                return
+            }
+            strSelf.setViewControllers([firstPage], direction: .reverse, animated: true, completion: nil)
+        }
+        secondPage.onNextButton = {
+            [weak self] in
+            guard let strongSelf = self else { return }
+
+            strongSelf.setViewControllers([thirdPage], direction: .forward, animated: true, completion: nil)
+        }
+        thirdPage.onPreviousButton = { [weak self] in
+            guard let strSelf = self else {
+                return
+            }
+            strSelf.setViewControllers([secondPage], direction: .reverse, animated: true, completion: nil)
+        }
+        thirdPage.onNextButton = {
+            [weak self] in
+            guard let strongSelf = self else { return }
+
+            strongSelf.setViewControllers([fourthPage], direction: .forward, animated: true, completion: nil)
+        }
+        
+        fourthPage.prevPage = {
+            [weak self] in
+            guard let strongSelf = self else { return }
+
+            strongSelf.setViewControllers([thirdPage], direction: .reverse, animated: true, completion: nil)
+        }
 
         //si le consentement de récupération des données du formulaire
         if UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
-            let v = FirstPageFormulaireController()
-
-            v.onNextButton = { [weak self] in
-                guard let strongSelf = self else { return }
-                
-                strongSelf.setViewControllers([secondPage], direction: .forward, animated: true, completion: nil)
-            }
-            pageAffichable.append(v)
+            pageAffichable.append(firstPage)
         }
         pageAffichable.append(secondPage)
         pageAffichable.append(thirdPage)
@@ -42,14 +74,6 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
         if let firstViewController = pageAffichable.first {
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
-//
-//        pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - 50, width: UIScreen.main.bounds.width, height: 50))
-//        pageControl.numberOfPages = pageAffichable.count
-//        pageControl.currentPage = 0
-//        pageControl.tintColor = .black
-//        pageControl.pageIndicatorTintColor = .black
-//        pageControl.currentPageIndicatorTintColor = .backgroundDefault
-//        self.view.addSubview(pageControl)
 
     }
 

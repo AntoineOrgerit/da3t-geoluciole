@@ -10,58 +10,113 @@ import Foundation
 import UIKit
 
 class CustomQuestionForm: UIView {
+    
+    let Oui = CheckBoxFieldView()
+    let Non = CheckBoxFieldView()
+    let question = CustomUILabel()
+    var reponse = UIView()
+    
+    init(quest: String, typeResp: TypeReponse) {
+        super.init(frame: .zero)
+        
+        self.setupQuestion(Question: quest, typeReponse: typeResp)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     enum TypeReponse {
         case radioButton, checkBox
     }
 
 
-    func setupQuestion(Question: String, typeResp: TypeReponse) {
+    func setupQuestion(Question: String, typeReponse: TypeReponse) {
+
         let question = CustomUILabel()
-        question.setStyleLabel(style: .Form)
+        question.setStyleLabel(style: .FormTitle2)
+        question.numberOfLines = 0
         question.text = Question
-        
+        question.translatesAutoresizingMaskIntoConstraints = false
+
         let reponses = UIView()
         reponses.translatesAutoresizingMaskIntoConstraints = false
 
-        let choix1 = CustomUIButton()
-        let choix3 = CheckBoxFieldView()
-        choix3.setTitleOption(titleOption: Question)
-        let choix2 = CustomUIButton()
-        switch typeResp {
-        case .radioButton:
-            choix1.setStyle(style: .Radio)
-            choix2.setStyle(style: .Radio)
-        case .checkBox: break
-            
+        Oui.setTitleOption(titleOption: "OUI")
+        Oui.translatesAutoresizingMaskIntoConstraints = false
+        
+        Oui.onCheckChange = { [weak self] checkBox in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.changeCheck(CheckBox:checkBox)
         }
-        reponses.addSubview(choix1)
-        reponses.addSubview(choix2)
+        
+        Non.setTitleOption(titleOption: "NON")
+        Non.translatesAutoresizingMaskIntoConstraints = false
+        Non.onCheckChange = { [weak self] checkBox in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.changeCheck(CheckBox:checkBox)
+        }
+        
+        switch typeReponse {
+        case .radioButton:
+            Oui.setStyle(style: .circle)
+            Non.setStyle(style: .circle)
+        case .checkBox: break
+
+        }
+
+        reponses.addSubview(Oui)
+        reponses.addSubview(Non)
+
         NSLayoutConstraint.activate([
-            choix1.topAnchor.constraint(equalTo: reponses.topAnchor),
-            choix1.leftAnchor.constraint(equalTo: reponses.leftAnchor),
-            choix1.widthAnchor.constraint(equalTo: reponses.widthAnchor, multiplier: 0.5),
-            choix1.heightAnchor.constraint(equalToConstant: 25),
+            Oui.centerYAnchor.constraint(equalTo: reponses.centerYAnchor),
+            Oui.rightAnchor.constraint(equalTo: reponses.centerXAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            Oui.leftAnchor.constraint(equalTo: reponses.leftAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+
+            Non.centerYAnchor.constraint(equalTo: reponses.centerYAnchor),
+            Non.leftAnchor.constraint(equalTo: reponses.centerXAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            Non.rightAnchor.constraint(equalTo: reponses.rightAnchor),
             
-            choix2.topAnchor.constraint(equalTo: reponses.topAnchor),
-            choix2.leftAnchor.constraint(equalTo: choix1.rightAnchor),
-            choix2.widthAnchor.constraint(equalTo: reponses.widthAnchor, multiplier: 0.5),
-            choix2.heightAnchor.constraint(equalToConstant: 25),
+            reponses.heightAnchor.constraint(equalTo: Oui.heightAnchor)
+            
         ])
+        
         self.addSubview(question)
         self.addSubview(reponses)
-        
+
         NSLayoutConstraint.activate([
             question.topAnchor.constraint(equalTo: self.topAnchor),
-            question.leftAnchor.constraint(equalTo: self.leftAnchor),
-            question.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5),
-            question.widthAnchor.constraint(equalTo: self.widthAnchor),
-            
-            reponses.topAnchor.constraint(equalTo: question.bottomAnchor),
-            reponses.leftAnchor.constraint(equalTo: self.leftAnchor),
-            reponses.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5),
-            reponses.widthAnchor.constraint(equalTo: self.widthAnchor)
-            
+            question.leftAnchor.constraint(equalTo: self.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            question.rightAnchor.constraint(equalTo: self.rightAnchor,constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+
+            reponses.topAnchor.constraint(equalTo: question.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            reponses.leftAnchor.constraint(equalTo: self.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            reponses.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+
+            self.topAnchor.constraint(equalTo: question.topAnchor),
+            self.bottomAnchor.constraint(equalTo: reponses.bottomAnchor)
+
         ])
+    }
+    func changeCheck(CheckBox:CheckBoxFieldView) {
+        if CheckBox == self.Oui {
+            self.Oui.setChecked(checked: true)
+            self.Non.setChecked(checked: false)
+        }
+        if CheckBox == self.Non {
+            self.Oui.setChecked(checked: false)
+            self.Non.setChecked(checked: true)
+        }
+    }
+    func getReponseCheck() -> Bool{
+        if self.Oui.isChecked() && !self.Non.isChecked(){
+            return true
+        } else {
+            return false
+        }
     }
 }

@@ -41,4 +41,6 @@ class Constantes {
     // CHANGEMENT LANGUE
     static let LANGUAGE_FRENCH = "Français"
     static let LANGUAGE_ENGLISH = "Anglais"
+    
+    static let TITRE_FORMULAIRE = "Formulaire"
 }

@@ -66,8 +66,9 @@
 		62D37A9D23D0A17F00F079C0 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D37A9C23D0A17F00F079C0 /* LocationHandler.swift */; };
 		62D37A9F23D0A4B300F079C0 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D37A9E23D0A4B300F079C0 /* NotificationHandler.swift */; };
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
+		6F2A961123DA45620036EF73 /* FormulaireDateHeurePage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2A961023DA45620036EF73 /* FormulaireDateHeurePage2.swift */; };
 		6F34FF5E23D724B700C433A5 /* CustomTextFieldForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34FF5D23D724B700C433A5 /* CustomTextFieldForm.swift */; };
-		6F34FF6023D7261B00C433A5 /* CustomUILabelForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34FF5F23D7261B00C433A5 /* CustomUILabelForm.swift */; };
+		6F48FA6323D9E176000709A4 /* FormZoneDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F48FA6223D9E176000709A4 /* FormZoneDate.swift */; };
 		6F4A76E523D7994800657E00 /* CustomTitleForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A76E423D7994800657E00 /* CustomTitleForm.swift */; };
 		6F4A76E723D7A34A00657E00 /* CustomQuestionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A76E623D7A34A00657E00 /* CustomQuestionForm.swift */; };
 		6F7C067523D5F948006924F6 /* FomulairePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C067423D5F948006924F6 /* FomulairePageController.swift */; };
@@ -75,8 +76,11 @@
 		6F7C068423D658ED006924F6 /* SecondPageFormulaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068323D658ED006924F6 /* SecondPageFormulaire.swift */; };
 		6F7C068623D658EF006924F6 /* ThirdPageFormulaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068523D658EF006924F6 /* ThirdPageFormulaire.swift */; };
 		6F7C068923D65916006924F6 /* FourthPageFormulaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068823D65916006924F6 /* FourthPageFormulaire.swift */; };
+		6F83F17123D9F3E5003E7931 /* FormDateFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F83F17023D9F3E5003E7931 /* FormDateFieldView.swift */; };
 		6F92E55D23D06B9C00BEF169 /* LogoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F92E55C23D06B9C00BEF169 /* LogoCollectionCell.swift */; };
 		6FACFC6C23CF58B50036881E /* PartnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FACFC6B23CF58B50036881E /* PartnersViewController.swift */; };
+		6FCA03B023D89A4A00589C27 /* FormulaireScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA03AF23D89A4A00589C27 /* FormulaireScrollView.swift */; };
+		6FCA03B223D8A4A300589C27 /* BoutonsPrevNext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA03B123D8A4A300589C27 /* BoutonsPrevNext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,8 +152,9 @@
 		62D37A9C23D0A17F00F079C0 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		62D37A9E23D0A4B300F079C0 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		6F2A961023DA45620036EF73 /* FormulaireDateHeurePage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaireDateHeurePage2.swift; sourceTree = "<group>"; };
 		6F34FF5D23D724B700C433A5 /* CustomTextFieldForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldForm.swift; sourceTree = "<group>"; };
-		6F34FF5F23D7261B00C433A5 /* CustomUILabelForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUILabelForm.swift; sourceTree = "<group>"; };
+		6F48FA6223D9E176000709A4 /* FormZoneDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormZoneDate.swift; sourceTree = "<group>"; };
 		6F4A76E423D7994800657E00 /* CustomTitleForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleForm.swift; sourceTree = "<group>"; };
 		6F4A76E623D7A34A00657E00 /* CustomQuestionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionForm.swift; sourceTree = "<group>"; };
 		6F7C067423D5F948006924F6 /* FomulairePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FomulairePageController.swift; sourceTree = "<group>"; };
@@ -157,8 +162,11 @@
 		6F7C068323D658ED006924F6 /* SecondPageFormulaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageFormulaire.swift; sourceTree = "<group>"; };
 		6F7C068523D658EF006924F6 /* ThirdPageFormulaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPageFormulaire.swift; sourceTree = "<group>"; };
 		6F7C068823D65916006924F6 /* FourthPageFormulaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthPageFormulaire.swift; sourceTree = "<group>"; };
+		6F83F17023D9F3E5003E7931 /* FormDateFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDateFieldView.swift; sourceTree = "<group>"; };
 		6F92E55C23D06B9C00BEF169 /* LogoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCollectionCell.swift; sourceTree = "<group>"; };
 		6FACFC6B23CF58B50036881E /* PartnersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersViewController.swift; sourceTree = "<group>"; };
+		6FCA03AF23D89A4A00589C27 /* FormulaireScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaireScrollView.swift; sourceTree = "<group>"; };
+		6FCA03B123D8A4A300589C27 /* BoutonsPrevNext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoutonsPrevNext.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +230,7 @@
 		236EE58623CB1D360000ADE3 /* CustomItems */ = {
 			isa = PBXGroup;
 			children = (
+				6F83F16F23D9F3BB003E7931 /* Formulaire */,
 				235D45D223C930BC00992B7B /* CustomUIImageView.swift */,
 				2392A4C723CCC2E1006606B5 /* CustomUILabel.swift */,
 				6263427323CCB926004DFD43 /* CustomUIButton.swift */,
@@ -229,9 +238,10 @@
 				62D37A9C23D0A17F00F079C0 /* LocationHandler.swift */,
 				62D37A9E23D0A4B300F079C0 /* NotificationHandler.swift */,
 				6F34FF5D23D724B700C433A5 /* CustomTextFieldForm.swift */,
-				6F34FF5F23D7261B00C433A5 /* CustomUILabelForm.swift */,
 				6F4A76E423D7994800657E00 /* CustomTitleForm.swift */,
 				6F4A76E623D7A34A00657E00 /* CustomQuestionForm.swift */,
+				6FCA03AF23D89A4A00589C27 /* FormulaireScrollView.swift */,
+				6FCA03B123D8A4A300589C27 /* BoutonsPrevNext.swift */,
 			);
 			path = CustomItems;
 			sourceTree = "<group>";
@@ -380,6 +390,16 @@
 			path = Formulaire;
 			sourceTree = "<group>";
 		};
+		6F83F16F23D9F3BB003E7931 /* Formulaire */ = {
+			isa = PBXGroup;
+			children = (
+				6F83F17023D9F3E5003E7931 /* FormDateFieldView.swift */,
+				6F48FA6223D9E176000709A4 /* FormZoneDate.swift */,
+				6F2A961023DA45620036EF73 /* FormulaireDateHeurePage2.swift */,
+			);
+			path = Formulaire;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -459,6 +479,7 @@
 				23610E8723CE3719003B6EF8 /* CheckBoxFieldView.swift in Sources */,
 				23CB178123CCDCFE00B1BF73 /* CollectDataSwitchView.swift in Sources */,
 				62DAA4DB23C726D4007445A0 /* Location.swift in Sources */,
+				6F2A961123DA45620036EF73 /* FormulaireDateHeurePage2.swift in Sources */,
 				6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */,
 				62D37A9D23D0A17F00F079C0 /* LocationHandler.swift in Sources */,
 				234C710723CD0F0000DF70FB /* BadgesCollectionView.swift in Sources */,
@@ -471,7 +492,6 @@
 				2305CE8D23C64F3000354361 /* TableColumn.swift in Sources */,
 				23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */,
 				236EE58323CB19560000ADE3 /* UIViewExtension.swift in Sources */,
-				6F34FF6023D7261B00C433A5 /* CustomUILabelForm.swift in Sources */,
 				6F7C068423D658ED006924F6 /* SecondPageFormulaire.swift in Sources */,
 				2305CE7623C6321200354361 /* FMDatabasePool.m in Sources */,
 				6299A17623CF65E500057652 /* CustomTimer.swift in Sources */,
@@ -486,6 +506,7 @@
 				6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */,
 				62D37A9F23D0A4B300F079C0 /* NotificationHandler.swift in Sources */,
 				2305CE7F23C633B200354361 /* Constantes.swift in Sources */,
+				6F83F17123D9F3E5003E7931 /* FormDateFieldView.swift in Sources */,
 				2305CE8B23C64AD500354361 /* Table.swift in Sources */,
 				237972DE23CD260600800764 /* LabelStyle.swift in Sources */,
 				6F4A76E523D7994800657E00 /* CustomTitleForm.swift in Sources */,
@@ -501,14 +522,17 @@
 				2366D1BA23CF712A00E1B493 /* FormulaireConsentRGPDViewController.swift in Sources */,
 				235D45D123C9247A00992B7B /* ParentViewController.swift in Sources */,
 				6F7C067523D5F948006924F6 /* FomulairePageController.swift in Sources */,
+				6F48FA6323D9E176000709A4 /* FormZoneDate.swift in Sources */,
 				2305CE7723C6321200354361 /* FMDatabaseQueue.m in Sources */,
 				2305CE8923C63E9700354361 /* LocationTable.swift in Sources */,
+				6FCA03B223D8A4A300589C27 /* BoutonsPrevNext.swift in Sources */,
 				23D8423A23D1F7C400E7802E /* ParentModalViewController.swift in Sources */,
 				23F98BAA23CF038800DA7931 /* NoBadgeView.swift in Sources */,
 				6F34FF5E23D724B700C433A5 /* CustomTextFieldForm.swift in Sources */,
 				23610E8523CE3446003B6EF8 /* LanguageSelectorView.swift in Sources */,
 				6F92E55D23D06B9C00BEF169 /* LogoCollectionCell.swift in Sources */,
 				6F7C068623D658EF006924F6 /* ThirdPageFormulaire.swift in Sources */,
+				6FCA03B023D89A4A00589C27 /* FormulaireScrollView.swift in Sources */,
 				2305CE7923C6321200354361 /* FMDatabaseAdditions.m in Sources */,
 				223DE77FF88A8044FD599915 /* ElasticSearchAPIMessage.swift in Sources */,
 				223DE1F1F98FC28DC8BB65A5 /* ElasticSearchAPI.swift in Sources */,
