@@ -118,7 +118,7 @@ class HomeViewController: ParentViewController {
 
         // On affiche ensuite le constement pour le formulaire
         if !self.userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
-            let formRgpdController = FormulaireConsentRGPDViewController()
+            let formRgpdController = FormConsentRGPDViewController()
             formRgpdController.modalPresentationStyle = .fullScreen
             self.present(formRgpdController, animated: true)
         }

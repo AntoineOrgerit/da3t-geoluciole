@@ -232,7 +232,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                 let geofenceRegionCenter = CLLocationCoordinate2DMake(badge.latitude!, badge.longitude!)
                 let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter, radius: CLLocationDistance(badge.proximity!), identifier: "\(badge.id)")
                 geofenceRegion.notifyOnEntry = true
-                geofenceRegion.notifyOnExit = true
+                geofenceRegion.notifyOnExit = false
                 LocationHandler.getInstance().locationManager.startMonitoring(for: geofenceRegion)
             }
         }
@@ -240,17 +240,11 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
-            self.didEnterOrExitRegion(forRegion: region)
+            self.didEnterRegion(forRegion: region)
         }
     }
 
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        if region is CLCircularRegion {
-            self.didEnterOrExitRegion(forRegion: region)
-        }
-    }
-
-    fileprivate func didEnterOrExitRegion(forRegion region: CLRegion!) {
+    fileprivate func didEnterRegion(forRegion region: CLRegion!) {
 
         var badge: Badge!
 
@@ -263,26 +257,30 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                 return
             }
 
-            badge = Badge(queryResult[0])
+            if !queryResult.isEmpty {
+                badge = Badge(queryResult[0])
+            }
         }
 
-        // On update la base de données
-        BadgesTable.getInstance().updateQuery(updateConditions: [UpdateConditions(onColumn: BadgesTable.IS_OBTAIN, newValue: true)], where: [WhereCondition(onColumn: BadgesTable.ID, withCondition: badge.id), WhereCondition(onColumn: BadgesTable.IS_OBTAIN, withCondition: 0)]) { success, error in
+        if badge != nil {
+            // On update la base de données
+            BadgesTable.getInstance().updateQuery(updateConditions: [UpdateConditions(onColumn: BadgesTable.IS_OBTAIN, newValue: true)], where: [WhereCondition(onColumn: BadgesTable.ID, withCondition: badge.id), WhereCondition(onColumn: BadgesTable.IS_OBTAIN, withCondition: 0)]) { success, error in
 
-            if let error = error {
-                if Constantes.DEBUG {
-                    print("\(#function) ERROR : " + error.localizedDescription)
+                if let error = error {
+                    if Constantes.DEBUG {
+                        print("\(#function) ERROR : " + error.localizedDescription)
+                    }
+                    return
                 }
-                return
+
+                // On arrete de suivre la region
+                LocationHandler.getInstance().locationManager.stopMonitoring(for: region)
+
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_BADGE, value: badge.resource)
+
+                // Send notification
+                NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: badge.name, bodyMessage: badge.description, idNotification: String(badge!.id))
             }
-
-            // On arrete de suivre la region
-            LocationHandler.getInstance().locationManager.stopMonitoring(for: region)
-
-            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_BADGE, value: badge.resource)
-
-            // Send notification
-            NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: badge.name, bodyMessage: badge.description, idNotification: String(badge!.id))
         }
     }
 
