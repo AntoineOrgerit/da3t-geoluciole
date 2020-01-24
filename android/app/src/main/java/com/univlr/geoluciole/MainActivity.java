@@ -87,9 +87,8 @@ public class MainActivity extends LocationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         FormModel form = (FormModel) getIntent().getSerializableExtra("Form");
         System.out.println("Main Activity form retrieved : " + form);
-
         super.onCreate(savedInstanceState);
-        this.handlerBadge = new Handler(Looper.getMainLooper()) {
+        this.handlerBadge = new Handler(Looper.getMainLooper()) { //TODO corriger handler
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
@@ -214,8 +213,6 @@ public class MainActivity extends LocationActivity {
             if (location != null) {
                 Toast.makeText(MainActivity.this, Utils.getLocationText(location),
                         Toast.LENGTH_SHORT).show();
-                BadgeManager badgeManager = BadgeManager.getInstance(context);
-                badgeManager.unlockBadges(location, context, handlerBadge);
             }
         }
     }

@@ -186,41 +186,21 @@ public class BadgeManager {
     }
 
     /**
-     * Méthode pour débloqué les badges en fonction de la position de l'utilisateur
-     * Calcul de la distance de l'utilisateur par rapport à la position du point d'intérêt
-     * Comparaison avec la proximité
+     * Méthode pour débloquer les badges en fonction de la position de l'utilisateur
      *
-     * @param userLocation Location de l'utilisateur
-     * @param context      Context
+     * @param idBadge
+     * @param context
      */
-    public void unlockBadges(Location userLocation, Context context, Handler handler) {
-        for (Map.Entry<String, Badge> entry : this.hashmapBadges.entrySet()) {
-            Badge b = entry.getValue();
-            if (b instanceof BadgePlace) {
-                Location locationPlace = ((BadgePlace) b).getLocation();
-                double distance = userLocation.distanceTo(locationPlace);
-                if (distance <= ((BadgePlace) b).getProximity() && !UserPreferences.getInstance(context).getListUnlockedBadges().contains(b.getId())) {
-                    UserPreferences userPref = UserPreferences.getInstance(context);
-                    // ajout du badge débloqué dans les prefs utilisateur
-                    userPref.getListUnlockedBadges().add(b.getId());
-                    // userPref.getListUnlockedBadges().clear();
-                    // enregistre les badges débloqués
-                    userPref.store(context);
-                    Message message = handler.obtainMessage(0, true);
-                    message.sendToTarget();
-                    Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + b.getName());
-                }
-            } else if (b instanceof BadgeDistance) {
-                // TODO - compute distance
-                double distanceWalked = 0.5;
-                if (distanceWalked >= ((BadgeDistance) b).getDistance() && !UserPreferences.getInstance(context).getListUnlockedBadges().contains(b.getId())) {
-                    UserPreferences.getInstance(context).getListUnlockedBadges().add(b.getId());
-                    Log.i(TAG, "checkPlaceLocation, BadgeDistance unlocked, " + b.getName());
-                }
-            }
-        }
-
-
+    public void unlockBadgesPlace(String idBadge, Context context) {
+        UserPreferences userPref = UserPreferences.getInstance(context);
+        // ajout du badge débloqué dans les prefs utilisateur
+        userPref.getListUnlockedBadges().add(idBadge);
+        // enregistre les badges débloqués
+        userPref.store(context);
+        Handler handler = new Handler(); // TODO corriger handler
+        Message message = handler.obtainMessage(0, true);
+        message.sendToTarget();
+        Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
     }
 
 }

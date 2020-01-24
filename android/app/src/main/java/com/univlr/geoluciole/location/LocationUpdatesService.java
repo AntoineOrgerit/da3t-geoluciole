@@ -18,6 +18,13 @@
  * - delete of Android 0 Notification Channel;
  * - remove stopping activity from notifications;
  * - changing accuracy to be balanced with the battery.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 /**
@@ -92,6 +99,7 @@ public class LocationUpdatesService extends Service {
     public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
     private static final String EXTRA_STARTED_FROM_NOTIFICATION = PACKAGE_NAME +
             ".started_from_notification";
+    private static final String COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT = "com.univlr.geoluciole.proximityalert";
 
     private final IBinder mBinder = new LocalBinder();
 
@@ -156,17 +164,17 @@ public class LocationUpdatesService extends Service {
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-                Log.i(TAG, "onStatusChanger: "+ provider + " " + status + " " + extras.toString());
+                Log.i(TAG, "onStatusChanger: " + provider + " " + status + " " + extras.toString());
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-                Log.i(TAG, "onProviderEnabled: "+ provider);
+                Log.i(TAG, "onProviderEnabled: " + provider);
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-                Log.i(TAG, "onProviderDisabled: "+ provider);
+                Log.i(TAG, "onProviderDisabled: " + provider);
             }
         };
 
