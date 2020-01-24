@@ -60,7 +60,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.checkbox.setCheckmarkColor(color: .orange)
         self.checkbox.setCheckedBorderColor(color: .orange)
         self.checkbox.setUncheckedBorderColor(color: .orange)
-        self.checkbox.setTitleOption(titleOption: Tools.getTranslate(key:"rgpd_first_content_consentement"))
+        self.checkbox.setTitleOption(titleOption: Tools.getTranslate(key: "rgpd_first_content_consentement"))
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }
@@ -88,7 +88,12 @@ class GPSConsentRGPDViewController: ParentModalViewController {
     }
 
     fileprivate func sendDataCompte() {
-        let msg = ElasticSearchAPI.getInstance().generateMessageCompte()
+        var compte = [[String: Any]]()
+
+        let dict = ["consentement": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date": Tools.convertDate(date: Date()), "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com"]
+        compte.append(dict)
+
+        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, identifier: Tools.getIdentifier(), addInfoDevice: true)
         ElasticSearchAPI.getInstance().postCompte(message: msg)
     }
 
@@ -117,13 +122,6 @@ class GPSConsentRGPDViewController: ParentModalViewController {
             if strongSelf.checkbox.isChecked() {
                 strongSelf.sendDataCompte()
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
-
-                // Avec le consentement, on peut activer la collecte des données
-//                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
-
-                // Demande d'autorisation d'utiliser la localisation et d'envoyer des notifications
-//                LocationHandler.getInstance().requestLocationAuthorization()
-//                NotificationHandler.getInstance().requestNotificationAuthorization()
             }
 
             strongSelf.dismiss(animated: true)

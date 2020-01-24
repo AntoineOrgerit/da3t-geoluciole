@@ -55,20 +55,20 @@ class CustomTimer {
         // récupération des localisations en BDD SQLite
         LocationTable.getInstance().selectQuery { (success, result, error) in
             if result.count > 0 {
-                var locations: [Location] = [Location]()
+                var locations = [[String: Any]]()
 
                 // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
                 for location in result {
                     let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double, precision: location[LocationTable.PRECISION] as! Double, vitesse: location[LocationTable.VITESSE] as! Double)
 
-                    locations.append(loc)
+                    locations.append(loc.toDictionary())
                 }
 
                 // Si le tableau n'est pas vide, on envoi notre message
                 if locations.count > 0 {
                     let identifier = Tools.getIdentifier()
 
-                    let message: String = ElasticSearchAPI.getInstance().generateMessage(locations: locations, identifier: identifier)
+                    let message: String = ElasticSearchAPI.getInstance().generateMessage(content: locations, identifier: identifier, addInfoDevice: false)
                     ElasticSearchAPI.getInstance().postLocations(message: message, viewController: viewController)
                 }
             }

@@ -21,10 +21,10 @@ class FormulaireConsentRGPDViewController: ParentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // On doit mettre rootView en blanc et je sais pas pourquoi
         self.rootView.backgroundColor = .white
-        
+
         // titre
         self.titreRGPD = UILabel()
         self.titreRGPD.text = Tools.getTranslate(key: "rgpd_title_primary")
@@ -38,14 +38,14 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         self.subtitleRGPD = UILabel()
         self.subtitleRGPD.numberOfLines = 0
         self.subtitleRGPD.translatesAutoresizingMaskIntoConstraints = false
-        self.subtitleRGPD.text = Tools.getTranslate(key:"rgpd_title_project")
+        self.subtitleRGPD.text = Tools.getTranslate(key: "rgpd_title_project")
         self.subtitleRGPD.textColor = .backgroundDefault
         self.subtitleRGPD.font = UIFont.preferredFont(forTextStyle: .title2)
         self.rootView.addSubview(self.subtitleRGPD)
 
         // texte rgpd
         self.textRGPD = UITextView()
-        self.textRGPD.text = Tools.getTranslate(key:"rgpd_content")
+        self.textRGPD.text = Tools.getTranslate(key: "rgpd_content")
         self.textRGPD.isUserInteractionEnabled = true
         self.textRGPD.isScrollEnabled = true
         self.textRGPD.showsVerticalScrollIndicator = true
@@ -69,10 +69,10 @@ class FormulaireConsentRGPDViewController: ParentViewController {
             guard let strongSelf = self else { return }
             if strongSelf.checkbox.isChecked() {
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)
-                
+
                 // Avec le consentement, on peut activer la collecte des données
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
-                
+
                 // Demande d'autorisation d'utiliser la localisation et d'envoyer des notifications
                 LocationHandler.getInstance().requestLocationAuthorization()
                 NotificationHandler.getInstance().requestNotificationAuthorization()
@@ -80,7 +80,7 @@ class FormulaireConsentRGPDViewController: ParentViewController {
             strongSelf.dismiss(animated: true, completion: nil)
         }
         self.rootView.addSubview(self.button)
-        
+
         // Checkbox
         self.checkbox = CheckBoxFieldView()
         self.checkbox.setStyle(style: .tick)
@@ -92,57 +92,57 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }
-            
+
             if strongSelf.checkbox.isChecked() {
                 strongSelf.button.setStyle(style: .active)
             } else {
                 strongSelf.button.setStyle(style: .disabled)
             }
-            
+
             strongSelf.button.isUserInteractionEnabled = strongSelf.checkbox.isChecked()
         }
         self.rootView.addSubview(self.checkbox)
-        
+
         // Masquer un bout en bas de l'écran
-        let subStatusBarView  = UIView()
+        let subStatusBarView = UIView()
         subStatusBarView.backgroundColor = .white
         subStatusBarView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(subStatusBarView)
-        
+
         NSLayoutConstraint.activate([
             subStatusBarView.topAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor),
             subStatusBarView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor),
             subStatusBarView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             subStatusBarView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
         ])
-        
+
         // Titre RGPD
         NSLayoutConstraint.activate([
             self.titreRGPD.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             self.titreRGPD.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             self.titreRGPD.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL)
         ])
-        
+
         // Subtitle RGPD
         NSLayoutConstraint.activate([
             self.subtitleRGPD.topAnchor.constraint(equalTo: self.titreRGPD.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             self.subtitleRGPD.centerXAnchor.constraint(equalTo: self.rootView.centerXAnchor)
         ])
-        
+
         // Bouton Accepter
         NSLayoutConstraint.activate([
             self.button.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             self.button.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             self.button.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL)
         ])
-        
+
         // CheckBox
         NSLayoutConstraint.activate([
             self.checkbox.bottomAnchor.constraint(equalTo: self.button.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             self.checkbox.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             self.checkbox.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL)
         ])
-        
+
         // Texte RGPD
         NSLayoutConstraint.activate([
             self.textRGPD.bottomAnchor.constraint(equalTo: self.checkbox.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
@@ -152,11 +152,17 @@ class FormulaireConsentRGPDViewController: ParentViewController {
         ])
     }
 
-    fileprivate func sendDataCompte(){
-        let msg = ElasticSearchAPI.getInstance().generateMessageCompte()
+    fileprivate func sendDataCompte() {
+        // Construction d'un dictionnaire contenant les données à envoyer
+        var compte = [[String: Any]]()
+
+        let dict = ["consentement": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date": Tools.convertDate(date: Date()), "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com"]
+        compte.append(dict)
+
+        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, identifier: Tools.getIdentifier(), addInfoDevice: true)
         ElasticSearchAPI.getInstance().postCompte(message: msg)
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
