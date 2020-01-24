@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.jaredrummler.android.device.DeviceName;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -101,16 +100,6 @@ public class FormActivityStepOne extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // récupération des infos du device
-                DeviceName.with(FormActivityStepOne.this).request(new DeviceName.Callback() {
-                    @Override
-                    public void onFinished(DeviceName.DeviceInfo info, Exception error) {
-                        String name = info.marketName;
-                        String model = info.model;
-                        formWithoutConsent.setDevice(name + "|" + model);
-                    }
-                });
-                formWithoutConsent.setVersion(getAndroidVersion());
                 formWithoutConsent.setLastname(String.valueOf(lastname.getText()));
                 formWithoutConsent.setFirstname(String.valueOf(firstname.getText()));
                 formWithoutConsent.setEmail(String.valueOf(email.getText()));
@@ -130,9 +119,5 @@ public class FormActivityStepOne extends AppCompatActivity {
             }
 
         };
-    }
-
-    public String getAndroidVersion() {
-        return Build.VERSION.RELEASE;
     }
 }

@@ -81,7 +81,7 @@
     <string name="form_with_whom_title">Whom travel ?*</string>
     <string name="form_prompt_whom">Choose an answer</string>
 
-    <string name="form_explain_validation_period_text">The data collection period corresponds to the duration for which you consent to the collection of your GPS data. After this time, we will no longer collect data. You can, if you wish, modify these periods via the 'Settings' menu.</string>
+    <string name="form_explain_validation_period_text">The data collection period corresponds to the duration for which you consent to the collection of your GPS data. After this time, we will no longer collect data. You can, if you wish, modify these periods via the \'Settings\' menu.</string>
     <string name="form_title_start_date_validation_period">Start of collection</string>
     <string name="form_title_end_date_validation_period">End of collection</string>
     <string-array name="form_responses_whom_array">
