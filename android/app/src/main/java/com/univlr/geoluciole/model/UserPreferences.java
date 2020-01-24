@@ -23,6 +23,7 @@ public class UserPreferences {
     private long startValidity;
     private long endValidity;
     private String language;
+    private float distance;
 
     private boolean isAccountIsSend;
     private boolean isFormIsSend;
@@ -40,6 +41,7 @@ public class UserPreferences {
         this.startValidity = 0;
         this.endValidity = 0;
         this.language = language;
+        this.distance = 0;
     }
 
     public static UserPreferences getInstance(Context context) {
@@ -149,6 +151,14 @@ public class UserPreferences {
 
     public long getEndValidity() {
         return endValidity;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
     @Override

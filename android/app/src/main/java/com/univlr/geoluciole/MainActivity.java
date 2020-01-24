@@ -160,6 +160,13 @@ public class MainActivity extends LocationActivity {
                     } catch (NullPointerException npe) {
                         //do nothing
                     }
+                } else if(position == 1){
+                    try {
+                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        fragment.updateDistance();
+                    } catch (NullPointerException npe){
+                        // do nohing
+                    }
                 }
             }
 
