@@ -21,14 +21,14 @@ class StatsView: UIView {
         super.init(frame: frame)
 
         self.lbTitle = CustomUILabel()
-        self.lbTitle.text = "Statistiques"
-        self.lbTitle.font = UIFont.preferredFont(forTextStyle: .title2)
+        self.lbTitle.text = Tools.getTranslate(key: "text_stats_title")
+        self.lbTitle.setStyle(style: .subtitleBold)
         self.lbTitle.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.lbTitle)
 
         self.lbDistance = CustomUILabel()
-        self.lbDistance.text = "Distance parcourue"
-        self.lbDistance.font = UIFont.preferredFont(forTextStyle: .body)
+        self.lbDistance.text = Tools.getTranslate(key: "text_distance")
+        self.lbDistance.setStyle(style: .bodyRegular)
         self.lbDistance.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.lbDistance)
 
@@ -38,13 +38,13 @@ class StatsView: UIView {
 
         self.lbValeurDist = CustomUILabel()
         self.lbValeurDist.text = "0"
-        self.lbValeurDist.font = UIFont.preferredFont(forTextStyle: .body)
+        self.lbValeurDist.setStyle(style: .bodyItalic)
         self.lbValeurDist.translatesAutoresizingMaskIntoConstraints = false
         self.wrapData.addSubview(self.lbValeurDist)
 
         self.uniteMetrique = CustomUILabel()
         self.uniteMetrique.text = "Km"
-        self.uniteMetrique.setStyle(style: .Paragraphe)
+        self.uniteMetrique.setStyle(style: .bodyItalic)
         self.uniteMetrique.translatesAutoresizingMaskIntoConstraints = false
         self.wrapData.addSubview(self.uniteMetrique)
         

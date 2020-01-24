@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
 class SettingsViewController: ParentViewController {
 
@@ -15,27 +16,30 @@ class SettingsViewController: ParentViewController {
     fileprivate var contentView: UIView!
 
 
-    func openRevokConsent() {
-        let alert = UIAlertController(title: "Révoquer mon consentement", message: "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante : \(Constantes.REVOQ_CONSENT_MAIL) \n En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique(si compte lié).", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Je continue", style: .destructive, handler: openMailApp))
-        alert.addAction(UIAlertAction(title: "Copier identifiant dans le presse papier", style: .default, handler: saveToClipBoard))
-        alert.addAction(UIAlertAction(title: "Annuler", style: .default, handler: nil))
+    func openRevokConsent() {
+
+        let alert = UIAlertController(title: Tools.getTranslate(key: "revoke_consent"), message: "\(Tools.getTranslate(key: "alert_text_part1")) \(Constantes.REVOQ_CONSENT_MAIL) ", preferredStyle: .alert)
+        if MFMailComposeViewController.canSendMail() {
+            alert.title! += Tools.getTranslate(key: "alert_text_part2")
+            alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "alert_continue"), style: .destructive, handler: openMailApp))
+        }
+        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "alert_copy_to_clipboard"), style: .default, handler: saveToClipBoard))
+        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "alert_cancel"), style: .default, handler: nil))
 
         self.present(alert, animated: true, completion: nil)
     }
 
     func saveToClipBoard(action: UIAlertAction) {
         UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
+        self.view.makeToast(Tools.getTranslate(key: "toast_copy_id"), duration: 2, position: .bottom)
     }
 
     func openMailApp(action: UIAlertAction) {
-        let userPref = UserPrefs.getInstance()
         let email = Constantes.REVOQ_CONSENT_MAIL
 
-
-        if let url = URL(string:
-                "mailto:\(email)?subject=Revoquer%20mon%20consentement&body=L%27utilisateur%20\(userPref.string(forKey: UserPrefs.KEY_IDENTIFIER))%20souhaite%20r%C3%A9voquer%20mes%20données") {
+        let identifiant = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
+        if let url = URL(string: "mailto:\(email)?subject=Revoquer%20mon%20consentement&body=\(identifiant)%20demande%20la%20suppression%20de%20ses%20donn%C3%A9es") {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url)
             } else {
@@ -74,6 +78,18 @@ class SettingsViewController: ParentViewController {
 
         let languageSelectorView = LanguageSelectorView()
         languageSelectorView.translatesAutoresizingMaskIntoConstraints = false
+        languageSelectorView.onChange = {
+            func close(action: UIAlertAction) {
+                exit(0)
+            }
+
+            let alert = UIAlertController(title: Tools.getTranslate(key: "alert_close_app_title"), message: "\(Tools.getTranslate(key: "alert_close_app_explanation"))", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "alert_continue"), style: .destructive, handler: close))
+
+            self.present(alert, animated: true, completion: nil)
+
+        }
         self.contentView.addSubview(languageSelectorView)
 
         let wrapButtons = UIView()
@@ -81,7 +97,7 @@ class SettingsViewController: ParentViewController {
         self.contentView.addSubview(wrapButtons)
 
         let cguButton = CustomUIButton()
-        cguButton.setTitle("CONSULTER LES CGU", for: .normal)
+        cguButton.setTitle(Tools.getTranslate(key: "licence_agreement"), for: .normal)
         cguButton.onClick = { button in
             let cguController = CGUViewController()
             cguController.modalPresentationStyle = .fullScreen
@@ -92,17 +108,18 @@ class SettingsViewController: ParentViewController {
         wrapButtons.addSubview(cguButton)
 
         let partnersButton = CustomUIButton()
-        partnersButton.setTitle("NOTRE PROJET", for: .normal)
+        partnersButton.setTitle(Tools.getTranslate(key: "partners"), for: .normal)
         partnersButton.onClick = { button in
-            let partenaire = PartnersViewController()
-            self.present(partenaire, animated: true, completion: nil)
+            let partners = PartnersViewController()
+            partners.modalPresentationStyle = .fullScreen
+            self.present(partners, animated: true, completion: nil)
         }
         partnersButton.setStyle(style: .settingLight)
         partnersButton.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(partnersButton)
 
         let deleteButton = CustomUIButton()
-        deleteButton.setTitle("RÉVOQUER MON CONSENTEMENT", for: .normal)
+        deleteButton.setTitle(Tools.getTranslate(key: "revoke_consent"), for: .normal)
         deleteButton.onClick = { button in
             self.openRevokConsent()
         }
@@ -111,11 +128,16 @@ class SettingsViewController: ParentViewController {
         wrapButtons.addSubview(deleteButton)
 
         let sendDataManually = CustomUIButton()
-        sendDataManually.setTitle("ENVOYER MES DONNÉES", for: .normal)
+        sendDataManually.setTitle(Tools.getTranslate(key: "send_data"), for: .normal)
         sendDataManually.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            CustomTimer.getInstance().sendPostLocationElasticSearch(viewController: strongSelf)
+            let queue = DispatchQueue(label: "SendData", qos: .background)
+
+            queue.async {
+                CustomTimer.getInstance().sendPostLocationElasticSearch(viewController: strongSelf)
+            }
+
         }
         sendDataManually.setStyle(style: .settingDark)
         sendDataManually.translatesAutoresizingMaskIntoConstraints = false

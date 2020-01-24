@@ -18,6 +18,7 @@ class CustomUIButton: UIButton {
 
         self.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
         self.titleLabel?.numberOfLines = 0
+        self.titleLabel?.font = UIFont(name: "Roboto-Regular", size: 18)
         self.addTarget(self, action: #selector(CustomUIButton.touchOnUIButton), for: .touchUpInside)
     }
 
@@ -72,7 +73,7 @@ class CustomUIButton: UIButton {
             self.layer.cornerRadius = 5
             self.setTitleColor(.white, for: .normal)
             self.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-            
+
         case .defaultStyle:
             self.backgroundColor = .white
             self.layer.borderColor = UIColor.settingsButtonDark.cgColor

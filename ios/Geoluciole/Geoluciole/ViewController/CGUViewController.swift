@@ -14,7 +14,7 @@ class CGUViewController: ParentModalViewController, UIWebViewDelegate {
 
     fileprivate var webView: UIWebView!
     fileprivate var wrapContent: UIView!
-    fileprivate var loader: UIActivityIndicatorView!
+    fileprivate var loader: LoaderView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class CGUViewController: ParentModalViewController, UIWebViewDelegate {
 
         self.titleBar.isHidden = true
 
-        // Création d'un bouton "OK"
+        // Création d'un bouton "Femer"
         let closeButton = CustomUIButton()
         closeButton.setTitle("Fermer", for: .normal)
         closeButton.setStyle(style: .defaultStyle)
@@ -51,9 +51,7 @@ class CGUViewController: ParentModalViewController, UIWebViewDelegate {
         self.webView.scalesPageToFit = true
         self.wrapContent.addSubview(self.webView)
 
-        self.loader = UIActivityIndicatorView()
-        self.loader.color = .backgroundDefault
-        self.loader.hidesWhenStopped = true
+        self.loader = LoaderView(frame: .zero)
         self.loader.translatesAutoresizingMaskIntoConstraints = false
         self.wrapContent.addSubview(self.loader)
 
@@ -72,7 +70,9 @@ class CGUViewController: ParentModalViewController, UIWebViewDelegate {
             self.webView.bottomAnchor.constraint(equalTo: self.wrapContent.bottomAnchor),
 
             self.loader.centerXAnchor.constraint(equalTo: self.wrapContent.centerXAnchor),
-            self.loader.centerYAnchor.constraint(equalTo: self.wrapContent.centerYAnchor)
+            self.loader.centerYAnchor.constraint(equalTo: self.wrapContent.centerYAnchor),
+            self.loader.widthAnchor.constraint(equalToConstant: Constantes.LOADER_SIZE),
+            self.loader.heightAnchor.constraint(equalTo: self.loader.widthAnchor)
         ])
     }
 

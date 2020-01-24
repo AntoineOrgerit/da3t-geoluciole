@@ -72,6 +72,11 @@ class CustomTimer {
                     ElasticSearchAPI.getInstance().postLocations(message: message, viewController: viewController)
                 }
             }
+
+            DispatchQueue.main.async {
+                viewController?.view.hideAllToasts()
+                viewController?.view.makeToast("Pas de données à envoyer", duration: 2)
+            }
         }
     }
 }

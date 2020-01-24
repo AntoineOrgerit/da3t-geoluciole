@@ -9,5 +9,5 @@
 import Foundation
 
 enum LabelStyle {
-    case TitreSectionBadges, SousTitreSection, Paragraphe
+    case titleRegular, subtitleRegular, bodyRegular, titleItalic, subtitleItalic, bodyItalic, titleBold, subtitleBold, bodyBold
 }

@@ -17,13 +17,13 @@ class NoBadgeView: UIView {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
         img.image = UIImage(named: "no-badge")
+        img.contentMode = .scaleAspectFit
         self.addSubview(img)
         
-        let label = UILabel()
-        label.text = "Aucun badge"
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        let label = CustomUILabel()
+        label.text = Tools.getTranslate(key: "no_achievement_picture_description")
+        label.setStyle(style: .bodyRegular)
         label.textAlignment = .center
-        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         self.addSubview(label)
@@ -36,7 +36,7 @@ class NoBadgeView: UIView {
             
             label.widthAnchor.constraint(equalTo: img.widthAnchor),
             label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            label.topAnchor.constraint(equalTo: img.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL)
+            label.topAnchor.constraint(equalTo: img.bottomAnchor)
         ])
     }
     

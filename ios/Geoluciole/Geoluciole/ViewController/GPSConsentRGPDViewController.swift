@@ -47,9 +47,9 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         // texte rgpd
         self.textRGPD = CustomUILabel()
         self.textRGPD.numberOfLines = 0
-        self.textRGPD.text = Constantes.DESC_PROJET
+        self.textRGPD.text = Tools.getTranslate(key: "rgpd_content")
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
-        self.textRGPD.font = UIFont.preferredFont(forTextStyle: .body)
+        self.textRGPD.setStyle(style: .bodyRegular)
         self.textRGPD.textAlignment = .justified
         self.contentView.addSubview(self.textRGPD)
 
@@ -60,7 +60,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.checkbox.setCheckmarkColor(color: .orange)
         self.checkbox.setCheckedBorderColor(color: .orange)
         self.checkbox.setUncheckedBorderColor(color: .orange)
-        self.checkbox.setTitleOption(titleOption: Constantes.TEXTE_VALIDATION_DROIT)
+        self.checkbox.setTitleOption(titleOption: Tools.getTranslate(key:"rgpd_first_content_consentement"))
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }
@@ -109,7 +109,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.acceptButton = CustomUIButton()
         self.acceptButton.setStyle(style: .disabled)
         self.acceptButton.isUserInteractionEnabled = false
-        self.acceptButton.setTitle("ACCEPTER", for: .normal)
+        self.acceptButton.setTitle(Tools.getTranslate(key: "action_accept"), for: .normal)
         self.acceptButton.translatesAutoresizingMaskIntoConstraints = false
         self.acceptButton.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
@@ -133,7 +133,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         // button Refuser
         self.refuseButton = CustomUIButton()
         self.refuseButton.setStyle(style: .delete)
-        self.refuseButton.setTitle("REFUSER", for: .normal)
+        self.refuseButton.setTitle(Tools.getTranslate(key: "action_refused"), for: .normal)
         self.refuseButton.translatesAutoresizingMaskIntoConstraints = false
         self.refuseButton.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
@@ -147,11 +147,11 @@ class GPSConsentRGPDViewController: ParentModalViewController {
     fileprivate func setupTitleAndSubtitle() {
         // titre
         self.titreRGPD = CustomUILabel()
-        self.titreRGPD.text = "Consentement RGPD"
+        self.titreRGPD.text = Tools.getTranslate(key: "rgpd_title_primary")
         self.titreRGPD.textColor = .orange
         self.titreRGPD.textAlignment = .center
         self.titreRGPD.translatesAutoresizingMaskIntoConstraints = false
-        self.titreRGPD.font = UIFont.preferredFont(forTextStyle: .title1)
+        self.titreRGPD.setStyle(style: .titleBold)
         self.rootView.addSubview(self.titreRGPD)
 
         // sous titre
@@ -159,9 +159,9 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.subtitleRGPD.textAlignment = .center
         self.subtitleRGPD.numberOfLines = 0
         self.subtitleRGPD.translatesAutoresizingMaskIntoConstraints = false
-        self.subtitleRGPD.text = Constantes.TEXT_SUB_TITLE_RGPD
+        self.subtitleRGPD.text = Tools.getTranslate(key: "rgpd_title_project")
         self.subtitleRGPD.textColor = .backgroundDefault
-        self.subtitleRGPD.font = UIFont.preferredFont(forTextStyle: .title3)
+        self.subtitleRGPD.setStyle(style: .subtitleBold)
         self.rootView.addSubview(self.subtitleRGPD)
     }
 

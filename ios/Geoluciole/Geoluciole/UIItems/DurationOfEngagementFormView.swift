@@ -20,11 +20,9 @@ class DurationOfEngagementFormView: UIView {
         let minimumDate = Date()
         let minimumDateString = Tools.convertDate(date: minimumDate)
 
-        let title = UILabel()
-        title.text = "Durée d'engagement"
-        title.font = UIFont.preferredFont(forTextStyle: .title2)
-        title.adjustsFontForContentSizeCategory = true
-        title.font = UIFont.preferredFont(forTextStyle: .title2)
+        let title = CustomUILabel()
+        title.text = Tools.getTranslate(key: "dates_settings")
+        title.setStyle(style: .subtitleBold)
         title.translatesAutoresizingMaskIntoConstraints = false
         title.textAlignment = .left
         self.addSubview(title)
@@ -32,7 +30,7 @@ class DurationOfEngagementFormView: UIView {
         self.dateStartField = DateFieldView()
         self.dateEndField = DateFieldView()
         
-        self.dateStartField.setTitle(title: "Date de début")
+        self.dateStartField.setTitle(title: Tools.getTranslate(key: "dates_settings_start"))
         self.dateStartField.setDateLabel(date: minimumDateString)
         if UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT) != "" {
             let dateValue = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT)
@@ -50,7 +48,7 @@ class DurationOfEngagementFormView: UIView {
         
         self.dateEndField.setMinimumDate(date: minimumDate)
         self.dateEndField.setDateLabel(date: minimumDateString)
-        self.dateEndField.setTitle(title: "Date de fin")
+        self.dateEndField.setTitle(title: Tools.getTranslate(key: "dates_settings_end"))
         if UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT) != "" {
             let dateValue = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT)
             dateEndField.setDateLabel(date: dateValue)

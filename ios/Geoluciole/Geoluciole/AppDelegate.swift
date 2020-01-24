@@ -27,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Copie des CGU dans le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.CGU_NAME)
+        
+        // Copie du fichiers des badges
+        Tools.copyFile(fileName: Constantes.BADGES_FILENAME)
 
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
@@ -37,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 LocationHandler.getInstance().startLocationTracking()
                 CustomTimer.getInstance().startTimerLocalisation()
             }
+            
+            LocationHandler.startTrackingBadges()
         }
 
         return true

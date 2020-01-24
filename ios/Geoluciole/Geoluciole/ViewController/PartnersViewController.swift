@@ -40,8 +40,8 @@ class PartnersViewController: ParentModalViewController {
         self.rootView.addSubview(closeButton)
 
         let text = CustomUILabel()
-        text.text = Constantes.DESC_PROJET
-        text.font = UIFont.preferredFont(forTextStyle: .body)
+        text.text = Tools.getTranslate(key: "rgpd_content")
+        text.setStyle(style: .bodyRegular)
         text.translatesAutoresizingMaskIntoConstraints = false
         text.textAlignment = .justified
         text.numberOfLines = 0
