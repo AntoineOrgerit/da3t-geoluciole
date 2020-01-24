@@ -110,7 +110,13 @@ class ElasticSearchAPI {
 
     /// Génération du message à envoyer au serveur
     func generateMessageCompte() -> String {
-        let messageStr = "{\"consentement\":\"\(NSLocalizedString("rgpd_first_content_consentement", comment: ""))\", \"date\":\"\(Tools.convertDate(date: Date()))\", \"nom\":\"test2\", \"prenom\": \"test2\", \"mail\": \"mail2@gmail.com\"}"
+        let type = "\"type\": \"\(UIDevice.current.systemName)\""
+        let version = "\"version\": \"\(UIDevice.current.systemVersion)\""
+        let device = "\"device\": \"\(UIDevice.modelName)\""
+        
+        NSLog(type + ", " + version + ", " + device)
+        
+        let messageStr = "{\"consentement\":\"\(NSLocalizedString("rgpd_first_content_consentement", comment: ""))\", \"date\":\"\(Tools.convertDate(date: Date()))\", \"nom\":\"test2\", \"prenom\": \"test2\", \"mail\": \"mail2@gmail.com\", \(device), \(version), \(device)}"
 
         return messageStr
     }

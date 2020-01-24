@@ -69,6 +69,7 @@
 		627BC8E123D85FE4006BF1E7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 627BC8E323D85FE4006BF1E7 /* Localizable.strings */; };
 		6299A17423CF50E600057652 /* cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 6299A17323CF50E600057652 /* cgu.pdf */; };
 		6299A17623CF65E500057652 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6299A17523CF65E500057652 /* CustomTimer.swift */; };
+		62AE470023DAEE4A00583FCC /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AE46FF23DAEE4A00583FCC /* UIDeviceExtension.swift */; };
 		62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */; };
 		62BF3D6F23C8840E00945C04 /* UserPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6E23C8840E00945C04 /* UserPrefs.swift */; };
 		62D37A9D23D0A17F00F079C0 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D37A9C23D0A17F00F079C0 /* LocationHandler.swift */; };
@@ -151,6 +152,7 @@
 		627BC8E523D86027006BF1E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6299A17323CF50E600057652 /* cgu.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cgu.pdf; sourceTree = "<group>"; };
 		6299A17523CF65E500057652 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
+		62AE46FF23DAEE4A00583FCC /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		62BEEB1223D9A0CC00CE60DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		62BEEB1423D9A0CE00CE60DE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTrophiesViewController.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				236EE58223CB19560000ADE3 /* UIViewExtension.swift */,
 				223DEC50D1BB2FA7C82C8993 /* CharacterExtension.swift */,
 				223DE8E297A0FB9F407CBAC7 /* StringExtension.swift */,
+				62AE46FF23DAEE4A00583FCC /* UIDeviceExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				6299A17623CF65E500057652 /* CustomTimer.swift in Sources */,
 				62330D2D23CDF05F003E7586 /* GPSConsentRGPDViewController.swift in Sources */,
 				2305CE7823C6321200354361 /* FMDatabase.m in Sources */,
+				62AE470023DAEE4A00583FCC /* UIDeviceExtension.swift in Sources */,
 				23610E8323CE021C003B6EF8 /* DateFieldView.swift in Sources */,
 				23CB178323CCE9AC00B1BF73 /* ShowLevelView.swift in Sources */,
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,

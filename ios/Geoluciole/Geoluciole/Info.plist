@@ -31,6 +31,12 @@
 	<string>L'accès à votre position permet de calculer la distance parcourue</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>L'accès à votre position permet de calculer la distance parcourue</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-Italic.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -81,12 +87,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Roboto-Bold.ttf</string>
-		<string>Roboto-Italic.ttf</string>
-		<string>Roboto-Regular.ttf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
