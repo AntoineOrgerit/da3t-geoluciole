@@ -11,8 +11,8 @@ import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedP
 
 
 public class UserPreferences {
-    public static final String USER_PREFERENCE_KEY = "userPreferenceKey";
-    public static final String USER_PREFERENCE_FILENAME = "UserPreference";
+    private static final String USER_PREFERENCE_KEY = "userPreferenceKey";
+    private static final String USER_PREFERENCE_FILENAME = "UserPreference";
 
     private String id;
     private boolean consent;
@@ -28,7 +28,7 @@ public class UserPreferences {
     private boolean isFormIsSend;
 
 
-    public UserPreferences(String language, Context context) {
+    private UserPreferences(String language, Context context) {
         this.id = generateID(context);
         this.consent = false;
         this.gpsConsent = false;
@@ -60,7 +60,7 @@ public class UserPreferences {
                 FormModel.formatToTimestamp(dateEnd, timeEnd));
     }
 
-    public void setPeriodValid(long dateStart, long dateEnd) {
+    private void setPeriodValid(long dateStart, long dateEnd) {
         this.startValidity = dateStart;
         this.endValidity = dateEnd;
     }

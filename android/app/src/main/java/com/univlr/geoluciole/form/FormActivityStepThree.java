@@ -51,8 +51,8 @@ public class FormActivityStepThree extends AppCompatActivity {
     private FormModel form;
 
     // validation
-    ValidationFormListener validatorListener;
-    Validator validator;
+    private ValidationFormListener validatorListener;
+    private Validator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,14 +215,12 @@ public class FormActivityStepThree extends AppCompatActivity {
     private Boolean getRadioButtonValue(int selectedId) {
         RadioButton radioResponseFirstTime = (RadioButton) findViewById(selectedId);
         if (radioResponseFirstTime != null) {
-            if (String.valueOf(radioResponseFirstTime.getText()).equals("Oui")) {
-                return true;
-            }
+            return String.valueOf(radioResponseFirstTime.getText()).equals("Oui");
         }
         return false;
     }
 
-    public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener() {
+    private AdapterView.OnItemSelectedListener CustomOnItemSelectedListener() {
         return new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Toast.makeText(FormActivityStepThree.this,

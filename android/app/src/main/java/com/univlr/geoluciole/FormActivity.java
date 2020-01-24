@@ -53,28 +53,28 @@ public class FormActivity extends AppCompatActivity {
         setContentView(R.layout.form_activity);
 
         // infos générales
-        lastname = (TextInputEditText) findViewById(R.id.lastname);
-        firstname = (TextInputEditText) findViewById(R.id.firstname);
-        email = (TextInputEditText) findViewById(R.id.email);
+        lastname = findViewById(R.id.lastName);
+        firstname = findViewById(R.id.firstName);
+        email = findViewById(R.id.email);
 
         // date et heure arrivée
-        btnDatePickerArrivee = (Button) findViewById(R.id.btn_in_date);
-        btnTimePickerArrivee = (Button) findViewById(R.id.btn_in_time);
-        txtDateArrivee = (EditText) findViewById(R.id.in_date);
-        txtTimeArrivee = (EditText) findViewById(R.id.in_time);
+        btnDatePickerArrivee = findViewById(R.id.btn_in_date);
+        btnTimePickerArrivee = findViewById(R.id.btn_in_time);
+        txtDateArrivee = findViewById(R.id.in_date);
+        txtTimeArrivee = findViewById(R.id.in_time);
 
         // date et heure de départ
-        btnDatePickerDepart = (Button) findViewById(R.id.btn_out_date);
-        btnTimePickerDepart = (Button) findViewById(R.id.btn_out_time);
-        txtDateDepart = (EditText) findViewById(R.id.out_date);
-        txtTimeDepart = (EditText) findViewById(R.id.out_time);
+        btnDatePickerDepart = findViewById(R.id.btn_out_date);
+        btnTimePickerDepart = findViewById(R.id.btn_out_time);
+        txtDateDepart = findViewById(R.id.out_date);
+        txtTimeDepart = findViewById(R.id.out_time);
 
         // liste déroulante
-        spinnerWhomList = (Spinner) findViewById(R.id.spinner_list_whom);
-        spinnerTransportList = (Spinner) findViewById(R.id.spinner_list_transport);
+        spinnerWhomList = findViewById(R.id.spinner_list_whom);
+        spinnerTransportList = findViewById(R.id.spinner_list_transport);
 
         // bouton envoi
-        btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        btnSubmit = findViewById(R.id.btnSubmit);
 
         // boutons listeners
         /*btnDatePickerArrivee.setOnClickListener(getAndSetTextDate(txtDateArrivee));
@@ -126,8 +126,8 @@ public class FormActivity extends AppCompatActivity {
                                 "\nHeure arrivée : " + txtTimeArrivee.getText() +
                                 "\nDate départ : " + txtDateDepart.getText() +
                                 "\nHeure départ : " + txtTimeDepart.getText() +
-                                "\nVoyage avec : " + String.valueOf(spinnerWhomList.getSelectedItem()) +
-                                "\nTransport : " + String.valueOf(spinnerTransportList.getSelectedItem()),
+                                "\nVoyage avec : " + spinnerWhomList.getSelectedItem() +
+                                "\nTransport : " + spinnerTransportList.getSelectedItem(),
 
                         Toast.LENGTH_SHORT).show();
             }
@@ -180,7 +180,7 @@ public class FormActivity extends AppCompatActivity {
     }*/
 
 
-    public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener() {
+    private AdapterView.OnItemSelectedListener CustomOnItemSelectedListener() {
         return new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Toast.makeText(FormActivity.this,

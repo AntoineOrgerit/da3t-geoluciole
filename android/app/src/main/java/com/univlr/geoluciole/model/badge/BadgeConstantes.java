@@ -1,6 +1,6 @@
 package com.univlr.geoluciole.model.badge;
 
-public class BadgeConstantes {
+class BadgeConstantes {
 
     public static final String ID = "id";
     public static final String NAME = "name";

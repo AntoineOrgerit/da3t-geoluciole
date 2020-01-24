@@ -6,8 +6,8 @@ import android.text.TextWatcher;
 import com.mobsandgeeks.saripaar.Validator;
 
 
-public class TextWatcherListener implements TextWatcher {
-    Validator validator;
+class TextWatcherListener implements TextWatcher {
+    private Validator validator;
 
     public TextWatcherListener(Validator validator) {
         this.validator = validator;

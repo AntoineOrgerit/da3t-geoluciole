@@ -22,9 +22,9 @@ public class HttpProvider {
     public final static int CODE_HANDLER_GPS_COUNT = 1;
     public final static int CODE_HANDLER_GPS_ERROR = 2;
 
-    public final static String GPS_URL = BASE_URL + "da3t_gps/_doc/_bulk";
-    public final static String ACCOUNT_URL = BASE_URL + "da3t_compte/_doc/<id>";
-    public final static String FORM_URL = BASE_URL + "da3t_formulaire/_doc/_bulk";
+    private final static String GPS_URL = BASE_URL + "da3t_gps/_doc/_bulk";
+    private final static String ACCOUNT_URL = BASE_URL + "da3t_compte/_doc/<id>";
+    private final static String FORM_URL = BASE_URL + "da3t_formulaire/_doc/_bulk";
 
     public static void sendForm(final Context context) {
         FormModel form = FormModel.getInstance(context);

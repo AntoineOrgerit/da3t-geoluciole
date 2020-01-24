@@ -31,7 +31,7 @@ public abstract class LocationActivity extends AppCompatActivity {
 
     private static final String TAG = LocationActivity.class.getSimpleName();
 
-    protected ArrayList<Permission> retrieveUnauthorizedPermissions() {
+    ArrayList<Permission> retrieveUnauthorizedPermissions() {
         ArrayList<Permission> unauthorizedPermissions = new ArrayList<>();
         for (Permission permission : Permission.values()) {
             Log.i(TAG, "Checking permission for " + permission.getManifestValue());
@@ -46,7 +46,7 @@ public abstract class LocationActivity extends AppCompatActivity {
         return unauthorizedPermissions;
     }
 
-    protected void requestPermissions(ArrayList<Permission> unauthorizedPermissions) {
+    void requestPermissions(ArrayList<Permission> unauthorizedPermissions) {
         for (final Permission permission : unauthorizedPermissions) {
             Log.w(TAG, "Requesting permission for " + permission.getManifestValue());
             boolean shouldProvideRationale =
@@ -81,7 +81,7 @@ public abstract class LocationActivity extends AppCompatActivity {
         }
     }
 
-    protected void enableGPSIfNeeded() {
+    void enableGPSIfNeeded() {
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()

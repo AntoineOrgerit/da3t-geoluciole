@@ -53,7 +53,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -102,13 +101,6 @@ public class LocationUpdatesService extends Service {
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
 
     /**
-     * The fastest rate for active location updates. Updates will never be more frequent
-     * than this value.
-     */
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
-            UPDATE_INTERVAL_IN_MILLISECONDS / 2;
-
-    /**
      * The identifier for the notification displayed for the foreground service.
      */
     private static final int NOTIFICATION_ID = 12345678;
@@ -122,19 +114,7 @@ public class LocationUpdatesService extends Service {
 
     private NotificationManager mNotificationManager;
 
-    /**
-     * Contains parameters used by {@link com.google.android.gms.location.FusedLocationProviderApi}.
-     */
-    private LocationRequest mLocationRequest;
-
     private Handler mServiceHandler;
-
-    /**
-     * The current location.
-     */
-    private Location mLocation;
-
-    private String filename;
 
     private LocationManager mLocationManager;
     private Criteria mCriteria;
@@ -272,7 +252,7 @@ public class LocationUpdatesService extends Service {
      * Removes location updates. Note that in this sample we merely log the
      * {@link SecurityException}.
      */
-    public void removeLocationUpdates() {
+    private void removeLocationUpdates() {
         Log.i(TAG, "Removing location updates");
         try {
             mLocationManager.removeUpdates(mLocationListener);
@@ -324,8 +304,6 @@ public class LocationUpdatesService extends Service {
     private void onNewLocation(Location location) {
         Log.i(TAG, "New location: " + location);
 
-        mLocation = location;
-
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);
         intent.putExtra(EXTRA_LOCATION, location);
@@ -352,7 +330,7 @@ public class LocationUpdatesService extends Service {
      *
      * @param context The {@link Context}.
      */
-    public boolean serviceIsRunningInForeground(Context context) {
+    private boolean serviceIsRunningInForeground(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(
                 Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(

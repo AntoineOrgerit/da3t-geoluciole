@@ -58,7 +58,7 @@ public abstract class Table {
      *
      * @return String la requete de suppression
      */
-    public String prepareSQLForDeleteTable() {
+    String prepareSQLForDeleteTable() {
         return "DROP TABLE IF EXISTS " + this.tableName + ";";
     }
 

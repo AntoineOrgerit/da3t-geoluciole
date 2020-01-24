@@ -32,8 +32,8 @@ public class FormActivityStepOne extends AppCompatActivity {
     private FormModelWithConsent formWithoutConsent;
 
     // validation
-    ValidationFormListener validatorListener;
-    Validator validator;
+    private ValidationFormListener validatorListener;
+    private Validator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

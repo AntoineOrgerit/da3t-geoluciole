@@ -1,6 +1,6 @@
 package com.univlr.geoluciole.model.badge;
 
-public class Badge {
+class Badge {
     private String id;
     private String name;
     private String description;

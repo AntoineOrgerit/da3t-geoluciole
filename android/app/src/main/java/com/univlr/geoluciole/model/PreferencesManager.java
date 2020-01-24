@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 /**
  * https://stackoverflow.com/questions/7145606/how-android-sharedpreferences-save-store-object
  */
-public class PreferencesManager {
+class PreferencesManager {
 
     public static void saveObjectToSharedPreference(Context context, String preferenceFileName, String serializedObjectKey, Object object) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName, 0);

@@ -15,13 +15,13 @@ class TableColumn {
      * @param columnType String type de la colonne
      * @param canBeNull  boolean si null est a 1 sinon 0
      */
-    public TableColumn(String columnName, String columnType, boolean canBeNull) {
+    TableColumn(String columnName, String columnType, boolean canBeNull) {
         this.columnName = columnName;
         this.columnType = columnType;
         this.canBeNull = canBeNull;
     }
 
-    public String getColumnName() {
+    String getColumnName() {
         return columnName;
     }
 
@@ -29,7 +29,7 @@ class TableColumn {
         this.columnName = columnName;
     }
 
-    public String getColumnType() {
+    String getColumnType() {
         return columnType;
     }
 
@@ -37,7 +37,7 @@ class TableColumn {
         this.columnType = columnType;
     }
 
-    public boolean isCanBeNull() {
+    boolean isCanBeNull() {
         return canBeNull;
     }
 

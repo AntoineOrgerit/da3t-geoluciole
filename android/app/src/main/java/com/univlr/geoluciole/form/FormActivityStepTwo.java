@@ -69,9 +69,9 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private Time timeArrive;
 
     // validation
-    ValidationFormListener validatorListener;
-    Validator validator;
-    TextWatcherListener textWatcherListener;
+    private ValidationFormListener validatorListener;
+    private Validator validator;
+    private TextWatcherListener textWatcherListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

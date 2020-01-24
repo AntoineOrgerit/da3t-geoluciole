@@ -21,20 +21,9 @@ import java.io.InputStream;
 
 public class AchievementsFragment extends Fragment {
 
-    private AchievementsViewModel achievementsViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        achievementsViewModel =
-                ViewModelProviders.of(this).get(AchievementsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_achievements, container, false);
-      /*  final TextView textView = root.findViewById(R.id.text_achievements);
-        achievementsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
         BadgeManager badgeManager = BadgeManager.getInstance(root.getContext()); // root.getContext() dans le fragment
         badgeManager.instanciateObjFromJson();
         badgeManager.displayBadgesList();
