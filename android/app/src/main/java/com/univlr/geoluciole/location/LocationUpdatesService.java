@@ -61,6 +61,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
+import com.univlr.geoluciole.model.UserPreferences;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -151,6 +152,15 @@ public class LocationUpdatesService extends Service {
             @Override
             public void onLocationChanged(Location location) {
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
+                UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
+                // récuperation de la dernière distance pour le calcul de distance
+                Location last = locationTable.getLastLocation();
+                float distance = last.distanceTo(location);
+
+                userPreferences.setDistance(userPreferences.getDistance() + distance);
+                userPreferences.store(LocationUpdatesService.this);
+
+                // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);
                 onNewLocation(location);
             }

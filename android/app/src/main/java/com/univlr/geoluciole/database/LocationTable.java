@@ -116,6 +116,35 @@ public class LocationTable extends Table {
     }
 
 
+    public Location getLastLocation(){
+        this.dbSQLite.open();
+        String[] columnArray = {
+                LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + ", (SELECT max(time_stamp) from locations) AS time_stamp" + "," + LocationTable.ALTITUDE + "," +LocationTable.SPEED + ","+ LocationTable.ACCURACY};
+        Cursor cursor = this.dbSQLite.getDb().query(LocationTable.LOCATION_TABLE_NAME,
+                columnArray, null, null, null, null, null, null);
+
+
+        Location location = new Location("");
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            do {
+
+                location.setLatitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LATITUDE)));
+                location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LONGITUDE)));
+                location.setTime(cursor.getLong(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
+                location.setAltitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.ALTITUDE)));
+                location.setSpeed(cursor.getFloat(cursor.getColumnIndex(LocationTable.SPEED)));
+                location.setAccuracy(cursor.getFloat(cursor.getColumnIndex(LocationTable.ACCURACY)));
+            } while (cursor.moveToNext());
+            cursor.close();
+        } else {
+            Log.i("DATABASE", "getLast - Pas de valeurs trouvees");
+        }
+        Log.i("DATABASE", "getLast - valeurs recuperees");
+        this.dbSQLite.close();
+        return location;
+    }
+
     public long countAll() {
         this.dbSQLite.open();
         long count = DatabaseUtils.queryNumEntries(this.dbSQLite.getDb(), LOCATION_TABLE_NAME);
