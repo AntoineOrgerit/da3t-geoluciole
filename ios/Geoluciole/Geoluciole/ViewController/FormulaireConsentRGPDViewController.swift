@@ -70,12 +70,12 @@ class FormulaireConsentRGPDViewController: ParentViewController {
             if strongSelf.checkbox.isChecked() {
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)
                 
-//                // Avec le consentement, on peut activer la collecte des données
-//                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
-//                
-//                // Demande d'autorisation d'utiliser la localisation et d'envoyer des notifications
-//                LocationHandler.getInstance().requestLocationAuthorization()
-//                NotificationHandler.getInstance().requestNotificationAuthorization()
+                // Avec le consentement, on peut activer la collecte des données
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+                
+                // Demande d'autorisation d'utiliser la localisation et d'envoyer des notifications
+                LocationHandler.getInstance().requestLocationAuthorization()
+                NotificationHandler.getInstance().requestNotificationAuthorization()
             }
             strongSelf.dismiss(animated: true, completion: nil)
         }

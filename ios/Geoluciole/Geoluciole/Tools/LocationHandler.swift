@@ -13,7 +13,6 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
 
     fileprivate static var INSTANCE: LocationHandler!
     fileprivate var locationManager: CLLocationManager!
-    var locationTracked: Bool = false
 
     fileprivate override init() {
         self.locationManager = CLLocationManager()
@@ -44,13 +43,11 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
     /// Lance le tracking GPS
     func startLocationTracking() {
         self.locationManager.startUpdatingLocation()
-        self.locationTracked = true
     }
 
     /// Coupe le tracking GPS
     func stopLocationTracking() {
         self.locationManager.stopUpdatingLocation()
-        self.locationTracked = false
     }
 
     /// Vérifie si la localisation peut être utilisée dans l'application
@@ -85,25 +82,20 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
             // calcul de distance entre les deux points
             let distance = currentPos.distance(from: lastPos)
 
-            let distMax = Constantes.DISTANCE_DETECTION * 2
+            // On prend la distance réelle si celle-ci est inférieure ou égale à la distance estimée
+            LocationTable.getInstance().insertQuery([
+                LocationTable.ALTITUDE: currentLocation.altitude,
+                LocationTable.LATITUDE: currentLocation.latitude,
+                LocationTable.LONGITUDE: currentLocation.longitude,
+                LocationTable.TIMESTAMP: currentLocation.timestamp,
+                LocationTable.PRECISION: currentLocation.precision, // rayon d'un cercle en m
+                LocationTable.VITESSE: currentLocation.vitesse // vitesse en m/s
+            ])
 
-            // Pour que la distance soit acceptable, il faut que cette distance soit inférieur ou égale à la distance
-            // max
-            if distance <= distMax {
-                LocationTable.getInstance().insertQuery([
-                    LocationTable.ALTITUDE: currentLocation.altitude,
-                    LocationTable.LATITUDE: currentLocation.latitude,
-                    LocationTable.LONGITUDE: currentLocation.longitude,
-                    LocationTable.TIMESTAMP: currentLocation.timestamp,
-                    LocationTable.PRECISION: currentLocation.precision, // rayon d'un cercle en m
-                    LocationTable.VITESSE: currentLocation.vitesse // vitesse en m/s
-                ])
+            updateDistanceParcourue(newDistance: distance)
 
-                updateDistanceParcourue(newDistance: distance)
-
-                // on sauvegarde la dernière position si elle semble cohérente
-                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_POINT, value: currentLocation.toDictionary())
-            }
+            // on sauvegarde la dernière position si elle semble cohérente
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_POINT, value: currentLocation.toDictionary())
         }
     }
 
@@ -170,7 +162,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                 // on sauvegarde la dernière position si elle semble cohérente
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_POINT, value: currentLocation.toDictionary())
             }
-            
+
             // On redefini les zones pour pas les perdre et on check les badges de distance
             LocationHandler.startTrackingBadges()
             self.checkDistanceBadges()
@@ -204,22 +196,16 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
         switch status {
         case CLAuthorizationStatus.authorizedAlways:
             if sendData {
-                if !self.locationTracked {
-                    self.startLocationTracking()
-                    CustomTimer.getInstance().startTimerLocalisation()
-                }
+                self.startLocationTracking()
+                CustomTimer.getInstance().startTimerLocalisation()
             }
         case CLAuthorizationStatus.denied:
-            if self.locationTracked {
-                self.stopLocationTracking()
-                CustomTimer.getInstance().stopTimerLocation()
-            }
+            self.stopLocationTracking()
+            CustomTimer.getInstance().stopTimerLocation()
 
         case CLAuthorizationStatus.notDetermined:
-            if self.locationTracked {
-                self.stopLocationTracking()
-                CustomTimer.getInstance().stopTimerLocation()
-            }
+            self.stopLocationTracking()
+            CustomTimer.getInstance().stopTimerLocation()
         default:
             if Constantes.DEBUG {
                 print("Statut inconnu")

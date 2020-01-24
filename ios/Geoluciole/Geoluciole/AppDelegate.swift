@@ -10,7 +10,7 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     var window: UIWindow?
 
     let userNotificationCenter = UNUserNotificationCenter.current()
@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Copie des CGU dans le dossier Documents de l'app
         Tools.copyFile(fileName: Constantes.CGU_NAME)
-        
+
         // Copie du fichiers des badges
         Tools.copyFile(fileName: Constantes.BADGES_FILENAME)
 
@@ -36,11 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // On démarre la timer de localisation si la collecte des données est activée
         if LocationHandler.getInstance().locationCanBeUsed() {
-            if !LocationHandler.getInstance().locationTracked {
-                LocationHandler.getInstance().startLocationTracking()
-                CustomTimer.getInstance().startTimerLocalisation()
-            }
-            
+            LocationHandler.getInstance().requestLocationAuthorization()
+            CustomTimer.getInstance().startTimerLocalisation()
+
             LocationHandler.startTrackingBadges()
         }
 
@@ -54,11 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         if LocationHandler.getInstance().locationCanBeUsed() {
-            if LocationHandler.getInstance().locationTracked {
-                NotificationHandler.getInstance().sendNotificationStopTracking()
-                LocationHandler.getInstance().stopLocationTracking()
-                CustomTimer.getInstance().stopTimerLocation()
-            }
+            NotificationHandler.getInstance().sendNotificationStopTracking()
+            LocationHandler.getInstance().stopLocationTracking()
+            CustomTimer.getInstance().stopTimerLocation()
         }
     }
 
