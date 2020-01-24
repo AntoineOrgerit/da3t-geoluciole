@@ -52,8 +52,8 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -156,9 +156,18 @@ public class LocationUpdatesService extends Service {
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
                 float distance = last.distanceTo(location);
+                long deltaT = Math.abs(last.getTime() - location.getTime())/1000;
+                String trace = "CALCUL DISTANCE : " + " time depuis dernier point : " + deltaT + ", Distance théorique : " + location.distanceTo(last) + ", Distance /temps :" + (location.getSpeed() * deltaT);
 
-                userPreferences.setDistance(userPreferences.getDistance() + distance);
-                userPreferences.store(LocationUpdatesService.this);
+                Toast toast=Toast.makeText(getApplicationContext(), trace , Toast.LENGTH_LONG);
+                toast.show();
+
+                if (location.distanceTo(last) <= ((location.getSpeed() * deltaT)+10)){
+                    userPreferences.setDistance(userPreferences.getDistance() + distance);
+                    userPreferences.store(LocationUpdatesService.this);
+                } else {
+                    Log.e(TAG, "Point GPS bizarre point : speed " + location.getSpeed() + ", lat : " + location.getLatitude() + ", long : " + location.getLongitude() );
+                }
 
                 // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);
