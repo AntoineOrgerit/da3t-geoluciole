@@ -3,6 +3,7 @@ package com.univlr.geoluciole.form;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.jaredrummler.android.device.DeviceName;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
@@ -202,6 +204,17 @@ public class FormActivityStepTwo extends AppCompatActivity {
 
     private void saveToForm() {
         Calendar cal = Calendar.getInstance();
+        // récupération des infos du device
+        DeviceName.with(FormActivityStepTwo.this).request(new DeviceName.Callback() {
+            @Override
+            public void onFinished(DeviceName.DeviceInfo info, Exception error) {
+                String name = info.marketName;
+                String model = info.model;
+                form.setDevice(name + "|" + model);
+            }
+        });
+        form.setVersion(getAndroidVersion());
+
         // depart
         if (dateDepart != null && timeDepart != null) {
             form.setDateOut(this.dateDepart);
@@ -389,5 +402,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
             }
 
         };
+    }
+    public String getAndroidVersion() {
+        return Build.VERSION.RELEASE;
     }
 }

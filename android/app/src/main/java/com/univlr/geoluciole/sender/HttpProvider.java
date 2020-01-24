@@ -19,7 +19,8 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class HttpProvider {
-    private final static String BASE_URL = "http://datamuseum.univ-lr.fr:80/";
+  //  private final static String BASE_URL = "http://datamuseum.univ-lr.fr:80/";
+    private final static String BASE_URL = "http://86.233.189.163:9200/";
 
     public final static int CODE_HANDLER_GPS_COUNT = 1;
     public final static int CODE_HANDLER_GPS_ERROR = 2;
@@ -117,6 +118,7 @@ public class HttpProvider {
                 .setCallback(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
                         // todo logger
                     }
 
