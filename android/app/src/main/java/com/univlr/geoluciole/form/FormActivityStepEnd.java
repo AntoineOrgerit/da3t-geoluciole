@@ -164,8 +164,6 @@ public class FormActivityStepEnd extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(FormActivityStepEnd.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String month = monthOfYear < 10 ? "0" + (monthOfYear + 1) : (monthOfYear + 1) + "";
-                        String day = dayOfMonth < 10 ? "0" + (dayOfMonth) : (dayOfMonth) + "";
                         c.set(year, monthOfYear, dayOfMonth);
                         if (start) {
                             startDate = c.getTime();
