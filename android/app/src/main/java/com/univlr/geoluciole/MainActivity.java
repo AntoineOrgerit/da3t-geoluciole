@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.icu.text.UnicodeSet;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +28,7 @@ import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
@@ -123,6 +125,7 @@ public class MainActivity extends LocationActivity {
                         try {
                             HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
                             fragment.updateProgressBar();
+                            fragment.updateSwitch();
                         } catch (NullPointerException npe) {
                             //do nothing
                         }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 
@@ -28,6 +29,20 @@ public class HomeFragment extends Fragment {
          root = inflater.inflate(R.layout.fragment_home, container, false);
 
         progressBar = root.findViewById(R.id.progressBar_stay_progression);
+
+        final Switch switchData = root.findViewById(R.id.data_collection_switch);
+        updateSwitch();
+        switchData.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                UserPreferences userPreferences = UserPreferences.getInstance(root.getContext());
+                userPreferences.setSendData(isChecked);
+                userPreferences.store(root.getContext());
+                updateSwitch();
+            }
+        });
+
+
         updateProgressBar();
         return root;
     }
@@ -39,6 +54,26 @@ public class HomeFragment extends Fragment {
         ProgressBarAnimation anim = new ProgressBarAnimation(progressBar, from, to);
         anim.setDuration(1000);
         progressBar.startAnimation(anim);
+    }
+
+    public void updateSwitch() {
+
+        UserPreferences userPreferences = UserPreferences.getInstance(root.getContext());
+        Switch switchData = root.findViewById(R.id.data_collection_switch);
+
+        //set du switch en fonction des données stockées
+        switchData.setChecked(userPreferences.isSendData());
+
+
+        // dans tous les cas si la periode de validité est depassé on coupe la collect
+        Calendar current = Calendar.getInstance();
+        if (userPreferences.getEndValidity() < current.getTimeInMillis()){
+            userPreferences.setSendData(false);
+            switchData.setChecked(false);
+        }
+
+        // TODO : work manager
+
     }
 
     private int calculProgress(UserPreferences userPreferences) {
