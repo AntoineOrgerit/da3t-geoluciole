@@ -3,9 +3,11 @@ package com.univlr.geoluciole.sender;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.univlr.geoluciole.database.LocationTable;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.Logger;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONObject;
@@ -80,12 +82,11 @@ public class HttpProvider {
                 .setCallback(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        // todo logger
+                        Logger.logGps(e);
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        //todo logger
                         if (handler != null) {
                             Message message = handler.obtainMessage(CODE_HANDLER_GPS_COUNT, count);
                             message.sendToTarget();
@@ -93,13 +94,14 @@ public class HttpProvider {
                         String responseBody = response.body().string();
                         try {
                             JSONObject jsonObject = new JSONObject(responseBody);
+                            Logger.logGps(jsonObject);
                             if (!jsonObject.getBoolean("errors")) {
                                 locationTable.removeAll();
                             } else {
-                                // todo log les errors
+                                Logger.logGps(jsonObject, Log.ERROR);
                             }
                         } catch (Exception ie) {
-                            ie.printStackTrace();
+                            Logger.logGps(ie);
                         }
                     }
                 })
