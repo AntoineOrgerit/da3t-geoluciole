@@ -21,18 +21,26 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
+import com.univlr.geoluciole.sender.PeriodicallyHttpWorker;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends LocationActivity {
     public static final String PREFERENCES = "Saved_Pref";
@@ -169,6 +177,19 @@ public class MainActivity extends LocationActivity {
                 // do nothing
             }
         });
+
+        UserPreferences userPreferences = UserPreferences.getInstance(this);
+        if (userPreferences.isGpsConsent()) {
+            Constraints constraintsNetwork = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
+            PeriodicWorkRequest periodicWorkRequest =  new PeriodicWorkRequest.Builder(
+                    PeriodicallyHttpWorker.class, PeriodicallyHttpWorker.PERIODICALLY_CALL_HTTP_IN_HOUR, TimeUnit.HOURS)
+                    .setConstraints(constraintsNetwork)
+                    .build();
+
+            // Mise en place du worker unique pour l'envoi des données GPS en HTTP
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    PeriodicallyHttpWorker.PERIODICALLY_HTTP_WORKER_NAME, ExistingPeriodicWorkPolicy.KEEP,periodicWorkRequest);
+        }
 
         setupViewPager(viewPager);
     }
