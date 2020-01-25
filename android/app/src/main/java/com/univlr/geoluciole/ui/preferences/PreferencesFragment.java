@@ -9,9 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.format.DateFormat;
-import android.view.Gravity;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -42,11 +39,9 @@ import com.univlr.geoluciole.model.Time;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.sender.HttpProvider;
 
-import java.util.Locale;
-
-
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class PreferencesFragment extends Fragment {
     private static final String LANG_FR = "fr";
@@ -359,14 +354,9 @@ public class PreferencesFragment extends Fragment {
                         } else {
                             endDate = c.getTime();
                         }
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
                         openTimer(start, context);
                     }
-                });
+                }, mYear, mMonth, mDay);
                 setBound(datePickerDialog.getDatePicker());
                 datePickerDialog.show();
             }

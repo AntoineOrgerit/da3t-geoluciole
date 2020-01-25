@@ -2,7 +2,6 @@ package com.univlr.geoluciole.form;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -296,15 +295,10 @@ public class FormActivityStepTwo extends AppCompatActivity {
                         } else {
                             dateArrive = c.getTime();
                         }
+                        openTimer(depart);
                     }
                 }, mYear, mMonth, mDay);
 
-                datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        openTimer(depart);
-                    }
-                });
 
                 setBound(datePickerDialog.getDatePicker(), depart);
 
