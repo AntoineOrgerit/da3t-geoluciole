@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("App killed")
         }
 
-        if LocationHandler.getInstance().locationCanBeUsed() {
+        if LocationHandler.getInstance().locationCanBeUsed() && UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_SEND_DATA) {
             NotificationHandler.getInstance().sendNotificationStopTracking()
             LocationHandler.getInstance().stopLocationTracking()
             CustomTimer.getInstance().stopTimerLocation()
