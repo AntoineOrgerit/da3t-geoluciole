@@ -2,7 +2,6 @@ package com.univlr.geoluciole.form;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -164,22 +163,15 @@ public class FormActivityStepEnd extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(FormActivityStepEnd.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String month = monthOfYear < 10 ? "0" + (monthOfYear + 1) : (monthOfYear + 1) + "";
-                        String day = dayOfMonth < 10 ? "0" + (dayOfMonth) : (dayOfMonth) + "";
                         c.set(year, monthOfYear, dayOfMonth);
                         if (start) {
                             startDate = c.getTime();
                         } else {
                             endDate = c.getTime();
                         }
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
                         openTimer(start);
                     }
-                });
+                }, mYear, mMonth, mDay);
                 setBound(start, datePickerDialog.getDatePicker());
 
                 datePickerDialog.show();
@@ -230,6 +222,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
             picker.setMinDate(Calendar.getInstance().getTimeInMillis());
         } else {
             picker.setMaxDate(form.getDateOut().getTime());
+            picker.setMinDate(this.startDate.getTime());
         }
     }
 
