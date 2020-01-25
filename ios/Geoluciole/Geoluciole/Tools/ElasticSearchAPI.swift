@@ -47,8 +47,13 @@ class ElasticSearchAPI {
 
             // construction de l'élément à envoyer correspondant à notre dictionnaire
             var dictStr = ""
+            messageStr += "{"
             for (key, value) in element {
-                dictStr += "{\"\(key)\": \"\(value)\", "
+                if let value = value as? String {
+                     dictStr += "\"\(key)\": \"\(value)\", "
+                } else {
+                     dictStr += "\"\(key)\": \(value), "
+                }
             }
 
             // Ajout du dict + de l'identifiant
@@ -59,7 +64,7 @@ class ElasticSearchAPI {
                 let type = "\"type\": \"\(UIDevice.current.systemName)\""
                 let version = "\"version\": \"\(UIDevice.current.systemVersion)\""
                 let device = "\"device\": \"\(UIDevice.modelName)\""
-                messageStr += "\(type), \(version), \(device)"
+                messageStr += ", \(type), \(version), \(device)"
             }
             
             messageStr += "}"
