@@ -65,6 +65,26 @@ public class Logger extends HyperLog {
         HyperLog.i(TAG_FORM, message);
     }
 
+    public static void logForm(Exception e) {
+        HyperLog.e(TAG_FORM, e.getMessage());
+    }
+
+    public static void logForm(String message, int flag) {
+        log(message, flag, TAG_FORM);
+    }
+
+    public static void logAccount(String message) {
+        HyperLog.i(TAG_ACCOUNT, message);
+    }
+
+    public static void logAccount(String message, int flag) {
+        Logger.log(message, flag, TAG_ACCOUNT);
+    }
+
+    public static void logAccount(Exception e) {
+        HyperLog.e(TAG_ACCOUNT, e.getMessage());
+    }
+
     public static void logWorker(String message) {
         HyperLog.i(TAG_WORKER, message);
     }

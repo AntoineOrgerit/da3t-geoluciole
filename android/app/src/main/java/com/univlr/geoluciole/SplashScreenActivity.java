@@ -25,7 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.splash_screen_activity);
         spinner = findViewById(R.id.spinner_view);
         // initialize logger
-        Logger.initialize(this);
+        Logger.init(this);
 
         // creation animation
         Animation a = AnimationUtils.loadAnimation(this, R.anim.progress_anim);
