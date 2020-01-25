@@ -88,7 +88,7 @@ public class MainActivity extends LocationActivity {
         FormModel form = (FormModel) getIntent().getSerializableExtra("Form");
         System.out.println("Main Activity form retrieved : " + form);
         super.onCreate(savedInstanceState);
-        this.handlerBadge = new Handler(Looper.getMainLooper()) { //TODO corriger handler
+        this.handlerBadge = new Handler(Looper.getMainLooper()) { //TODO faire valider handler
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
@@ -149,6 +149,10 @@ public class MainActivity extends LocationActivity {
         });
 
         setupViewPager(viewPager);
+        // TODO faire valider
+        BadgeManager badgeManager = BadgeManager.getInstance(MainActivity.this);
+        badgeManager.initHandler(handlerBadge);
+
     }
 
     public void setupViewPager(ViewPager viewPager) {
@@ -201,6 +205,7 @@ public class MainActivity extends LocationActivity {
     @Override
     protected void onGPSEnabled() {
         mService.requestLocationUpdates();
+
     }
 
     /**
@@ -220,7 +225,6 @@ public class MainActivity extends LocationActivity {
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        System.out.println("resumeFragment");
     }
 
     public ViewPager getViewPager() {

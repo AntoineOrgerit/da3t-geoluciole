@@ -18,14 +18,15 @@ public class ProximityReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // The reciever gets the Context & the Intent that fired the broadcast as arg0 & agr1
 
-        String k = LocationManager.KEY_PROXIMITY_ENTERING;
+        String keyEntering = LocationManager.KEY_PROXIMITY_ENTERING;
         // Key for determining whether user is leaving or entering
 
-        boolean state = intent.getBooleanExtra(k, false);
-        //Gives whether the user is entering or leaving in boolean form
+        boolean entered = intent.getBooleanExtra(keyEntering, false);
         NotificationBadge notificationBadge = new NotificationBadge();
 
-        if (state) {
+        //Gives whether the user is entering or leaving in boolean form
+
+        if (entered) {
             UserPreferences userPref = UserPreferences.getInstance(context);
             String idBadgeUnlocked = intent.getExtras().getString("idBadge");
             if (!userPref.getListUnlockedBadges().contains(idBadgeUnlocked)) {

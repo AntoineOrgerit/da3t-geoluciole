@@ -137,43 +137,31 @@ public class AchievementsFragment extends Fragment {
     public static int getRessourceImageBadge(String idBadge) {
         switch (idBadge) {
             case "0":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_1km;
             case "1":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_5km;
             case "2":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_10km;
             case "3":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_saint_nicolas;
             case "4":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_tour_chaine;
             case "5":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_tour_lanterne;
             case "6":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_eglise_st_sauveur;
             case "7":
-                return R.mipmap.no_badge;
+                return R.mipmap.badge_grosse_horloge;
             case "8":
-                return R.mipmap.no_badge;
+                return R.mipmap.no_image;
             case "9":
-                return R.mipmap.no_badge;
+                return R.mipmap.no_image;
             case "10":
-                return R.mipmap.no_badge;
+                return R.mipmap.no_image;
             case "11":
-                return R.mipmap.no_badge;
-            case "12":
-                return R.mipmap.logo_app;
-            case "13":
-                return R.mipmap.logo_app;
-            case "14":
-                return R.mipmap.logo_app;
-            case "15":
-                return R.mipmap.logo_app;
-            case "16":
-                return R.mipmap.logo_app;
-            case "17":
-                return R.mipmap.logo_app;
+                return R.mipmap.no_image;
             default:
-                return 0;
+                return R.mipmap.no_image;
         }
     }
 

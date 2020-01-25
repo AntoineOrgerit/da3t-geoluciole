@@ -25,6 +25,13 @@
  * - remove stopping activity from notifications;
  * - adapting to Android 8 and 9 versions;
  * - update of Location retrieve system.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 /**
@@ -199,6 +206,15 @@ public class LocationUpdatesService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "Service started");
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                setProximity(); // instanciation des alertes de proximités TODO faire valider
+
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
         boolean startedFromNotification = intent.getBooleanExtra(EXTRA_STARTED_FROM_NOTIFICATION,
                 false);
 

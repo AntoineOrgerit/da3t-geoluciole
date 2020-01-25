@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONArray;
@@ -53,6 +54,7 @@ public class BadgeManager {
     private HashMap<String, Badge> hashmapBadges;
     // instance singleton
     private static BadgeManager badgeInstance;
+    private Handler handlerFromUI;
 
     /**
      * Constructeur instanciant le tableau de badges à débloquer
@@ -81,12 +83,14 @@ public class BadgeManager {
      * @param jsonObjectBadge JSONObject représentant l'objet à instancier
      * @return Badge
      */
-    private Badge instanciateBadgePlace(JSONObject jsonObjectBadge) {
+    private Badge instanciateBadgePlace(JSONObject jsonObjectBadge, Context context) {
         BadgePlace badge = new BadgePlace();
         try {
             badge.setId(jsonObjectBadge.getString(BadgeConstantes.ID));
             badge.setName(jsonObjectBadge.getString(BadgeConstantes.NAME));
-            badge.setDescription(jsonObjectBadge.getString(BadgeConstantes.DESCRIPTION));
+            String key = jsonObjectBadge.getString(BadgeConstantes.DESCRIPTION);
+            int id = context.getResources().getIdentifier(key, "string", context.getPackageName());
+            badge.setDescription(context.getString(id));
             String badgeLatitude = jsonObjectBadge.getString(BadgeConstantes.LATITUDE);
             String badgeLongitude = jsonObjectBadge.getString(BadgeConstantes.LONGITUDE);
             String badgeProximity = jsonObjectBadge.getString(BadgeConstantes.PROXIMITY);
@@ -105,12 +109,14 @@ public class BadgeManager {
      * @param jsonObjectBadge JSONObject représentant l'objet à instancier
      * @return Badge
      */
-    private Badge instanciateBadgeDistance(JSONObject jsonObjectBadge) {
+    private Badge instanciateBadgeDistance(JSONObject jsonObjectBadge, Context context) {
         BadgeDistance badge = new BadgeDistance();
         try {
             badge.setId(jsonObjectBadge.getString(BadgeConstantes.ID));
             badge.setName(jsonObjectBadge.getString(BadgeConstantes.NAME));
-            badge.setDescription(jsonObjectBadge.getString(BadgeConstantes.DESCRIPTION));
+            String key = jsonObjectBadge.getString(BadgeConstantes.DESCRIPTION);
+            int id = context.getResources().getIdentifier(key, "string", context.getPackageName());
+            badge.setDescription(context.getString(id));
             badge.setDistance(Double.valueOf(jsonObjectBadge.getString(BadgeConstantes.DISTANCE)));
         } catch (JSONException e) {
             Log.e(TAG, "instanciateBadgeDistance, " + e.getMessage());
@@ -151,10 +157,10 @@ public class BadgeManager {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectBadge = jsonArray.getJSONObject(i);
                 if (jsonObjectBadge.getString(BadgeConstantes.TYPE).equalsIgnoreCase(BadgeConstantes.PLACE)) {
-                    badge = instanciateBadgePlace(jsonObjectBadge);
+                    badge = instanciateBadgePlace(jsonObjectBadge, context);
                     Log.i(TAG, "instanciateObjFromJson, BadgePlace instancié - " + badge.getName());
                 } else if (jsonObjectBadge.getString(BadgeConstantes.TYPE).equalsIgnoreCase(BadgeConstantes.DISTANCE)) {
-                    badge = instanciateBadgeDistance(jsonObjectBadge);
+                    badge = instanciateBadgeDistance(jsonObjectBadge, context);
                     Log.i(TAG, "instanciateObjFromJson, BadgeDistance instancié - " + badge.getName());
                 }
                 // ajout des badges initialisés dans la liste
@@ -197,10 +203,19 @@ public class BadgeManager {
         userPref.getListUnlockedBadges().add(idBadge);
         // enregistre les badges débloqués
         userPref.store(context);
-        Handler handler = new Handler(); // TODO corriger handler
-        Message message = handler.obtainMessage(0, true);
-        message.sendToTarget();
+        if (this.handlerFromUI != null) {
+            Message message = this.handlerFromUI.obtainMessage(0, true);
+            message.sendToTarget();
+        }
         Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
     }
 
+    // TODO
+    public void unlockBadgesDistance() {
+
+    }
+
+    public void initHandler(Handler handlerBadge) {
+        this.handlerFromUI = handlerBadge;
+    }
 }
