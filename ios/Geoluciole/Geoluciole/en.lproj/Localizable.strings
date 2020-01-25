@@ -102,9 +102,16 @@
 "send_data" = "Send data";
 
 /*BADGES*/
-
 "text_stats_title" = "Statistics";
 "text_distance" = "Distance traveled :";
 "no_achievement_picture_description" = "No badges";
 "achievement_title" = "Badges obtained";
 "text_badges" = "My stickers";
+"1_km_description" = "Well done! You just browse 1km";
+"5_km_description" = "Well done! You just browse 5km";
+"10_km_description" = "Well done! You just browse 10km";
+"tour_saint_nicolas_description" = "Well done ! You have just discovered the Tour Saint Nicolas";
+"tour_de_la_chaine_description" = "Well done ! You have just discovered the Tour de la Chaîne";
+"tour_de_la_lanterne_description" = "Well done ! You have just discovered the Tour de la Lanterne";
+"eglise_saint_sauveur_description" = "Well done ! You have just discovered the Eglise Saint-Sauveur";
+"grosse_horloge_description" = "Well done ! You have just discovered the Grosse Horloge";

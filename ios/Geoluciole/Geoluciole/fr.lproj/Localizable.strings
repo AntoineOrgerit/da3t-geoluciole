@@ -107,3 +107,11 @@
 "no_achievement_picture_description" = "Aucun badges";
 "achievement_title" = "Badges obtenus";
 "text_badges" = "Mes badges";
+"1_km_description" = "Bravo! Vous venez de parcourir 1km";
+"5_km_description" = "Bravo! Vous venez de parcourir 5km";
+"10_km_description" = "Bravo! Vous venez de parcourir 10km";
+"tour_saint_nicolas_description" = "Bravo ! Vous venez de découvrir la Tour Saint Nicolas";
+"tour_de_la_chaine_description" = "Bravo ! Vous venez de découvrir la Tour de la Chaîne";
+"tour_de_la_lanterne_description" = "Bravo ! Vous venez de découvrir la Tour de la Lanterne";
+"eglise_saint_sauveur_description" = "Bravo ! Vous venez de découvrir l'Eglise Saint-Sauveur";
+"grosse_horloge_description" = "Bravo ! Vous venez de découvrir la Grosse Horloge";

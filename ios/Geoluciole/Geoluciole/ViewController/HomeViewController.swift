@@ -113,13 +113,16 @@ class HomeViewController: ParentViewController {
             let rgpdController = GPSConsentRGPDViewController()
             rgpdController.modalPresentationStyle = .fullScreen
             self.present(rgpdController, animated: true)
-        }
-
-        // On affiche ensuite le constement pour le formulaire
-        if !self.userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
-            let formRgpdController = FormConsentRGPDViewController()
-            formRgpdController.modalPresentationStyle = .fullScreen
-            self.present(formRgpdController, animated: true)
+        } else {
+            // On affiche ensuite le constement pour le formulaire
+            if !self.userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
+                let formRgpdController = FormConsentRGPDViewController()
+                formRgpdController.modalPresentationStyle = .fullScreen
+                self.present(formRgpdController, animated: true)
+            } else {
+                // On affiche le formulaire
+                
+            }
         }
     }
 
