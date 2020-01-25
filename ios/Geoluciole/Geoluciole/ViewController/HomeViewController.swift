@@ -87,7 +87,6 @@ class HomeViewController: ParentViewController {
             print("ProgressBar : \(pct)")
         }
         self.showLevelView.setProgress(value: pct)
-
     }
 
     override func viewWillAppear(_ animated: Bool) {

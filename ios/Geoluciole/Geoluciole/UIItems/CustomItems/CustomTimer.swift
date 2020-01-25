@@ -45,7 +45,7 @@ class CustomTimer {
     }
 
     /// Envoi les données de localisation de l'utilisateur au serveur
-    func sendPostLocationElasticSearch(viewController: UIViewController? = nil) {
+    func sendPostLocationElasticSearch(viewController: ParentViewController? = nil) {
         if Constantes.DEBUG {
             print("Timer déclenché")
         }
@@ -74,8 +74,8 @@ class CustomTimer {
             }
 
             DispatchQueue.main.async {
-                viewController?.view.hideAllToasts()
-                viewController?.view.makeToast("Pas de données à envoyer", duration: 2)
+                viewController?.rootView.hideAllToasts()
+                viewController?.rootView.makeToast("Pas de données à envoyer", duration: 2)
             }
         }
     }

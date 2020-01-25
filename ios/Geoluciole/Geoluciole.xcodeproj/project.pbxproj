@@ -27,7 +27,7 @@
 		235D45D123C9247A00992B7B /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235D45D023C9247A00992B7B /* ParentViewController.swift */; };
 		235D45D323C930BC00992B7B /* CustomUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235D45D223C930BC00992B7B /* CustomUIImageView.swift */; };
 		23610E8123CDF593003B6EF8 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8023CDF593003B6EF8 /* CheckBoxView.swift */; };
-		23610E8323CE021C003B6EF8 /* DateFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8223CE021C003B6EF8 /* DateFieldView.swift */; };
+		23610E8323CE021C003B6EF8 /* SettingsDateFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8223CE021C003B6EF8 /* SettingsDateFieldView.swift */; };
 		23610E8523CE3446003B6EF8 /* LanguageSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8423CE3446003B6EF8 /* LanguageSelectorView.swift */; };
 		23610E8723CE3719003B6EF8 /* CheckBoxFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23610E8623CE3719003B6EF8 /* CheckBoxFieldView.swift */; };
 		236597A023D5F16400C13EC0 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2365979F23D5F16400C13EC0 /* Toast.swift */; };
@@ -106,7 +106,7 @@
 		235D45D023C9247A00992B7B /* ParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		235D45D223C930BC00992B7B /* CustomUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIImageView.swift; sourceTree = "<group>"; };
 		23610E8023CDF593003B6EF8 /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
-		23610E8223CE021C003B6EF8 /* DateFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFieldView.swift; sourceTree = "<group>"; };
+		23610E8223CE021C003B6EF8 /* SettingsDateFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDateFieldView.swift; sourceTree = "<group>"; };
 		23610E8423CE3446003B6EF8 /* LanguageSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectorView.swift; sourceTree = "<group>"; };
 		23610E8623CE3719003B6EF8 /* CheckBoxFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxFieldView.swift; sourceTree = "<group>"; };
 		2365979F23D5F16400C13EC0 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
@@ -382,7 +382,7 @@
 				23A76CC523CCB71900E191B6 /* StatsView.swift */,
 				23E79B3E23CDEEDC004D3C3C /* DurationOfEngagementFormView.swift */,
 				23610E8023CDF593003B6EF8 /* CheckBoxView.swift */,
-				23610E8223CE021C003B6EF8 /* DateFieldView.swift */,
+				23610E8223CE021C003B6EF8 /* SettingsDateFieldView.swift */,
 				23610E8423CE3446003B6EF8 /* LanguageSelectorView.swift */,
 				23610E8623CE3719003B6EF8 /* CheckBoxFieldView.swift */,
 				23F98BA923CF038800DA7931 /* NoBadgeView.swift */,
@@ -506,7 +506,7 @@
 				62330D2D23CDF05F003E7586 /* GPSConsentRGPDViewController.swift in Sources */,
 				2305CE7823C6321200354361 /* FMDatabase.m in Sources */,
 				62AE470023DAEE4A00583FCC /* UIDeviceExtension.swift in Sources */,
-				23610E8323CE021C003B6EF8 /* DateFieldView.swift in Sources */,
+				23610E8323CE021C003B6EF8 /* SettingsDateFieldView.swift in Sources */,
 				23CB178323CCE9AC00B1BF73 /* ShowLevelView.swift in Sources */,
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,
 				6FACFC6C23CF58B50036881E /* PartnersViewController.swift in Sources */,

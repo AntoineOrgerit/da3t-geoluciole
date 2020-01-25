@@ -78,13 +78,13 @@ class ElasticSearchAPI {
     }
 
     /// Envoi des localisations du terminal au serveur
-    func postLocations(message: String, viewController: UIViewController? = nil) {
+    func postLocations(message: String, viewController: ParentViewController? = nil) {
         if Constantes.DEBUG {
             print("Envoi des données de localisation au serveur en cours ...")
         }
 
         DispatchQueue.main.async {
-            viewController?.view.makeToast("Envoi des données en cours...", duration: 10, position: .bottom)
+            viewController?.rootView.makeToast("Envoi des données en cours...", duration: 10, position: .bottom)
         }
 
         // Création de la requête (header + contenu)
@@ -121,7 +121,7 @@ class ElasticSearchAPI {
 
                             var style = ToastStyle()
                             style.backgroundColor = UIColor(red: 145 / 255, green: 208 / 255, blue: 182 / 255, alpha: 0.9)
-                            viewController?.view.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
+                            viewController?.rootView.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
                         }
 
                         // Sinon, on indique l'erreur et on garde les données

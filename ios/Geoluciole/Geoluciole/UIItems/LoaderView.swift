@@ -2,7 +2,7 @@
 //  LoaderView.swift
 //  Geoluciole
 //
-//  Created by local192 on 22/01/2020.
+//  Created by Thibaud LAMBERT on 22/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -41,14 +41,12 @@ class LoaderView: UIImageView {
     }
     
     override func startAnimating() {
-        super.startAnimating()
-        
         self.isHidden = false
+        super.startAnimating()
     }
     
     override func stopAnimating() {
         super.stopAnimating()
-        
         self.isHidden = true
     }
 }
