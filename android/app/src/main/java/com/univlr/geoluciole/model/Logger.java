@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 public class Logger extends HyperLog {
     public static final String TAG_GPS = "GPS_LOG";
+    public static final String TAG_GPS_PERIODICALLY = "GPS_AUTO_LOG";
     public static final String TAG_FORM = "FORM_LOG";
     public static final String TAG_ACCOUNT = "FORM_LOG";
     public static final String TAG_WORKER = "WORKER_LOG";
@@ -26,7 +27,7 @@ public class Logger extends HyperLog {
         setLogFormat(new CustomLogFormat(context, user_id));
     }
 
-    private static void log(String message, int flag, String tag) {
+    public static void log(String message, int flag, String tag) {
         switch (flag) {
             case Log.DEBUG:
                 HyperLog.d(tag, message);
@@ -43,10 +44,6 @@ public class Logger extends HyperLog {
         log(message, flag, TAG_GPS);
     }
 
-    public static void logGps(JSONObject response) {
-        //todo definir le message a recup
-        HyperLog.i(TAG_GPS, response.toString());
-    }
 
     public static void logGps(JSONObject response, int flag) {
         // todo definir le message a recup

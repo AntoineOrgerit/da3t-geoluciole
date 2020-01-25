@@ -137,7 +137,7 @@ public class HttpProvider {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseBody = response.body().string();
-                if (jsonSuccessAction(responseBody)) {
+                if (jsonSuccessAction(responseBody, count, Logger.TAG_GPS_PERIODICALLY)) {
                     locationTable.removeAll();
                 }
                 completer.set(ListenableWorker.Result.success());
@@ -153,14 +153,18 @@ public class HttpProvider {
         return callback;
     }
 
-    private static boolean jsonSuccessAction(String body) {
+    private static boolean jsonSuccessAction(String body, long count) {
+        return jsonSuccessAction(body, count, Logger.TAG_GPS);
+    }
+
+    private static boolean jsonSuccessAction(String body, long count, String labelCustom) {
         try {
             JSONObject jsonObject = new JSONObject(body);
             if (!jsonObject.getBoolean("errors")) {
-                Logger.logGps(jsonObject);
+                Logger.log("GPS send data : "+ count + " locations", Log.INFO, labelCustom);
                 return true;
             } else {
-                Logger.logGps(jsonObject, Log.ERROR);
+                Logger.log(jsonObject.toString(), Log.ERROR, labelCustom);
                 return false;
             }
         } catch (Exception ie) {
@@ -191,7 +195,7 @@ public class HttpProvider {
                             message.sendToTarget();
                         }
                         String responseBody = response.body().string();
-                        if (jsonSuccessAction(responseBody)) {
+                        if (jsonSuccessAction(responseBody, count)) {
                             locationTable.removeAll();
                         }
                     }
