@@ -53,8 +53,11 @@ public class HttpProvider {
         // création des constraintes
         Constraints constraintsNetwork = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
         // création de la request
+
+
         PeriodicWorkRequest periodicWorkRequest =  new PeriodicWorkRequest.Builder(
-                PeriodicallyHttpWorker.class, PeriodicallyHttpWorker.PERIODICALLY_CALL_HTTP_IN_HOUR, TimeUnit.HOURS)
+                PeriodicallyHttpWorker.class, 15, TimeUnit.MINUTES) // todo ligne de test
+        //        PeriodicallyHttpWorker.class, PeriodicallyHttpWorker.PERIODICALLY_CALL_HTTP_IN_HOUR, TimeUnit.HOURS) //todo décommenter cette ligne (ligne de prod)
                 .setConstraints(constraintsNetwork)
                 .build();
         // Mise en place du periodique worker
