@@ -65,26 +65,4 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }, 1500);
     }
-
-    //  @Override
-  //  protected void onStart() {
-  //      super.onStart();
-//
-  //      // checking permissions
-  //      ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
-  //      if(!unauthorizedPermissions.isEmpty()) {
-  //          requestPermissions(unauthorizedPermissions);
-  //      } else {
-  //          enableGPSIfNeeded();
-  //      }
-  //  }
-//
-  //  @Override
-  //  protected void onGPSEnabled() {
-  //      Intent intent = new Intent(getApplicationContext(),
-  //              MainActivity.class);
-  //      startActivity(intent);
-  //      finish();
-  //  }
-
 }

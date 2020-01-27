@@ -18,6 +18,27 @@
  * - delete of Android 0 Notification Channel;
  * - remove stopping activity from notifications;
  * - changing accuracy to be balanced with the battery.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 /**
@@ -39,6 +60,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.location.Criteria;
 import android.location.Location;
@@ -52,7 +74,6 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -62,11 +83,14 @@ import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
 import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.model.badge.Badge;
+import com.univlr.geoluciole.model.badge.BadgeConstantes;
+import com.univlr.geoluciole.model.badge.BadgeManager;
+import com.univlr.geoluciole.model.badge.BadgePlace;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
+import java.util.Map;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -99,6 +123,7 @@ public class LocationUpdatesService extends Service {
     public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
     private static final String EXTRA_STARTED_FROM_NOTIFICATION = PACKAGE_NAME +
             ".started_from_notification";
+    private static final String COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT = "com.univlr.geoluciole.proximityalert";
 
     private final IBinder mBinder = new LocalBinder();
 
@@ -181,17 +206,17 @@ public class LocationUpdatesService extends Service {
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-                Log.i(TAG, "onStatusChanger: "+ provider + " " + status + " " + extras.toString());
+                Log.i(TAG, "onStatusChanger: " + provider + " " + status + " " + extras.toString());
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-                Log.i(TAG, "onProviderEnabled: "+ provider);
+                Log.i(TAG, "onProviderEnabled: " + provider);
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-                Log.i(TAG, "onProviderDisabled: "+ provider);
+                Log.i(TAG, "onProviderDisabled: " + provider);
             }
         };
 
@@ -216,6 +241,14 @@ public class LocationUpdatesService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "Service started");
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                setProximity(); // instanciation des alertes de proximités
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
         boolean startedFromNotification = intent.getBooleanExtra(EXTRA_STARTED_FROM_NOTIFICATION,
                 false);
 
@@ -386,5 +419,43 @@ public class LocationUpdatesService extends Service {
             }
         }
         return false;
+    }
+
+    /**
+     * Méthode permettant de créer les alertes de proximité en fonction de chaque badge à débloquer
+     */
+    private void setProximity() {
+        Utils.setRequestingLocationUpdates(this, true);
+        BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
+        Map<String, Badge> listBadges = badgeManager.getArrayBadges();
+        this.instanciateProximityReceiver();
+        try {
+            for (Map.Entry<String, Badge> entry : listBadges.entrySet()) {
+                String key = entry.getKey();
+                int id = Integer.parseInt(key);
+                Badge b = entry.getValue();
+                Intent i = new Intent(COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT);
+                if (b instanceof BadgePlace) {
+                    i.putExtra(BadgeConstantes.ID, key);
+                    PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), id, i, PendingIntent.FLAG_UPDATE_CURRENT);
+                    double latitude = ((BadgePlace) b).getLocation().getLatitude();
+                    double longitude = ((BadgePlace) b).getLocation().getLongitude();
+                    float proximity = (float) ((BadgePlace) b).getProximity();
+                    mLocationManager.addProximityAlert(latitude, longitude, proximity, -1, pi);
+                    Log.i(TAG, "setProximity, alertProximity ajoutée : latitude : " + latitude + ", longitude : " + longitude + ", proximity : " + proximity);
+                }
+            }
+        } catch (SecurityException unlikely) {
+            Utils.setRequestingLocationUpdates(this, false);
+            Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
+        }
+    }
+
+    /**
+     * Méthode pour instancier le receveur pour les alertes de proximité
+     */
+    private void instanciateProximityReceiver() {
+        IntentFilter filter = new IntentFilter(COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT);
+        registerReceiver(new ProximityReceiver(), filter);
     }
 }

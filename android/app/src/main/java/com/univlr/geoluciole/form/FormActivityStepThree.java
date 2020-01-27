@@ -27,6 +27,8 @@ import com.univlr.geoluciole.model.UserPreferences;
 public class FormActivityStepThree extends AppCompatActivity {
     private static final String TAG = FormActivityStepThree.class.getSimpleName();
 
+    private static final String FORM = "Form";
+    private static final String STEP_ANONYMOUS = "2/3";
     // variable title
     private TextView title;
     // variable step
@@ -94,7 +96,7 @@ public class FormActivityStepThree extends AppCompatActivity {
         this.step = (TextView) findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
-            this.step.setText("2/3");
+            this.step.setText(STEP_ANONYMOUS);
         }
         // liste déroulante
         this.spinnerWhomList = (Spinner) findViewById(R.id.spinner_list_whom);
@@ -128,8 +130,8 @@ public class FormActivityStepThree extends AppCompatActivity {
      * Méthode permettant de gérer le formulaire
      */
     private void formSetter() {
-        form = (FormModel) getIntent().getSerializableExtra("Form");
-        Log.i(TAG, "formSetter, formulaire chargé : " + form);
+        form = (FormModel) getIntent().getSerializableExtra(FORM);
+        Log.i(TAG, "formSetter, récupération du form : " + form);
     }
 
     /**
@@ -166,7 +168,7 @@ public class FormActivityStepThree extends AppCompatActivity {
     private void back() {
         Intent intent = new Intent(getApplicationContext(),
                 FormActivityStepTwo.class);
-        intent.putExtra("Form", form);
+        intent.putExtra(FORM, form);
         startActivity(intent);
         overridePendingTransition(R.transition.trans_right_in, R.transition.trans_right_out);
         finish();
@@ -262,9 +264,10 @@ public class FormActivityStepThree extends AppCompatActivity {
     public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener(final TextInputLayout inputLayout) {
         return new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Toast.makeText(FormActivityStepThree.this,
+               /* Toast.makeText(FormActivityStepThree.this,
                         "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
+
                 if (parent.getItemAtPosition(pos).toString().equalsIgnoreCase(getString(R.string.field_other_title))) {
                     inputLayout.setVisibility(View.VISIBLE);
                 } else {
