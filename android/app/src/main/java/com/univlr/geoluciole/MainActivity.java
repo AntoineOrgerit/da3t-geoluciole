@@ -110,8 +110,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                         break;
                     case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
-                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
-                                new BadgeListFragment()).commit();
+                        FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
+                                new BadgeListFragment());
+
+                        fragmentTransaction.commit();
                         break;
                     case R.id.navigation_dashboard:
                         viewPager.setCurrentItem(2);
@@ -143,8 +145,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 }
                 if (position == 1) {
                     try {
-                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
-                                new BadgeListFragment()).commit();
+                        FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
+                                new BadgeListFragment());
+
+                        fragmentTransaction.commit();
                     } catch (NullPointerException np) {
                         Log.i(TAG, np.getMessage());
                     }
@@ -161,7 +165,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             }
         });
         setupViewPager(viewPager);
-           }
+    }
 
     public void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());

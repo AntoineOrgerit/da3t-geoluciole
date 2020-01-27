@@ -90,10 +90,11 @@ public class BadgeListFragment extends Fragment {
         // si liste vide, vue sans badges
         if (userPref.getListUnlockedBadges().isEmpty()) {
             ScrollView scrollView = (ScrollView) root.findViewById(R.id.scroll_badges);
-            scrollView.setVisibility(View.INVISIBLE);
+            scrollView.setVisibility(View.VISIBLE);
         } else { // cache la vue scroll si aucun badge debloque
             ConstraintLayout constraintLayout = root.findViewById(R.id.layout_sticker);
-            constraintLayout.setVisibility(View.INVISIBLE);
+            constraintLayout.setVisibility(View.GONE);
+
             // layout de la table
             LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,

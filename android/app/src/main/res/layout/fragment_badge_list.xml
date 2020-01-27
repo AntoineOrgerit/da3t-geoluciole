@@ -31,43 +31,16 @@
             android:id="@+id/table_badges"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <!--  <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-              <ImageView
-                    android:id="@+id/no_achievement_image7"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:contentDescription="@string/no_achievement_picture_description"
-                    app:srcCompat="@mipmap/no_badge" />
-
-                <ImageView
-                    android:id="@+id/no_achievement_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:contentDescription="@string/no_achievement_picture_description"
-                    app:srcCompat="@mipmap/no_badge" />
-
-                <ImageView
-                    android:id="@+id/no_achievement_image8"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:contentDescription="@string/no_achievement_picture_description"
-                    app:srcCompat="@mipmap/no_badge" />
-
-            </TableRow>-->
-
-
         </TableLayout>
     </ScrollView>
+
     <!-- VIEW NO BADGES -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_sticker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
+        android:visibility="gone"
         android:gravity="center|center_horizontal|center_vertical"
         app:layout_constraintTop_toBottomOf="@+id/layout_stats"
         tools:layout_editor_absoluteX="39dp">
