@@ -24,16 +24,26 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hypertrack.hyperlog.HyperLog;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
+import com.univlr.geoluciole.sender.HttpProvider;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends LocationActivity {
@@ -102,7 +112,6 @@ public class MainActivity extends LocationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         FormModel form = (FormModel) getIntent().getSerializableExtra("Form");
         System.out.println("Main Activity form retrieved : " + form);
-
         super.onCreate(savedInstanceState);
 
         checkPowerSavingMode();
@@ -182,7 +191,53 @@ public class MainActivity extends LocationActivity {
             }
         });
 
+        UserPreferences userPreferences = UserPreferences.getInstance(this);
+        if (userPreferences.isGpsConsent()) {
+            HttpProvider.activePeriodicSend(this);
+            //todo ligne suivante de test
+            File folder = new File(this.getFilesDir() + "/Log");
+            if(!folder.exists()) {
+                folder.mkdir();
+            }
+            String filename = this.getFilesDir() + "/Log/" +"gps_log.log";
+            try {
+                FileWriter fw = new FileWriter(filename);
+                fw.append("Creation file \n");
+                fw.close();
+            }catch(IOException e) {
+                e.printStackTrace();
+            }
+            File filelog = HyperLog.getDeviceLogsInFile(this, true);
+            try {
+                FileInputStream fin = new FileInputStream(filelog);
+                String content = MainActivity.convertStreamToString(fin);
+                //Make sure you close all streams.
+                fin.close();
+
+                File f = new File(filename);
+                FileOutputStream fos = new FileOutputStream(f, true);
+                fos.write(content.getBytes());
+                fos.flush();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // todo fin de ligne de test
+        }
+
         setupViewPager(viewPager);
+    }
+
+    //todo fonction de test
+    public static String convertStreamToString(InputStream is) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        reader.close();
+        return sb.toString();
     }
 
     private void setupViewPager(ViewPager viewPager) {
