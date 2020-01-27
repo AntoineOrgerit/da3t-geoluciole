@@ -209,8 +209,7 @@ public class LocationUpdatesService extends Service {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                setProximity(); // instanciation des alertes de proximités TODO faire valider
-
+                setProximity(); // instanciation des alertes de proximités
             }
         };
         Thread t = new Thread(r);

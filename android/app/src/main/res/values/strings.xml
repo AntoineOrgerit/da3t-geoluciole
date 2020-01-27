@@ -155,4 +155,7 @@
     <string name="tour_de_la_lanterne_description"> "Congratulation! You have just discovered the Lantern Tower" </string>
     <string name="eglise_saint_sauveur_description"> "Congratulation! You have just discovered the Saint-Sauveur Church" </string>
     <string name="grosse_horloge_description"> "Congratulation! You have just discovered the Grosse Horloge" </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,12 +1,10 @@
 package com.univlr.geoluciole.model.badge;
 
 import android.content.Context;
-import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONArray;
@@ -210,9 +208,9 @@ public class BadgeManager {
         Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
     }
 
-    // TODO
-    public void unlockBadgesDistance() {
 
+    public void unlockBadgesDistance() {
+        // TODO
     }
 
     public void initHandler(Handler handlerBadge) {

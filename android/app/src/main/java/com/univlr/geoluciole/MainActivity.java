@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -31,12 +32,13 @@ import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.badge.BadgeManager;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
+import com.univlr.geoluciole.ui.achievements.BadgeListFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends LocationActivity {
+public class MainActivity extends LocationActivity implements AchievementsFragment.OnFragmentInteractionListener, BadgeListFragment.OnFragmentInteractionListener {
     public static final String PREFERENCES = "Saved_Pref";
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -112,9 +114,13 @@ public class MainActivity extends LocationActivity {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
                         viewPager.setCurrentItem(0);
+                        HomeFragment homeFragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        homeFragment.updateLastBadgeView();
                         break;
                     case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
+                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
+                                new BadgeListFragment()).commit();
                         break;
                     case R.id.navigation_dashboard:
                         viewPager.setCurrentItem(2);
@@ -135,6 +141,22 @@ public class MainActivity extends LocationActivity {
                     prevMenuItem.setChecked(false);
                 } else {
                     navView.getMenu().getItem(0).setChecked(false);
+                }
+                if (position == 0) {
+                    try {
+                        HomeFragment homeFragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        homeFragment.updateLastBadgeView();
+                    } catch (NullPointerException np) {
+                        Log.i(TAG, np.getMessage());
+                    }
+                }
+                if (position == 1) {
+                    try {
+                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
+                                new BadgeListFragment()).commit();
+                    } catch (NullPointerException np) {
+                        Log.i(TAG, np.getMessage());
+                    }
                 }
                 Log.d(TAG, "onPageSelected: " + position);
                 navView.getMenu().getItem(position).setChecked(true);
@@ -208,6 +230,11 @@ public class MainActivity extends LocationActivity {
 
     }
 
+    @Override
+    public void messageFromParentFragment(Uri uri) {
+        // do nothing
+    }
+
     /**
      * Receiver for broadcasts sent by {@link LocationUpdatesService}.
      */
@@ -233,5 +260,10 @@ public class MainActivity extends LocationActivity {
 
     public ViewPagerAdapter getAdapter() {
         return adapter;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        // do nothing
     }
 }
