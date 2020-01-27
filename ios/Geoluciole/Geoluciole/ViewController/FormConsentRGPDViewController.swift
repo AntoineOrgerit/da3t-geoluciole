@@ -123,7 +123,9 @@ class FormConsentRGPDViewController: ParentModalViewController {
             guard let strongSelf = self else { return }
 
             if strongSelf.checkbox.isChecked() {
-                strongSelf.sendDataCompte()
+                //strongSelf.sendDataCompte()
+                LocationHandler.getInstance().requestLocationAuthorization()
+                NotificationHandler.getInstance().requestNotificationAuthorization()
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)
             }
 
