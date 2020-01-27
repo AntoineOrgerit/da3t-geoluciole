@@ -7,16 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.icu.text.UnicodeSet;
 import android.location.Location;
 import android.net.Uri;
-
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
-import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
@@ -24,8 +19,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
@@ -36,7 +29,7 @@ import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.badge.BadgeManager;
+import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.sender.HttpProvider;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
@@ -178,6 +171,8 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 if (position == 0) {
                     try {
                         HomeFragment homeFragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        homeFragment.updateProgressBar();
+                        //homeFragment.updateSwitch(mService);
                         homeFragment.updateLastBadgeView();
                     } catch (NullPointerException np) {
                         Log.i(TAG, np.getMessage());
@@ -185,6 +180,9 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 }
                 if (position == 1) {
                     try {
+                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        fragment.updateDistance();
+
                         FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
                                 new BadgeListFragment());
 
@@ -196,22 +194,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 Log.d(TAG, "onPageSelected: " + position);
                 navView.getMenu().getItem(position).setChecked(true);
                 prevMenuItem = navView.getMenu().getItem(position);
-                if (position == 0) {
-                    try {
-                        HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
-                        fragment.updateProgressBar();
-                        //fragment.updateSwitch(mService);
-                    } catch (NullPointerException npe) {
-                        //do nothing
-                    }
-                } else if(position == 1){
-                    try {
-                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
-                        fragment.updateDistance();
-                    } catch (NullPointerException npe){
-                        // do nohing
-                    }
-                }
             }
 
 
@@ -375,14 +357,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-    }
-
-    public ViewPager getViewPager() {
-        return viewPager;
-    }
-
-    public ViewPagerAdapter getAdapter() {
-        return adapter;
     }
 
     @Override

@@ -266,7 +266,8 @@ public class FormActivityStepThree extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                /* Toast.makeText(FormActivityStepThree.this,
                         "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
+
                 if (parent.getItemAtPosition(pos).toString().equalsIgnoreCase(getString(R.string.field_other_title))) {
                     inputLayout.setVisibility(View.VISIBLE);
                 } else {
