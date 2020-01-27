@@ -14,8 +14,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Select;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
@@ -34,10 +37,20 @@ public class FormActivityStepThree extends AppCompatActivity {
     // variables listes déroulantes
     @Select(messageResId = R.string.form_err_required)
     private Spinner spinnerWhomList;
+    private TextInputLayout otherInputLayout;
+    @NotEmpty(messageResId = R.string.form_err_required)
+    private TextInputEditText otherWithWhom;
     @Select(messageResId = R.string.form_err_required)
     private Spinner spinnerTransportList;
+    private TextInputLayout otherTransportInputLayout;
+    @NotEmpty(messageResId = R.string.form_err_required)
+    private TextInputEditText otherTransport;
 
     // variables radiogroup
+    @Checked(messageResId = R.string.form_err_radio)
+    private RadioGroup radiogroupPresenceChildren;
+    @Checked(messageResId = R.string.form_err_radio)
+    private RadioGroup radiogroupPresenceTeens;
     @Checked(messageResId = R.string.form_err_radio)
     private RadioGroup radiogroupFirstTime;
     @Checked(messageResId = R.string.form_err_radio)
@@ -89,13 +102,23 @@ public class FormActivityStepThree extends AppCompatActivity {
         this.spinnerWhomList = (Spinner) findViewById(R.id.spinner_list_whom);
         this.spinnerTransportList = (Spinner) findViewById(R.id.spinner_list_transport);
 
+        // autre with whom
+        this.otherInputLayout = findViewById(R.id.form_other_title);
+        this.otherWithWhom = findViewById(R.id.other);
+        this.otherInputLayout.setVisibility(View.GONE);
+
+        // autre transport
+        this.otherTransportInputLayout = findViewById(R.id.form_other_transport);
+        this.otherTransport = findViewById(R.id.other_transport);
+        this.otherTransportInputLayout.setVisibility(View.GONE);
+
         // radiogroup
+        this.radiogroupPresenceChildren = (RadioGroup) findViewById(R.id.radio_group_presence_children);
+        this.radiogroupPresenceTeens = (RadioGroup) findViewById(R.id.radio_group_presence_teens);
         this.radiogroupFirstTime = (RadioGroup) findViewById(R.id.radio_group_first_time);
         this.radiogroupKnowCity = (RadioGroup) findViewById(R.id.radio_group_know_city);
         this.radiogroupFiveTimes = (RadioGroup) findViewById(R.id.radio_group_five_times);
         this.radiogroupTwoMonths = (RadioGroup) findViewById(R.id.radio_group_two_months);
-
-        // radiobuttons
 
         // bouton précédent
         this.btnPrevious = (Button) findViewById(R.id.btn_prev);
@@ -116,8 +139,8 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void initListenersButtons() {
         // listes déroulantes listeners
-        this.spinnerWhomList.setOnItemSelectedListener(CustomOnItemSelectedListener());
-        this.spinnerTransportList.setOnItemSelectedListener(CustomOnItemSelectedListener());
+        this.spinnerWhomList.setOnItemSelectedListener(CustomOnItemSelectedListener(otherInputLayout));
+        this.spinnerTransportList.setOnItemSelectedListener(CustomOnItemSelectedListener(otherTransportInputLayout));
         // bouton précédent
         this.btnPrevious.setOnClickListener(previousView());
         // bouton suivant
@@ -172,16 +195,31 @@ public class FormActivityStepThree extends AppCompatActivity {
 
     private void saveToForm() {
         // get selected radio button from radioGroup
+        int selectedIdPresenceChildren = radiogroupPresenceChildren.getCheckedRadioButtonId();
+        int selectedIdPresenceTeens = radiogroupPresenceTeens.getCheckedRadioButtonId();
         int selectedIdFirstTime = radiogroupFirstTime.getCheckedRadioButtonId();
         int selectedIdFKnowCity = radiogroupKnowCity.getCheckedRadioButtonId();
         int selectedIdFiveTimes = radiogroupFiveTimes.getCheckedRadioButtonId();
         int selectedIdTwoMonths = radiogroupTwoMonths.getCheckedRadioButtonId();
 
-        // set spinner to form
-        form.setWithWhom(String.valueOf(spinnerWhomList.getSelectedItem()));
-        form.setTransport(String.valueOf(spinnerTransportList.getSelectedItem()));
+        // si l'item sélectionné dans le spinner with whom est identique à "Autre" on récupère la valeur
+        // du champ rempli par l'utilisateur sinon on prend la valeur du spinner
+        if (String.valueOf(spinnerWhomList.getSelectedItem()).equalsIgnoreCase(getString(R.string.field_other_title))) {
+            form.setWithWhom(String.valueOf(otherWithWhom.getText()));
+        } else {
+            form.setWithWhom(String.valueOf(spinnerWhomList.getSelectedItem()));
+        }
+        // si l'item sélectionné dans le spinner transport est identique à "Autre" on récupère la valeur
+        // du champ rempli par l'utilisateur sinon on prend la valeur du spinner
+        if (String.valueOf(spinnerTransportList.getSelectedItem()).equalsIgnoreCase(getString(R.string.field_other_title))) {
+            form.setTransport(String.valueOf(otherTransport.getText()));
+        } else {
+            form.setTransport(String.valueOf(spinnerTransportList.getSelectedItem()));
+        }
 
         // find the radiobutton by returned id - set the form
+        form.setPresenceChildren(getRadioButtonValue(selectedIdPresenceChildren));
+        form.setPresenceTeens(getRadioButtonValue(selectedIdPresenceTeens));
         form.setFirstTime(getRadioButtonValue(selectedIdFirstTime));
         form.setKnowCity(getRadioButtonValue(selectedIdFKnowCity));
         form.setFiveTimes(getRadioButtonValue(selectedIdFiveTimes));
@@ -204,7 +242,8 @@ public class FormActivityStepThree extends AppCompatActivity {
                 Toast.makeText(FormActivityStepThree.this,
                         "OnClickListener : " +
                                 "\nVoyage avec : " + spinnerWhomList.getSelectedItem() +
-                                "\nTransport : " + spinnerTransportList.getSelectedItem(),
+                                "\nTransport : " + spinnerTransportList.getSelectedItem() +
+                                "\nAutre : " + otherWithWhom.getText(),
 
                         Toast.LENGTH_SHORT).show();
 
@@ -218,21 +257,21 @@ public class FormActivityStepThree extends AppCompatActivity {
     }
 
     private Boolean getRadioButtonValue(int selectedId) {
-        RadioButton radioResponseFirstTime = (RadioButton) findViewById(selectedId);
-        if (radioResponseFirstTime != null) {
-            if (String.valueOf(radioResponseFirstTime.getText()).equals("Oui")) {
-                return true;
-            }
-        }
-        return false;
+        RadioButton radioResponse = (RadioButton) findViewById(selectedId);
+        return (radioResponse != null && String.valueOf(radioResponse.getText()).equalsIgnoreCase(getString(R.string.form_yes_response)));
     }
 
-    public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener() {
+    public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener(final TextInputLayout inputLayout) {
         return new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                /* Toast.makeText(FormActivityStepThree.this,
                         "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
-                        Toast.LENGTH_SHORT).show();*/
+                        Toast.LENGTH_SHORT).show();
+                if (parent.getItemAtPosition(pos).toString().equalsIgnoreCase(getString(R.string.field_other_title))) {
+                    inputLayout.setVisibility(View.VISIBLE);
+                } else {
+                    inputLayout.setVisibility(View.GONE);
+                }
             }
 
             @Override

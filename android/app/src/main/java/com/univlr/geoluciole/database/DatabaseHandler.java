@@ -15,7 +15,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // instance singleton de la base de donnees
     private static DatabaseHandler sInstance;
     // version de la base de donnees
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 9;
     // nom de la base de donnees
     private static final String DATABASE_NAME = "geoluciole";
     // tables de la base de donnees

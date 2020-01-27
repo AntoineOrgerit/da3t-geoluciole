@@ -7,8 +7,8 @@ android {
         applicationId "com.univlr.geoluciole"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,7 +32,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.mobsandgeeks:android-saripaar:2.0.2'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.work:work-runtime:2.3.0"
+    implementation 'com.hypertrack:hyperlog:0.0.10'
+    implementation 'com.jaredrummler:android-device-names:1.1.9'
+    implementation "androidx.concurrent:concurrent-futures:1.0.0"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

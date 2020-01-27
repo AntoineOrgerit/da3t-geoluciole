@@ -15,28 +15,35 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
-import com.univlr.geoluciole.adapter.ViewPagerAdapter;
+
+import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.model.badge.BadgeManager;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * classe AchievementsFragment correspondant à la vue des badges
  */
 public class AchievementsFragment extends Fragment implements BadgeListFragment.OnFragmentInteractionListener {
     private static final String TAG = AchievementsFragment.class.getSimpleName();
-    private AchievementsViewModel achievementsViewModel;
+    private View root;
     private MainActivity context;
-
     private BadgeListFragment badgeListFragment;
-    private ViewPagerAdapter adapter;
     private OnFragmentInteractionListener mListener;
-
+    
+    
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.achievementsViewModel = ViewModelProviders.of(this).get(AchievementsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_achievements, container, false);
         this.context = (MainActivity) root.getContext();
+        updateDistance();
         return root;
     }
-
-    @Override
+    
+    
+        @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Fragment childFragment = new BadgeListFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -69,5 +76,22 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
         // TODO: Update argument type and name
         void messageFromParentFragment(Uri uri);
     }
+ 
+    public void updateDistance(){
+        UserPreferences userPref = UserPreferences.getInstance(this.root.getContext());
+        TextView textView = this.root.findViewById(R.id.distance_value);
 
+        // définition de l'arrondi
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.HALF_UP);
+
+        String unit = " m";
+        float distance = userPref.getDistance();
+        if(userPref.getDistance() > 1000){
+            distance = distance / 1000;
+            unit = " Km";
+        }
+        String dis = df.format(distance) + unit;
+        textView.setText(dis);   
+    }
 }

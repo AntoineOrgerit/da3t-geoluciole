@@ -94,7 +94,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
                     android:enabled="true"
                     android:focusableInTouchMode="false"
                     android:hint="@string/form_date_in_hint"
@@ -110,10 +109,9 @@
 
                 <Button
                     android:id="@+id/btn_in_date"
-                    android:layout_width="150dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:padding="5dp"
                     android:text="@string/form_btn_date"
@@ -135,37 +133,7 @@
                 android:weightSum="10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/in_date_layout">
-
-                <EditText
-                    android:id="@+id/in_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:enabled="true"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/form_time_in_hint"
-                    android:inputType="time"
-                    android:textColor="@color/text_disabled"
-                    android:textColorHighlight="@color/colorPrimaryDark"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_in_time"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="Autofill" />
-
-                <Button
-                    android:id="@+id/btn_in_time"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:padding="5dp"
-                    android:text="@string/form_btn_time"
-                    android:textColor="@color/text_white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/in_date_layout"/>
             <!-- IN LA ROCHELLE TIME - END-->
 
             <!-- OUT LA ROCHELLE TITLE - BEGIN-->
@@ -198,7 +166,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
                     android:enabled="true"
                     android:focusableInTouchMode="false"
                     android:hint="@string/form_date_out_hint"
@@ -214,10 +181,9 @@
 
                 <Button
                     android:id="@+id/btn_out_date"
-                    android:layout_width="150dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:padding="5dp"
                     android:text="@string/form_btn_date"
@@ -239,37 +205,7 @@
                 android:weightSum="10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/deb_date_layout">
-
-                <EditText
-                    android:id="@+id/out_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:enabled="true"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/form_time_in_hint"
-                    android:inputType="time"
-                    android:textColor="@color/text_disabled"
-                    android:textColorHighlight="@color/colorPrimaryDark"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_out_time"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="Autofill" />
-
-                <Button
-                    android:id="@+id/btn_out_time"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:padding="5dp"
-                    android:text="@string/form_btn_time"
-                    android:textColor="@color/text_white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/deb_date_layout"/>
             <!-- OUT LA ROCHELLE TIME - END-->
 
             <!-- BUTTON PREVIOUS -->
