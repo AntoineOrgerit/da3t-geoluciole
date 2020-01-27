@@ -62,6 +62,11 @@ import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
 import com.univlr.geoluciole.model.UserPreferences;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
  * been requested and all clients unbind.
@@ -155,14 +160,18 @@ public class LocationUpdatesService extends Service {
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
                 float distance = last.distanceTo(location);
-                long deltaT = Math.abs(last.getTime() - location.getTime())/1000;
-
-                if (location.distanceTo(last) <= ((location.getSpeed() * deltaT)+10)){
-                    userPreferences.setDistance(userPreferences.getDistance() + distance);
-                    userPreferences.store(LocationUpdatesService.this);
-                } else {
-                    Log.e(TAG, "Point GPS bizarre point : speed " + location.getSpeed() + ", lat : " + location.getLatitude() + ", long : " + location.getLongitude() );
+                long deltaT = Math.abs(location.getTime() - last.getTime())/1000;
+                // définition de l'arrondi
+                BigDecimal speed = new BigDecimal(location.getSpeed()).round(new MathContext(1));
+                if(speed != null && speed.compareTo(BigDecimal.ZERO) > 0 ){
+                    if (location.distanceTo(last) <= ( speed.longValue() * deltaT)+10){
+                        userPreferences.setDistance(userPreferences.getDistance() + distance);
+                        userPreferences.store(LocationUpdatesService.this);
+                    } else {
+                        Log.e(TAG, "Point GPS bizarre point : speed " + location.getSpeed() + ", lat : " + location.getLatitude() + ", long : " + location.getLongitude() );
+                    }
                 }
+
 
                 // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);

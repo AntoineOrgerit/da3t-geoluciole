@@ -1,5 +1,6 @@
 package com.univlr.geoluciole.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.Calendar;
@@ -31,14 +34,14 @@ public class HomeFragment extends Fragment {
         progressBar = root.findViewById(R.id.progressBar_stay_progression);
 
         final Switch switchData = root.findViewById(R.id.data_collection_switch);
-        updateSwitch();
+        updateSwitch(null);
         switchData.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UserPreferences userPreferences = UserPreferences.getInstance(root.getContext());
                 userPreferences.setSendData(isChecked);
                 userPreferences.store(root.getContext());
-                updateSwitch();
+                //updateSwitch(null);
             }
         });
 
@@ -56,7 +59,7 @@ public class HomeFragment extends Fragment {
         progressBar.startAnimation(anim);
     }
 
-    public void updateSwitch() {
+    public void updateSwitch(LocationUpdatesService mService) {
 
         UserPreferences userPreferences = UserPreferences.getInstance(root.getContext());
         Switch switchData = root.findViewById(R.id.data_collection_switch);
@@ -73,6 +76,14 @@ public class HomeFragment extends Fragment {
         }
 
         // TODO : work manager
+        if(mService != null){
+            if(!UserPreferences.getInstance(root.getContext()).isSendData()){
+                mService.removeLocationUpdates();
+            } else {
+                mService.startService(new Intent(root.getContext(), LocationUpdatesService.class));
+
+            }
+        }
 
     }
 

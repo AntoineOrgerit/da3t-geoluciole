@@ -125,7 +125,8 @@ public class MainActivity extends LocationActivity {
                         try {
                             HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
                             fragment.updateProgressBar();
-                            fragment.updateSwitch();
+                            fragment.updateSwitch(mService);
+
                         } catch (NullPointerException npe) {
                             //do nothing
                         }
@@ -160,6 +161,7 @@ public class MainActivity extends LocationActivity {
                     try {
                         HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
                         fragment.updateProgressBar();
+                        //fragment.updateSwitch(mService);
                     } catch (NullPointerException npe) {
                         //do nothing
                     }
