@@ -12,6 +12,8 @@ import com.univlr.geoluciole.form.FormActivityStepOne;
 import com.univlr.geoluciole.form.FormActivityStepTwo;
 import com.univlr.geoluciole.model.UserPreferences;
 
+import java.util.Date;
+
 public class RGPDConsentementFormActivity extends AppCompatActivity {
 
     private Button validate_button;
@@ -32,8 +34,10 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
                 boolean consent = consentementCheckbox.isChecked();
                 if (consent) {
                     validate_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    refused_button.setBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 } else {
                     validate_button.setBackgroundColor(getResources().getColor(R.color.colorDisabled));
+                    refused_button.setBackgroundColor(getResources().getColor(R.color.colorRefused));
                 }
             }
         });
@@ -51,6 +55,7 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
                 // sauvegarde des préférences
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementFormActivity.this);
                 u.setAccountConsent(true);
+                u.setDateConsentementForm(new Date().getTime());
                 UserPreferences.storeInstance(RGPDConsentementFormActivity.this, u);
 
                 startActivity(intent);
@@ -61,6 +66,10 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
         this.refused_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean consent = consentementCheckbox.isChecked();
+                if (consent) {
+                    return;
+                }
                 Intent intent = new Intent(getApplicationContext(), FormActivityStepTwo.class);
 
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementFormActivity.this);

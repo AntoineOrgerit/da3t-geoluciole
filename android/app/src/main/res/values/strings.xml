@@ -65,6 +65,7 @@
     <string name="form_lastname">Lastname</string>
     <string name="form_firstname">FirstName</string>
     <string name="form_mail">Mail</string>
+    <string name="form_phone">Phone</string>
     <!-- DATE AND HOUR INFO TITLES -->
     <string name="form_in_city_title">Date and hour of arrival in La Rochelle</string>
     <string name="form_out_city_title">Date and hour of departure of La Rochelle</string>
@@ -80,6 +81,10 @@
     <string name="form_with_whom_title">Whom travel ?*</string>
     <string name="form_prompt_whom">Choose an answer</string>
 
+    <string name="form_explain_validation_period_part_1">The data collection period corresponds to the duration for which you consent to the collection of your GPS data.</string>
+    <string name="form_explain_validation_period_part_2">After this time, we will no longer collect data. You can, if you wish, modify these periods via the \'Settings\' menu.</string>
+    <string name="form_title_start_date_validation_period">Start of collection</string>
+    <string name="form_title_end_date_validation_period">End of collection</string>
     <string-array name="form_responses_whom_array">
         <item>Choose an answer</item>
         <item>Alone</item>
@@ -88,6 +93,7 @@
         <item>With group</item>
         <item>Other</item>
     </string-array>
+    <string name="field_other_title">Other</string>
     <string name="presence_children">Presence of children under 13 years old*</string>
     <string name="presence_teens">Presence of teenagers (13–18 years old)*</string>
 
@@ -137,6 +143,8 @@
     <string name="partners">Consult partners</string>
     <string name="licence_agreement">Consult the EULA</string>
     <string name="revoke_consent">Revoke my consent</string>
+    <string name="title_my_identifier">My identifier</string>
+    <string name="no_identifier">No identifier</string>
     <string name="send_data">Send data</string>
 
     <!-- ACHIEVEMENTS FRAGMENT -->
@@ -159,4 +167,24 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- DIALOG  -->
+    <string name="back">Back</string>
+    <string name="copy">Copy my username to the clipboard </string>
+    <string name="sendMail">I continue</string>
+    <string name="send">Send mail</string>
+    <string name="copy_success"> The identifier has been copied to the clipboard </string>
+    <string name="revoke_title">Revoque my consent</string>
+    <string name="revoke_text_1">To revoke your consent and delete the data related to your activity please send an email to
+        the following address : </string>
+    <string name="revoke_text_2">By clicking continue you will be redirected to your email application (if linked account). </string>
+    <string name="message_mail_revoke"> I request the deletion of my data. </string>
+    <!-- PARTNER FRAGMENT -->
+    <string name="logo_desc_larochelle">logo of La Rochelle Université</string>
+    <string name="logo_desc_cnrs">logo of CNRS</string>
+    <string name="logo_desc_lienss">logo of LIENSs</string>
+    <string name="logo_desc_l3i">logo of L3i</string>
+    <!-- POPUP VALIDATION DATE -->
+    <string name="message_update_date_title">Update date</string>
+    <string name="message_update_date">Are you sure to update this date ?</string>
 </resources>

@@ -3,10 +3,15 @@
     package="com.univlr.geoluciole">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!-- CONSTRUCTOR SPECIFIC PERMISSIONS -->
+    <uses-permission android:name="oppo.permission.OPPO_COMPONENT_SAFE"/>
+    <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>
 
     <application
         android:allowBackup="true"
@@ -18,6 +23,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".form.FormActivityStepEnd"></activity>
         <activity android:name=".CguActivity" />
+        <activity android:name=".PartnerActivity" />
         <activity android:name=".RGPDConsentementFormActivity" />
         <activity android:name=".RGPDConsentementGPSActivity" />
         <activity

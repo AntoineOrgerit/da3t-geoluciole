@@ -1,5 +1,6 @@
 package com.univlr.geoluciole.form;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +31,8 @@ public class FormActivityStepOne extends AppCompatActivity {
     @NotEmpty(messageResId = R.string.form_err_required)
     @Email(messageResId = R.string.form_err_mail)
     private TextInputEditText email;
-
+    @NotEmpty(messageResId = R.string.form_err_required)
+    private TextInputEditText phone;
     // formulaire
     private FormModelWithConsent formWithConsent;
 
@@ -59,9 +61,10 @@ public class FormActivityStepOne extends AppCompatActivity {
      * Méthode pour initialiser les éléments UI
      */
     private void initUI() {
-        lastname = findViewById(R.id.lastname);
-        firstname = findViewById(R.id.firstname);
-        email = findViewById(R.id.email);
+        this.lastname = findViewById(R.id.lastname);
+        this.firstname = findViewById(R.id.firstname);
+        this.email = findViewById(R.id.email);
+        this.phone = findViewById(R.id.phone);
     }
 
     /**
@@ -72,9 +75,10 @@ public class FormActivityStepOne extends AppCompatActivity {
         if (formWithConsent == null) {
             formWithConsent = new FormModelWithConsent(UserPreferences.getInstance(this).getId());
         } else {
-            lastname.setText(formWithConsent.getLastname());
-            firstname.setText(formWithConsent.getFirstname());
-            email.setText(formWithConsent.getEmail());
+            this.lastname.setText(formWithConsent.getLastname());
+            this.firstname.setText(formWithConsent.getFirstname());
+            this.email.setText(formWithConsent.getEmail());
+            this.phone.setText(formWithConsent.getPhone());
             Log.i(TAG, "formSetter, récupération du form : " + formWithConsent);
         }
     }
@@ -100,12 +104,14 @@ public class FormActivityStepOne extends AppCompatActivity {
                 formWithConsent.setLastname(String.valueOf(lastname.getText()));
                 formWithConsent.setFirstname(String.valueOf(firstname.getText()));
                 formWithConsent.setEmail(String.valueOf(email.getText()));
+                formWithConsent.setPhone(String.valueOf(phone.getText()));
 
                 Toast.makeText(FormActivityStepOne.this,
                         "OnClickListener : " +
                                 "\nNom : " + lastname.getText() +
                                 "\nPrénom : " + firstname.getText() +
-                                "\nEmail : " + email.getText()
+                                "\nEmail : " + email.getText() +
+                                "\nPhone : " + phone.getText()
                         ,
                         Toast.LENGTH_SHORT).show();
                 validatorListener.setRedirect(true);
@@ -115,5 +121,4 @@ public class FormActivityStepOne extends AppCompatActivity {
 
         };
     }
-
 }

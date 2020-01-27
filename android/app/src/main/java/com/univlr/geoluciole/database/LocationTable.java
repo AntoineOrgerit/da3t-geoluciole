@@ -22,6 +22,8 @@ public class LocationTable extends Table {
     public static final String LONGITUDE = "longitude";
     public static final String TIMESTAMP = "time_stamp";
     public static final String ALTITUDE = "altitude";
+    public static final String ACCURACY = "precision";
+    public static final String SPEED = "vitesse";
 
     /**
      * Constructeur de la classe
@@ -34,6 +36,8 @@ public class LocationTable extends Table {
                 new TableColumn(LONGITUDE, "DOUBLE", true),
                 new TableColumn(TIMESTAMP, "TIMESTAMP", false),
                 new TableColumn(ALTITUDE, "DOUBLE", true),
+                new TableColumn(ACCURACY, "DOUBLE", true),
+                new TableColumn(SPEED, "DOUBLE", true),
         };
     }
 
@@ -59,6 +63,8 @@ public class LocationTable extends Table {
         values.put(LocationTable.LONGITUDE, l.getLongitude());
         values.put(LocationTable.TIMESTAMP, l.getTime());
         values.put(LocationTable.ALTITUDE, l.getAltitude());
+        values.put(LocationTable.SPEED, l.getSpeed());
+        values.put(LocationTable.ACCURACY, l.getAccuracy());
         Log.i("DATABASE", "addLocation - Ajout d une location dans la base de donnee");
         System.out.println(values);
         this.dbSQLite.getDb().insert(LocationTable.LOCATION_TABLE_NAME, null, values);
@@ -83,7 +89,7 @@ public class LocationTable extends Table {
         List<LocationBulk> locationList = new ArrayList();
         String[] columnArray = {
                 LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + "," +
-                        LocationTable.TIMESTAMP + "," + LocationTable.ALTITUDE};
+                        LocationTable.TIMESTAMP + "," + LocationTable.ALTITUDE + "," +LocationTable.SPEED + ","+ LocationTable.ACCURACY};
         Cursor cursor = this.dbSQLite.getDb().query(LocationTable.LOCATION_TABLE_NAME,
                 columnArray, null, null, null, null, null, null);
 
@@ -95,8 +101,10 @@ public class LocationTable extends Table {
                 Location location = new Location("");
                 location.setLatitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LATITUDE)));
                 location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LONGITUDE)));
-                location.setTime(cursor.getInt(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
+                location.setTime(cursor.getLong(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
                 location.setAltitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.ALTITUDE)));
+                location.setSpeed(cursor.getFloat(cursor.getColumnIndex(LocationTable.SPEED)));
+                location.setAccuracy(cursor.getFloat(cursor.getColumnIndex(LocationTable.ACCURACY)));
                 locationList.add(new LocationBulk(location, userPref.getId()));
             } while (cursor.moveToNext());
             cursor.close();
@@ -107,6 +115,35 @@ public class LocationTable extends Table {
         return locationList;
     }
 
+
+    public Location getLastLocation(){
+        this.dbSQLite.open();
+        String[] columnArray = {
+                LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + ", (SELECT max(time_stamp) from locations) AS time_stamp" + "," + LocationTable.ALTITUDE + "," +LocationTable.SPEED + ","+ LocationTable.ACCURACY};
+        Cursor cursor = this.dbSQLite.getDb().query(LocationTable.LOCATION_TABLE_NAME,
+                columnArray, null, null, null, null, null, null);
+
+
+        Location location = new Location("");
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            do {
+
+                location.setLatitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LATITUDE)));
+                location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.LONGITUDE)));
+                location.setTime(cursor.getLong(cursor.getColumnIndex(LocationTable.TIMESTAMP)));
+                location.setAltitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.ALTITUDE)));
+                location.setSpeed(cursor.getFloat(cursor.getColumnIndex(LocationTable.SPEED)));
+                location.setAccuracy(cursor.getFloat(cursor.getColumnIndex(LocationTable.ACCURACY)));
+            } while (cursor.moveToNext());
+            cursor.close();
+        } else {
+            Log.i("DATABASE", "getLast - Pas de valeurs trouvees");
+        }
+        Log.i("DATABASE", "getLast - valeurs recuperees");
+        this.dbSQLite.close();
+        return location;
+    }
 
     public long countAll() {
         this.dbSQLite.open();

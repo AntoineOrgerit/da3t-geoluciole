@@ -21,21 +21,34 @@ public class UserPreferences {
     private String id;
     private boolean consent;
     private boolean gpsConsent;
+    private long dateConsentementGPS;
+    private long dateConsentementForm;
     private boolean accountConsent;
     private long startValidity;
     private long endValidity;
     private String language;
     private List<String> listUnlockedBadges;
+    private float distance;
+    private boolean sendData;
+
+    private boolean isAccountIsSend;
+    private boolean isFormIsSend;
 
     private UserPreferences(String language, Context context) {
         this.id = generateID(context);
         this.consent = false;
         this.gpsConsent = false;
         this.accountConsent = false;
+        this.isAccountIsSend = false;
+        this.isFormIsSend = false;
+        this.dateConsentementForm = 0;
+        this.dateConsentementGPS= 0;
         this.startValidity = 0;
         this.endValidity = 0;
         this.language = language;
         this.listUnlockedBadges = new ArrayList<>();
+        this.distance = 0;
+        this.sendData = false;
     }
 
     public static UserPreferences getInstance(Context context) {
@@ -77,9 +90,39 @@ public class UserPreferences {
     private String generateID(Context context) {
         String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.i(TAG, "generateID, android ID " + androidId);
-        String newID = Long.toString(androidId.hashCode() * -1);
-        Log.i(TAG, "generateID, android ID modifié " + newID);
-        return newID;
+        return Long.toString(Math.abs(androidId.hashCode()));
+    }
+
+    public void setFormIsSend(boolean formIsSend) {
+        isFormIsSend = formIsSend;
+    }
+
+    public void setAccountIsSend(boolean accountIsSend) {
+        isAccountIsSend = accountIsSend;
+    }
+
+    public boolean isFormIsSend() {
+        return isFormIsSend;
+    }
+
+    public boolean isAccountIsSend() {
+        return isAccountIsSend;
+    }
+
+    public long getDateConsentementForm() {
+        return dateConsentementForm;
+    }
+
+    public long getDateConsentementGPS() {
+        return dateConsentementGPS;
+    }
+
+    public void setDateConsentementForm(long dateConsentementForm) {
+        this.dateConsentementForm = dateConsentementForm;
+    }
+
+    public void setDateConsentementGPS(long dateConsentementGPS) {
+        this.dateConsentementGPS = dateConsentementGPS;
     }
 
     public void store(Context context) {
@@ -125,6 +168,30 @@ public class UserPreferences {
     public List<String> getListUnlockedBadges() {
         return listUnlockedBadges;
     }
+    
+    public long getStartValidity() {
+        return startValidity;
+    }
+
+    public long getEndValidity() {
+        return endValidity;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
+    }
+
+    public boolean isSendData() {
+        return sendData;
+    }
+
+    public void setSendData(boolean sendData) {
+        this.sendData = sendData;
+    }
 
     @Override
     public String toString() {
@@ -133,8 +200,10 @@ public class UserPreferences {
                 ", consent=" + consent +
                 ", gpsConsent=" + gpsConsent +
                 ", accountConsent=" + accountConsent +
-                ", startValidity=" + startValidity +
-                ", endValidity=" + endValidity +
+                ", startValidity=" + startValidity+
+                ", endValidity=" + endValidity+
+                ", dateConsentementGPS='" + dateConsentementGPS+ '\'' +
+                ", dateConsentementForm='" + dateConsentementForm+ '\'' +
                 ", language='" + language + '\'' +
                 '}';
     }

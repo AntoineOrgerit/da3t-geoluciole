@@ -72,18 +72,28 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textview"
+                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    android:text="Un petite peu de texte pour voir ce que celava donner mais je crois pas que je le garderai car voila quoi"
+                    android:text="@string/form_explain_validation_period_part_1"
                     app:layout_constraintEnd_toEndOf="@id/layout_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/form_explain_validation_period_part_2"
+                    app:layout_constraintEnd_toEndOf="@id/layout_text"
+                    app:layout_constraintStart_toStartOf="@id/layout_text"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- OUT LA ROCHELLE DATE - BEGIN-->
@@ -103,7 +113,8 @@
                     android:id="@+id/textView2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Un truc de fou"
+                    android:text="@string/form_title_start_date_validation_period"
+                    android:textColor="@color/text_question"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -160,7 +171,8 @@
                     android:id="@+id/textView3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Un truc de fou 2"
+                    android:text="@string/form_title_end_date_validation_period"
+                    android:textColor="@color/text_question"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -65,6 +65,7 @@
     <string name="form_lastname">Nom</string>
     <string name="form_firstname">Prénom</string>
     <string name="form_mail">Email</string>
+    <string name="form_phone">Numéro de téléphone</string>
     <!-- DATE AND HOUR INFO TITLES -->
     <string name="form_in_city_title">Date et heure d\'arrivée à La Rochelle</string>
     <string name="form_out_city_title">Date et heure de départ de La Rochelle</string>
@@ -80,6 +81,11 @@
     <string name="form_with_whom_title">Avec qui voyagez-vous ?*</string>
     <string name="form_prompt_whom">Choisir une réponse</string>
 
+    <string name="form_explain_validation_period_part_1">La période de collecte des données correspond à la durée pour laquelle vous consentez à ce que l\'on recueille vos données GPS.</string>
+    <string name="form_explain_validation_period_part_2">Passé ce délai, nous ne collecterons plus de données. Vous pourrez, si vous le souhaitez, modifier ces périodes via le menu \'Paramètres\'.</string>
+    <string name="form_title_start_date_validation_period">Début de la collecte</string>
+    <string name="form_title_end_date_validation_period">Fin de la collecte</string>
+
     <string-array name="form_responses_whom_array">
         <item>Choisir une réponse</item>
         <item>Seul</item>
@@ -88,6 +94,7 @@
         <item>En groupe</item>
         <item>Autre</item>
     </string-array>
+    <string name="field_other_title">Autre</string>
     <string name="presence_children">Présence d\'enfants de moins de 13 ans*</string>
     <string name="presence_teens">Présence d\'adolescents (13–18 ans)*</string>
 
@@ -135,6 +142,8 @@
     <string name="partners">Consulter les partenaires</string>
     <string name="licence_agreement">Consulter les CGU</string>
     <string name="revoke_consent">Révoquer mon consentement</string>
+    <string name="title_my_identifier">Mon identifiant</string>
+    <string name="no_identifier">Pas d\'identifiant</string>
     <string name="send_data">Envoyer mes données</string>
 
     <!-- ACHIEVEMENTS FRAGMENT -->
@@ -154,6 +163,28 @@
     <string name="tour_de_la_lanterne_description"> "Bravo! Vous venez de découvrir la Tour de la Lanterne"</string>
     <string name="eglise_saint_sauveur_description">"Bravo! Vous venez de découvrir l'Eglise Saint-Sauveur"</string>
     <string name="grosse_horloge_description"> "Bravo! Vous venez de découvrir la Grosse Horloge"</string>
+
+    <!-- DIALOG  -->
+    <string name="back">Retour</string>
+    <string name="copy">Copier mon identifiant dans le presse papier</string>
+    <string name="sendMail">Je continue</string>
+    <string name="send">Envoyer mail</string>
+    <string name="copy_success">L\'identifiant a été copié dans le presse papier</string>
+    <string name="revoke_title">Révoquer mon consentement</string>
+    <string name="revoke_text_1">Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à
+        l\'adresse suivante : </string>
+    <string name="revoke_text_2">En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique (si compte lié).</string>
+    <string name="message_mail_revoke">Je demande la suppression de mes données.</string>
+    <!-- PARTNER FRAGMENT -->
+    <string name="logo_desc_larochelle">logo de La Rochelle Université</string>
+    <string name="logo_desc_cnrs">logo du CNRS</string>
+    <string name="logo_desc_lienss">logo du LIENSs</string>
+    <string name="logo_desc_l3i">logo du L3i</string>
+
+    <!-- POPUP VALIDATION DATE -->
+    <string name="message_update_date_title">Modification de la date</string>
+    <string name="message_update_date">Voulez-vous enregistrer les modifications ?</string>
+
 </resources>
 
 

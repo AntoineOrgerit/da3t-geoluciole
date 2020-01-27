@@ -2,7 +2,6 @@ package com.univlr.geoluciole.form;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.Time;
 import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.sender.HttpProvider;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -47,6 +47,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
     private Button endValidityPeriodBtn;
     private EditText startValidityPeriodEditext;
     private EditText endValidityPeriodEditext;
+    private UserPreferences userPreferences;
 
     // formulaire
     private FormModel form;
@@ -59,6 +60,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_step_end);
+        userPreferences = UserPreferences.getInstance(this);
         // init éléments du form
         initUI();
         // recuperation de l'objet formulaire
@@ -81,7 +83,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
         this.title = (TextView) findViewById(R.id.form_title);
         // step
         this.step = (TextView) findViewById(R.id.form_step);
-        if (!UserPreferences.getInstance(this).isAccountConsent()) {
+        if (!userPreferences.isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
             this.step.setText(STEP_ANONYMOUS);
         }
@@ -114,7 +116,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
         // start
         if (form.getDateIn().getTime() < c.getTime().getTime()) {
             this.startDate = c.getTime();
-            this.startTime = new Time(8,0);
+            this.startTime = new Time(c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE));
         } else {
             this.startDate = form.getDateIn();
             this.startTime = form.getTimeIn();
@@ -164,22 +166,15 @@ public class FormActivityStepEnd extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(FormActivityStepEnd.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String month = monthOfYear < 10 ? "0" + (monthOfYear + 1) : (monthOfYear + 1) + "";
-                        String day = dayOfMonth < 10 ? "0" + (dayOfMonth) : (dayOfMonth) + "";
                         c.set(year, monthOfYear, dayOfMonth);
                         if (start) {
                             startDate = c.getTime();
                         } else {
                             endDate = c.getTime();
                         }
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
                         openTimer(start);
                     }
-                });
+                }, mYear, mMonth, mDay);
                 setBound(start, datePickerDialog.getDatePicker());
 
                 datePickerDialog.show();
@@ -230,6 +225,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
             picker.setMinDate(Calendar.getInstance().getTimeInMillis());
         } else {
             picker.setMaxDate(form.getDateOut().getTime());
+            picker.setMinDate(this.startDate.getTime());
         }
     }
 
@@ -255,7 +251,6 @@ public class FormActivityStepEnd extends AppCompatActivity {
     }
 
     private void savePeriod() {
-        UserPreferences userPreferences = UserPreferences.getInstance(this);
         userPreferences.setConsent();
         userPreferences.setPeriodValid(this.startDate, this.startTime, this.endDate, this.endTime);
         userPreferences.store(this);
@@ -272,8 +267,14 @@ public class FormActivityStepEnd extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 savePeriod();
-                //todo send http form
-                //todo send http compte
+
+                // sauvegarde du formulaire
+                form.storeInstance(FormActivityStepEnd.this);
+                // envoi du formulaire
+                HttpProvider.sendForm(FormActivityStepEnd.this, form);
+
+                // send http compte
+                HttpProvider.sendAccount(FormActivityStepEnd.this, form.getStringAccount(FormActivityStepEnd.this, userPreferences));
 
                 Intent intent = new Intent(FormActivityStepEnd.this, MainActivity.class);
 
