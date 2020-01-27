@@ -25,6 +25,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class FormActivityStepEnd extends AppCompatActivity {
+    private static final String TAG = FormActivityStepEnd.class.getSimpleName();
+    private static final String STEP_ANONYMOUS = "3/3";
+    private static final String FORM = "Form";
 
     // variable title
     private TextView title;
@@ -80,7 +83,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
         this.step = (TextView) findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
-            this.step.setText("3/3");
+            this.step.setText(STEP_ANONYMOUS);
         }
 
         // bouton précédent
@@ -106,7 +109,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
      * Méthode permettant de gérer le formulaire
      */
     private void formSetter() {
-        form = (FormModel) getIntent().getSerializableExtra("Form");
+        form = (FormModel) getIntent().getSerializableExtra(FORM);
         Calendar c = Calendar.getInstance();
         // start
         if (form.getDateIn().getTime() < c.getTime().getTime()) {
@@ -236,7 +239,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
     private void back() {
         Intent intent = new Intent(getApplicationContext(),
                 FormActivityStepThree.class);
-        intent.putExtra("Form", form);
+        intent.putExtra(FORM, form);
         startActivity(intent);
         overridePendingTransition(R.transition.trans_right_in, R.transition.trans_right_out);
         finish();

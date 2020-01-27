@@ -32,6 +32,13 @@
  * - remove stopping activity from notifications;
  * - adapting to Android 8 and 9 versions;
  * - update of Location retrieve system.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 /**

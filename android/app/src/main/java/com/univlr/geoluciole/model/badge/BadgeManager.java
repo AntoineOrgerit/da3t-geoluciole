@@ -1,8 +1,6 @@
 package com.univlr.geoluciole.model.badge;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import com.univlr.geoluciole.model.UserPreferences;
@@ -22,21 +20,23 @@ import java.util.Map;
  * {
  * "badgesList": [
  * {
- * "id": 0,
+ * "id": 2,
  * "type": "distance",
- * "name": "1 km",
- * "description": "Bravo! Vous venez de parcourir 1km",
- * "distance": 1
+ * "name": "10 km",
+ * "description": "ten_km_description",
+ * "resource": "10_km",
+ * "distance": 10
  * },
  * {
- * "id": 1,
+ * "id": 3,
  * "type": "place",
- * "name": "L'Aquarium",
- * "description": "Bravo! Vous venez de découvrir l'Aquarium",
- * "latitude": 46.153467,
- * "longitude": -1.150615,
- * "proximity": 15
- * }
+ * "name": "Tour Saint Nicolas",
+ * "description": "tour_saint_nicolas_description",
+ * "latitude": 46.155774242053234,
+ * "longitude": -1.153366641086827,
+ * "resource": "tour_saint_nicolas",
+ * "proximity": 25
+ * },...
  * ]
  * }
  */
@@ -52,7 +52,6 @@ public class BadgeManager {
     private HashMap<String, Badge> hashmapBadges;
     // instance singleton
     private static BadgeManager badgeInstance;
-    private Handler handlerFromUI;
 
     /**
      * Constructeur instanciant le tableau de badges à débloquer
@@ -60,7 +59,6 @@ public class BadgeManager {
     private BadgeManager() {
         this.hashmapBadges = new HashMap<>();
     }
-
 
     /**
      * Singleton BadgeManager
@@ -192,8 +190,8 @@ public class BadgeManager {
     /**
      * Méthode pour débloquer les badges en fonction de la position de l'utilisateur
      *
-     * @param idBadge
-     * @param context
+     * @param idBadge String id du badge à débloquer
+     * @param context Context
      */
     public void unlockBadgesPlace(String idBadge, Context context) {
         UserPreferences userPref = UserPreferences.getInstance(context);
@@ -201,19 +199,12 @@ public class BadgeManager {
         userPref.getListUnlockedBadges().add(idBadge);
         // enregistre les badges débloqués
         userPref.store(context);
-        if (this.handlerFromUI != null) {
-            Message message = this.handlerFromUI.obtainMessage(0, true);
-            message.sendToTarget();
-        }
         Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
     }
-
 
     public void unlockBadgesDistance() {
         // TODO
     }
 
-    public void initHandler(Handler handlerBadge) {
-        this.handlerFromUI = handlerBadge;
-    }
+
 }

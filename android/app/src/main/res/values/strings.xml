@@ -147,6 +147,7 @@
     <string name="achievement_title">Badges obtained</string>
 
     <!-- DESCRIPTIONS BADGES -->
+    <string name="notification_title">"New Badge unlocked !"</string>
     <string name="one_km_description"> "Congratulation! You have just traveled 1km" </string>
     <string name="five_km_description"> "Congratulation! You have just traveled 5km" </string>
     <string name="ten_km_description"> "Congratulation! You have just traveled 10km" </string>

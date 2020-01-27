@@ -145,6 +145,7 @@
     <string name="achievement_title">Badges obtenus</string>
 
     <!-- DESCRIPTIONS BADGES -->
+    <string name="notification_title">"Nouveau Badge débloqué !"</string>
     <string name="one_km_description">"Bravo! Vous venez de parcourir 1km"</string>
     <string name="five_km_description"> "Bravo! Vous venez de parcourir 5km"</string>
     <string name="ten_km_description"> "Bravo! Vous venez de parcourir 10km"</string>

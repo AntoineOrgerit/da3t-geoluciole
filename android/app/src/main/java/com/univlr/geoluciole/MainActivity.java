@@ -44,7 +44,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
-    private Handler handlerBadge;
+
     // The BroadcastReceiver used to listen from broadcasts from the service.
     private MyReceiver myReceiver;
 
@@ -90,16 +90,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         FormModel form = (FormModel) getIntent().getSerializableExtra("Form");
         System.out.println("Main Activity form retrieved : " + form);
         super.onCreate(savedInstanceState);
-        this.handlerBadge = new Handler(Looper.getMainLooper()) { //TODO faire valider handler
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                super.handleMessage(msg);
-                boolean reload = (boolean) msg.obj;
-                if (reload) {
-                    setupViewPager(viewPager);
-                }
-            }
-        };
+
         // temporary receiver
         myReceiver = new MyReceiver();
 
@@ -169,13 +160,8 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 // do nothing
             }
         });
-
         setupViewPager(viewPager);
-        // TODO faire valider
-        BadgeManager badgeManager = BadgeManager.getInstance(MainActivity.this);
-        badgeManager.initHandler(handlerBadge);
-
-    }
+           }
 
     public void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());

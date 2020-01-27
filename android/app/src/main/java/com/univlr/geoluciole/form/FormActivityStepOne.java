@@ -1,6 +1,7 @@
 package com.univlr.geoluciole.form;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import com.univlr.geoluciole.model.UserPreferences;
 
 
 public class FormActivityStepOne extends AppCompatActivity {
+    private static final String TAG = FormActivityStepOne.class.getSimpleName();
+    private static final String FORM = "Form";
 
     // variables infos générales
     @NotEmpty(messageResId = R.string.form_err_required)
@@ -29,7 +32,7 @@ public class FormActivityStepOne extends AppCompatActivity {
     private TextInputEditText email;
 
     // formulaire
-    private FormModelWithConsent formWithoutConsent;
+    private FormModelWithConsent formWithConsent;
 
     // validation
     ValidationFormListener validatorListener;
@@ -50,10 +53,6 @@ public class FormActivityStepOne extends AppCompatActivity {
         btnContinue.setOnClickListener(getPersonalData());
         // init validator
         initValidatorListener();
-        // lastname.setText(formWithoutConsent.getLastname());
-        // firstname.setText(formWithoutConsent.getFirstname());
-        // email.setText(formWithoutConsent.getEmail());
-
     }
 
     /**
@@ -69,14 +68,14 @@ public class FormActivityStepOne extends AppCompatActivity {
      * Méthode permettant de gérer le formulaire
      */
     private void formSetter() {
-        formWithoutConsent = (FormModelWithConsent) getIntent().getSerializableExtra("Form");
-        if (formWithoutConsent == null) {
-            formWithoutConsent = new FormModelWithConsent(UserPreferences.getInstance(this).getId());
+        formWithConsent = (FormModelWithConsent) getIntent().getSerializableExtra(FORM);
+        if (formWithConsent == null) {
+            formWithConsent = new FormModelWithConsent(UserPreferences.getInstance(this).getId());
         } else {
-            lastname.setText(formWithoutConsent.getLastname());
-            firstname.setText(formWithoutConsent.getFirstname());
-            email.setText(formWithoutConsent.getEmail());
-            System.out.println("ETAPE 1/4 retrieved : " + formWithoutConsent);
+            lastname.setText(formWithConsent.getLastname());
+            firstname.setText(formWithConsent.getFirstname());
+            email.setText(formWithConsent.getEmail());
+            Log.i(TAG, "formSetter, récupération du form : " + formWithConsent);
         }
     }
 
@@ -85,7 +84,7 @@ public class FormActivityStepOne extends AppCompatActivity {
      */
     private void initValidatorListener() {
         validator = new Validator(FormActivityStepOne.this);
-        validatorListener = new ValidationFormListener(FormActivityStepOne.this, FormActivityStepTwo.class, formWithoutConsent);
+        validatorListener = new ValidationFormListener(FormActivityStepOne.this, FormActivityStepTwo.class, formWithConsent);
         validator.setValidationListener(validatorListener);
     }
 
@@ -98,9 +97,9 @@ public class FormActivityStepOne extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                formWithoutConsent.setLastname(String.valueOf(lastname.getText()));
-                formWithoutConsent.setFirstname(String.valueOf(firstname.getText()));
-                formWithoutConsent.setEmail(String.valueOf(email.getText()));
+                formWithConsent.setLastname(String.valueOf(lastname.getText()));
+                formWithConsent.setFirstname(String.valueOf(firstname.getText()));
+                formWithConsent.setEmail(String.valueOf(email.getText()));
 
                 Toast.makeText(FormActivityStepOne.this,
                         "OnClickListener : " +
