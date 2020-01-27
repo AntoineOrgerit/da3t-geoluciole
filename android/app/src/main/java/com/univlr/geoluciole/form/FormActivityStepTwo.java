@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -29,6 +30,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class FormActivityStepTwo extends AppCompatActivity {
+    private static final String TAG = FormActivityStepTwo.class.getSimpleName();
+
+    private static final String STEP_ANONYMOUS = "1/3";
+    private static final String FORM = "Form";
     // variable title
     private TextView title;
     // variable step
@@ -95,7 +100,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.step = (TextView) findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
-            this.step.setText("1/3");
+            this.step.setText(STEP_ANONYMOUS);
         }
         // date et heure arrivée boutons
         this.btnDatePickerArrivee = (Button) findViewById(R.id.btn_in_date);
@@ -119,7 +124,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
      * Méthode permettant de gérer le formulaire
      */
     private void formSetter() {
-        form = (FormModel) getIntent().getSerializableExtra("Form");
+        form = (FormModel) getIntent().getSerializableExtra(FORM);
         if (form == null) {
             UserPreferences userPref = UserPreferences.getInstance(FormActivityStepTwo.this);
             form = new FormModel(userPref.getId());
@@ -128,10 +133,11 @@ public class FormActivityStepTwo extends AppCompatActivity {
             this.timeArrive = form.getTimeIn();
             this.dateDepart = form.getDateOut();
             this.timeDepart = form.getTimeOut();
-            if(this.dateDepart != null && dateArrive != null) {
+            if (this.dateDepart != null && dateArrive != null) {
                 txtDateArrivee.setText(FormModel.dateToString(this.dateArrive));
                 txtDateDepart.setText(FormModel.dateToString(this.dateDepart));
             }
+            Log.i(TAG, "formSetter, récupération du form : " + form);
         }
     }
 
@@ -162,6 +168,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
         this.btnPrevious.setOnClickListener(previousView());
         // bouton suivant
         this.btnContinue.setOnClickListener(getDateTimeData());
+        Log.i(TAG, "initListenersButtons initialisés");
+
     }
 
     /**
@@ -199,6 +207,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
             form.setTimeIn(this.timeArrive);
             form.setDateIn(this.dateArrive);
         }
+        Log.i(TAG, "saveToForm");
     }
 
     /**
@@ -250,12 +259,16 @@ public class FormActivityStepTwo extends AppCompatActivity {
             saveToForm();
             Intent intent = new Intent(getApplicationContext(),
                     FormActivityStepOne.class);
-            intent.putExtra("Form", form);
+            intent.putExtra(FORM, form);
             startActivity(intent);
             overridePendingTransition(R.transition.trans_right_in, R.transition.trans_right_out);
             finish();
+            Log.i(TAG, "back, première vue");
+
         } else {
             super.onBackPressed();
+            Log.i(TAG, "back, quitte l'application");
+
         }
     }
 
@@ -298,10 +311,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
                         openTimer(depart);
                     }
                 }, mYear, mMonth, mDay);
-
-
                 setBound(datePickerDialog.getDatePicker(), depart);
-
                 datePickerDialog.show();
             }
         };
@@ -330,8 +340,9 @@ public class FormActivityStepTwo extends AppCompatActivity {
 
     /**
      * Validation for datepicker
+     *
      * @param datePicker datepicker
-     * @param depart is date for depart
+     * @param depart     is date for depart
      */
     private void setBound(DatePicker datePicker, boolean depart) {
         final Calendar cal = Calendar.getInstance();

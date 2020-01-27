@@ -153,6 +153,17 @@
     <string name="no_achievement_picture_description">Oups aucun badge</string>
     <string name="achievement_title">Badges obtenus</string>
 
+    <!-- DESCRIPTIONS BADGES -->
+    <string name="notification_title">"Nouveau Badge débloqué !"</string>
+    <string name="one_km_description">"Bravo! Vous venez de parcourir 1km"</string>
+    <string name="five_km_description"> "Bravo! Vous venez de parcourir 5km"</string>
+    <string name="ten_km_description"> "Bravo! Vous venez de parcourir 10km"</string>
+    <string name="tour_saint_nicolas_description"> "Bravo! Vous venez de découvrir la Tour Saint Nicolas"</string>
+    <string name="tour_de_la_chaine_description"> "Bravo! Vous venez de découvrir la Tour de la Chaîne"</string>
+    <string name="tour_de_la_lanterne_description"> "Bravo! Vous venez de découvrir la Tour de la Lanterne"</string>
+    <string name="eglise_saint_sauveur_description">"Bravo! Vous venez de découvrir l'Eglise Saint-Sauveur"</string>
+    <string name="grosse_horloge_description"> "Bravo! Vous venez de découvrir la Grosse Horloge"</string>
+
     <!-- DIALOG  -->
     <string name="back">Retour</string>
     <string name="copy">Copier mon identifiant dans le presse papier</string>

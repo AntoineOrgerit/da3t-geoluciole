@@ -10,9 +10,13 @@ import android.content.pm.PackageManager;
 import android.icu.text.UnicodeSet;
 import android.location.Location;
 import android.net.Uri;
+
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
@@ -20,6 +24,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
@@ -29,10 +36,11 @@ import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.model.badge.BadgeManager;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.sender.HttpProvider;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
+import com.univlr.geoluciole.ui.achievements.BadgeListFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 
@@ -46,7 +54,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class MainActivity extends LocationActivity {
+public class MainActivity extends LocationActivity implements AchievementsFragment.OnFragmentInteractionListener, BadgeListFragment.OnFragmentInteractionListener {
     public static final String PREFERENCES = "Saved_Pref";
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -85,7 +93,7 @@ public class MainActivity extends LocationActivity {
             ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
             if(!unauthorizedPermissions.isEmpty()) {
                 requestPermissions(unauthorizedPermissions);
-                if(!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)){
+                if (!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)) {
                     enableGPSIfNeeded();
                 }
             } else {
@@ -142,6 +150,10 @@ public class MainActivity extends LocationActivity {
                         break;
                     case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
+                        FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
+                                new BadgeListFragment());
+
+                        fragmentTransaction.commit();
                         break;
                     case R.id.navigation_dashboard:
                         viewPager.setCurrentItem(2);
@@ -162,6 +174,24 @@ public class MainActivity extends LocationActivity {
                     prevMenuItem.setChecked(false);
                 } else {
                     navView.getMenu().getItem(0).setChecked(false);
+                }
+                if (position == 0) {
+                    try {
+                        HomeFragment homeFragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        homeFragment.updateLastBadgeView();
+                    } catch (NullPointerException np) {
+                        Log.i(TAG, np.getMessage());
+                    }
+                }
+                if (position == 1) {
+                    try {
+                        FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
+                                new BadgeListFragment());
+
+                        fragmentTransaction.commit();
+                    } catch (NullPointerException np) {
+                        Log.i(TAG, np.getMessage());
+                    }
                 }
                 Log.d(TAG, "onPageSelected: " + position);
                 navView.getMenu().getItem(position).setChecked(true);
@@ -190,8 +220,8 @@ public class MainActivity extends LocationActivity {
                 // do nothing
             }
         });
-
-        UserPreferences userPreferences = UserPreferences.getInstance(this);
+        
+           UserPreferences userPreferences = UserPreferences.getInstance(this);
         if (userPreferences.isGpsConsent()) {
             HttpProvider.activePeriodicSend(this);
             //todo ligne suivante de test
@@ -224,11 +254,11 @@ public class MainActivity extends LocationActivity {
             }
             // todo fin de ligne de test
         }
-
+        
         setupViewPager(viewPager);
     }
-
-    //todo fonction de test
+    
+        //todo fonction de test
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
@@ -239,8 +269,8 @@ public class MainActivity extends LocationActivity {
         reader.close();
         return sb.toString();
     }
-
-    private void setupViewPager(ViewPager viewPager) {
+    
+    public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         homeFragment=new HomeFragment();
         dashboardFragment =new AchievementsFragment();
@@ -274,6 +304,7 @@ public class MainActivity extends LocationActivity {
         super.onPause();
     }
 
+
     @Override
     protected void onStop() {
         if (mBound) {
@@ -289,6 +320,12 @@ public class MainActivity extends LocationActivity {
     @Override
     protected void onGPSEnabled() {
         mService.requestLocationUpdates();
+
+    }
+
+    @Override
+    public void messageFromParentFragment(Uri uri) {
+        // do nothing
     }
 
     private void checkPowerSavingMode() {
@@ -335,4 +372,21 @@ public class MainActivity extends LocationActivity {
         }
     }
 
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+    }
+
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
+    public ViewPagerAdapter getAdapter() {
+        return adapter;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        // do nothing
+    }
 }

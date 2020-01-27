@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.CompoundButton;
@@ -16,6 +18,9 @@ import androidx.fragment.app.Fragment;
 
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
+import com.univlr.geoluciole.ui.achievements.BadgeListFragment;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.model.UserPreferences;
 
@@ -24,13 +29,15 @@ import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
 
-    private ProgressBar progressBar;
+    private ImageView iv;
     private View root;
+    private ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-         root = inflater.inflate(R.layout.fragment_home, container, false);
-
+                             ViewGroup container, Bundle savedInstanceState) {
+        
+        root = inflater.inflate(R.layout.fragment_home, container, false);
+        final TextView textView = root.findViewById(R.id.text_stay_progression);
         progressBar = root.findViewById(R.id.progressBar_stay_progression);
 
         final Switch switchData = root.findViewById(R.id.data_collection_switch);
@@ -44,10 +51,20 @@ public class HomeFragment extends Fragment {
                 //updateSwitch(null);
             }
         });
-
-
+        
+        updateLastBadgeView();
         updateProgressBar();
         return root;
+    }
+
+    public void updateLastBadgeView() {
+        UserPreferences userPref = UserPreferences.getInstance(root.getContext());
+        if (!userPref.getListUnlockedBadges().isEmpty()) {
+            int index = userPref.getListUnlockedBadges().size() - 1;
+            String idBadge = userPref.getListUnlockedBadges().get(index);
+            this.iv = root.findViewById(R.id.last_achievement_image);
+            this.iv.setImageResource(BadgeListFragment.getRessourceImageBadge(idBadge));
+        }
     }
 
     public void updateProgressBar() {
@@ -119,5 +136,4 @@ class ProgressBarAnimation extends Animation {
         float value = from + (to - from) * interpolatedTime;
         progressBar.setProgress((int) value);
     }
-
 }

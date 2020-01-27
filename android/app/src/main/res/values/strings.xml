@@ -154,6 +154,20 @@
     <string name="no_achievement_picture_description">Oops no badges</string>
     <string name="achievement_title">Badges obtained</string>
 
+    <!-- DESCRIPTIONS BADGES -->
+    <string name="notification_title">"New Badge unlocked !"</string>
+    <string name="one_km_description"> "Congratulation! You have just traveled 1km" </string>
+    <string name="five_km_description"> "Congratulation! You have just traveled 5km" </string>
+    <string name="ten_km_description"> "Congratulation! You have just traveled 10km" </string>
+    <string name="tour_saint_nicolas_description"> "Congratulation! You have just discovered the Tour Saint Nicolas" </string>
+    <string name="tour_de_la_chaine_description"> "Congratulation! You have just discovered the Tour de la Chaîne" </string>
+    <string name="tour_de_la_lanterne_description"> "Congratulation! You have just discovered the Lantern Tower" </string>
+    <string name="eglise_saint_sauveur_description"> "Congratulation! You have just discovered the Saint-Sauveur Church" </string>
+    <string name="grosse_horloge_description"> "Congratulation! You have just discovered the Grosse Horloge" </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <!-- DIALOG  -->
     <string name="back">Back</string>
     <string name="copy">Copy my username to the clipboard </string>
