@@ -48,7 +48,7 @@ class CollectDataSwitchView: UIView {
         // Switch data
         self.switchData = UISwitch()
         self.switchData.translatesAutoresizingMaskIntoConstraints = false
-        self.switchData.setOn(self.userPrefs.bool(forKey: UserPrefs.KEY_SEND_DATA), animated: true)
+        self.switchData.setOn(self.userPrefs.bool(forKey: UserPrefs.KEY_SEND_DATA), animated: false)
         self.switchData.addTarget(self, action: #selector(CollectDataSwitchView.switchSenderData), for: .touchUpInside)
         wrapSwitch.addSubview(self.switchData)
         

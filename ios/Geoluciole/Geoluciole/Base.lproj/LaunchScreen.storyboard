@@ -39,25 +39,29 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader-launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="aDf-kj-nsj">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader-launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="A3Y-ha-XCM">
                                 <rect key="frame" x="40" y="56" width="240.00000000000011" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="Lno-kr-dVl"/>
+                                    <constraint firstAttribute="width" constant="240" id="zMY-Gc-Fkt"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Mjo-Es-rTc" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="1tp-KA-php"/>
-                            <constraint firstItem="aDf-kj-nsj" firstAttribute="top" secondItem="XCG-UA-E1Q" secondAttribute="bottom" constant="56" id="3vU-1P-lsC"/>
                             <constraint firstItem="ofs-JN-LeL" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="9xI-NA-6lM"/>
                             <constraint firstItem="Stn-ww-24Q" firstAttribute="top" secondItem="ofs-JN-LeL" secondAttribute="bottom" constant="-34" id="Ds2-F0-5IL"/>
                             <constraint firstItem="Vzz-TJ-OeR" firstAttribute="top" secondItem="Mjo-Es-rTc" secondAttribute="bottom" constant="31" id="Fxn-Hh-T2B"/>
+                            <constraint firstItem="A3Y-ha-XCM" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="24" id="I1O-hB-Vsy"/>
                             <constraint firstItem="ofs-JN-LeL" firstAttribute="top" secondItem="Mjo-Es-rTc" secondAttribute="bottom" id="JAL-l9-mSM"/>
-                            <constraint firstItem="Mjo-Es-rTc" firstAttribute="top" secondItem="aDf-kj-nsj" secondAttribute="bottom" constant="8" id="Q1f-co-evi"/>
                             <constraint firstItem="Vzz-TJ-OeR" firstAttribute="leading" secondItem="ofs-JN-LeL" secondAttribute="leading" id="QJT-6l-Chk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="A3Y-ha-XCM" secondAttribute="trailing" constant="24" id="T86-cK-PzO"/>
                             <constraint firstAttribute="trailing" secondItem="Mjo-Es-rTc" secondAttribute="trailing" id="TrB-MC-Adc"/>
                             <constraint firstItem="Mjo-Es-rTc" firstAttribute="top" secondItem="XCG-UA-E1Q" secondAttribute="bottom" constant="192" id="Usw-N8-U8q"/>
                             <constraint firstItem="Vzz-TJ-OeR" firstAttribute="trailing" secondItem="ofs-JN-LeL" secondAttribute="trailing" id="VqT-B6-oFn"/>
-                            <constraint firstItem="aDf-kj-nsj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="24" id="bVK-Mq-LKd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="aDf-kj-nsj" secondAttribute="trailing" constant="24" id="jrk-44-mtG"/>
+                            <constraint firstItem="A3Y-ha-XCM" firstAttribute="top" secondItem="XCG-UA-E1Q" secondAttribute="bottom" constant="56" id="YBL-5B-nQd"/>
+                            <constraint firstItem="Mjo-Es-rTc" firstAttribute="top" secondItem="A3Y-ha-XCM" secondAttribute="bottom" constant="8" id="vb0-ix-pOb"/>
                             <constraint firstItem="Stn-ww-24Q" firstAttribute="top" secondItem="Vzz-TJ-OeR" secondAttribute="bottom" constant="82" id="vgp-DS-Equ"/>
                             <constraint firstAttribute="trailing" secondItem="ofs-JN-LeL" secondAttribute="trailing" id="w3Q-1i-Wp9"/>
                         </constraints>
