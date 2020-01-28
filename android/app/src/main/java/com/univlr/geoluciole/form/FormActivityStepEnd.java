@@ -251,7 +251,7 @@ public class FormActivityStepEnd extends AppCompatActivity {
     }
 
     private void savePeriod() {
-        userPreferences.setConsent();
+        userPreferences.setConsent(true);
         userPreferences.setPeriodValid(this.startDate, this.startTime, this.endDate, this.endTime);
         userPreferences.store(this);
     }

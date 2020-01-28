@@ -161,8 +161,8 @@ public class UserPreferences {
         return accountConsent;
     }
 
-    public void setConsent() {
-        this.consent = true;
+    public void setConsent(boolean consent) {
+        this.consent = consent;
     }
 
     public void setGpsConsent(boolean consent) {
