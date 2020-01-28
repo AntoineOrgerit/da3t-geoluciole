@@ -9,6 +9,9 @@
     <string name="action_accept">Accept</string>
     <string name="action_loader">Loading</string>
 
+    <string name="alert_title_constructor_settings"></string>
+    <string name="alert_content_constructor_settings"></string>
+
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole is running</string>
     <string name="location_notification_content_text">Tracking of your journey in progress</string>
