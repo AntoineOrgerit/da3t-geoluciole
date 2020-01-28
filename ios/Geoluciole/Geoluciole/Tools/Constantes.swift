@@ -13,7 +13,7 @@ import CoreLocation
 class Constantes {
 
     // Mettre a TRUE si on veut afficher les logs
-    static let DEBUG = false
+    static let DEBUG = true
 
     static let DB_NAME = "geoluciole.sqlite"
     static let CGU_NAME = "cgu.pdf"

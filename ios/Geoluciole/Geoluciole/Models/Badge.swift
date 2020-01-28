@@ -2,7 +2,7 @@
 //  Badge.swift
 //  Geoluciole
 //
-//  Created by local192 on 21/01/2020.
+//  Created by Thibaud LAMBERT on 21/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -25,7 +25,7 @@ class Badge {
         self.id = dictionnary["id"] as! Int
         self.type = dictionnary["type"] as! String
         self.name = dictionnary["name"] as! String
-        self.description = dictionnary["description"] as! String
+        self.description = Tools.getTranslate(key: dictionnary["description"] as! String)
         self.latitude = dictionnary["latitude"] as? Double ?? nil
         self.longitude = dictionnary["longitude"] as? Double ?? nil
         self.proximity = dictionnary["proximity"] as? Int ?? nil

@@ -1,15 +1,15 @@
 //
-//  DateFieldView.swift
+//  SettingsDateFieldView.swift
 //  Geoluciole
 //
-//  Created by local192 on 14/01/2020.
+//  Created by Thibaud LAMBERT on 14/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class DateFieldView: UIView, UIGestureRecognizerDelegate {
+class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     fileprivate var titleLabel: CustomUILabel!
     fileprivate var dateLabel: UITextView!
@@ -42,16 +42,16 @@ class DateFieldView: UIView, UIGestureRecognizerDelegate {
 
         self.datePicker = UIDatePicker()
         self.datePicker.datePickerMode = .dateAndTime
-        self.datePicker.addTarget(self, action: #selector(DateFieldView.dateChange), for: .valueChanged)
+        self.datePicker.addTarget(self, action: #selector(SettingsDateFieldView.dateChange), for: .valueChanged)
         self.datePicker.calendar = Calendar.current
         self.datePicker.locale = Tools.getPreferredLocale()
 
         //ToolBar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Valider", style: .done, target: self, action: #selector(DateFieldView.dateValidate))
+        let doneButton = UIBarButtonItem(title: "Valider", style: .done, target: self, action: #selector(SettingsDateFieldView.dateValidate))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Annuler", style: .done, target: self, action: #selector(DateFieldView.dateCancel))
+        let cancelButton = UIBarButtonItem(title: "Annuler", style: .done, target: self, action: #selector(SettingsDateFieldView.dateCancel))
         toolbar.setItems([cancelButton, spaceButton, doneButton], animated: true)
 
         self.dateLabel.inputAccessoryView = toolbar
@@ -63,7 +63,7 @@ class DateFieldView: UIView, UIGestureRecognizerDelegate {
         dropDown.image = UIImage(named: "drop-down")
         wrapDate.addSubview(dropDown)
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DateFieldView.touchOnDateField))
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsDateFieldView.touchOnDateField))
         tapRecognizer.numberOfTouchesRequired = 1
         tapRecognizer.delegate = self
         self.isUserInteractionEnabled = true

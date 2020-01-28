@@ -2,7 +2,7 @@
 //  DurationOfEngagementFormView.swift
 //  Geoluciole
 //
-//  Created by local192 on 14/01/2020.
+//  Created by Thibaud LAMBERT on 14/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -11,8 +11,8 @@ import UIKit
 
 class DurationOfEngagementFormView: UIView {
 
-    fileprivate var dateStartField : DateFieldView!
-    fileprivate var dateEndField : DateFieldView!
+    fileprivate var dateStartField : SettingsDateFieldView!
+    fileprivate var dateEndField : SettingsDateFieldView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,8 +27,8 @@ class DurationOfEngagementFormView: UIView {
         title.textAlignment = .left
         self.addSubview(title)
 
-        self.dateStartField = DateFieldView()
-        self.dateEndField = DateFieldView()
+        self.dateStartField = SettingsDateFieldView()
+        self.dateEndField = SettingsDateFieldView()
         
         self.dateStartField.setTitle(title: Tools.getTranslate(key: "dates_settings_start"))
         self.dateStartField.setDateLabel(date: minimumDateString)

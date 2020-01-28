@@ -2,7 +2,7 @@
 //  BadgesCollectionViewCell.swift
 //  Geoluciole
 //
-//  Created by local192 on 14/01/2020.
+//  Created by Laurent RAYEZ on 14/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 

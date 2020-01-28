@@ -28,33 +28,63 @@ class ElasticSearchAPI {
     }
 
     /// Génération du message à envoyer au serveur
-    func generateMessage(locations: [Location], identifier: Int) -> String {
+    func generateMessage(content: [[String: Any]], identifier: Int, addInfoDevice: Bool) -> String {
         var messageStr = ""
-
-        // On génère une string exemple pour l'index
+        var needBulk = false // par défaut, on fait un envoi simple
         let index = "{\"index\": {}}"
         let idStr = "\"id_user\": \(identifier)"
 
-        for location in locations {
-            if location.toString() != "" {
-                messageStr += index + "\n"
-                messageStr += location.toString() + ", \(idStr)}\n"
-            }
-
-            
+        // On vérifie la taille de l'élément à générer
+        // Si la taille est supérieur à 1, on fait un bulk
+        if content.count > 1 {
+            needBulk = true
         }
 
+        for element in content {
+            if needBulk {
+                messageStr += "\(index)\n"
+            }
+
+            // construction de l'élément à envoyer correspondant à notre dictionnaire
+            var dictStr = ""
+            messageStr += "{"
+            for (key, value) in element {
+                if let value = value as? String {
+                     dictStr += "\"\(key)\": \"\(value)\", "
+                } else {
+                     dictStr += "\"\(key)\": \(value), "
+                }
+            }
+
+            // Ajout du dict + de l'identifiant
+            messageStr += dictStr + idStr
+
+            // On ajoute les informations du device si demandé
+            if addInfoDevice {
+                let type = "\"type\": \"\(UIDevice.current.systemName)\""
+                let version = "\"version\": \"\(UIDevice.current.systemVersion)\""
+                let device = "\"device\": \"\(UIDevice.modelName)\""
+                messageStr += ", \(type), \(version), \(device)"
+            }
+            
+            messageStr += "}"
+        
+            if needBulk {
+                messageStr += "\n"
+            }
+        }
+        
         return messageStr
     }
 
     /// Envoi des localisations du terminal au serveur
-    func postLocations(message: String, viewController: UIViewController? = nil) {
+    func postLocations(message: String, viewController: ParentViewController? = nil) {
         if Constantes.DEBUG {
             print("Envoi des données de localisation au serveur en cours ...")
         }
 
         DispatchQueue.main.async {
-            viewController?.view.makeToast("Envoi des données en cours...", duration: 10, position: .bottom)
+            viewController?.rootView.makeToast("Envoi des données en cours...", duration: 10, position: .bottom)
         }
 
         // Création de la requête (header + contenu)
@@ -91,7 +121,7 @@ class ElasticSearchAPI {
 
                             var style = ToastStyle()
                             style.backgroundColor = UIColor(red: 145 / 255, green: 208 / 255, blue: 182 / 255, alpha: 0.9)
-                            viewController?.view.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
+                            viewController?.rootView.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
                         }
 
                         // Sinon, on indique l'erreur et on garde les données
@@ -106,13 +136,6 @@ class ElasticSearchAPI {
 
         // mise en file d'attente de la tâche
         task.resume()
-    }
-
-    /// Génération du message à envoyer au serveur
-    func generateMessageCompte() -> String {
-        let messageStr = "{\"consentement\":\"\(NSLocalizedString("rgpd_first_content_consentement", comment: ""))\", \"date\":\"\(Tools.convertDate(date: Date()))\", \"nom\":\"test2\", \"prenom\": \"test2\", \"mail\": \"mail2@gmail.com\"}"
-
-        return messageStr
     }
 
     /// Envoi des localisations du terminal au serveur

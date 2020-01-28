@@ -1,15 +1,16 @@
 //
-//  GPSConsentRGPDViewController.swift
+//  FormConsentRGPDViewController.swift
 //  Geoluciole
 //
-//  Created by Jessy BARRITAULT on 14/01/2020.
+//  Created by Jessy BARRITAULT on 15/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
+
 
 import Foundation
 import UIKit
 
-class GPSConsentRGPDViewController: ParentModalViewController {
+class FormConsentRGPDViewController: ParentModalViewController {
 
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
@@ -47,7 +48,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         // texte rgpd
         self.textRGPD = CustomUILabel()
         self.textRGPD.numberOfLines = 0
-        self.textRGPD.text = Tools.getTranslate(key: "rgpd_content")
+        self.textRGPD.text = Tools.getTranslate(key: "rgpd_second_content")
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.textRGPD.setStyle(style: .bodyRegular)
         self.textRGPD.textAlignment = .justified
@@ -60,7 +61,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.checkbox.setCheckmarkColor(color: .orange)
         self.checkbox.setCheckedBorderColor(color: .orange)
         self.checkbox.setUncheckedBorderColor(color: .orange)
-        self.checkbox.setTitleOption(titleOption: Tools.getTranslate(key: "rgpd_first_content_consentement"))
+        self.checkbox.setTitleOption(titleOption: Tools.getTranslate(key: "rgpd_second_content_consentement"))
         self.checkbox.translatesAutoresizingMaskIntoConstraints = false
         self.checkbox.onCheckChange = { [weak self] checkboxView in
             guard let strongSelf = self else { return }
@@ -88,6 +89,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
     }
 
     fileprivate func sendDataCompte() {
+        // Construction d'un dictionnaire contenant les données à envoyer
         var compte = [[String: Any]]()
 
         let dict = ["consentement": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date": Tools.convertDate(date: Date()), "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com"]
@@ -96,6 +98,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, identifier: Tools.getIdentifier(), addInfoDevice: true)
         ElasticSearchAPI.getInstance().postCompte(message: msg)
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -120,9 +123,10 @@ class GPSConsentRGPDViewController: ParentModalViewController {
             guard let strongSelf = self else { return }
 
             if strongSelf.checkbox.isChecked() {
-                strongSelf.sendDataCompte()
-                strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
-                strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+                //strongSelf.sendDataCompte()
+                LocationHandler.getInstance().requestLocationAuthorization()
+                NotificationHandler.getInstance().requestNotificationAuthorization()
+                strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)
             }
 
             strongSelf.dismiss(animated: true)
@@ -137,7 +141,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         self.refuseButton.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: false)
+            strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: false)
             strongSelf.dismiss(animated: true)
         }
         self.rootView.addSubview(self.refuseButton)
