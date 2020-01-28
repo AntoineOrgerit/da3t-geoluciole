@@ -174,7 +174,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 }
                 if (position == 1) {
                     try {
-                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(1);
                         fragment.updateDistance();
 
                         FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
@@ -318,7 +318,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
     private HomeFragment getHomeFragment() {
         try {
-            HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+            HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(0);
             return fragment;
         } catch (NullPointerException npe) {
             //do nothing
