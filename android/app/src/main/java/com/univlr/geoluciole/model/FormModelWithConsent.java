@@ -54,7 +54,8 @@ public class FormModelWithConsent extends FormModel {
         stringBuilder.append("\"mail\":").append("\"" + email + "\"").append(",");
         stringBuilder.append("\"phone\":").append("\"" + phone + "\"").append(",");
         stringBuilder.append("\"consentement_form\":").append("\"" + context.getResources().getString(R.string.rgpd_second_content_consentement) + "\"").append(",");
-        stringBuilder.append("\"date_form\":").append(userPreferences.getDateConsentementForm());
+        stringBuilder.append("\"date_form\":").append(userPreferences.getDateConsentementForm()).append(",");
+        stringBuilder.append("\"date_form_str\":").append("\""+FormModel.dateFormatStr(userPreferences.getDateConsentementForm())+"\"");
         return stringBuilder.toString();
     }
 

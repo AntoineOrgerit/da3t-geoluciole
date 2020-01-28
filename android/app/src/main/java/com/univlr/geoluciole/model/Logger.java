@@ -12,7 +12,7 @@ public class Logger extends HyperLog {
     public static final String TAG_GPS = "GPS_LOG";
     public static final String TAG_GPS_PERIODICALLY = "GPS_AUTO_LOG";
     public static final String TAG_FORM = "FORM_LOG";
-    public static final String TAG_ACCOUNT = "FORM_LOG";
+    public static final String TAG_ACCOUNT = "ACCOUNT_LOG";
     public static final String TAG_WORKER = "WORKER_LOG";
 
     private static String user_id;
@@ -67,7 +67,7 @@ public class Logger extends HyperLog {
     }
 
     public static void logForm(String message, int flag) {
-        log(message, flag, TAG_FORM);
+        Logger.log(message, flag, TAG_FORM);
     }
 
     public static void logAccount(String message) {
