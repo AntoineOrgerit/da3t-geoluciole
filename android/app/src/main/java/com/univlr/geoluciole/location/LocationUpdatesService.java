@@ -39,6 +39,13 @@
  * - remove stopping activity from notifications;
  * - adapting to Android 8 and 9 versions;
  * - update of Location retrieve system.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 /**
@@ -181,23 +188,25 @@ public class LocationUpdatesService extends Service {
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+                BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
                 UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
                 float distance = last.distanceTo(location);
-                long deltaT = Math.abs(location.getTime() - last.getTime())/1000;
+                long deltaT = Math.abs(location.getTime() - last.getTime()) / 1000;
                 // définition de l'arrondi
                 BigDecimal speed = new BigDecimal(location.getSpeed()).round(new MathContext(1));
-                if(speed != null && speed.compareTo(BigDecimal.ZERO) > 0 ){
-                    if (location.distanceTo(last) <= ( speed.longValue() * deltaT)+10){
+                if (speed != null && speed.compareTo(BigDecimal.ZERO) > 0) {
+                    if (location.distanceTo(last) <= (speed.longValue() * deltaT) + 10) {
                         userPreferences.setDistance(userPreferences.getDistance() + distance);
                         userPreferences.store(LocationUpdatesService.this);
+                        // verification si badge distance debloqué
+                        badgeManager.unlockBadgesDistance(LocationUpdatesService.this);
                     } else {
-                        Log.e(TAG, "Point GPS bizarre point : speed " + location.getSpeed() + ", lat : " + location.getLatitude() + ", long : " + location.getLongitude() );
+                        Log.e(TAG, "Point GPS bizarre point : speed " + location.getSpeed() + ", lat : " + location.getLatitude() + ", long : " + location.getLongitude());
                     }
                 }
-
 
                 // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);

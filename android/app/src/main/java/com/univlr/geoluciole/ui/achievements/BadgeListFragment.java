@@ -196,10 +196,14 @@ public class BadgeListFragment extends Fragment {
             case "8":
                 return R.mipmap.no_image;
             case "9":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_plage_minimes;
             case "10":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_plage_concurrence;
             case "11":
+                return R.mipmap.no_image;
+            case "12":
+                return R.mipmap.no_image;
+            case "13":
                 return R.mipmap.no_image;
             default:
                 return R.mipmap.no_image;

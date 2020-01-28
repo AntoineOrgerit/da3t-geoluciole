@@ -199,12 +199,24 @@ public class BadgeManager {
         userPref.getListUnlockedBadges().add(idBadge);
         // enregistre les badges débloqués
         userPref.store(context);
-        Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
+        Log.i(TAG, "unlockBadgesPlace, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
     }
 
-    public void unlockBadgesDistance() {
-        // TODO
+    /**
+     * Méthode pour débloquer les badges en fonction de la distance parcourue par l'utilisateur
+     *
+     * @param context
+     */
+    public void unlockBadgesDistance(Context context) {
+        UserPreferences userPref = UserPreferences.getInstance(context);
+        for (Map.Entry<String, Badge> it : this.hashmapBadges.entrySet()) {
+            if (it.getValue() instanceof BadgeDistance) {
+                if (userPref.getDistance() >= ((BadgeDistance) it.getValue()).getDistance() && !userPref.getListUnlockedBadges().contains(it.getKey())) {
+                    userPref.getListUnlockedBadges().add(it.getKey());
+                    Log.i(TAG, "unlockBadgesDistance, BadgeDistance unlocked, " + this.hashmapBadges.get(it.getKey()).getName());
+                    userPref.store(context);
+                }
+            }
+        }
     }
-
-
 }
