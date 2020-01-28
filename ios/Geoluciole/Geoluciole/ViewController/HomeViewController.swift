@@ -92,6 +92,7 @@ class HomeViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        // On cache le switch si le consentement du GPS a été refusé
         self.collectDataSwitchView.isHidden = !self.userPrefs.bool(forKey: UserPrefs.KEY_RGPD_CONSENT)
 
         let send = self.userPrefs.bool(forKey: UserPrefs.KEY_SEND_DATA)
@@ -122,7 +123,7 @@ class HomeViewController: ParentViewController {
             } else {
                 // On affiche le formulaire
                 if UserPrefs.getInstance().object(forKey: UserPrefs.KEY_FORMULAIRE_REMPLI) == nil {
-                    let formulaire = FomulairePageController()
+                    let formulaire = FormPageViewController()
                     formulaire.modalPresentationStyle = .fullScreen
                     self.present(formulaire, animated: true)
                 }

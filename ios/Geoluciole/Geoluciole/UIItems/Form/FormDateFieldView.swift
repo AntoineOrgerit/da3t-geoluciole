@@ -2,7 +2,7 @@
 //  FormDateFieldView.swift
 //  Geoluciole
 //
-//  Created by RAYEZ Laurent on 23/01/2020.
+//  Created by Laurent RAYEZ on 23/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -16,9 +16,10 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
     fileprivate var dateTxtFld: FormTextField!
     fileprivate var dateButton: CustomUIButton!
     fileprivate var datePicker: UIDatePicker!
+    
     var onDateValidate: ((Date) -> Void)?
     var onDateCancel: (() -> Void)?
-    var validationData: ((UITextField) -> Bool)!
+    var validationData: ((UITextField) -> Bool)?
     var isValid: Bool {
         return self.dateTxtFld.isValid
     }
@@ -31,6 +32,7 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
             return Date()
         }
     }
+    
     init(title: String) {
         super.init(frame: .zero)
 
@@ -60,16 +62,16 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
         toolbar.setItems([cancelButton, spaceButton, doneButton], animated: true)
 
         self.dateTxtFld = FormTextField(placeholder: Tools.convertDate(date: Date()), keyboardType: .default)
-        //self.dateTxtFld.text = getDateSystem()
         self.dateTxtFld.translatesAutoresizingMaskIntoConstraints = false
         self.dateTxtFld.isUserInteractionEnabled = false
         self.dateTxtFld.validationData = { [weak self] textField in
             guard let strongSelf = self else { return false }
 
-            return strongSelf.validationData(textField)
+            return strongSelf.validationData?(textField) ?? true
         }
         self.container.addSubview(dateTxtFld)
 
+        self.dateTxtFld.textfield.textAlignment = .center
         self.dateTxtFld.textfield.inputAccessoryView = toolbar
         self.dateTxtFld.textfield.inputView = datePicker
 
@@ -98,19 +100,15 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
             self.container.rightAnchor.constraint(equalTo: self.rightAnchor),
             self.container.bottomAnchor.constraint(equalTo: self.bottomAnchor),
 
-            self.dateTxtFld.bottomAnchor.constraint(equalTo: self.dateButton.bottomAnchor),
+            self.dateTxtFld.bottomAnchor.constraint(equalTo: self.container.bottomAnchor),
             self.dateTxtFld.leftAnchor.constraint(equalTo: self.container.leftAnchor),
-            self.dateTxtFld.rightAnchor.constraint(equalTo: self.dateButton.leftAnchor, constant: -5),
             self.dateTxtFld.heightAnchor.constraint(equalTo: self.dateButton.heightAnchor, constant: -1),
+            self.dateTxtFld.widthAnchor.constraint(equalTo: self.container.widthAnchor, multiplier: 0.6),
 
             self.dateButton.topAnchor.constraint(equalTo: self.container.topAnchor),
             self.dateButton.rightAnchor.constraint(equalTo: self.container.rightAnchor),
-            self.dateButton.leftAnchor.constraint(equalTo: self.dateTxtFld.rightAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            self.dateButton.bottomAnchor.constraint(equalTo: self.container.bottomAnchor),
-
-
-            self.bottomAnchor.constraint(equalTo: self.container.bottomAnchor),
-            self.topAnchor.constraint(equalTo: self.titre.topAnchor)
+            self.dateButton.leftAnchor.constraint(equalTo: self.dateTxtFld.rightAnchor, constant: 5),
+            self.dateButton.bottomAnchor.constraint(equalTo: self.container.bottomAnchor)
         ])
     }
 

@@ -12,7 +12,7 @@ import UIKit
 class BadgesCollectionViewCell: UICollectionViewCell {
 
     fileprivate var iv: CustomUIImageView!
-    var idBadge = -1
+    var idBadge: Int!
     var onClick: ((BadgesCollectionViewCell) -> Void)?
 
     override init(frame: CGRect) {

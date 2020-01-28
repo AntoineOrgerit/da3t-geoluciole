@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+/// Identique à ParentVC sauf que ce VC ne n'a pas de tabBar
+/// Il permet d'avoir la zone possible pour afficher les éléments
 class ParentModalViewController: UIViewController {
 
     var titleBar: TitleBarView!

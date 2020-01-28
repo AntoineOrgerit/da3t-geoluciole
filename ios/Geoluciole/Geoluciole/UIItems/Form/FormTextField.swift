@@ -2,7 +2,7 @@
 //  FormTextField.swift
 //  Geoluciole
 //
-//  Created by RAYEZ Laurent on 24/01/2020.
+//  Created by Laurent RAYEZ on 24/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -13,10 +13,8 @@ class FormTextField: UIView, UITextFieldDelegate {
 
     fileprivate var subLine: UIView!
     var textfield: UITextField!
-
-    var validationData: ((UITextField) -> Bool)!
-    var isValid = false
-
+    var validationData: ((UITextField) -> Bool)?
+    var isValid: Bool = false
 
     init(placeholder: String, keyboardType: UIKeyboardType) {
 
@@ -38,7 +36,7 @@ class FormTextField: UIView, UITextFieldDelegate {
             toolbar.setItems([flexSpace, doneBton], animated: false)
             toolbar.sizeToFit()
             self.textfield.inputAccessoryView = toolbar
-        } else  {
+        } else {
             self.textfield.autocorrectionType = .no
         }
         if keyboardType != .emailAddress {
@@ -46,8 +44,8 @@ class FormTextField: UIView, UITextFieldDelegate {
         } else {
             self.textfield.autocapitalizationType = .none
         }
-         
-         self.addSubview(self.textfield)
+
+        self.addSubview(self.textfield)
 
         self.subLine = UIView()
         self.subLine.backgroundColor = .black
@@ -66,7 +64,6 @@ class FormTextField: UIView, UITextFieldDelegate {
 
             self.bottomAnchor.constraint(equalTo: self.subLine.bottomAnchor)
         ])
-
     }
 
     required init?(coder: NSCoder) {
@@ -87,7 +84,7 @@ class FormTextField: UIView, UITextFieldDelegate {
 
         return v
     }
-    
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.subLine.backgroundColor = .backgroundDefault
         return true
@@ -98,7 +95,8 @@ class FormTextField: UIView, UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        self.isValid = self.validationData(self.textfield)
+        // Pour eviter de poser une condiiton de validation des données on retourne true par défaut
+        self.isValid = self.validationData?(self.textfield) ?? true
         if self.isValid {
             self.textfield.rightViewMode = .never
         } else {

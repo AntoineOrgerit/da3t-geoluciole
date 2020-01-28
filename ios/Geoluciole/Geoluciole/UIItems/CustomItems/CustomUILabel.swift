@@ -14,7 +14,6 @@ class CustomUILabel: UILabel {
     func setStyle (style: LabelStyle) {
         
         switch style {
-
         case .titleRegular:
             self.font = UIFont(name: "Roboto-Regular", size: 24)
         case .subtitleRegular:

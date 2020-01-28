@@ -1,43 +1,49 @@
 //
-//  FabCustomButton.swift
+//  FabricCustomButton.swift
 //  Geoluciole
 //
-//  Created by ai.cgi niort on 22/01/2020.
+//  Created by Laurent RAYEZ on 22/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-@objc protocol BoutonsPrevNextDelegate {
-    @objc optional func boutonsPrevNext(boutonsPrevNext: BoutonsPrevNext, onNext: Bool)
-    @objc optional func boutonsPrevNext(boutonsPrevNext: BoutonsPrevNext, onPrevious: Bool)
+@objc protocol ButtonsPrevNextDelegate {
+    @objc optional func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onNext: Bool)
+    @objc optional func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onPrevious: Bool)
 }
 
-class FabCustomButton: NSObject {
+class FabricCustomButton: NSObject {
+    
+    enum ButtonType {
+        case nextPrev, next, prev, valid, refuseAccept
+    }
 
-    static func createButton(type: ButtonType) -> BoutonsPrevNext {
+    static func createButton(type: ButtonType) -> ButtonsPrevNext {
         switch type {
         case .nextPrev:
-            return BoutonsPrevNext()
+            return ButtonsPrevNext()
         case .next:
-            return BoutonNext()
+            return ButtonNext()
         case .prev:
-            return BoutonsPrev()
+            return ButtonPrevious()
         case .valid:
-            return BoutonValidation()
+            return ButtonValidate()
+        case .refuseAccept:
+            return ButtonsRefuseAccept()
         }
     }
 }
 
-class BoutonsPrevNext: UIView {
+class ButtonsPrevNext: UIView {
 
-    weak var delegate: BoutonsPrevNextDelegate?
+    weak var delegate: ButtonsPrevNextDelegate?
     fileprivate var buttonNext: CustomUIButton!
     fileprivate var buttonPrevious: CustomUIButton!
 
     enum ButtonChoice {
-        case next, prev
+        case next, previous
     }
 
     init() {
@@ -77,27 +83,29 @@ class BoutonsPrevNext: UIView {
             self.topAnchor.constraint(equalTo: self.buttonPrevious.topAnchor),
             self.bottomAnchor.constraint(equalTo: self.buttonPrevious.bottomAnchor)
         ])
-
     }
+
     func setDisabled(button: ButtonChoice) {
         switch button {
 
         case .next:
             self.buttonNext.setStyle(style: .disabled)
             self.buttonNext.isUserInteractionEnabled = false
-        case .prev:
+
+        case .previous:
             self.buttonPrevious.setStyle(style: .disabled)
             self.buttonPrevious.isUserInteractionEnabled = false
         }
-
     }
+
     func setEnabled(button: ButtonChoice) {
         switch button {
 
         case .next:
             self.buttonNext.setStyle(style: .active)
             self.buttonNext.isUserInteractionEnabled = true
-        case .prev:
+
+        case .previous:
             self.buttonPrevious.setStyle(style: .active)
             self.buttonPrevious.isUserInteractionEnabled = true
         }
@@ -108,46 +116,87 @@ class BoutonsPrevNext: UIView {
     }
 }
 
-class BoutonsPrev: BoutonsPrevNext {
+fileprivate class ButtonPrevious: ButtonsPrevNext {
 
     override init() {
         super.init()
         self.buttonNext.isHidden = true
     }
-    
+
     func setEnabled() {
-        super.setEnabled(button: .prev)
+        super.setEnabled(button: .previous)
     }
+
     func setDisabled() {
-        super.setDisabled(button: .prev)
+        super.setDisabled(button: .previous)
     }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 }
 
-class BoutonNext: BoutonsPrevNext {
+fileprivate class ButtonNext: ButtonsPrevNext {
 
     override init() {
         super.init()
         self.buttonPrevious.isHidden = true
     }
+
     func setEnabled() {
         super.setEnabled(button: .next)
     }
+
     func setDisabled() {
         super.setDisabled(button: .next)
     }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 }
 
-class BoutonValidation: BoutonsPrevNext {
+fileprivate class ButtonValidate: ButtonsPrevNext {
 
     override init() {
         super.init()
         self.buttonNext.setTitle(Tools.getTranslate(key: "form_submit"), for: .normal)
+    }
+
+    func setEnabled() {
+        super.setEnabled(button: .next)
+    }
+
+    func setDisabled() {
+        super.setDisabled(button: .next)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}
+
+fileprivate class ButtonsRefuseAccept: ButtonsPrevNext {
+
+    override init() {
+        super.init()
+        
+        self.buttonNext.setTitle(Tools.getTranslate(key: "action_accept"), for: .normal)
+        self.buttonPrevious.setTitle(Tools.getTranslate(key: "action_refused"), for: .normal)
+        self.buttonPrevious.setStyle(style: .delete)
+    }
+
+    override func setEnabled(button: ButtonChoice) {
+        switch button {
+
+        case .next:
+            self.buttonNext.setStyle(style: .active)
+            self.buttonNext.isUserInteractionEnabled = true
+
+        case .previous:
+            self.buttonPrevious.setStyle(style: .delete)
+            self.buttonPrevious.isUserInteractionEnabled = true
+        }
     }
 
     required init?(coder: NSCoder) {

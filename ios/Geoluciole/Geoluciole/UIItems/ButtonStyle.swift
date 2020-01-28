@@ -11,7 +11,3 @@ import Foundation
 enum ButtonStyle {
     case settingDark, settingLight, disabled, active, delete, defaultStyle, dateField
 }
-
-enum ButtonType {
-    case nextPrev, next, prev, valid
-}

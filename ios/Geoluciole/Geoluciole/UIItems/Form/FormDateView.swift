@@ -2,7 +2,7 @@
 //  FormDateView.swift
 //  Geoluciole
 //
-//  Created by RAYEZ Laurent on 23/01/2020.
+//  Created by Laurent RAYEZ on 23/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -49,8 +49,6 @@ class FormDateView: UIView {
         }
         self.addSubview(zoneDateArrivee)
 
-// - MARK: separation
-
         self.zoneDateDepart = FormDateFieldView(title: Tools.getTranslate(key: "form_out_city_title"))
         self.zoneDateDepart.translatesAutoresizingMaskIntoConstraints = false
         self.zoneDateDepart.setMinimumDate(date: now)
@@ -58,7 +56,7 @@ class FormDateView: UIView {
             guard let strongSelf = self else {
                 return false
             }
-            
+
             var incomeDate: Date
 
             if let date = textfield.text, date != "" {
@@ -91,7 +89,6 @@ class FormDateView: UIView {
             self.bottomAnchor.constraint(equalTo: zoneDateDepart.bottomAnchor),
             self.topAnchor.constraint(equalTo: zoneDateArrivee.topAnchor)
         ])
-
     }
 
     required init?(coder: NSCoder) {

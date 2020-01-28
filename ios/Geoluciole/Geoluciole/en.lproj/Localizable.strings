@@ -180,3 +180,4 @@
 "toast_send_data" = "Sending data...";
 "toast_no_data_send" = "No data to send";
 "toast_send_data_success" = "Sending data successfully !";
+"toast_form_error" = "Incorrect form !";

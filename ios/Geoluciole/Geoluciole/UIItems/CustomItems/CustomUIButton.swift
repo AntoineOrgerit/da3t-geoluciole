@@ -16,8 +16,8 @@ class CustomUIButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
         self.titleLabel?.numberOfLines = 0
+        self.titleLabel?.textAlignment = .center
         self.titleLabel?.font = UIFont(name: "Roboto-Regular", size: 18)
         self.addTarget(self, action: #selector(CustomUIButton.touchOnUIButton), for: .touchUpInside)
     }
@@ -28,10 +28,6 @@ class CustomUIButton: UIButton {
 
     /// Applique le style définition en paramètre (énumération)
     func setStyle(style: ButtonStyle) {
-
-        self.titleLabel?.textAlignment = .center
-        self.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
-        self.titleLabel?.adjustsFontForContentSizeCategory = true
 
         switch style {
         case .settingLight:

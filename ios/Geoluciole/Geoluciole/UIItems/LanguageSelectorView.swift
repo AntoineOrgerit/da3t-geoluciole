@@ -30,7 +30,6 @@ class LanguageSelectorView: UIView {
         self.frenchOption.translatesAutoresizingMaskIntoConstraints = false
         self.frenchOption.onCheckChange = { [weak self] checkBox in
             guard let strongSelf = self else { return }
-
             strongSelf.valueChange(checkBox)
         }
         self.addSubview(self.frenchOption)
@@ -41,7 +40,6 @@ class LanguageSelectorView: UIView {
         self.englishOption.translatesAutoresizingMaskIntoConstraints = false
         self.englishOption.onCheckChange = { [weak self] checkBox in
             guard let strongSelf = self else { return }
-
             strongSelf.valueChange(checkBox)
         }
         self.addSubview(self.englishOption)
@@ -90,7 +88,6 @@ class LanguageSelectorView: UIView {
             }
         }
         self.onChange?()
-        
     }
     
     fileprivate func saveFrenchChoice() {
@@ -102,7 +99,6 @@ class LanguageSelectorView: UIView {
         
         // Save les valeurs
         self.userPref.setPrefs(key: UserPrefs.APPLE_LANGUAGE_KEY, value: ["fr_FR"])
-        self.userPref.sync()
     }
     
     fileprivate func saveEnglishChoice() {
@@ -111,6 +107,5 @@ class LanguageSelectorView: UIView {
         self.englishOption.setChecked(checked: true)
         
         UserPrefs.getInstance().setPrefs(key: UserPrefs.APPLE_LANGUAGE_KEY, value: ["en_EN"])
-        self.userPref.sync()
     }
 }

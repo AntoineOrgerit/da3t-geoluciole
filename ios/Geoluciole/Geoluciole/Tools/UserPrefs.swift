@@ -54,10 +54,10 @@ class UserPrefs {
             if languageCode != nil {
                 // Si le français est défini, on le prend
                 if languageCode == "fr" {
-                    language = NSLocalizedString("french_language", comment: "")
+                    language = Tools.getTranslate(key: "french_language")
                 // Sinon on met anglais par défaut
                 } else {
-                    language = NSLocalizedString("english_language", comment: "")
+                    language = Tools.getTranslate(key: "english_language")
                 }
             }
             self.setPrefs(key: UserPrefs.APPLE_LANGUAGE_KEY, value: language)
@@ -106,9 +106,5 @@ class UserPrefs {
             return self.userPrefs.double(forKey: key)
         }
         return defaultValue
-    }
-
-    func sync() {
-        self.userPrefs.synchronize()
     }
 }

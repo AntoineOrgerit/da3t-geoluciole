@@ -13,6 +13,7 @@ class ElasticSearchAPI {
 
     init() {
         guard let resourceURL = URL(string: Constantes.API_URL_UNIV_LR_HTTP) else {
+            // TODO: METTRE UNE ERREUR DANS LE FATAL ERROR
             fatalError()
         }
 

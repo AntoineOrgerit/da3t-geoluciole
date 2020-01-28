@@ -93,6 +93,6 @@ class CollectDataSwitchView: UIView {
     }
 
     func setSwitch(value: Bool) {
-        switchData.setOn(value, animated: true)
+        switchData.setOn(value, animated: false)
     }
 }

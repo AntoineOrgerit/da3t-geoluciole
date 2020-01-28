@@ -42,6 +42,7 @@
 		237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237AD42B23C606D4009937AB /* LaunchScreen.storyboard */; };
 		237AD43623C60749009937AB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 237AD43523C60748009937AB /* libsqlite3.tbd */; };
 		23823D6723D8D8A600249E5A /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23823D6623D8D8A600249E5A /* LoaderView.swift */; };
+		238D39E723E0B27500251F6C /* cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 238D39E623E0B27500251F6C /* cgu.pdf */; };
 		238E1AB623D7ACD000BDD891 /* UpdateConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238E1AB523D7ACD000BDD891 /* UpdateConditions.swift */; };
 		238E1ABD23D7B7CF00BDD891 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 238E1AB923D7B7CF00BDD891 /* Roboto-Italic.ttf */; };
 		238E1ABF23D7B7CF00BDD891 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 238E1ABB23D7B7CF00BDD891 /* Roboto-Bold.ttf */; };
@@ -66,7 +67,6 @@
 		6263427423CCB926004DFD43 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427323CCB926004DFD43 /* CustomUIButton.swift */; };
 		6263427623CCC094004DFD43 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6263427523CCC094004DFD43 /* ButtonStyle.swift */; };
 		627BC8E123D85FE4006BF1E7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 627BC8E323D85FE4006BF1E7 /* Localizable.strings */; };
-		6299A17423CF50E600057652 /* cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 6299A17323CF50E600057652 /* cgu.pdf */; };
 		6299A17623CF65E500057652 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6299A17523CF65E500057652 /* CustomTimer.swift */; };
 		62AE470023DAEE4A00583FCC /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AE46FF23DAEE4A00583FCC /* UIDeviceExtension.swift */; };
 		62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */; };
@@ -76,20 +76,17 @@
 		62DAA4DB23C726D4007445A0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA4DA23C726D4007445A0 /* Location.swift */; };
 		6F2A961123DA45620036EF73 /* FormDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2A961023DA45620036EF73 /* FormDateView.swift */; };
 		6F48FA6323D9E176000709A4 /* FormDateFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F48FA6223D9E176000709A4 /* FormDateFieldView.swift */; };
-		6F4A76E523D7994800657E00 /* CustomTitleForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A76E423D7994800657E00 /* CustomTitleForm.swift */; };
-		6F4A76E723D7A34A00657E00 /* CustomQuestionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A76E623D7A34A00657E00 /* CustomQuestionForm.swift */; };
-		6F7C067523D5F948006924F6 /* FomulairePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C067423D5F948006924F6 /* FomulairePageController.swift */; };
-		6F7C068223D658EB006924F6 /* FirstPageFormulaireController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068123D658EB006924F6 /* FirstPageFormulaireController.swift */; };
-		6F7C068423D658ED006924F6 /* SecondPageFormulaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068323D658ED006924F6 /* SecondPageFormulaire.swift */; };
-		6F7C068623D658EF006924F6 /* ThirdPageFormulaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068523D658EF006924F6 /* ThirdPageFormulaire.swift */; };
-		6F7C068923D65916006924F6 /* FourthPageFormulaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068823D65916006924F6 /* FourthPageFormulaire.swift */; };
+		6F4A76E523D7994800657E00 /* FormTitlePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A76E423D7994800657E00 /* FormTitlePage.swift */; };
+		6F4A76E723D7A34A00657E00 /* FormYesNoQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A76E623D7A34A00657E00 /* FormYesNoQuestion.swift */; };
+		6F7C067523D5F948006924F6 /* FormPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C067423D5F948006924F6 /* FormPageViewController.swift */; };
+		6F7C068223D658EB006924F6 /* FormFirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068123D658EB006924F6 /* FormFirstPageViewController.swift */; };
+		6F7C068423D658ED006924F6 /* FormSecondPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068323D658ED006924F6 /* FormSecondPageViewController.swift */; };
+		6F7C068623D658EF006924F6 /* FormThirdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068523D658EF006924F6 /* FormThirdPageViewController.swift */; };
+		6F7C068923D65916006924F6 /* FormFourthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C068823D65916006924F6 /* FormFourthPageViewController.swift */; };
 		6F7E0F4823DDCEBE00C75CB2 /* FormDropDownList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7E0F4723DDCEBE00C75CB2 /* FormDropDownList.swift */; };
-		6F92E55D23D06B9C00BEF169 /* LogoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F92E55C23D06B9C00BEF169 /* LogoCollectionCell.swift */; };
 		6F93EED423DAF4C90086B3A0 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F93EED323DAF4C90086B3A0 /* FormTextField.swift */; };
-		6FA63A5F23DCEED000B57BEC /* FormDropDownListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA63A5E23DCEED000B57BEC /* FormDropDownListView.swift */; };
 		6FACFC6C23CF58B50036881E /* PartnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FACFC6B23CF58B50036881E /* PartnersViewController.swift */; };
-		6FCA03B023D89A4A00589C27 /* FormulaireScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA03AF23D89A4A00589C27 /* FormulaireScrollView.swift */; };
-		6FCA03B223D8A4A300589C27 /* FabCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA03B123D8A4A300589C27 /* FabCustomButton.swift */; };
+		6FCA03B223D8A4A300589C27 /* FabricCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA03B123D8A4A300589C27 /* FabricCustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +134,7 @@
 		237AD42E23C606D4009937AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		237AD43523C60748009937AB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		23823D6623D8D8A600249E5A /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
+		238D39E623E0B27500251F6C /* cgu.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cgu.pdf; sourceTree = "<group>"; };
 		238E1AB523D7ACD000BDD891 /* UpdateConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateConditions.swift; sourceTree = "<group>"; };
 		238E1AB923D7B7CF00BDD891 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		238E1ABA23D7B7CF00BDD891 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 		6263427523CCC094004DFD43 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonStyle.swift; path = Geoluciole/UIItems/ButtonStyle.swift; sourceTree = SOURCE_ROOT; };
 		627BC8E423D85FF4006BF1E7 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		627BC8E523D86027006BF1E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		6299A17323CF50E600057652 /* cgu.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cgu.pdf; sourceTree = "<group>"; };
 		6299A17523CF65E500057652 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		62AE46FF23DAEE4A00583FCC /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		62BEEB1223D9A0CC00CE60DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -175,20 +172,17 @@
 		62DAA4DA23C726D4007445A0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		6F2A961023DA45620036EF73 /* FormDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDateView.swift; sourceTree = "<group>"; };
 		6F48FA6223D9E176000709A4 /* FormDateFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDateFieldView.swift; sourceTree = "<group>"; };
-		6F4A76E423D7994800657E00 /* CustomTitleForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleForm.swift; sourceTree = "<group>"; };
-		6F4A76E623D7A34A00657E00 /* CustomQuestionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionForm.swift; sourceTree = "<group>"; };
-		6F7C067423D5F948006924F6 /* FomulairePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FomulairePageController.swift; sourceTree = "<group>"; };
-		6F7C068123D658EB006924F6 /* FirstPageFormulaireController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageFormulaireController.swift; sourceTree = "<group>"; };
-		6F7C068323D658ED006924F6 /* SecondPageFormulaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageFormulaire.swift; sourceTree = "<group>"; };
-		6F7C068523D658EF006924F6 /* ThirdPageFormulaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPageFormulaire.swift; sourceTree = "<group>"; };
-		6F7C068823D65916006924F6 /* FourthPageFormulaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthPageFormulaire.swift; sourceTree = "<group>"; };
+		6F4A76E423D7994800657E00 /* FormTitlePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTitlePage.swift; sourceTree = "<group>"; };
+		6F4A76E623D7A34A00657E00 /* FormYesNoQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormYesNoQuestion.swift; sourceTree = "<group>"; };
+		6F7C067423D5F948006924F6 /* FormPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPageViewController.swift; sourceTree = "<group>"; };
+		6F7C068123D658EB006924F6 /* FormFirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFirstPageViewController.swift; sourceTree = "<group>"; };
+		6F7C068323D658ED006924F6 /* FormSecondPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSecondPageViewController.swift; sourceTree = "<group>"; };
+		6F7C068523D658EF006924F6 /* FormThirdPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormThirdPageViewController.swift; sourceTree = "<group>"; };
+		6F7C068823D65916006924F6 /* FormFourthPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFourthPageViewController.swift; sourceTree = "<group>"; };
 		6F7E0F4723DDCEBE00C75CB2 /* FormDropDownList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDropDownList.swift; sourceTree = "<group>"; };
-		6F92E55C23D06B9C00BEF169 /* LogoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCollectionCell.swift; sourceTree = "<group>"; };
 		6F93EED323DAF4C90086B3A0 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
-		6FA63A5E23DCEED000B57BEC /* FormDropDownListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDropDownListView.swift; sourceTree = "<group>"; };
 		6FACFC6B23CF58B50036881E /* PartnersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersViewController.swift; sourceTree = "<group>"; };
-		6FCA03AF23D89A4A00589C27 /* FormulaireScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaireScrollView.swift; sourceTree = "<group>"; };
-		6FCA03B123D8A4A300589C27 /* FabCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FabCustomButton.swift; sourceTree = "<group>"; };
+		6FCA03B123D8A4A300589C27 /* FabricCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FabricCustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,7 +342,7 @@
 				238E1AB723D7B7B000BDD891 /* Fonts */,
 				2305CE7B23C632CF00354361 /* geoluciole.sqlite */,
 				23975B1423D72E1100F89106 /* badges.json */,
-				6299A17323CF50E600057652 /* cgu.pdf */,
+				238D39E623E0B27500251F6C /* cgu.pdf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -385,9 +379,8 @@
 		23E22D1E23C75ECE00C3540E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				6F7C068723D658FA006924F6 /* Form */,
 				2366D1B923CF712A00E1B493 /* FormConsentRGPDViewController.swift */,
-				6F7C068723D658FA006924F6 /* Formulaire */,
-				2366D1B923CF712A00E1B493 /* FormulaireConsentRGPDViewController.swift */,
 				62BF3D6C23C87E5500945C04 /* StatsTrophiesViewController.swift */,
 				237AD42223C606D4009937AB /* HomeViewController.swift */,
 				23E22D2023C7645100C3540E /* SettingsViewController.swift */,
@@ -396,7 +389,7 @@
 				6FACFC6B23CF58B50036881E /* PartnersViewController.swift */,
 				235D45D023C9247A00992B7B /* ParentViewController.swift */,
 				23D8423923D1F7C400E7802E /* ParentModalViewController.swift */,
-				6F7C067423D5F948006924F6 /* FomulairePageController.swift */,
+				6F7C067423D5F948006924F6 /* FormPageViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -420,6 +413,7 @@
 				23F98BA923CF038800DA7931 /* NoBadgeView.swift */,
 				23D42F3923D387A000BBCDD8 /* IdentifierView.swift */,
 				23823D6623D8D8A600249E5A /* LoaderView.swift */,
+				6F4A76E423D7994800657E00 /* FormTitlePage.swift */,
 			);
 			path = UIItems;
 			sourceTree = "<group>";
@@ -436,15 +430,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		6F7C068723D658FA006924F6 /* Formulaire */ = {
+		6F7C068723D658FA006924F6 /* Form */ = {
 			isa = PBXGroup;
 			children = (
-				6F7C068123D658EB006924F6 /* FirstPageFormulaireController.swift */,
-				6F7C068323D658ED006924F6 /* SecondPageFormulaire.swift */,
-				6F7C068523D658EF006924F6 /* ThirdPageFormulaire.swift */,
-				6F7C068823D65916006924F6 /* FourthPageFormulaire.swift */,
+				6F7C068123D658EB006924F6 /* FormFirstPageViewController.swift */,
+				6F7C068323D658ED006924F6 /* FormSecondPageViewController.swift */,
+				6F7C068523D658EF006924F6 /* FormThirdPageViewController.swift */,
+				6F7C068823D65916006924F6 /* FormFourthPageViewController.swift */,
 			);
-			path = Formulaire;
+			path = Form;
 			sourceTree = "<group>";
 		};
 		6F93EED223DAF4B00086B3A0 /* Form */ = {
@@ -453,11 +447,8 @@
 				6F93EED323DAF4C90086B3A0 /* FormTextField.swift */,
 				6F48FA6223D9E176000709A4 /* FormDateFieldView.swift */,
 				6F2A961023DA45620036EF73 /* FormDateView.swift */,
-				6F4A76E623D7A34A00657E00 /* CustomQuestionForm.swift */,
-				6FCA03B123D8A4A300589C27 /* FabCustomButton.swift */,
-				6FCA03AF23D89A4A00589C27 /* FormulaireScrollView.swift */,
-				6F4A76E423D7994800657E00 /* CustomTitleForm.swift */,
-				6FA63A5E23DCEED000B57BEC /* FormDropDownListView.swift */,
+				6F4A76E623D7A34A00657E00 /* FormYesNoQuestion.swift */,
+				6FCA03B123D8A4A300589C27 /* FabricCustomButton.swift */,
 				6F7E0F4723DDCEBE00C75CB2 /* FormDropDownList.swift */,
 			);
 			path = Form;
@@ -466,7 +457,6 @@
 		6FB48CE923DAE8C800C6A8B6 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				6F92E55C23D06B9C00BEF169 /* LogoCollectionCell.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -536,10 +526,10 @@
 				237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */,
 				237AD42823C606D4009937AB /* Main.storyboard in Resources */,
 				237AD42A23C606D4009937AB /* Assets.xcassets in Resources */,
-				6299A17423CF50E600057652 /* cgu.pdf in Resources */,
 				23975B1523D72E1100F89106 /* badges.json in Resources */,
 				238E1ABF23D7B7CF00BDD891 /* Roboto-Bold.ttf in Resources */,
 				238E1AC023D7B7CF00BDD891 /* Roboto-Regular.ttf in Resources */,
+				238D39E723E0B27500251F6C /* cgu.pdf in Resources */,
 				238E1ABD23D7B7CF00BDD891 /* Roboto-Italic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,7 +551,7 @@
 				62D37A9D23D0A17F00F079C0 /* LocationHandler.swift in Sources */,
 				62BF3D6F23C8840E00945C04 /* UserPrefs.swift in Sources */,
 				23D42F3A23D387A000BBCDD8 /* IdentifierView.swift in Sources */,
-				6F4A76E723D7A34A00657E00 /* CustomQuestionForm.swift in Sources */,
+				6F4A76E723D7A34A00657E00 /* FormYesNoQuestion.swift in Sources */,
 				23610E8123CDF593003B6EF8 /* CheckBoxView.swift in Sources */,
 				2392A4C823CCC2E1006606B5 /* CustomUILabel.swift in Sources */,
 				62BF3D6D23C87E5500945C04 /* StatsTrophiesViewController.swift in Sources */,
@@ -571,14 +561,14 @@
 				23F18DE223C8C0F400A13999 /* UIColorExtension.swift in Sources */,
 				236EE58323CB19560000ADE3 /* UIViewExtension.swift in Sources */,
 				6F93EED423DAF4C90086B3A0 /* FormTextField.swift in Sources */,
-				6F7C068423D658ED006924F6 /* SecondPageFormulaire.swift in Sources */,
+				6F7C068423D658ED006924F6 /* FormSecondPageViewController.swift in Sources */,
 				2305CE7623C6321200354361 /* FMDatabasePool.m in Sources */,
 				6299A17623CF65E500057652 /* CustomTimer.swift in Sources */,
 				62330D2D23CDF05F003E7586 /* GPSConsentRGPDViewController.swift in Sources */,
 				2305CE7823C6321200354361 /* FMDatabase.m in Sources */,
 				62AE470023DAEE4A00583FCC /* UIDeviceExtension.swift in Sources */,
 				23610E8323CE021C003B6EF8 /* SettingsDateFieldView.swift in Sources */,
-				6F7C068223D658EB006924F6 /* FirstPageFormulaireController.swift in Sources */,
+				6F7C068223D658EB006924F6 /* FormFirstPageViewController.swift in Sources */,
 				23CB178323CCE9AC00B1BF73 /* ShowLevelView.swift in Sources */,
 				237AD41F23C606D4009937AB /* AppDelegate.swift in Sources */,
 				6FACFC6C23CF58B50036881E /* PartnersViewController.swift in Sources */,
@@ -589,7 +579,7 @@
 				2305CE7F23C633B200354361 /* Constantes.swift in Sources */,
 				2305CE8B23C64AD500354361 /* Table.swift in Sources */,
 				237972DE23CD260600800764 /* LabelStyle.swift in Sources */,
-				6F4A76E523D7994800657E00 /* CustomTitleForm.swift in Sources */,
+				6F4A76E523D7994800657E00 /* FormTitlePage.swift in Sources */,
 				235D45D323C930BC00992B7B /* CustomUIImageView.swift in Sources */,
 				237AD42123C606D4009937AB /* SceneDelegate.swift in Sources */,
 				23F18DE423C8C57000A13999 /* TitleBarView.swift in Sources */,
@@ -601,27 +591,23 @@
 				2305CE7A23C6321200354361 /* FMResultSet.m in Sources */,
 				2366D1BA23CF712A00E1B493 /* FormConsentRGPDViewController.swift in Sources */,
 				235D45D123C9247A00992B7B /* ParentViewController.swift in Sources */,
-				6F7C067523D5F948006924F6 /* FomulairePageController.swift in Sources */,
+				6F7C067523D5F948006924F6 /* FormPageViewController.swift in Sources */,
 				6F48FA6323D9E176000709A4 /* FormDateFieldView.swift in Sources */,
 				2305CE7723C6321200354361 /* FMDatabaseQueue.m in Sources */,
 				2305CE8923C63E9700354361 /* LocationTable.swift in Sources */,
-				6FCA03B223D8A4A300589C27 /* FabCustomButton.swift in Sources */,
+				6FCA03B223D8A4A300589C27 /* FabricCustomButton.swift in Sources */,
 				23D8423A23D1F7C400E7802E /* ParentModalViewController.swift in Sources */,
 				23F98BAA23CF038800DA7931 /* NoBadgeView.swift in Sources */,
 				23610E8523CE3446003B6EF8 /* LanguageSelectorView.swift in Sources */,
-				6F92E55D23D06B9C00BEF169 /* LogoCollectionCell.swift in Sources */,
-				6F7C068623D658EF006924F6 /* ThirdPageFormulaire.swift in Sources */,
-				6FCA03B023D89A4A00589C27 /* FormulaireScrollView.swift in Sources */,
+				6F7C068623D658EF006924F6 /* FormThirdPageViewController.swift in Sources */,
 				23975B1923D74D1A00F89106 /* Badge.swift in Sources */,
 				2305CE7923C6321200354361 /* FMDatabaseAdditions.m in Sources */,
 				6F7E0F4823DDCEBE00C75CB2 /* FormDropDownList.swift in Sources */,
-				223DE77FF88A8044FD599915 /* ElasticSearchAPIMessage.swift in Sources */,
 				223DE1F1F98FC28DC8BB65A5 /* ElasticSearchAPI.swift in Sources */,
 				223DE3DD94FAE639A3D40CFF /* CharacterExtension.swift in Sources */,
 				23CB178523CCFFCF00B1BF73 /* LastTrophyView.swift in Sources */,
 				236597A023D5F16400C13EC0 /* Toast.swift in Sources */,
-				6FA63A5F23DCEED000B57BEC /* FormDropDownListView.swift in Sources */,
-				6F7C068923D65916006924F6 /* FourthPageFormulaire.swift in Sources */,
+				6F7C068923D65916006924F6 /* FormFourthPageViewController.swift in Sources */,
 				62188B9923CF1C9B00D33B43 /* CGUViewController.swift in Sources */,
 				223DE23B94A8E5B52FE2D6E2 /* StringExtension.swift in Sources */,
 			);

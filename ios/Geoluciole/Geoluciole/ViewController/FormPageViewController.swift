@@ -1,71 +1,72 @@
 //
-//  FomulairePageControllerViewController.swift
+//  FormPageViewController.swift
 //  Geoluciole
 //
-//  Created by RAYEZ Laurent on 20/01/2020.
+//  Created by Laurent RAYEZ on 20/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 import Foundation
 import UIKit
 
-class FomulairePageController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+/// Classe permettant de gérer les pages de formulaire
+class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
 
     static var formAnswers = [String: Any]()
-    fileprivate var firstPage: FirstPageFormulaireController!
-    fileprivate var secondPage: SecondPageFormulaire!
-    fileprivate var thirdPage: ThirdPageFormulaire!
-    fileprivate var fourthPage: FourthPageFormulaire!
-    fileprivate var pageAffichable: [UIViewController] = [UIViewController]()
+    fileprivate var firstPage: FormFirstPageViewController!
+    fileprivate var secondPage: FormSecondPageViewController!
+    fileprivate var thirdPage: FormThirdPageViewController!
+    fileprivate var fourthPage: FormFourthPageViewController!
+    fileprivate var displayablePages: [UIViewController] = [UIViewController]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.firstPage = FirstPageFormulaireController()
-        self.secondPage = SecondPageFormulaire()
-        self.thirdPage = ThirdPageFormulaire()
-        self.fourthPage = FourthPageFormulaire()
+        self.firstPage = FormFirstPageViewController()
+        self.secondPage = FormSecondPageViewController()
+        self.thirdPage = FormThirdPageViewController()
+        self.fourthPage = FormFourthPageViewController()
 
         if UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
-            pageAffichable.append(firstPage)
+            self.displayablePages.append(self.firstPage)
         } else {
-            pageAffichable.append(secondPage)
+            self.displayablePages.append(self.secondPage)
         }
 
-        firstPage.onNextButton = { [weak self] in
+        self.firstPage.onNextButton = { [weak self] in
             guard let strongSelf = self else { return }
+
             if strongSelf.firstPage.validationPage() {
-                strongSelf.pageAffichable.append(strongSelf.secondPage)
+                strongSelf.displayablePages.append(strongSelf.secondPage)
                 strongSelf.setViewControllers([strongSelf.secondPage], direction: .forward, animated: true, completion: nil)
             } else {
                 var s = ToastStyle()
                 s.backgroundColor = .red
                 s.messageColor = .white
-                strongSelf.firstPage.rootView.makeToast("FORMULAIRE INCORRECT TODO I18N", duration: 3, style: s)
+                strongSelf.firstPage.rootView.makeToast(Tools.getTranslate(key: "toast_form_error"), duration: 3, style: s)
             }
         }
 
-        secondPage.onPreviousButton = { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
+        self.secondPage.onPreviousButton = { [weak self] in
+            guard let strongSelf = self else { return }
+
             strongSelf.setViewControllers([strongSelf.firstPage], direction: .reverse, animated: true, completion: nil)
         }
 
-        secondPage.onNextButton = {
+        self.secondPage.onNextButton = {
             [weak self] in
             guard let strongSelf = self else { return }
             if strongSelf.secondPage.validationPage() {
-                strongSelf.pageAffichable.append(strongSelf.thirdPage)
+                strongSelf.displayablePages.append(strongSelf.thirdPage)
                 strongSelf.setViewControllers([strongSelf.thirdPage], direction: .forward, animated: true, completion: nil)
             } else {
                 var s = ToastStyle()
                 s.backgroundColor = .red
                 s.messageColor = .white
-                strongSelf.secondPage.rootView.makeToast("FORMULAIRE INCORRECT TODO I18N", duration: 3, style: s)
+                strongSelf.secondPage.rootView.makeToast(Tools.getTranslate(key: "toast_form_error"), duration: 3, style: s)
             }
         }
 
-        thirdPage.onPreviousButton = { [weak self] in
+        self.thirdPage.onPreviousButton = { [weak self] in
             guard let strongSelf = self else {
                 return
             }
@@ -73,17 +74,17 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
             strongSelf.setViewControllers([strongSelf.secondPage], direction: .reverse, animated: true, completion: nil)
         }
 
-        thirdPage.onNextButton = { [weak self] in
+        self.thirdPage.onNextButton = { [weak self] in
             guard let strongSelf = self else { return }
 
             if strongSelf.thirdPage.validationPage() {
-                strongSelf.pageAffichable.append(strongSelf.fourthPage)
+                strongSelf.displayablePages.append(strongSelf.fourthPage)
                 strongSelf.setViewControllers([strongSelf.fourthPage], direction: .forward, animated: true, completion: nil)
             } else {
                 var s = ToastStyle()
                 s.backgroundColor = .red
                 s.messageColor = .white
-                strongSelf.thirdPage.rootView.makeToast("FORMULAIRE INCORRECT TODO I18N", duration: 3, style: s)
+                strongSelf.thirdPage.rootView.makeToast(Tools.getTranslate(key: "toast_form_error"), duration: 3, style: s)
             }
         }
 
@@ -93,7 +94,7 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
             strongSelf.setViewControllers([strongSelf.thirdPage], direction: .reverse, animated: true, completion: nil)
         }
 
-        fourthPage.onValider = {
+        self.fourthPage.onValidate = {
             [weak self] in
             guard let strongSelf = self else { return }
             if strongSelf.fourthPage.validationPage() {
@@ -103,17 +104,18 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
                 var s = ToastStyle()
                 s.backgroundColor = .red
                 s.messageColor = .white
-                strongSelf.fourthPage.rootView.makeToast("FORMULAIRE INCORRECT TODO I18N", duration: 3, style: s)
+                strongSelf.fourthPage.rootView.makeToast(Tools.getTranslate(key: "toast_form_error"), duration: 3, style: s)
             }
         }
 
-        //si le consentement de récupération des données du formulaire
+        // TODO: POURQUOI CE COMMENTAIRE ?
+        // Si le consentement de récupération des données du formulaire
         self.dataSource = self
         self.delegate = self
 
-        if let firstViewController = pageAffichable.first {
+        if let firstViewController = displayablePages.first {
             if UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_FORMULAIRE_REMPLI) {
-
+                // TODO: POURQUOI C'EST VIDE ICI ?
             } else {
                 setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
             }
@@ -121,28 +123,13 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-
-        guard let viewControllerIndex = pageAffichable.firstIndex(of: viewController) else {
-            return nil
-        }
-
-        if viewControllerIndex <= 0 {
-            return nil
-        } else {
-            return nil
-        }
+        // Blocage des swipes
+        return nil
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = pageAffichable.firstIndex(of: viewController) else {
-            return nil
-        }
-
-        if viewControllerIndex < (pageAffichable.count - 1) {
-            return nil
-        } else {
-            return nil
-        }
+        // Blocage des swipes
+        return nil
     }
 
 }

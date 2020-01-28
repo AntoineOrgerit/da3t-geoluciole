@@ -32,32 +32,38 @@ class DurationOfEngagementFormView: UIView {
         
         self.dateStartField.setTitle(title: Tools.getTranslate(key: "dates_settings_start"))
         self.dateStartField.setDateLabel(date: minimumDateString)
+        
         if UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT) != "" {
             let dateValue = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT)
             self.dateStartField.setDateLabel(date: dateValue)
             self.dateEndField.setMinimumDate(date: Tools.convertDate(date: dateValue))
         }
+        
         self.dateStartField.setMinimumDate(date: minimumDate)
         
         self.dateStartField.translatesAutoresizingMaskIntoConstraints = false
         self.dateStartField.onDateValidate = { date in
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_START_ENGAGEMENT, value: Tools.convertDate(date: date))
         }
+        
         self.addSubview(dateStartField)
 
-        
         self.dateEndField.setMinimumDate(date: minimumDate)
         self.dateEndField.setDateLabel(date: minimumDateString)
         self.dateEndField.setTitle(title: Tools.getTranslate(key: "dates_settings_end"))
+        
         if UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT) != "" {
             let dateValue = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT)
             dateEndField.setDateLabel(date: dateValue)
             self.dateStartField.setMaximumDate(date: Tools.convertDate(date: dateValue))
         }
+        
         self.dateEndField.translatesAutoresizingMaskIntoConstraints = false
+        
         self.dateEndField.onDateValidate = { date in
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_END_ENGAGEMENT, value: Tools.convertDate(date: date))
         }
+        
         self.addSubview(dateEndField)
 
         NSLayoutConstraint.activate([
@@ -80,7 +86,6 @@ class DurationOfEngagementFormView: UIView {
             self.dateEndField.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
     }
-    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

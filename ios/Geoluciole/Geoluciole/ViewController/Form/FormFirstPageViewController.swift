@@ -1,32 +1,27 @@
 //
-//  FirstPageController.swift
+//  FormFirstPageViewController.swift
 //  Geoluciole
 //
-//  Created by ai.cgi niort on 20/01/2020.
+//  Created by Laurent RAYEZ on 20/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class FirstPageFormulaireController: ParentModalViewController, BoutonsPrevNextDelegate {
+class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDelegate {
 
     var onNextButton: (() -> Void)?
-
-    fileprivate var titre: CustomTitleForm!
-    
+    fileprivate var titre: FormTitlePage!
     fileprivate var lblNom: FormTextField!
-
     fileprivate var lblPrenom: FormTextField!
-
     fileprivate var lblAddMail: FormTextField!
-
     fileprivate var lblTelephone: FormTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.titre = CustomTitleForm(titre: Tools.getTranslate(key: "form_title"), page: "1/4")
+        self.titre = FormTitlePage(title: Tools.getTranslate(key: "form_title"), pageIndex: "1/4")
         self.titre.translatesAutoresizingMaskIntoConstraints = false
 
         self.rootView.addSubview(self.titre)
@@ -34,32 +29,31 @@ class FirstPageFormulaireController: ParentModalViewController, BoutonsPrevNextD
         self.lblNom = FormTextField(placeholder: Tools.getTranslate(key: "form_lastname"), keyboardType: .default)
         self.lblNom.translatesAutoresizingMaskIntoConstraints = false
         self.lblNom.validationData = { txtfield in
-            
+
             if let text = txtfield.text {
-                 return text != ""
+                return text != ""
             } else {
                 return false
             }
-          
         }
         self.rootView.addSubview(self.lblNom)
 
         self.lblPrenom = FormTextField(placeholder: Tools.getTranslate(key: "form_firstname"), keyboardType: .default)
         self.lblPrenom.translatesAutoresizingMaskIntoConstraints = false
         self.lblPrenom.validationData = { txtfield in
-           
+
             if let text = txtfield.text {
-                   return text != ""
-              } else {
-                  return false
-              }
-            
+                return text != ""
+            } else {
+                return false
+            }
+
         }
         self.rootView.addSubview(self.lblPrenom)
 
         self.lblAddMail = FormTextField(placeholder: Tools.getTranslate(key: "form_mail"), keyboardType: .emailAddress)
         self.lblAddMail.translatesAutoresizingMaskIntoConstraints = false
-        self.lblAddMail.validationData = {txtfield in
+        self.lblAddMail.validationData = { txtfield in
 
             func isValid(_ email: String) -> Bool {
                 let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -67,7 +61,7 @@ class FirstPageFormulaireController: ParentModalViewController, BoutonsPrevNextD
                 let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegEx)
                 return emailTest.evaluate(with: email)
             }
-            
+
             if let text = txtfield.text {
                 return isValid(text)
             } else {
@@ -76,11 +70,10 @@ class FirstPageFormulaireController: ParentModalViewController, BoutonsPrevNextD
         }
         self.rootView.addSubview(self.lblAddMail)
 
-
         self.lblTelephone = FormTextField(placeholder: Tools.getTranslate(key: "form_phone"), keyboardType: .phonePad)
         self.lblTelephone.translatesAutoresizingMaskIntoConstraints = false
         self.lblTelephone.validationData = { txtfield in
-          
+
             func isValid(_ phoneNumber: String) -> Bool {
                 let emailRegEx = "[0-9]{1,15}"
 
@@ -88,19 +81,17 @@ class FirstPageFormulaireController: ParentModalViewController, BoutonsPrevNextD
                 return emailTest.evaluate(with: phoneNumber)
             }
             if let text = txtfield.text {
-                 return isValid(text)
+                return isValid(text)
             } else {
                 return false
             }
         }
         self.rootView.addSubview(self.lblTelephone)
 
-
-        let btonZone = FabCustomButton.createButton(type: .next)
+        let btonZone = FabricCustomButton.createButton(type: .next)
         btonZone.translatesAutoresizingMaskIntoConstraints = false
         btonZone.delegate = self
         self.rootView.addSubview(btonZone)
-
 
         NSLayoutConstraint.activate([
             self.titre.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
@@ -125,10 +116,8 @@ class FirstPageFormulaireController: ParentModalViewController, BoutonsPrevNextD
 
             btonZone.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             btonZone.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
-            btonZone.leftAnchor.constraint(equalTo: self.rootView.leftAnchor)
-
+            btonZone.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING)
         ])
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -138,10 +127,12 @@ class FirstPageFormulaireController: ParentModalViewController, BoutonsPrevNextD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
     func validationPage() -> Bool {
         return self.lblAddMail.isValid && self.lblNom.isValid && self.lblPrenom.isValid && self.lblTelephone.isValid
     }
-    func boutonsPrevNext(boutonsPrevNext: BoutonsPrevNext, onNext: Bool) {
+    
+    func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onNext: Bool) {
         self.onNextButton?()
     }
 }

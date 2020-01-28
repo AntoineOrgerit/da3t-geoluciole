@@ -15,47 +15,6 @@ class SettingsViewController: ParentViewController {
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
 
-
-
-    func openRevokConsent() {
-        let message = Tools.getTranslate(key: "revoke_text_1") + "\n\(Constantes.REVOQ_CONSENT_MAIL)" + "\n" + Tools.getTranslate(key: "revoke_text_2")
-        let alert = UIAlertController(title: Tools.getTranslate(key: "revoke_title"), message: message, preferredStyle: .alert)
-        if MFMailComposeViewController.canSendMail() {
-            alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "sendMail"), style: .destructive, handler: openMailApp))
-        }
-        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "copy"), style: .default, handler: saveToClipBoard))
-        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "back"), style: .default, handler: nil))
-
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    func saveToClipBoard(action: UIAlertAction) {
-        UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
-        self.rootView.makeToast(Tools.getTranslate(key: "toast_copy_id"), duration: 2, position: .bottom)
-    }
-
-    func openMailApp(action: UIAlertAction) {
-        let email = Constantes.REVOQ_CONSENT_MAIL
-
-        let identifiant = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
-        if let url = URL(string: "mailto:\(email)?subject=Revoquer%20mon%20consentement&body=\(identifiant)%20demande%20la%20suppression%20de%20ses%20donn%C3%A9es") {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        }
-    }
-
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -207,5 +166,46 @@ class SettingsViewController: ParentViewController {
 
         // Permet de resize le content pour permettre le scroll
         scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    func openRevokConsent() {
+        let message = Tools.getTranslate(key: "revoke_text_1") + "\(Constantes.REVOQ_CONSENT_MAIL)"
+        let alert = UIAlertController(title: Tools.getTranslate(key: "revoke_title"), message: message, preferredStyle: .alert)
+        if MFMailComposeViewController.canSendMail() {
+            alert.title! += Tools.getTranslate(key: "revoke_text_2")
+            alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "sendMail"), style: .destructive, handler: openMailApp))
+        }
+        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "copy"), style: .default, handler: saveToClipBoard))
+        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "back"), style: .default, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    func saveToClipBoard(action: UIAlertAction) {
+        UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
+        self.rootView.makeToast(Tools.getTranslate(key: "toast_copy_id"), duration: 2, position: .bottom)
+    }
+
+    func openMailApp(action: UIAlertAction) {
+        let email = Constantes.REVOQ_CONSENT_MAIL
+
+        let identifiant = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
+        // TODO: I18N
+        let stringURL = "mailto:\(email)?subject=Revoquer%20mon%20consentement&body=\(identifiant)%20demande%20la%20suppression%20de%20ses%20donn%C3%A9es"
+        if let url = URL(string: stringURL) {
+
+            // L'application est dispo qu'à partir de iOS 10 donc pas besoin du else
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
 //  FormDropDownList.swift
 //  Geoluciole
 //
-//  Created by ai.cgi niort on 26/01/2020.
+//  Created by Laurent RAYEZ on 26/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -16,8 +16,8 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
     fileprivate var bton: CustomUIButton!
     fileprivate var tbView: UITableView!
     fileprivate var formTextfield: FormTextField!
-    var optionSelected: String = ""
-    var optionPrecision: String?
+    fileprivate var optionSelected: String = ""
+    fileprivate var optionPrecision: String?
     fileprivate let reusableIdentifier = "OptionTableViewCell"
     var onResize: (() -> Void)?
 
@@ -26,6 +26,14 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
             return self.optionSelected != "" && self.optionPrecision != nil
         } else {
             return self.optionSelected != ""
+        }
+    }
+    
+    var selectedValue: String {
+        if self.optionSelected == Tools.getTranslate(key: "form_other_option") {
+            return self.optionPrecision ?? ""
+        } else {
+            return self.optionSelected
         }
     }
 
@@ -124,6 +132,7 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
 
     func hideTableView() {
         self.arrangedSubviews[2].isHidden = true
+        self.onResize?()
     }
 
     required init(coder: NSCoder) {

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+// Permet d'obtenir la zone safe d'affichage pour l'application
 class ParentViewController: UIViewController {
 
     var titleBar: TitleBarView!
@@ -18,12 +19,14 @@ class ParentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Permet de forcer le thème clair
         if #available(iOS 13.0, *) {
             self.overrideUserInterfaceStyle = .light
         }
 
         self.view.removeAllViews()
 
+        // Cet élément permet de colorer la statusBar
         let subStatusBarView = UIView()
         subStatusBarView.backgroundColor = .backgroundDefault
         subStatusBarView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +80,7 @@ class ParentViewController: UIViewController {
             ])
         }
 
+        // Ces swipes permettent de glisser d'une vue à l'autre
         let swipeLeft = UISwipeGestureRecognizer(target: self, action:
             #selector(ParentViewController.tappedRightButton))
         swipeLeft.direction = .left

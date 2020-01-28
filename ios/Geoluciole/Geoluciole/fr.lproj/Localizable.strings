@@ -185,3 +185,4 @@
 "toast_send_data" = "Envoi des données en cours...";
 "toast_no_data_send" = "Pas de données à envoyer";
 "toast_send_data_success" = "Envoi des données réussi !";
+"toast_form_error" = "Formulaire incorrect !";

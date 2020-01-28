@@ -14,7 +14,7 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
     fileprivate var statView: StatsView!
     fileprivate var collectionView: UICollectionView!
     fileprivate let reuseIdentifier = "BadgesCollectionViewCell"
-    fileprivate let itemsPerRow: CGFloat = 3
+    fileprivate let itemsPerRow: CGFloat = 3 // Il suffit de changer ce nombre' pour que la collectionView calcul la taille des éléments
     fileprivate var loader: LoaderView!
     fileprivate var wrap: UIView!
     fileprivate var badgesData = [Badge]()
@@ -100,6 +100,7 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! BadgesCollectionViewCell
+        
         cell.backgroundColor = UIColor(red: 227 / 255, green: 227 / 255, blue: 227 / 255, alpha: 0.5)
         cell.setImage(name: self.badgesData[indexPath.row].resource)
         cell.layer.cornerRadius = 10
@@ -111,7 +112,7 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
             guard let strongSelf = self else { return }
 
             strongSelf.rootView.hideAllToasts()
-            strongSelf.rootView.makeToast(badgeInCell.description, duration: 1, title: badgeInCell.name)
+            strongSelf.rootView.makeToast(badgeInCell.description, duration: 3, title: badgeInCell.name)
         }
 
         return cell
@@ -137,7 +138,7 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
 
         let queue = DispatchQueue(label: "LoadBadges", qos: .utility)
 
-        // On run 0.4 seconde après afin de voir le loader :)
+        // On run 0.4 seconde après afin de voir le loader et de simuler une activité :)
         queue.asyncAfter(deadline: .now() + 0.4) {
 
             // Récupération des badges qui ont été obtenu

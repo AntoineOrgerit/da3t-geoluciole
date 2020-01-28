@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class GPSConsentRGPDViewController: ParentModalViewController {
+class GPSConsentRGPDViewController: ParentModalViewController, ButtonsPrevNextDelegate {
 
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
@@ -21,8 +21,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
     fileprivate var subtitleRGPD: CustomUILabel!
     fileprivate var textRGPD: CustomUILabel!
     fileprivate var checkbox: CheckBoxFieldView!
-    fileprivate var acceptButton: CustomUIButton!
-    fileprivate var refuseButton: CustomUIButton!
+    fileprivate var buttons: ButtonsPrevNext!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +46,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         // texte rgpd
         self.textRGPD = CustomUILabel()
         self.textRGPD.numberOfLines = 0
-        
+
         let rgpd_content = Tools.getTranslate(key: "rgpd_first_content_1_line") + "\n\n" + Tools.getTranslate(key: "rgpd_first_content_2_line") + "\n\n" + Tools.getTranslate(key: "rgpd_first_content_3_line") + "\n\n" + Tools.getTranslate(key: "rgpd_first_content_4_line")
         self.textRGPD.text = rgpd_content
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
@@ -68,16 +67,12 @@ class GPSConsentRGPDViewController: ParentModalViewController {
             guard let strongSelf = self else { return }
 
             if strongSelf.checkbox.isChecked() {
-                strongSelf.acceptButton.setStyle(style: .active)
-                strongSelf.refuseButton.setStyle(style: .disabled)
+                strongSelf.buttons.setDisabled(button: .previous)
+                strongSelf.buttons.setEnabled(button: .next)
             } else {
-                strongSelf.acceptButton.setStyle(style: .disabled)
-                strongSelf.refuseButton.setStyle(style: .delete)
+                strongSelf.buttons.setDisabled(button: .next)
+                strongSelf.buttons.setEnabled(button: .previous)
             }
-
-            // Autorisation à cliquer sur les boutons
-            strongSelf.acceptButton.isUserInteractionEnabled = strongSelf.checkbox.isChecked()
-            strongSelf.refuseButton.isUserInteractionEnabled = !strongSelf.checkbox.isChecked()
         }
         self.contentView.addSubview(self.checkbox)
 
@@ -93,7 +88,8 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         var compte = [[String: Any]]()
 
         let now = Date()
-        let dict = ["consentement_gps": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date_gps": now.timeIntervalSince1970, "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com", "date_gps_str": Tools.convertDateToServerDate(date: now)] as [String : Any]
+        // TODO: METTRE LES BONNES DATA
+        let dict = ["consentement_gps": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date_gps": now.timeIntervalSince1970, "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com", "date_gps_str": Tools.convertDateToServerDate(date: now)] as [String: Any]
         compte.append(dict)
 
         let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, needBulk: true)
@@ -112,39 +108,11 @@ class GPSConsentRGPDViewController: ParentModalViewController {
     }
 
     fileprivate func setupButtons() {
-
-        // Accept Button
-        self.acceptButton = CustomUIButton()
-        self.acceptButton.setStyle(style: .disabled)
-        self.acceptButton.isUserInteractionEnabled = false
-        self.acceptButton.setTitle(Tools.getTranslate(key: "action_accept"), for: .normal)
-        self.acceptButton.translatesAutoresizingMaskIntoConstraints = false
-        self.acceptButton.onClick = { [weak self] _ in
-            guard let strongSelf = self else { return }
-
-            if strongSelf.checkbox.isChecked() {
-                strongSelf.sendDataCompte()
-                strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
-                strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
-                LocationHandler.getInstance().requestLocationAuthorization()
-            }
-
-            strongSelf.dismiss(animated: true)
-        }
-        self.rootView.addSubview(self.acceptButton)
-
-        // button Refuser
-        self.refuseButton = CustomUIButton()
-        self.refuseButton.setStyle(style: .delete)
-        self.refuseButton.setTitle(Tools.getTranslate(key: "action_refused"), for: .normal)
-        self.refuseButton.translatesAutoresizingMaskIntoConstraints = false
-        self.refuseButton.onClick = { [weak self] _ in
-            guard let strongSelf = self else { return }
-
-            strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: false)
-            strongSelf.dismiss(animated: true)
-        }
-        self.rootView.addSubview(self.refuseButton)
+        self.buttons = FabricCustomButton.createButton(type: .refuseAccept)
+        self.buttons.delegate = self
+        self.buttons.translatesAutoresizingMaskIntoConstraints = false
+        self.buttons.setDisabled(button: .next)
+        self.rootView.addSubview(self.buttons)
     }
 
     fileprivate func setupTitleAndSubtitle() {
@@ -193,13 +161,9 @@ class GPSConsentRGPDViewController: ParentModalViewController {
 
         // Boutons
         NSLayoutConstraint.activate([
-            self.acceptButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.acceptButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
-            self.acceptButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
-
-            self.refuseButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.refuseButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
-            self.refuseButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
+            self.buttons.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            self.buttons.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.buttons.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING)
         ])
 
         // SecondSeparator
@@ -207,7 +171,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
             self.secondSeparator.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.5),
             self.secondSeparator.centerXAnchor.constraint(equalTo: self.rootView.centerXAnchor),
             self.secondSeparator.heightAnchor.constraint(equalToConstant: 1),
-            self.secondSeparator.bottomAnchor.constraint(equalTo: self.refuseButton.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL)
+            self.secondSeparator.bottomAnchor.constraint(equalTo: self.buttons.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL)
         ])
 
         // Constraints ScrollView
@@ -238,5 +202,18 @@ class GPSConsentRGPDViewController: ParentModalViewController {
             self.checkbox.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING),
             self.checkbox.topAnchor.constraint(equalTo: self.textRGPD.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL)
         ])
+    }
+
+    func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onNext: Bool) {
+        self.sendDataCompte()
+        self.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
+        self.userPrefs.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+        LocationHandler.getInstance().requestLocationAuthorization()
+        self.dismiss(animated: true)
+    }
+
+    func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onPrevious: Bool) {
+        self.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: false)
+        self.dismiss(animated: true)
     }
 }

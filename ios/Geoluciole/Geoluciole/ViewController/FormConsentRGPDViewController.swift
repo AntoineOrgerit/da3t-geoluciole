@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-class FormConsentRGPDViewController: ParentModalViewController {
+class FormConsentRGPDViewController: ParentModalViewController, ButtonsPrevNextDelegate {
 
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
@@ -22,8 +22,7 @@ class FormConsentRGPDViewController: ParentModalViewController {
     fileprivate var subtitleRGPD: CustomUILabel!
     fileprivate var textRGPD: CustomUILabel!
     fileprivate var checkbox: CheckBoxFieldView!
-    fileprivate var acceptButton: CustomUIButton!
-    fileprivate var refuseButton: CustomUIButton!
+    fileprivate var buttons: ButtonsPrevNext!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,16 +69,12 @@ class FormConsentRGPDViewController: ParentModalViewController {
             guard let strongSelf = self else { return }
 
             if strongSelf.checkbox.isChecked() {
-                strongSelf.acceptButton.setStyle(style: .active)
-                strongSelf.refuseButton.setStyle(style: .disabled)
+                strongSelf.buttons.setDisabled(button: .previous)
+                strongSelf.buttons.setEnabled(button: .next)
             } else {
-                strongSelf.acceptButton.setStyle(style: .disabled)
-                strongSelf.refuseButton.setStyle(style: .delete)
+                strongSelf.buttons.setDisabled(button: .next)
+                strongSelf.buttons.setEnabled(button: .previous)
             }
-
-            // Autorisation à cliquer sur les boutons
-            strongSelf.acceptButton.isUserInteractionEnabled = strongSelf.checkbox.isChecked()
-            strongSelf.refuseButton.isUserInteractionEnabled = !strongSelf.checkbox.isChecked()
         }
         self.contentView.addSubview(self.checkbox)
 
@@ -91,19 +86,6 @@ class FormConsentRGPDViewController: ParentModalViewController {
         self.setupConstraints()
     }
 
-    fileprivate func sendDataCompte() {
-        // Construction d'un dictionnaire contenant les données à envoyer
-        var compte = [[String: Any]]()
-
-        let now = Date()
-        let dict = ["consentement_form": NSLocalizedString("rgpd_second_content_consentement", comment: ""), "date_form": now.timeIntervalSince1970, "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com", "date_form_str": Tools.convertDateToServerDate(date: now)] as [String : Any]
-        compte.append(dict)
-
-        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, needBulk: true)
-        ElasticSearchAPI.getInstance().postCompte(message: msg)
-    }
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -112,41 +94,15 @@ class FormConsentRGPDViewController: ParentModalViewController {
         super.viewDidAppear(animated)
 
         // Permet de resize le content pour permettre le scroll
-        scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
+        self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width, height: contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
     }
 
     fileprivate func setupButtons() {
-
-        // Accept Button
-        self.acceptButton = CustomUIButton()
-        self.acceptButton.setStyle(style: .disabled)
-        self.acceptButton.isUserInteractionEnabled = false
-        self.acceptButton.setTitle(Tools.getTranslate(key: "action_accept"), for: .normal)
-        self.acceptButton.translatesAutoresizingMaskIntoConstraints = false
-        self.acceptButton.onClick = { [weak self] _ in
-            guard let strongSelf = self else { return }
-
-            if strongSelf.checkbox.isChecked() {
-                strongSelf.sendDataCompte()
-                strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)
-            }
-
-            strongSelf.dismiss(animated: true)
-        }
-        self.rootView.addSubview(self.acceptButton)
-
-        // button Refuser
-        self.refuseButton = CustomUIButton()
-        self.refuseButton.setStyle(style: .delete)
-        self.refuseButton.setTitle(Tools.getTranslate(key: "action_refused"), for: .normal)
-        self.refuseButton.translatesAutoresizingMaskIntoConstraints = false
-        self.refuseButton.onClick = { [weak self] _ in
-            guard let strongSelf = self else { return }
-
-            strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: false)
-            strongSelf.dismiss(animated: true)
-        }
-        self.rootView.addSubview(self.refuseButton)
+        self.buttons = FabricCustomButton.createButton(type: .refuseAccept)
+        self.buttons.delegate = self
+        self.buttons.translatesAutoresizingMaskIntoConstraints = false
+        self.buttons.setDisabled(button: .next)
+        self.rootView.addSubview(self.buttons)
     }
 
     fileprivate func setupTitleAndSubtitle() {
@@ -195,13 +151,9 @@ class FormConsentRGPDViewController: ParentModalViewController {
 
         // Boutons
         NSLayoutConstraint.activate([
-            self.acceptButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.acceptButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
-            self.acceptButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
-
-            self.refuseButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            self.refuseButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
-            self.refuseButton.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.45),
+            self.buttons.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            self.buttons.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.buttons.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING)
         ])
 
         // SecondSeparator
@@ -209,7 +161,7 @@ class FormConsentRGPDViewController: ParentModalViewController {
             self.secondSeparator.widthAnchor.constraint(equalTo: self.rootView.widthAnchor, multiplier: 0.5),
             self.secondSeparator.centerXAnchor.constraint(equalTo: self.rootView.centerXAnchor),
             self.secondSeparator.heightAnchor.constraint(equalToConstant: 1),
-            self.secondSeparator.bottomAnchor.constraint(equalTo: self.refuseButton.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL)
+            self.secondSeparator.bottomAnchor.constraint(equalTo: self.buttons.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL)
         ])
 
         // Constraints ScrollView
@@ -240,5 +192,30 @@ class FormConsentRGPDViewController: ParentModalViewController {
             self.checkbox.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING),
             self.checkbox.topAnchor.constraint(equalTo: self.textRGPD.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL)
         ])
+    }
+
+    fileprivate func sendDataCompte() {
+        // Construction d'un dictionnaire contenant les données à envoyer
+        var compte = [[String: Any]]()
+
+        let now = Date()
+        // TODO: METTRE LES BONNES DATA
+        let dict = ["consentement_form": NSLocalizedString("rgpd_second_content_consentement", comment: ""), "date_form": now.timeIntervalSince1970, "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com", "date_form_str": Tools.convertDateToServerDate(date: now)] as [String: Any]
+        compte.append(dict)
+
+        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, needBulk: true)
+        ElasticSearchAPI.getInstance().postCompte(message: msg)
+    }
+
+    func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onNext: Bool) {
+        self.sendDataCompte()
+        self.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)
+
+        self.dismiss(animated: true)
+    }
+
+    func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onPrevious: Bool) {
+        self.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: false)
+        self.dismiss(animated: true)
     }
 }

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// Classe permettant d'afficher le loader luciole
 class LoaderView: UIImageView {
     
     override init(frame: CGRect) {

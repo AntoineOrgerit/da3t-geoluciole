@@ -52,7 +52,6 @@ class ShowLevelView: UIView {
         ])
     }
 
-
     func setProgress(value: Float) {
         self.progressBar.progress = value
         if self.progressBar.progress >= 1 {
