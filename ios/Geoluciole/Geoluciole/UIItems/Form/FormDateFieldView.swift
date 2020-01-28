@@ -74,7 +74,7 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
         self.dateTxtFld.textfield.inputView = datePicker
 
         self.dateButton = CustomUIButton()
-        self.dateButton.setTitle(Tools.getTranslate(key: "choose_date_button"), for: .normal)
+        self.dateButton.setTitle(Tools.getTranslate(key: "form_btn_date"), for: .normal)
         self.dateButton.setStyle(style: .dateField)
         self.dateButton.translatesAutoresizingMaskIntoConstraints = false
         self.dateButton.isUserInteractionEnabled = false
@@ -116,26 +116,6 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-
-    func incrementDate(daySup: Int?) -> String {
-        let currentDate = Date()
-        var interval: TimeInterval
-        if daySup != nil {
-            interval = TimeInterval(exactly: 86400 * daySup!)!
-        } else {
-            interval = TimeInterval(exactly: 86400)!
-        }
-
-        let jour = currentDate + interval
-
-        let formatterDate = DateFormatter()
-        formatterDate.locale = Locale(identifier: "fr_FR")
-        formatterDate.dateStyle = .medium
-        formatterDate.timeStyle = .none
-
-        let date = formatterDate.string(from: jour)
-        return date
     }
 
     @objc fileprivate func touchOnDateField() {

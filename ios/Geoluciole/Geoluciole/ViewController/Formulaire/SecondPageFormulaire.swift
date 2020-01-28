@@ -39,7 +39,6 @@ class SecondPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
         }
         titre2.setuptitle(title: Tools.getTranslate(key: "form_title"), pg: aff_page)
 
-        boutonsNav = FabCustomButton.createButton(type: .nextPrev)
         boutonsNav.delegate = self
         boutonsNav.translatesAutoresizingMaskIntoConstraints = false
 

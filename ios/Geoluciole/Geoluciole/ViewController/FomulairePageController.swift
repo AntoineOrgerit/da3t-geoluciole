@@ -10,12 +10,12 @@ import UIKit
 
 class FomulairePageController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
 
-    var firstPage: FirstPageFormulaireController!
-    var secondPage: SecondPageFormulaire!
-    var thirdPage: ThirdPageFormulaire!
-    var fourthPage: FourthPageFormulaire!
-    var pageAffichable: [UIViewController] = [UIViewController]()
-    var pageControl = UIPageControl()
+    static var formAnswers = [String: Any]()
+    fileprivate var firstPage: FirstPageFormulaireController!
+    fileprivate var secondPage: SecondPageFormulaire!
+    fileprivate var thirdPage: ThirdPageFormulaire!
+    fileprivate var fourthPage: FourthPageFormulaire!
+    fileprivate var pageAffichable: [UIViewController] = [UIViewController]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,11 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
             if strongSelf.firstPage.validationPage() {
                 strongSelf.pageAffichable.append(strongSelf.secondPage)
                 strongSelf.setViewControllers([strongSelf.secondPage], direction: .forward, animated: true, completion: nil)
+            } else {
+                var s = ToastStyle()
+                s.backgroundColor = .red
+                s.messageColor = .white
+                strongSelf.firstPage.rootView.makeToast("FORMULAIRE INCORRECT TODO I18N", duration: 3, style: s)
             }
         }
 
@@ -44,9 +49,8 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
                 return
             }
             strongSelf.setViewControllers([strongSelf.firstPage], direction: .reverse, animated: true, completion: nil)
-
-
         }
+
         secondPage.onNextButton = {
             [weak self] in
             guard let strongSelf = self else { return }
@@ -54,24 +58,36 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
                 strongSelf.pageAffichable.append(strongSelf.thirdPage)
                 strongSelf.setViewControllers([strongSelf.thirdPage], direction: .forward, animated: true, completion: nil)
             } else {
-                print("error page 2")
+                var s = ToastStyle()
+                s.backgroundColor = .red
+                s.messageColor = .white
+                strongSelf.secondPage.rootView.makeToast("FORMULAIRE INCORRECT TODO I18N", duration: 3, style: s)
             }
         }
+
         thirdPage.onPreviousButton = { [weak self] in
             guard let strongSelf = self else {
                 return
             }
+
             strongSelf.setViewControllers([strongSelf.secondPage], direction: .reverse, animated: true, completion: nil)
         }
-        thirdPage.onNextButton = {
-            [weak self] in
+
+        thirdPage.onNextButton = { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.pageAffichable.append(strongSelf.fourthPage)
-            strongSelf.setViewControllers([strongSelf.fourthPage], direction: .forward, animated: true, completion: nil)
+
+            if strongSelf.thirdPage.validationPage() {
+                strongSelf.pageAffichable.append(strongSelf.fourthPage)
+                strongSelf.setViewControllers([strongSelf.fourthPage], direction: .forward, animated: true, completion: nil)
+            } else {
+                var s = ToastStyle()
+                s.backgroundColor = .red
+                s.messageColor = .white
+                strongSelf.thirdPage.rootView.makeToast("FORMULAIRE INCORRECT TODO I18N", duration: 3, style: s)
+            }
         }
 
-        self.fourthPage.prevPage = {
-            [weak self] in
+        self.fourthPage.prevPage = { [weak self] in
             guard let strongSelf = self else { return }
 
             strongSelf.setViewControllers([strongSelf.thirdPage], direction: .reverse, animated: true, completion: nil)
@@ -83,17 +99,15 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
             if strongSelf.fourthPage.validationPage() {
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_FORMULAIRE_REMPLI, value: true)
                 strongSelf.dismiss(animated: true, completion: nil)
-
+            } else {
+                var s = ToastStyle()
+                s.backgroundColor = .red
+                s.messageColor = .white
+                strongSelf.fourthPage.rootView.makeToast("FORMULAIRE INCORRECT TODO I18N", duration: 3, style: s)
             }
-
         }
 
         //si le consentement de récupération des données du formulaire
-
-
-
-
-
         self.dataSource = self
         self.delegate = self
 
@@ -103,9 +117,7 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
             } else {
                 setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
             }
-
         }
-
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -113,12 +125,11 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
         guard let viewControllerIndex = pageAffichable.firstIndex(of: viewController) else {
             return nil
         }
+
         if viewControllerIndex <= 0 {
-            //return pageAffichable.last
             return nil
         } else {
-            return pageAffichable[viewControllerIndex - 1]
-            //return nil
+            return nil
         }
     }
 
@@ -126,16 +137,12 @@ class FomulairePageController: UIPageViewController, UIPageViewControllerDelegat
         guard let viewControllerIndex = pageAffichable.firstIndex(of: viewController) else {
             return nil
         }
+
         if viewControllerIndex < (pageAffichable.count - 1) {
-            return pageAffichable[viewControllerIndex + 1]
+            return nil
         } else {
-            //return pageAffichable.first
             return nil
         }
-    }
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        let currentView = pageViewController.viewControllers![0]
-        self.pageControl.currentPage = pageAffichable.firstIndex(of: currentView)!
     }
 
 }

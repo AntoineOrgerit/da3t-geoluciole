@@ -88,7 +88,7 @@ class CustomUIButton: UIButton {
             self.layer.borderWidth = 3
             self.layer.cornerRadius = 5
             self.setTitleColor(.white, for: .normal)
-            self.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+            self.contentEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         }
     }
 

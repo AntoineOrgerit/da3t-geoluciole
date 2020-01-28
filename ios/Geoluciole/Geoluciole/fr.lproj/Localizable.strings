@@ -52,14 +52,18 @@
 "form_btn_time" = "Selectionner l'heure";
 "form_with_whom_title" = "Qui voyage ?*";
 "form_prompt_whom" = "Choisir une réponse";
+"form_explain_validation_period_part_1" = "La période de collecte des données correspond à la durée pour laquelle vous consentez à ce que l\'on recueille vos données GPS.";
+"form_explain_validation_period_part_2" = "Passé ce délai, nous ne collecterons plus de données. Vous pourrez, si vous le souhaitez, modifier ces périodes via le menu \'Préférences\'.";
+"form_title_start_date_validation_period" = "Début de la collecte";
+"form_title_end_date_validation_period" = "Fin de la collecte";
 "form_explain_validation_period_text" = "Texte explicatif du concept de période de collecte des données";
 "form_title_start_date_validation_period" = "Début de la collecte";
 "form_title_end_date_validation_period" = "Fin de la collecte";
-"form_responses_alone" = "Seul(e)";
-"form_responses_family" = "En famillle";
-"form_responses_friends" = "Entre ami(es)";
-"form_responses_group" = "En groupe";
-"form_responses_other" = "Autre";
+"form_responses_whom_alone" = "Seul(e)";
+"form_responses_whom_family" = "En famillle";
+"form_responses_whom_friends" = "Entre ami(es)";
+"form_responses_whom_group" = "En groupe";
+"form_responses_whom_other" = "Autre";
 "presence_children" = "Présence d'enfant en dessous de 13 ans*";
 "presence_teens" = "Présence d'adolescent (13–18 ans)*";
 "form_transport_title" = "Comment êtes-vous arrivé à La Rochelle ?*";
@@ -86,6 +90,12 @@
 "form_err_mail" = "Adresse mail non valide";
 "form_err_radio" = "Veuillez sélectionner une réponse";
 "form_required" = "*champs requis";
+"form_btn_date"= "Choisir une date";
+"form_with_whom_title" = "Avec qui voyagez-vous ?";
+"form_transport_title" = "Comment êtes-vous arrivez à LaRochelle ?";
+"form_other_option" = "Autre";
+"form_placeholder_precision" = "Précision";
+
 
 /*PREFERENCE*/
 "dates_settings" = "Durée d'engagement";

@@ -36,6 +36,10 @@ class BoutonsPrevNext: UIView {
     fileprivate var buttonNext: CustomUIButton!
     fileprivate var buttonPrevious: CustomUIButton!
 
+    enum ButtonChoice {
+        case next, prev
+    }
+
     init() {
         super.init(frame: .zero)
 
@@ -73,6 +77,30 @@ class BoutonsPrevNext: UIView {
             self.topAnchor.constraint(equalTo: self.buttonPrevious.topAnchor),
             self.bottomAnchor.constraint(equalTo: self.buttonPrevious.bottomAnchor)
         ])
+
+    }
+    func setDisabled(button: ButtonChoice) {
+        switch button {
+
+        case .next:
+            self.buttonNext.setStyle(style: .disabled)
+            self.buttonNext.isUserInteractionEnabled = false
+        case .prev:
+            self.buttonPrevious.setStyle(style: .disabled)
+            self.buttonPrevious.isUserInteractionEnabled = false
+        }
+
+    }
+    func setEnabled(button: ButtonChoice) {
+        switch button {
+
+        case .next:
+            self.buttonNext.setStyle(style: .active)
+            self.buttonNext.isUserInteractionEnabled = true
+        case .prev:
+            self.buttonPrevious.setStyle(style: .active)
+            self.buttonPrevious.isUserInteractionEnabled = true
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -86,7 +114,13 @@ class BoutonsPrev: BoutonsPrevNext {
         super.init()
         self.buttonNext.isHidden = true
     }
-
+    
+    func setEnabled() {
+        super.setEnabled(button: .prev)
+    }
+    func setDisabled() {
+        super.setDisabled(button: .prev)
+    }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -98,19 +132,24 @@ class BoutonNext: BoutonsPrevNext {
         super.init()
         self.buttonPrevious.isHidden = true
     }
-
+    func setEnabled() {
+        super.setEnabled(button: .next)
+    }
+    func setDisabled() {
+        super.setDisabled(button: .next)
+    }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 }
 
 class BoutonValidation: BoutonsPrevNext {
-   
+
     override init() {
         super.init()
         self.buttonNext.setTitle("Valider", for: .normal)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

@@ -15,6 +15,10 @@ class CustomQuestionForm: UIView {
     let noAnswer = CheckBoxFieldView()
     let question = CustomUILabel()
 
+    var isValid: Bool {
+        return self.noAnswer.isChecked() || self.yesAnswer.isChecked()
+    }
+
     init(quest: String) {
         super.init(frame: .zero)
 

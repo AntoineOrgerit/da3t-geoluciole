@@ -15,7 +15,21 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
     var onPreviousButton: (() -> Void)?
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
+    fileprivate var allFields = [Any]()
 
+    fileprivate var firstDropdownData = [Tools.getTranslate(key: "form_responses_whom_alone"),
+                                         Tools.getTranslate(key: "form_responses_whom_family"),
+                                         Tools.getTranslate(key: "form_responses_whom_friends"),
+                                         Tools.getTranslate(key: "form_responses_whom_group")]
+
+    fileprivate var secondDropdownData = [Tools.getTranslate(key: "form_responses_transport_personal_car"),
+                                          Tools.getTranslate(key: "form_responses_transport_carpool"),
+                                          Tools.getTranslate(key: "form_responses_transport_bus"),
+                                          Tools.getTranslate(key: "form_responses_transport_train"),
+                                          Tools.getTranslate(key: "form_responses_transport_flight"),
+                                          Tools.getTranslate(key: "form_responses_transport_boat"),
+                                          Tools.getTranslate(key: "form_responses_transport_camping_car"),
+                                          Tools.getTranslate(key: "form_responses_transport_cycling")]
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -45,12 +59,12 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
 
         self.contentView = UIView()
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .yellow
+
         self.scrollView.addSubview(self.contentView)
 
         let formulaire = self.createForm()
         formulaire.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .red
+
         self.contentView.addSubview(formulaire)
 
         let zoneButton = FabCustomButton.createButton(type: .nextPrev)
@@ -78,7 +92,7 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
             self.scrollView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
             self.scrollView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
             self.scrollView.bottomAnchor.constraint(equalTo: zoneButton.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            
+
 
             self.contentView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
             self.contentView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor),
@@ -112,51 +126,59 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
         v.axis = .vertical
         v.distribution = .equalSpacing
         v.translatesAutoresizingMaskIntoConstraints = false
-        
-        let dropDown0 = FormDropDownList(data: ["Test1","Test2","Test3","Test4"])
+
+        let dropDown0 = FormDropDownList(title: Tools.getTranslate(key: "form_with_whom_title"), data: self.firstDropdownData)
         dropDown0.axis = .vertical
         dropDown0.translatesAutoresizingMaskIntoConstraints = false
-        dropDown0.onClick = {
+        dropDown0.onResize = {
             self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width, height: self.contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
         }
+        self.allFields.append(dropDown0)
         v.addArrangedSubview(dropDown0)
-        
+
         let question1 = CustomQuestionForm(quest: "Présence d'enfants de moins de 13 ans ?")
         question1.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(question1)
         v.addArrangedSubview(question1)
 
         let question2 = CustomQuestionForm(quest: "Présence d'adolescents (13-18 ans) ?")
         question2.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(question2)
         v.addArrangedSubview(question2)
 
         let question3 = CustomQuestionForm(quest: "Visitez-vous La Rochelle pour la première fois ?")
         question3.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(question3)
         v.addArrangedSubview(question3)
 
         let question4 = CustomQuestionForm(quest: "Diriez-vous que vous connaissez bien La Rochelle ?")
         question4.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(question4)
         v.addArrangedSubview(question4)
 
         let question5 = CustomQuestionForm(quest: "Etes-vous déjà venus à La Rochelle + de 5 fois ?")
         question5.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(question5)
         v.addArrangedSubview(question5)
 
         let question6 = CustomQuestionForm(quest: "Avez-vous déjà vécu plus de deux mois à La Rochelle ?")
         question6.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(question6)
         v.addArrangedSubview(question6)
-        
-        let dropDown1 = FormDropDownList(data: ["Bateau","Train","Avion","Pied"])
+
+        let dropDown1 = FormDropDownList(title: Tools.getTranslate(key: "form_transport_title"), data: self.secondDropdownData)
         dropDown1.axis = .vertical
         dropDown1.translatesAutoresizingMaskIntoConstraints = false
-        dropDown1.onClick = {
+        dropDown1.onResize = {
             self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width, height: self.contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
         }
+        self.allFields.append(dropDown1)
         v.addArrangedSubview(dropDown1)
 
         NSLayoutConstraint.activate([
             dropDown0.topAnchor.constraint(equalTo: v.topAnchor),
-            dropDown0.leftAnchor.constraint(equalTo: v.leftAnchor),
-            dropDown0.rightAnchor.constraint(equalTo: v.rightAnchor),
+            dropDown0.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            dropDown0.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
             question1.topAnchor.constraint(equalTo: dropDown0.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             question1.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
@@ -183,14 +205,28 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
             question6.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
             dropDown1.topAnchor.constraint(equalTo: question6.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            dropDown1.leftAnchor.constraint(equalTo: v.leftAnchor),
-            dropDown1.rightAnchor.constraint(equalTo: v.rightAnchor),
-
-            //v.bottomAnchor.constraint(equalTo: dropDown1.bottomAnchor),
-            //v.topAnchor.constraint(equalTo: dropDown0.topAnchor)
-
+            dropDown1.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            dropDown1.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
 
         return v
+    }
+
+    func validationPage() -> Bool {
+        for field in allFields {
+            if field is CustomQuestionForm {
+                let r = (field as! CustomQuestionForm).isValid
+                if !r {
+                    return false
+                }
+            } else if field is FormDropDownList {
+                let r = (field as! FormDropDownList).isValid
+                if !r {
+                    return false
+                }
+            }
+        }
+        
+        return true
     }
 }

@@ -51,7 +51,6 @@
 "form_btn_time" = "Select time";
 "form_with_whom_title" = "Whom travel ?*";
 "form_prompt_whom" = "Choose an answer";
-"form_explain_validation_period_text" = "Texte explicatif du concept de période de collecte des données";
 "form_title_start_date_validation_period" = "Start of collection";
 "form_title_end_date_validation_period" = "End of collection";
 "form_responses_alone" = "alone";
@@ -86,7 +85,7 @@
 "form_err_mail" = "Invalid email";
 "form_err_radio" = "Select an answer";
 "form_required" = "*required";
-
+"form_btn_date"= "Select date";
 /*PREFERENCE*/
 "dates_settings" = "Commitment period";
 "dates_settings_start" = "Start date";
