@@ -134,8 +134,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
             this.dateDepart = form.getDateOut();
             this.timeDepart = form.getTimeOut();
             if (this.dateDepart != null && dateArrive != null) {
-                txtDateArrivee.setText(FormModel.dateToString(this.dateArrive));
-                txtDateDepart.setText(FormModel.dateToString(this.dateDepart));
+                txtDateArrivee.setText(FormModel.datetimeToString(this.dateArrive, this.timeArrive));
+                txtDateDepart.setText(FormModel.datetimeToString(this.dateDepart, this.timeDepart));
             }
             Log.i(TAG, "formSetter, récupération du form : " + form);
         }
@@ -328,7 +328,7 @@ public class FormActivityStepTwo extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 if (!depart) {
                     timeArrive = new Time(hourOfDay, minute);
-                    txtDateArrivee.setText(FormModel.datetimeToString(dateArrive,timeArrive));
+                    txtDateArrivee.setText(FormModel.datetimeToString(dateArrive, timeArrive));
                 } else {
                     timeDepart = new Time(hourOfDay, minute);
                     txtDateDepart.setText(FormModel.datetimeToString(dateDepart, timeDepart));
