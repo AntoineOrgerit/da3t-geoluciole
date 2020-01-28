@@ -150,6 +150,10 @@
     <string name="no_identifier">Pas d\'identifiant</string>
     <string name="send_data">Envoyer mes données</string>
 
+    <string name="toast_error_send_data">Erreur dans l\'envoi des données.</string>
+    <string name="toast_success_send_data">Données envoiyées</string>
+    <string name="toast_no_data">Pas de données à evnoyer</string>
+
     <!-- ACHIEVEMENTS FRAGMENT -->
     <string name="text_stats_title">Statistiques</string>
     <string name="text_distance">Distance parcourue : </string>
@@ -179,6 +183,7 @@
     <string name="send">Envoyer mail</string>
     <string name="copy_success">L\'identifiant a été copié dans le presse papier</string>
     <string name="revoke_title">Révoquer mon consentement</string>
+    <string name="revoke_title_no_consent">Accepter le consentement</string>
     <string name="revoke_text_1">Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à
         l\'adresse suivante : </string>
     <string name="revoke_text_2">En cliquant sur "Continuer", vous allez être redirigé vers votre application de messagerie electronique si un compte est lié à cette dernière.</string>

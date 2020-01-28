@@ -114,10 +114,8 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UserPreferences userPreferences = UserPreferences.getInstance(this);
-
-        checkPowerSavingMode();
-        checkConstructorLayer();
-
+        Intent intent = getIntent();
+        boolean refused_consent = intent.getBooleanExtra("refused_consent", false);
         // temporary receiver
         myReceiver = new MyReceiver();
 
@@ -209,24 +207,42 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 e.printStackTrace();
             }
             File filelog = HyperLog.getDeviceLogsInFile(this, true);
-            try {
-                FileInputStream fin = new FileInputStream(filelog);
-                String content = MainActivity.convertStreamToString(fin);
-                //Make sure you close all streams.
-                fin.close();
+            if (filelog != null) {
+                try {
+                    FileInputStream fin = new FileInputStream(filelog);
+                    String content = MainActivity.convertStreamToString(fin);
+                    //Make sure you close all streams.
+                    fin.close();
 
-                File f = new File(filename);
-                FileOutputStream fos = new FileOutputStream(f, true);
-                fos.write(content.getBytes());
-                fos.flush();
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+                    File f = new File(filename);
+                    FileOutputStream fos = new FileOutputStream(f, true);
+                    fos.write(content.getBytes());
+                    fos.flush();
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
             // todo fin de ligne de test
         }
 
+        //checkPowerSavingMode();
+        //checkConstructorLayer();
+
         setupViewPager(viewPager);
+
+        if (refused_consent) {
+            changePage(2);
+        }
+    }
+
+    public void changePage(int item) {
+        int old_pos = viewPager.getCurrentItem();
+        viewPager.setCurrentItem(item);
+        prevMenuItem = navView.getMenu().getItem(old_pos);
+        prevMenuItem.setChecked(false);
+        navView.getMenu().getItem(item).setChecked(true);
     }
 
         //todo fonction de test

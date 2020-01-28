@@ -68,8 +68,9 @@ public class RGPDConsentementGPSActivity extends AppCompatActivity {
                     return;
                 }
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("refused_consent", true);
                 UserPreferences u = UserPreferences.getInstance(RGPDConsentementGPSActivity.this);
-                u.setConsent();
+                u.setConsent(true);
                 u.setGpsConsent(false);
                 UserPreferences.storeInstance(RGPDConsentementGPSActivity.this, u);
 

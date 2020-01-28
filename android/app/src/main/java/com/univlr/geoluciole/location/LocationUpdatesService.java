@@ -462,7 +462,11 @@ public class LocationUpdatesService extends Service {
 
     public void stopService() {
         if (receiverAlertLocation != null) {
-            unregisterReceiver(receiverAlertLocation);
+            try {
+                unregisterReceiver(receiverAlertLocation);
+            } catch (IllegalArgumentException iae) {
+                //do nothing
+            }
         }
         this.removeLocationUpdates();
         this.stopSelf();
