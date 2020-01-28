@@ -9,7 +9,7 @@
     <string name="action_accept">Accept</string>
     <string name="action_loader">Loading</string>
 
-    <string name="alert_title_constructor_settings"></string>
+    <string name="alert_title_constructor_settings">Redirect to your settings</string>
     <string name="alert_content_constructor_settings"></string>
 
     <!-- CONSTANT NOTIFICATION -->
@@ -19,21 +19,21 @@
 
     <!-- RGPD CONTENT -->
     <string name="rgpd_title_primary">GDPR consent</string>
-    <string name="rgpd_title_project">Nouvelle-Aquitaine region's DA3T project</string>
+    <string name="rgpd_title_project">Nouvelle-Aquitaine region\'s DA3T project</string>
     <!--RGPD CONTENT : First content -->
     <string name="rgpd_first_content_1_line">The collected data by the app are subject to a registration on the register of processing of
         La Rochelle University.</string>
     <string name="rgpd_first_content_2_line">Data are collected for research purposes by the LIENSs laboratory researchers as part of the
         DA3T project.</string>
     <string name="rgpd_first_content_3_line">The research project intend to propose an analysis device of geonumeric traces. Its goal is
-        to improve Nouvelle-Aquitaine region's touristic territories management and valorization.</string>
+        to improve Nouvelle-Aquitaine region\'s touristic territories management and valorization.</string>
     <string name="rgpd_first_content_4_line">The study finality is to examine the supposed contribution of geonumeric traces in the
         understanting of the atlantic touristic city.</string>
     <string name="rgpd_first_content_consentement">I authorize the LIENSs laboratory researchers to use my data as part of the DA3T project.</string>
 
     <!--RGPD CONTENT : Second content -->
     <string name="rgpd_second_content_1_line">The collected information of the following form are saved in an informatic file by La Rochelle
-        University, 23 Avenue Albert Einstein, 17000 La Rochelle, France to improve Nouvelle-Aquitaine region's touristic territories management
+        University, 23 Avenue Albert Einstein, 17000 La Rochelle, France to improve Nouvelle-Aquitaine region\'s touristic territories management
         and valorization. The legal basis of data processing is your consent.</string>
     <string name="rgpd_second_content_2_line">The collected data will not be communicated to any recipient.</string>
     <string name="rgpd_second_content_3_line">Data will be retained during 5 years for scientific research purposes.</string>
@@ -42,7 +42,7 @@
     <string name="rgpd_second_content_5_line">Please consult the cnil.fr website (or any corresponding relevant data protection entity from your
         country) to get more information on your rights.</string>
     <string name="rgpd_second_content_6_line">To exercise your rights or for any enquiry on the processing of your data as part of this device, you
-        can contact La Rochelle University's DPO at dpo@univ-lr.fr.</string>
+        can contact La Rochelle University\'s DPO at dpo@univ-lr.fr.</string>
     <string name="rgpd_second_content_7_line">If you think that your privacy and informatic rights are not respected after having contacted us, you
         can send a complaint to the CNIL (or any corresponding relevant data protection entity from your country).</string>
     <string name="rgpd_second_content_consentement">I authorize the LIENSs laboratory researchers to contact me as part of this experience.</string>
@@ -165,9 +165,6 @@
     <string name="tour_de_la_lanterne_description"> "Congratulation! You have just discovered the Lantern Tower" </string>
     <string name="eglise_saint_sauveur_description"> "Congratulation! You have just discovered the Saint-Sauveur Church" </string>
     <string name="grosse_horloge_description"> "Congratulation! You have just discovered the Grosse Horloge" </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- DIALOG  -->
     <string name="back">Back</string>
