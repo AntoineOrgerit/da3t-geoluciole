@@ -9,25 +9,27 @@
     <string name="action_accept">Accept</string>
     <string name="action_loader">Loading</string>
 
+    <string name="alert_title_constructor_settings">Redirect to your settings</string>
+    <string name="alert_content_constructor_settings"></string>
+
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole is running</string>
     <string name="location_notification_content_text">Tracking of your journey in progress</string>
     <string name="location_notification_button_text">Open app</string>
 
     <!-- RGPD CONTENT -->
-    <string name="rgpd_title_primary">Consentement RGPD</string>
-    <string name="rgpd_title_project">PROJET Région Nouvelle-Aquitaine DA3T</string>
+    <string name="rgpd_title_primary">GDPR consent</string>
+    <string name="rgpd_title_project">Nouvelle-Aquitaine region\'s DA3T project</string>
     <!--RGPD CONTENT : First content -->
-    <string name="rgpd_first_content_1_line">Les données recueillies par l’application font l’objet d’une inscription sur le registre des
-    traitements de la Rochelle Université.</string>
-    <string name="rgpd_first_content_2_line">Les données sont recueillies à des fins de recherche par les chercheurs du LIENSS dans le cadre
-    du projet DA3T.</string>
-    <string name="rgpd_first_content_3_line">Le projet de recherche vise à proposer un dispositif d’analyse des traces géonumériques dans le
-    but d’améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine.</string>
-    <string name="rgpd_first_content_4_line">La finalité de l’étude est d’interroger l’apport supposé des traces géonumériques dans la
-    compréhension de la ville touristique atlantique.</string>
-    <string name="rgpd_first_content_consentement">J’autorise les chercheurs du laboratoire LIENSS à utiliser mes données dans le cadre
-    du projet DA3T</string>
+    <string name="rgpd_first_content_1_line">The collected data by the app are subject to a registration on the register of processing of
+        La Rochelle University.</string>
+    <string name="rgpd_first_content_2_line">Data are collected for research purposes by the LIENSs laboratory researchers as part of the
+        DA3T project.</string>
+    <string name="rgpd_first_content_3_line">The research project intend to propose an analysis device of geonumeric traces. Its goal is
+        to improve Nouvelle-Aquitaine region\'s touristic territories management and valorization.</string>
+    <string name="rgpd_first_content_4_line">The study finality is to examine the supposed contribution of geonumeric traces in the
+        understanting of the atlantic touristic city.</string>
+    <string name="rgpd_first_content_consentement">I authorize the LIENSs laboratory researchers to use my data as part of the DA3T project.</string>
 
     <!--RGPD CONTENT : Second content -->
     <string name="rgpd_second_content_1_line">The collected information of the following form are saved in an informatic file by La Rochelle

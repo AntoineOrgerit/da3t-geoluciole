@@ -9,6 +9,9 @@
     <string name="action_accept">Accepter</string>
     <string name="action_loader">Chargement</string>
 
+    <string name="alert_title_constructor_settings">Redirection vers vos paramètres</string>
+    <string name="alert_content_constructor_settings">Vous allez être redirigé vers vos paramètres dans le but de désactiver l\'option \'Gestion automatique\'.  Pour le bon fonctionnement de l\'application veuillez désactiver cette option.</string>
+
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole en fonctionnement</string>
     <string name="location_notification_content_text">Le suivi de votre parcours est en cours</string>
@@ -58,9 +61,9 @@
     <!-- CONSTANT FORM -->
     <string name="form_title">Formulaire</string>
     <string name="form_title_anonym">Formulaire anonyme</string>
-    <string name="form_step_one_four">1/4</string>
+    <string name="form_step_one_four">&#188;</string>
     <string name="form_step_two_four">2/4</string>
-    <string name="form_step_three_four">3/4</string>
+    <string name="form_step_three_four">&#190;</string>
     <string name="form_step_four_four">4/4</string>
     <!-- GENERAL INFO FORM LABELS -->
     <string name="form_lastname">Nom</string>

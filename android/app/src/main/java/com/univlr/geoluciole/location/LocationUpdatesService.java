@@ -97,6 +97,7 @@ import com.univlr.geoluciole.model.badge.BadgePlace;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -177,6 +178,7 @@ public class LocationUpdatesService extends Service {
     private LocationManager mLocationManager;
     private Criteria mCriteria;
     private LocationListener mLocationListener;
+    private ProximityReceiver receiverAlertLocation;
 
     @Override
     public void onCreate() {
@@ -258,16 +260,9 @@ public class LocationUpdatesService extends Service {
         };
         Thread t = new Thread(r);
         t.start();
-        boolean startedFromNotification = intent.getBooleanExtra(EXTRA_STARTED_FROM_NOTIFICATION,
-                false);
-
-        // We got here because the user decided to remove location updates from the notification.
-        if (startedFromNotification) {
-            removeLocationUpdates();
-            stopSelf();
-        }
         // Tells the system to not try to recreate the service after it has been killed.
-        return START_NOT_STICKY;
+        //return START_NOT_STICKY; // todo vérifier
+        return START_STICKY;
     }
 
     @Override
@@ -325,6 +320,7 @@ public class LocationUpdatesService extends Service {
     public void requestLocationUpdates() {
         Log.i(TAG, "Requesting location updates");
         Utils.setRequestingLocationUpdates(this, true);
+        // permet de garder le service active même après la fin de l'application
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
             mLocationManager.requestLocationUpdates(2000, 10, mCriteria, mLocationListener, Looper.myLooper());
@@ -354,12 +350,7 @@ public class LocationUpdatesService extends Service {
      * Returns the {@link NotificationCompat} used as part of the foreground service.
      */
     private Notification getNotification() {
-        Intent intent = new Intent(this, LocationUpdatesService.class);
-
         CharSequence text = getResources().getString(R.string.location_notification_content_text);
-
-        // Extra to help us figure out if we arrived in onStartCommand via the notification or not.
-        intent.putExtra(EXTRA_STARTED_FROM_NOTIFICATION, true);
 
         // The PendingIntent to launch activity.
         PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
@@ -436,10 +427,10 @@ public class LocationUpdatesService extends Service {
     private void setProximity() {
         Utils.setRequestingLocationUpdates(this, true);
         BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
-        Map<String, Badge> listBadges = badgeManager.getArrayBadges();
+        HashMap<String, Badge> listeBagdeLock = badgeManager.cleanListBadge(this);
         this.instanciateProximityReceiver();
         try {
-            for (Map.Entry<String, Badge> entry : listBadges.entrySet()) {
+            for (Map.Entry<String, Badge> entry : listeBagdeLock.entrySet()) {
                 String key = entry.getKey();
                 int id = Integer.parseInt(key);
                 Badge b = entry.getValue();
@@ -465,6 +456,15 @@ public class LocationUpdatesService extends Service {
      */
     private void instanciateProximityReceiver() {
         IntentFilter filter = new IntentFilter(COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT);
-        registerReceiver(new ProximityReceiver(), filter);
+        receiverAlertLocation = new ProximityReceiver();
+        registerReceiver(receiverAlertLocation, filter);
+    }
+
+    public void stopService() {
+        if (receiverAlertLocation != null) {
+            unregisterReceiver(receiverAlertLocation);
+        }
+        this.removeLocationUpdates();
+        this.stopSelf();
     }
 }

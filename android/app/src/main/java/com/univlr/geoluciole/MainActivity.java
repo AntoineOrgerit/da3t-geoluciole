@@ -3,6 +3,7 @@ package com.univlr.geoluciole;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -16,9 +17,12 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
@@ -28,7 +32,6 @@ import com.hypertrack.hyperlog.HyperLog;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.location.Utils;
-import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.sender.HttpProvider;
@@ -83,14 +86,11 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             mBound = true;
 
             // checking permissions
-            ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
-            if(!unauthorizedPermissions.isEmpty()) {
-                requestPermissions(unauthorizedPermissions);
-                if (!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)) {
-                    enableGPSIfNeeded();
-                }
-            } else {
-                enableGPSIfNeeded();
+            checkPermission();
+
+            HomeFragment homeFragment = getHomeFragment();
+            if (homeFragment != null) {
+                homeFragment.updateSwitch();
             }
         }
 
@@ -105,15 +105,15 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     private MenuItem prevMenuItem;
     private ViewPager viewPager;
 
+    // liste fragments utilisés par le viewPager
     private HomeFragment homeFragment;
     private AchievementsFragment dashboardFragment;
     private PreferencesFragment notificationsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FormModel form = (FormModel) getIntent().getSerializableExtra("Form");
-        System.out.println("Main Activity form retrieved : " + form);
         super.onCreate(savedInstanceState);
+        UserPreferences userPreferences = UserPreferences.getInstance(this);
 
         checkPowerSavingMode();
         checkConstructorLayer();
@@ -132,13 +132,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
                         viewPager.setCurrentItem(0);
-                        try {
-                            HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        HomeFragment fragment = getHomeFragment();
+                        if (fragment != null) {
                             fragment.updateProgressBar();
-                            fragment.updateSwitch(mService);
-
-                        } catch (NullPointerException npe) {
-                            //do nothing
+                            fragment.updateSwitch();
                         }
                         break;
                     case R.id.navigation_achievements:
@@ -169,24 +166,17 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                     navView.getMenu().getItem(0).setChecked(false);
                 }
                 if (position == 0) {
-                    try {
-                        HomeFragment homeFragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
-                        homeFragment.updateProgressBar();
-                        //homeFragment.updateSwitch(mService);
-                        homeFragment.updateLastBadgeView();
-                    } catch (NullPointerException np) {
-                        Log.i(TAG, np.getMessage());
+                    HomeFragment fragment = getHomeFragment();
+                    if (fragment != null) {
+                        fragment.updateProgressBar();
+                        fragment.updateLastBadgeView();
                     }
                 }
                 if (position == 1) {
                     try {
-                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(1);
                         fragment.updateDistance();
-
-                        FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
-                                new BadgeListFragment());
-
-                        fragmentTransaction.commit();
+                        fragment.updateView();
                     } catch (NullPointerException np) {
                         Log.i(TAG, np.getMessage());
                     }
@@ -202,8 +192,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 // do nothing
             }
         });
-        
-           UserPreferences userPreferences = UserPreferences.getInstance(this);
+
         if (userPreferences.isGpsConsent()) {
             HttpProvider.activePeriodicSend(this);
             //todo ligne suivante de test
@@ -236,10 +225,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             }
             // todo fin de ligne de test
         }
-        
+
         setupViewPager(viewPager);
     }
-    
+
         //todo fonction de test
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -251,11 +240,23 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         reader.close();
         return sb.toString();
     }
-    
+
+    private void checkPermission() {
+        ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
+        if(!unauthorizedPermissions.isEmpty()) {
+            requestPermissions(unauthorizedPermissions);
+            if(!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)){
+                enableGPSIfNeeded();
+            }
+        } else {
+            enableGPSIfNeeded();
+        }
+    }
+
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        homeFragment=new HomeFragment();
-        dashboardFragment =new AchievementsFragment();
+        homeFragment = new HomeFragment();
+        dashboardFragment = new AchievementsFragment();
         notificationsFragment = new PreferencesFragment();
         adapter.addFragment(homeFragment);
         adapter.addFragment(dashboardFragment);
@@ -301,13 +302,28 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
     @Override
     protected void onGPSEnabled() {
-        mService.requestLocationUpdates();
-
+        //todo activé la track de donnée si acceptation
+        //mService.requestLocationUpdates();
     }
 
     @Override
     public void messageFromParentFragment(Uri uri) {
         // do nothing
+    }
+
+
+    private HomeFragment getHomeFragment() {
+        try {
+            HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(0);
+            return fragment;
+        } catch (NullPointerException npe) {
+            //do nothing
+        }
+        return null;
+    }
+
+    public LocationUpdatesService getmService() {
+        return mService;
     }
 
     private void checkPowerSavingMode() {
@@ -333,11 +349,37 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     private void checkConstructorLayer() {
         for (Intent intent : POWERMANAGER_INTENTS) {
             if (getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
-                startActivity(intent);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                showDialogConstructor(intent);
                 break;
             }
         }
+    }
+
+    private void showDialogConstructor(final Intent intent) {
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.alert_title_constructor_settings)
+                .setMessage(R.string.alert_content_constructor_settings)
+                .setPositiveButton(R.string.action_validate, null) //Set to null. We override the onclick
+                .create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Button buttonValidate = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                buttonValidate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UserPreferences userPreferences = UserPreferences.getInstance(MainActivity.this);
+                        userPreferences.setManagerPermissionConstructorShow(true);
+                        userPreferences.store(MainActivity.this);
+
+                        startActivity(intent);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+        dialog.show();
     }
 
     /**

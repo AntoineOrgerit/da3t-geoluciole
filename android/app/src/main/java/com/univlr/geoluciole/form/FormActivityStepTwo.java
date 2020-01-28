@@ -139,6 +139,16 @@ public class FormActivityStepTwo extends AppCompatActivity {
             }
             Log.i(TAG, "formSetter, récupération du form : " + form);
         }
+
+        // récupération des infos du device
+        DeviceName.with(FormActivityStepTwo.this).request(new DeviceName.Callback() {
+            @Override
+            public void onFinished(DeviceName.DeviceInfo info, Exception error) {
+                String name = info.marketName;
+                String model = info.model;
+                form.setDevice(name + "|" + model);
+            }
+        });
     }
 
     /**
@@ -185,16 +195,6 @@ public class FormActivityStepTwo extends AppCompatActivity {
     }
 
     private void saveToForm() {
-        Calendar cal = Calendar.getInstance();
-        // récupération des infos du device
-        DeviceName.with(FormActivityStepTwo.this).request(new DeviceName.Callback() {
-            @Override
-            public void onFinished(DeviceName.DeviceInfo info, Exception error) {
-                String name = info.marketName;
-                String model = info.model;
-                form.setDevice(name + "|" + model);
-            }
-        });
         form.setVersion(getAndroidVersion());
 
         // depart

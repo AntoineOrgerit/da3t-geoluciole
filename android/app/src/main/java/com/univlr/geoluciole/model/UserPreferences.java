@@ -34,6 +34,9 @@ public class UserPreferences {
     private boolean isAccountIsSend;
     private boolean isFormIsSend;
 
+    private boolean isManagerPermissionConstructorShow;
+    private boolean isManagerPermissionBatteryShow;
+
     private UserPreferences(String language, Context context) {
         this.id = generateID(context);
         this.consent = false;
@@ -48,7 +51,8 @@ public class UserPreferences {
         this.language = language;
         this.listUnlockedBadges = new ArrayList<>();
         this.distance = 0;
-        this.sendData = false;
+        this.isManagerPermissionBatteryShow = false;
+        this.isManagerPermissionConstructorShow= false;
     }
 
     public static UserPreferences getInstance(Context context) {
@@ -125,6 +129,22 @@ public class UserPreferences {
         this.dateConsentementGPS = dateConsentementGPS;
     }
 
+    public void setManagerPermissionConstructorShow(boolean managerPermissionConstructorShow) {
+        isManagerPermissionConstructorShow = managerPermissionConstructorShow;
+    }
+
+    public void setManagerPermissionBatteryShow(boolean managerPermissionBatteryShow) {
+        isManagerPermissionBatteryShow = managerPermissionBatteryShow;
+    }
+
+    public boolean isManagerPermissionBatteryShow() {
+        return isManagerPermissionBatteryShow;
+    }
+
+    public boolean isManagerPermissionConstructorShow() {
+        return isManagerPermissionConstructorShow;
+    }
+
     public void store(Context context) {
         UserPreferences.storeInstance(context, this);
     }
@@ -168,7 +188,7 @@ public class UserPreferences {
     public List<String> getListUnlockedBadges() {
         return listUnlockedBadges;
     }
-    
+
     public long getStartValidity() {
         return startValidity;
     }
@@ -186,7 +206,7 @@ public class UserPreferences {
     }
 
     public boolean isSendData() {
-        return sendData;
+        return sendData && isGpsConsent();
     }
 
     public void setSendData(boolean sendData) {
