@@ -1,38 +1,41 @@
-"action_refused" = "REFUSER";
-"action_validate" = "Valider";
-"action_loader" = "Chargement";
-"action_accept" = "ACCEPTER";
-
-/*ALERT*/
-"alert_continue" = "Continuer";
-"alert_cancel" = "Annulez";
-"alert_copy_to_clipboard" = "Copier dans le presse papier";
-"alert_text_part1" = "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante :";
-"alert_text_part2" = "\n En cliquant sur continuer vous aller être redirigé vers votre application de messagerie electronique(si compte lié).";
-
-"alert_close_app_title" = "Veuillez relancer l'application";
-"alert_close_app_explanation" = "L'application vas se fermer pour faire le changement de langue veuillez la relancer manuellement";
-
-/*TOAST*/
-"toast_copy_id" = "Identifiant copié";
-
 /*TAB BAR*/
 "title_home" = "Accueil";
 "title_achievements" = "Badges";
 "title_dashboard" = "Préférences";
 
+/*ACTIONS*/
+"action_refused" = "Refuser";
+"action_validate" = "Valider";
+"action_accept" = "Accepter";
+"action_loader" = "Chargement";
+
 /*NOTIFICATION*/
-"location_notification_content_title" = "Géoluciole est en fonctionnement";
+"location_notification_content_title" = "Géoluciole en fonctionnement";
 "location_notification_content_text" = "Le suivi de votre parcours est en cours";
 "location_notification_button_text" = "Ouvrir l'application";
 
 /*RGPD*/
 "rgpd_title_primary" = "Consentement RGPD";
 "rgpd_title_project" = "PROJET Région Nouvelle-Aquitaine DA3T";
-"rgpd_content" = "Les données recueillies par l’application font l’objet d’une inscription sur le registre des traitements de la Rochelle Université. Les données sont recueillies à des fins de recherche par les chercheurs du LIENSs dans le cadre du projet DA3T.\n Le projet de recherche vise à proposer un dispositif d’analyse des traces géonumériques dans le but d’améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine. \n La finalité de l’étude est d’interroger l’apport supposé des traces géonumériques dans la compréhension de la ville touristique atlantique. ";
-"rgpd_first_content_consentement" = "J’autorise les chercheurs du laboratoire LIENSS à utiliser mes données dans le cadre du projet DA3T";
-"rgpd_second_content" = "Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par La Rochelle Université, 23 avenue Albert Einstein, 17000 La Rochelle pour améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine. La base légale du traitement est le consentement. Les données collectées ne seront communiquées à aucun destinataire. Les données sont conservées pendant 5 ans à des fins de recherche scientifique. Vous pouvez accéder aux données vous concernant, les rectifier, demander leur effacement ou exercer votre droit à la limitation du traitement de vos données. Vous pouvez retirer à tout moment votre consentement au traitement de vos données. Vous pouvez également vous opposer au traitement de vos données. Consultez le site cnil.fr pour plus d’informations sur vos droits. Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce dispositif, vous pouvez contacter notre DPO à l’adresse dpo@univ-lr.fr Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL.";
-"rgpd_second_content_consentement" = "J’autorise les chercheurs du laboratoire LIENSS à me recontacter dans le cadre de cette expérience.";
+
+/*RGPD CONTENT : FIRST CONTENT*/
+"rgpd_first_content_1_line" = "Les données recueillies par l’application font l’objet d’une inscription sur le registre des traitements de La Rochelle Université."
+"rgpd_first_content_2_line" = "Les données sont recueillies à des fins de recherche par les chercheurs du LIENSs dans le cadre du projet DA3T."
+"rgpd_first_content_3_line" = "Le projet de recherche vise à proposer un dispositif d’analyse des traces géonumériques dans le but d’améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine."
+"rgpd_first_content_4_line" = "La finalité de l’étude est d’interroger l’apport supposé des traces géonumériques dans la compréhension de la ville touristique atlantique."
+"rgpd_first_content_consentement" = "J’autorise les chercheurs du laboratoire LIENSs à utiliser mes données dans le cadre du projet DA3T.";
+
+/*RGPD CONTENT : SECOND CONTENT*/
+"rgpd_second_content_1_line" = "Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par La Rochelle Université, 23 Avenue Albert Einstein, 17000 La Rochelle, France pour améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine. La base légale du traitement est le consentement."
+"rgpd_second_content_2_line" = "Les données collectées ne seront communiquées à aucun destinataire."
+"rgpd_second_content_3_line" = "Les données sont conservées pendant 5 ans à des fins de recherche scientifique."
+"rgpd_second_content_4_line" = "Vous pouvez accéder aux données vous concernant, les rectifier, demander leur effacement ou exercer votre droit à la limitation du traitement de vos données. Vous pouvez retirer à tout moment votre consentement au traitement de vos données ; Vous pouvez également vous opposer au traitement de vos données."
+"rgpd_second_content_5_line" = "Consultez le site cnil.fr pour plus d’informations sur vos droits."
+"rgpd_second_content_6_line" = "Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce dispositif, vous pouvez contacter la DPO de La Rochelle Université à l’adresse dpo@univ-lr.fr."
+"rgpd_second_content_7_line" = "Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL."
+"rgpd_second_content_consentement" = "J’autorise les chercheurs du laboratoire LIENSs à me recontacter dans le cadre de cette expérience.";
+
+/*HOME*/
 "stay_progression" = "Progression de votre séjour";
 "last_achievement_obtained" = "Badge récemment obtenu";
 "last_achievement_obtained_picture_description" = "Image du dernier badge obtenu par l'utilisateur.";
@@ -40,54 +43,84 @@
 "data_collection_activated" = "Activée";
 "data_collection_deactivated" = "Désactivée";
 
-/*FORMULAIRE*/
+/*FORM*/
 "form_title" = "Formulaire";
 "form_title_anonym" = "Formulaire anonyme";
+
+/*FORM : GLOBAL INFORMATION*/
 "form_lastname" = "Nom";
 "form_firstname" = "Prénom";
 "form_mail" = "Email";
-"form_in_city_title" = "Date et heure d'arriver à La Rochelle";
+"form_phone" = "Numéro de téléphone"
+
+/*FORM : DATE INFO*/
+"form_in_city_title" = "Date et heure d'arrivée à La Rochelle";
 "form_out_city_title" = "Date et heure de départ de La Rochelle";
-"form_btn_date" = "Selectionner la date";
-"form_btn_time" = "Selectionner l'heure";
-"form_with_whom_title" = "Qui voyage ?*";
+
+/*FORM : DATE BUTTONS*/
+"form_btn_date" = "Choisir une date";
+"form_btn_time" = "Choisir une heure";
+
+/*FORM : PLACEHOLDERS*/
+"form_date_in_hint" = "01–01–2020"
+"form_time_in_hint" = "10:00"
+"form_date_out_hint" = "02–01–2020"
+"form_time_out_hint" = "17:00"
+
+/*FORM : QUESTIONS*/
+"form_with_whom_title" = "Avec qui voyagez-vous ?*";
 "form_prompt_whom" = "Choisir une réponse";
-"form_explain_validation_period_text" = "Texte explicatif du concept de période de collecte des données";
+
+"form_explain_validation_period_part_1" = "La période de collecte des données correspond à la durée pour laquelle vous consentez à ce que l'on recueille vos données GPS.";
+"form_explain_validation_period_part_2" = "Passé ce délai, nous ne collecterons plus de données. Vous pourrez, si vous le souhaitez, modifier ces périodes via le menu 'Préférences'."
 "form_title_start_date_validation_period" = "Début de la collecte";
 "form_title_end_date_validation_period" = "Fin de la collecte";
-"form_responses_alone" = "Seul(e)";
-"form_responses_family" = "En famillle";
-"form_responses_friends" = "Entre ami(es)";
-"form_responses_group" = "En groupe";
-"form_responses_other" = "Autre";
+
+"form_responses_whom_choice" = "Choisir une réponse"
+"form_responses_whom_alone" = "Seul";
+"form_responses_whom_family" = "En famillle";
+"form_responses_whom_friends" = "Entre amis";
+"form_responses_whom_group" = "En groupe";
+"form_responses_whom_other" = "Autre";
+
+"field_other_title" = "Autre"
 "presence_children" = "Présence d'enfant en dessous de 13 ans*";
-"presence_teens" = "Présence d'adolescent (13–18 ans)*";
+"presence_teens" = "Présence d'adolescents (13–18 ans)*";
+
 "form_transport_title" = "Comment êtes-vous arrivé à La Rochelle ?*";
 "form_prompt_transport" = "Choisir une réponse";
-"form_responses_transport_personal_car" = "Voiture";
+
+"form_responses_transport_choice" = "Choisir une réponse"
+"form_responses_transport_personal_car" = "Voiture personnelle";
 "form_responses_transport_carpool" = "Covoiturage / Stop";
 "form_responses_transport_bus" = "Bus";
 "form_responses_transport_train" = "Train";
 "form_responses_transport_flight" = "Avion";
 "form_responses_transport_boat" = "Bateau";
-"form_responses_transport_camping_car" = "Camping car";
+"form_responses_transport_camping_car" = "Camping Car";
 "form_responses_transport_cycling" = "Vélo";
 "form_responses_transport_other" = "Autre";
+
+/*RADIOS QUESTIONS*/
 "form_first_visit_title" = "Visitez-vous La Rochelle pour la première fois ?*";
 "form_know_city_title" = "Diriez-vous que vous connaissez bien La Rochelle ?*";
-"form_more_five_times_title" = "Êtes-vous déjà venus à La Rochelle + de 5 fois ?*";
+"form_more_five_times_title" = "Êtes-vous déjà venus à La Rochelle plus de 5 fois ?*";
 "form_more_two_months_title" = "Avez-vous déjà vécu plus de deux mois à La Rochelle ?*";
 "form_yes_response" = "Oui";
 "form_no_response" = "Non";
+
+/*BUTTONS FORM*/
 "form_continue" = "Suivant";
 "form_previous" = "Précédent";
 "form_submit" = "Valider";
+
+/*VALIDATION MESSAGES FORM*/
 "form_err_required" = "Requis";
 "form_err_mail" = "Adresse mail non valide";
 "form_err_radio" = "Veuillez sélectionner une réponse";
 "form_required" = "*champs requis";
 
-/*PREFERENCE*/
+/*PREFERENCES*/
 "dates_settings" = "Durée d'engagement";
 "dates_settings_start" = "Date de début";
 "dates_settings_end" = "Date de fin";
@@ -104,7 +137,8 @@
 /*BADGES*/
 "text_stats_title" = "Statistiques";
 "text_distance" = "Distance parcourue :";
-"no_achievement_picture_description" = "Aucun badges";
+"text_distance_value" = "0 km"
+"no_achievement_picture_description" = "Oups, aucun badge !";
 "achievement_title" = "Badges obtenus";
 "text_badges" = "Mes badges";
 "1_km_description" = "Bravo! Vous venez de parcourir 1km";
@@ -115,3 +149,28 @@
 "tour_de_la_lanterne_description" = "Bravo ! Vous venez de découvrir la Tour de la Lanterne";
 "eglise_saint_sauveur_description" = "Bravo ! Vous venez de découvrir l'Eglise Saint-Sauveur";
 "grosse_horloge_description" = "Bravo ! Vous venez de découvrir la Grosse Horloge";
+
+/*DIALOG REVOKE*/
+"back" = "Retour"
+"copy" = "Copier mon identifiant dans le presse papier"
+"sendMail" = "Je continue";
+"send" = "Envoyer mail";
+"copy_success" = "L'identifiant a été copié dans le presse papier"
+"revoke_title" = "Révoquer mon consentement"
+"alert_cancel" = "Annulez";
+"revoke_text_1" = "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante : ";
+"revoke_text_2" = "En cliquant sur \"Continuer\", vous aller être redirigé vers votre application de messagerie electronique si un compte est lié à cette dernière.";
+"message_mail_revoke" = "Je demande la suppression de mes données."
+"alert_close_app_title" = "Veuillez relancer l'application";
+"alert_close_app_explanation" = "L'application vas se fermer pour faire le changement de langue veuillez la relancer manuellement";
+
+/*PARTNERS*/
+"logo_desc_larochelle" = "logo de La Rochelle Université"
+"logo_desc_cnrs" = "logo du CNRS"
+"logo_desc_lienss" = "logo du LIENSs"
+"logo_desc_l3i" = "logo du L3i"
+
+/*TOAST*/
+"toast_copy_id" = "Identifiant copié";
+"message_update_date_title" = "Modification de la date"
+"message_update_date" = "Voulez-vous enregistrer les modifications ?"
