@@ -18,11 +18,9 @@ class SettingsViewController: ParentViewController {
 
 
     func openRevokConsent() {
-
-        let message = Tools.getTranslate(key: "revoke_text_1") + "\(Constantes.REVOQ_CONSENT_MAIL)"
+        let message = Tools.getTranslate(key: "revoke_text_1") + "\n\(Constantes.REVOQ_CONSENT_MAIL)" + "\n" + Tools.getTranslate(key: "revoke_text_2")
         let alert = UIAlertController(title: Tools.getTranslate(key: "revoke_title"), message: message, preferredStyle: .alert)
         if MFMailComposeViewController.canSendMail() {
-            alert.title! += "\n" + Tools.getTranslate(key: "revoke_text_2")
             alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "sendMail"), style: .destructive, handler: openMailApp))
         }
         alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "copy"), style: .default, handler: saveToClipBoard))
