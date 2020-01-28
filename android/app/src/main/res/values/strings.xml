@@ -149,7 +149,7 @@
     <string name="send_data">Send data</string>
 
     <!-- ACHIEVEMENTS FRAGMENT -->
-    <string name="text_stats_title">Statistiques</string>
+    <string name="text_stats_title">Statistics</string>
     <string name="text_distance">Distance traveled: </string>
     <string name="text_distance_value">0 km</string>
     <string name="no_achievement_picture_description">Oops, no sticker!</string>
@@ -165,6 +165,9 @@
     <string name="tour_de_la_lanterne_description"> "Congratulation! You have just discovered the Lantern Tower" </string>
     <string name="eglise_saint_sauveur_description"> "Congratulation! You have just discovered the Saint-Sauveur Church" </string>
     <string name="grosse_horloge_description"> "Congratulation! You have just discovered the Grosse Horloge" </string>
+    <string name="plage_de_la_concurrence_description"> "Congratulation! You have just discovered the Plage de la Concurrence"</string>
+    <string name="place_des_minimes_description"> "Congratulation! You have just discovered the Plage des Minimes"</string>
+    <string name="marche_central_description"> "Congratulation! You have just discovered the Marché Central"</string>
 
     <!-- DIALOG  -->
     <string name="back">Back</string>

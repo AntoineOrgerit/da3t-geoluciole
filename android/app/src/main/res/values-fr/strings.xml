@@ -167,6 +167,10 @@
     <string name="tour_de_la_lanterne_description"> "Bravo! Vous venez de découvrir la Tour de la Lanterne"</string>
     <string name="eglise_saint_sauveur_description">"Bravo! Vous venez de découvrir l'Eglise Saint-Sauveur"</string>
     <string name="grosse_horloge_description"> "Bravo! Vous venez de découvrir la Grosse Horloge"</string>
+    <string name="plage_de_la_concurrence_description"> "Bravo! Vous venez de découvrir la Plage de la Concurrence"</string>
+    <string name="place_des_minimes_description"> "Bravo! Vous venez de découvrir la Plage des Minimes"</string>
+    <string name="marche_central_description"> "Bravo! Vous venez de découvrir le Marché central"</string>
+
 
     <!-- DIALOG  -->
     <string name="back">Retour</string>
@@ -177,7 +181,7 @@
     <string name="revoke_title">Révoquer mon consentement</string>
     <string name="revoke_text_1">Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à
         l\'adresse suivante : </string>
-    <string name="revoke_text_2">En cliquant sur "Continuer", vous aller être redirigé vers votre application de messagerie electronique si un compte est lié à cette dernière.</string>
+    <string name="revoke_text_2">En cliquant sur "Continuer", vous allez être redirigé vers votre application de messagerie electronique si un compte est lié à cette dernière.</string>
     <string name="message_mail_revoke">Je demande la suppression de mes données.</string>
     <!-- PARTNER FRAGMENT -->
     <string name="logo_desc_larochelle">logo de La Rochelle Université</string>
