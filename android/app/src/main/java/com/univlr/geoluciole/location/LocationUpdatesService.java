@@ -90,6 +90,7 @@ import com.univlr.geoluciole.model.badge.BadgePlace;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -170,6 +171,7 @@ public class LocationUpdatesService extends Service {
     private LocationManager mLocationManager;
     private Criteria mCriteria;
     private LocationListener mLocationListener;
+    private ProximityReceiver receiverAlertLocation;
 
     @Override
     public void onCreate() {
@@ -416,10 +418,10 @@ public class LocationUpdatesService extends Service {
     private void setProximity() {
         Utils.setRequestingLocationUpdates(this, true);
         BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
-        Map<String, Badge> listBadges = badgeManager.getArrayBadges();
+        HashMap<String, Badge> listeBagdeLock = badgeManager.cleanListBadge(this);
         this.instanciateProximityReceiver();
         try {
-            for (Map.Entry<String, Badge> entry : listBadges.entrySet()) {
+            for (Map.Entry<String, Badge> entry : listeBagdeLock.entrySet()) {
                 String key = entry.getKey();
                 int id = Integer.parseInt(key);
                 Badge b = entry.getValue();
@@ -445,10 +447,14 @@ public class LocationUpdatesService extends Service {
      */
     private void instanciateProximityReceiver() {
         IntentFilter filter = new IntentFilter(COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT);
-        registerReceiver(new ProximityReceiver(), filter);
+        receiverAlertLocation = new ProximityReceiver();
+        registerReceiver(receiverAlertLocation, filter);
     }
 
     public void stopService() {
+        if (receiverAlertLocation != null) {
+            unregisterReceiver(receiverAlertLocation);
+        }
         this.removeLocationUpdates();
         this.stopSelf();
     }

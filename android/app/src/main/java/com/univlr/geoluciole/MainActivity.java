@@ -176,11 +176,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                     try {
                         AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(1);
                         fragment.updateDistance();
-
-                        FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
-                                new BadgeListFragment());
-
-                        fragmentTransaction.commit();
+                        fragment.updateView();
                     } catch (NullPointerException np) {
                         Log.i(TAG, np.getMessage());
                     }
