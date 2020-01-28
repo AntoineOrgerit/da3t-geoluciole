@@ -22,7 +22,7 @@ class FormDateView: UIView {
 
         let now = Date()
 
-        self.zoneDateArrivee = FormDateFieldView(title: "Date et heure d'arrivée à La Rochelle")
+        self.zoneDateArrivee = FormDateFieldView(title: Tools.getTranslate(key: "form_in_city_title"))
         self.zoneDateArrivee.translatesAutoresizingMaskIntoConstraints = false
         self.zoneDateArrivee.setMaximumDate(date: now)
         self.zoneDateArrivee.validationData = { [weak self] textfield in
@@ -51,7 +51,7 @@ class FormDateView: UIView {
 
 // - MARK: separation
 
-        self.zoneDateDepart = FormDateFieldView(title: "Date et heure de départ de La Rochelle")
+        self.zoneDateDepart = FormDateFieldView(title: Tools.getTranslate(key: "form_out_city_title"))
         self.zoneDateDepart.translatesAutoresizingMaskIntoConstraints = false
         self.zoneDateDepart.setMinimumDate(date: now)
         self.zoneDateDepart.validationData = { [weak self] textfield in

@@ -9,6 +9,8 @@
 "action_accept" = "Accept";
 "action_loader" = "Loading";
 "action_close" = "Close";
+"action_yes" = "Yes";
+"action_no" = "No";
 
 /*NOTIFICATION*/
 "location_notification_content_title" = "Géoluciole is running";
@@ -153,11 +155,12 @@
 
 /*DAILOG REVOKE*/
 "back" = "Back";
-"copy" = "Copy my username to the clipboard";
+"copy" = "Copy my identifier to the clipboard";
 "sendMail" = "I continue";
 "send" = "Send mail";
 "copy_success" = "The identifier has been copied to the clipboard";
 "revoke_title" = "Revoque my consent";
+"alert_cancel" = "Cancel";
 "revoke_text_1" = "To revoke your consent and delete the data related to your activity please send an email to the following address:";
 "revoke_text_2" = "By clicking continue you will be redirected to your email application if you have an email account linked.";
 "message_mail_revoke" = "I request the deletion of my data.";

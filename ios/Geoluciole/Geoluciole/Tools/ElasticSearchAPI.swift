@@ -12,7 +12,7 @@ class ElasticSearchAPI {
     fileprivate static var INSTANCE: ElasticSearchAPI!
 
     init() {
-        guard let resourceURL = URL(string: Constantes.API_URL_SERVER_TEST_ALEX) else {
+        guard let resourceURL = URL(string: Constantes.API_URL_UNIV_LR_HTTP) else {
             fatalError()
         }
 

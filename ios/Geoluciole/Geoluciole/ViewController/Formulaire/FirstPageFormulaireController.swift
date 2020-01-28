@@ -77,7 +77,7 @@ class FirstPageFormulaireController: ParentModalViewController, BoutonsPrevNextD
         self.rootView.addSubview(self.lblAddMail)
 
 
-        self.lblTelephone = FormTextField(placeholder: Tools.getTranslate(key: "form_tel"), keyboardType: .phonePad)
+        self.lblTelephone = FormTextField(placeholder: Tools.getTranslate(key: "form_phone"), keyboardType: .phonePad)
         self.lblTelephone.translatesAutoresizingMaskIntoConstraints = false
         self.lblTelephone.validationData = { txtfield in
           

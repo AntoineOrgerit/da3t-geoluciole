@@ -126,6 +126,7 @@ class GPSConsentRGPDViewController: ParentModalViewController {
                 strongSelf.sendDataCompte()
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+                LocationHandler.getInstance().requestLocationAuthorization()
             }
 
             strongSelf.dismiss(animated: true)

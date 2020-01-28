@@ -49,9 +49,9 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
         //ToolBar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Valider", style: .done, target: self, action: #selector(SettingsDateFieldView.dateValidate))
+        let doneButton = UIBarButtonItem(title: Tools.getTranslate(key: "action_validate"), style: .done, target: self, action: #selector(SettingsDateFieldView.dateValidate))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Annuler", style: .done, target: self, action: #selector(SettingsDateFieldView.dateCancel))
+        let cancelButton = UIBarButtonItem(title: Tools.getTranslate(key: "alert_cancel"), style: .done, target: self, action: #selector(SettingsDateFieldView.dateCancel))
         toolbar.setItems([cancelButton, spaceButton, doneButton], animated: true)
 
         self.dateLabel.inputAccessoryView = toolbar

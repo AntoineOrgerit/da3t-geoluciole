@@ -33,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Permet d'upgrade la base de de données
         DatabaseManager.upgradeDatabase()
+        
+        // Demande d'autorisation pour envoyer des notifications
+        NotificationHandler.getInstance().requestNotificationAuthorization()
 
         // On démarre la timer de localisation si la collecte des données est activée
         if LocationHandler.getInstance().locationCanBeUsed() {

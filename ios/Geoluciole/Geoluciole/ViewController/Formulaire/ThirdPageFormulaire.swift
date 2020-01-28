@@ -49,7 +49,7 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
             aff_page = "2/3"
         }
 
-        titre3.setuptitle(title: "Formulaire", pg: aff_page)
+        titre3.setuptitle(title: Tools.getTranslate(key: "form_title"), pg: aff_page)
         self.rootView.addSubview(titre3)
 
         // ScollView pour le texte
@@ -136,32 +136,32 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
         self.allFields.append(dropDown0)
         v.addArrangedSubview(dropDown0)
 
-        let question1 = CustomQuestionForm(quest: "Présence d'enfants de moins de 13 ans ?")
+        let question1 = CustomQuestionForm(quest: Tools.getTranslate(key: "presence_children"))
         question1.translatesAutoresizingMaskIntoConstraints = false
         self.allFields.append(question1)
         v.addArrangedSubview(question1)
 
-        let question2 = CustomQuestionForm(quest: "Présence d'adolescents (13-18 ans) ?")
+        let question2 = CustomQuestionForm(quest: Tools.getTranslate(key: "presence_teens"))
         question2.translatesAutoresizingMaskIntoConstraints = false
         self.allFields.append(question2)
         v.addArrangedSubview(question2)
 
-        let question3 = CustomQuestionForm(quest: "Visitez-vous La Rochelle pour la première fois ?")
+        let question3 = CustomQuestionForm(quest: Tools.getTranslate(key: "form_first_visit_title"))
         question3.translatesAutoresizingMaskIntoConstraints = false
         self.allFields.append(question3)
         v.addArrangedSubview(question3)
 
-        let question4 = CustomQuestionForm(quest: "Diriez-vous que vous connaissez bien La Rochelle ?")
+        let question4 = CustomQuestionForm(quest: Tools.getTranslate(key: "form_know_city_title"))
         question4.translatesAutoresizingMaskIntoConstraints = false
         self.allFields.append(question4)
         v.addArrangedSubview(question4)
 
-        let question5 = CustomQuestionForm(quest: "Etes-vous déjà venus à La Rochelle + de 5 fois ?")
+        let question5 = CustomQuestionForm(quest: Tools.getTranslate(key: "form_more_five_times_title"))
         question5.translatesAutoresizingMaskIntoConstraints = false
         self.allFields.append(question5)
         v.addArrangedSubview(question5)
 
-        let question6 = CustomQuestionForm(quest: "Avez-vous déjà vécu plus de deux mois à La Rochelle ?")
+        let question6 = CustomQuestionForm(quest: Tools.getTranslate(key: "form_more_two_months_title"))
         question6.translatesAutoresizingMaskIntoConstraints = false
         self.allFields.append(question6)
         v.addArrangedSubview(question6)

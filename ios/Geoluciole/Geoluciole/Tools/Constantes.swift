@@ -33,7 +33,6 @@ class Constantes {
 
     static let API_URL_UNIV_LR_HTTP = "http://datamuseum.univ-lr.fr:9200"
     static let API_URL_UNIV_LR_HTTPS = "https://datamuseum.univ-lr.fr:9200"
-    static let API_URL_SERVER_TEST_ALEX = "http://10.13.46.252:9200"
     static let API_URL_SERVER_TEST_JESSY = "http://86.233.189.163:9200"
     static let TIMER_SEND_DATA = 60.0 * 2 // en s ==> paramètre pour l'envoi régulier au serveur
 

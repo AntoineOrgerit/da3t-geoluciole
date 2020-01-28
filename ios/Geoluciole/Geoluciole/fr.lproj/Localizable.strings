@@ -9,6 +9,8 @@
 "action_accept" = "Accepter";
 "action_loader" = "Chargement";
 "action_close" = "Fermer";
+"action_yes" = "Oui";
+"action_no" = "Non";
 
 /*NOTIFICATION*/
 "location_notification_content_title" = "Géoluciole en fonctionnement";
@@ -85,8 +87,8 @@
 "form_responses_whom_other" = "Autre";
 
 "field_other_title" = "Autre";
-"presence_children" = "Présence d'enfant en dessous de 13 ans*";
-"presence_teens" = "Présence d'adolescents (13–18 ans)*";
+"presence_children" = "Présence d'enfant en dessous de 13 ans ?*";
+"presence_teens" = "Présence d'adolescents (13–18 ans) ?*";
 
 "form_transport_title" = "Comment êtes-vous arrivé à La Rochelle ?*";
 "form_prompt_transport" = "Choisir une réponse";
@@ -163,7 +165,7 @@
 "send" = "Envoyer mail";
 "copy_success" = "L'identifiant a été copié dans le presse papier";
 "revoke_title" = "Révoquer mon consentement";
-"alert_cancel" = "Annulez";
+"alert_cancel" = "Annuler";
 "revoke_text_1" = "Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à l'adresse suivante : ";
 "revoke_text_2" = "En cliquant sur \"Continuer\", vous aller être redirigé vers votre application de messagerie electronique si un compte est lié à cette dernière.";
 "message_mail_revoke" = "Je demande la suppression de mes données.";

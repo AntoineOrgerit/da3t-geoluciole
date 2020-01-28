@@ -42,7 +42,7 @@ class CustomQuestionForm: UIView {
         answersWrap.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(answersWrap)
 
-        yesAnswer.setTitleOption(titleOption: "OUI")
+        yesAnswer.setTitleOption(titleOption: Tools.getTranslate(key: "action_yes"))
         yesAnswer.translatesAutoresizingMaskIntoConstraints = false
         yesAnswer.setStyle(style: .circle)
         yesAnswer.onCheckChange = { [weak self] checkBox in
@@ -53,7 +53,7 @@ class CustomQuestionForm: UIView {
         }
         answersWrap.addSubview(yesAnswer)
 
-        noAnswer.setTitleOption(titleOption: "NON")
+        noAnswer.setTitleOption(titleOption: Tools.getTranslate(key: "action_no"))
         noAnswer.setStyle(style: .circle)
         noAnswer.translatesAutoresizingMaskIntoConstraints = false
         noAnswer.onCheckChange = { [weak self] checkBox in

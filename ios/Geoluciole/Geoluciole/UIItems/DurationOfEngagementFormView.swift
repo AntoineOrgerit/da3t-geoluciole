@@ -80,15 +80,6 @@ class DurationOfEngagementFormView: UIView {
             self.dateEndField.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
     }
-
-    
-//    func setStartDate(date: Date){
-//        self.dateStartField.setDate(date: date)
-//    }
-//
-//    func setEndDate(date: Date){
-//        self.dateEndField.setDate(date: date)
-//    }
     
     
     required init?(coder: NSCoder) {
