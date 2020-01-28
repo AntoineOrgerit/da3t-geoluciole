@@ -18,6 +18,7 @@ class CustomUIButton: UIButton {
 
         self.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
         self.titleLabel?.numberOfLines = 0
+        self.titleLabel?.font = UIFont(name: "Roboto-Regular", size: 18)
         self.addTarget(self, action: #selector(CustomUIButton.touchOnUIButton), for: .touchUpInside)
     }
 
@@ -72,7 +73,7 @@ class CustomUIButton: UIButton {
             self.layer.cornerRadius = 5
             self.setTitleColor(.white, for: .normal)
             self.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-            
+
         case .defaultStyle:
             self.backgroundColor = .white
             self.layer.borderColor = UIColor.settingsButtonDark.cgColor
@@ -81,6 +82,13 @@ class CustomUIButton: UIButton {
             self.setTitleColor(.settingsButtonDark, for: .normal)
             self.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
             
+        case .dateField:
+            self.backgroundColor = .activeButton
+            self.layer.borderColor = UIColor.activeButton.cgColor
+            self.layer.borderWidth = 3
+            self.layer.cornerRadius = 5
+            self.setTitleColor(.white, for: .normal)
+            self.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         }
     }
 

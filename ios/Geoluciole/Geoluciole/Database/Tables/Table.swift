@@ -59,7 +59,7 @@ class Table {
                     for (index, condition) in whereConditions.enumerated() {
                         values.append(condition.value!)
                         sql += " " + condition.column + " = ?"
-                        sql += (index == whereConditions.count - 1) ? "" : ","
+                        sql += (index == whereConditions.count - 1) ? "" : " and"
                     }
                 }
 
@@ -135,6 +135,45 @@ class Table {
                 if Constantes.DEBUG {
                     print("DELETE ERROR " + self.tableName + " : " + error.localizedDescription)
                 }
+                self.db.close()
+            }
+        }
+    }
+
+    func updateQuery(updateConditions:[UpdateConditions], where whereConditions: [WhereCondition]? = nil, completion: Completion) {
+
+        var sql = "UPDATE " + self.tableName
+        
+        var values = [Any]()
+        if !updateConditions.isEmpty {
+            sql += " SET"
+            for (index, condition) in updateConditions.enumerated() {
+                values.append(condition.value!)
+                sql += " " + condition.column + " = ?"
+                sql += (index == updateConditions.count - 1) ? "" : ","
+            }
+        }
+        
+        if let whereConditions = whereConditions, !whereConditions.isEmpty {
+            sql += " WHERE"
+            for (index, condition) in whereConditions.enumerated() {
+                values.append(condition.value!)
+                sql += " " + condition.column + " = ?"
+                sql += (index == whereConditions.count - 1) ? "" : " and"
+            }
+        }
+
+        DatabaseManager.sharedQueue.inDeferredTransaction { (db, rollback) in
+            do {
+                if !self.db.isOpen {
+                    self.db.open()
+                }
+                try self.db.executeUpdate(sql, values: values)
+                completion(true, nil)
+                self.db.close()
+            } catch {
+                print("failed: \(error.localizedDescription)")
+                completion(false, error)
                 self.db.close()
             }
         }

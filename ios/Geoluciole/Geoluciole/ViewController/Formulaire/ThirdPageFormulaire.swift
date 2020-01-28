@@ -13,16 +13,15 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
 
     var onNextButton: (() -> Void)?
     var onPreviousButton: (() -> Void)?
-    var scrollView: UIScrollView!
-    var contentView: UIView!
+    fileprivate var scrollView: UIScrollView!
+    fileprivate var contentView: UIView!
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         // Permet de resize le content pour permettre le scroll
-        scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
+        scrollView.contentSize = CGSize(width: self.contentView.bounds.width, height: self.contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,61 +36,62 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
         }
 
         titre3.setuptitle(title: "Formulaire", pg: aff_page)
+        self.rootView.addSubview(titre3)
 
         // ScollView pour le texte
         self.scrollView = UIScrollView()
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(self.scrollView)
-        
-        
+
         self.contentView = UIView()
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let formulaire = FormulaireScrollView()
-        formulaire.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .yellow
         self.scrollView.addSubview(self.contentView)
+
+        let formulaire = self.createForm()
+        formulaire.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = .red
         self.contentView.addSubview(formulaire)
 
-        let zoneButton = fabCustomButton.createButton(type: .nextPrev) as! BoutonsPrevNext
+        let zoneButton = FabCustomButton.createButton(type: .nextPrev)
         zoneButton.delegate = self
         zoneButton.translatesAutoresizingMaskIntoConstraints = false
-
-        self.rootView.addSubview(titre3)
-        self.rootView.addSubview(self.scrollView)
         self.rootView.addSubview(zoneButton)
-        
+
         //contrainte titre et bouttons
         NSLayoutConstraint.activate([
-            
+
             titre3.topAnchor.constraint(equalTo: self.titleBar.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            titre3.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
-            titre3.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
+            titre3.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            titre3.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
 
             zoneButton.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
-            zoneButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            zoneButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            zoneButton.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            zoneButton.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
         ])
-        
+
         //contraintes scrollview
         NSLayoutConstraint.activate([
 
             self.scrollView.topAnchor.constraint(equalTo: titre3.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            self.scrollView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
-            self.scrollView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
+            self.scrollView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.scrollView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
             self.scrollView.bottomAnchor.constraint(equalTo: zoneButton.topAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
+            
 
             self.contentView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
             self.contentView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor),
-            self.contentView.widthAnchor.constraint(equalTo: self.rootView.widthAnchor),
-            self.contentView.rightAnchor.constraint(equalTo: self.scrollView.rightAnchor),
-            self.contentView.bottomAnchor.constraint(equalTo: formulaire.bottomAnchor)
+            self.contentView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
+//            self.contentView.rightAnchor.constraint(equalTo: self.scrollView.rightAnchor, constant: -Constantes.PAGE_PADDING),
+//            self.contentView.bottomAnchor.constraint(equalTo: formulaire.bottomAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             formulaire.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             formulaire.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
-            formulaire.leftAnchor.constraint(equalTo: self.contentView.leftAnchor)
+            formulaire.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+            formulaire.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
 
     }
@@ -105,5 +105,92 @@ class ThirdPageFormulaire: ParentModalViewController, BoutonsPrevNextDelegate {
 
     func boutonsPrevNext(boutonsPrevNext: BoutonsPrevNext, onPrevious: Bool) {
         self.onPreviousButton?()
+    }
+
+    fileprivate func createForm() -> UIView {
+        let v = UIStackView()
+        v.axis = .vertical
+        v.distribution = .equalSpacing
+        v.translatesAutoresizingMaskIntoConstraints = false
+        
+        let dropDown0 = FormDropDownList(data: ["Test1","Test2","Test3","Test4"])
+        dropDown0.axis = .vertical
+        dropDown0.translatesAutoresizingMaskIntoConstraints = false
+        dropDown0.onClick = {
+            self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width, height: self.contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
+        }
+        v.addArrangedSubview(dropDown0)
+        
+        let question1 = CustomQuestionForm(quest: "Présence d'enfants de moins de 13 ans ?")
+        question1.translatesAutoresizingMaskIntoConstraints = false
+        v.addArrangedSubview(question1)
+
+        let question2 = CustomQuestionForm(quest: "Présence d'adolescents (13-18 ans) ?")
+        question2.translatesAutoresizingMaskIntoConstraints = false
+        v.addArrangedSubview(question2)
+
+        let question3 = CustomQuestionForm(quest: "Visitez-vous La Rochelle pour la première fois ?")
+        question3.translatesAutoresizingMaskIntoConstraints = false
+        v.addArrangedSubview(question3)
+
+        let question4 = CustomQuestionForm(quest: "Diriez-vous que vous connaissez bien La Rochelle ?")
+        question4.translatesAutoresizingMaskIntoConstraints = false
+        v.addArrangedSubview(question4)
+
+        let question5 = CustomQuestionForm(quest: "Etes-vous déjà venus à La Rochelle + de 5 fois ?")
+        question5.translatesAutoresizingMaskIntoConstraints = false
+        v.addArrangedSubview(question5)
+
+        let question6 = CustomQuestionForm(quest: "Avez-vous déjà vécu plus de deux mois à La Rochelle ?")
+        question6.translatesAutoresizingMaskIntoConstraints = false
+        v.addArrangedSubview(question6)
+        
+        let dropDown1 = FormDropDownList(data: ["Bateau","Train","Avion","Pied"])
+        dropDown1.axis = .vertical
+        dropDown1.translatesAutoresizingMaskIntoConstraints = false
+        dropDown1.onClick = {
+            self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width, height: self.contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
+        }
+        v.addArrangedSubview(dropDown1)
+
+        NSLayoutConstraint.activate([
+            dropDown0.topAnchor.constraint(equalTo: v.topAnchor),
+            dropDown0.leftAnchor.constraint(equalTo: v.leftAnchor),
+            dropDown0.rightAnchor.constraint(equalTo: v.rightAnchor),
+
+            question1.topAnchor.constraint(equalTo: dropDown0.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            question1.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            question1.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+
+            question2.topAnchor.constraint(equalTo: question1.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            question2.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            question2.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+
+            question3.topAnchor.constraint(equalTo: question2.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            question3.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            question3.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+
+            question4.topAnchor.constraint(equalTo: question3.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            question4.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            question4.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+
+            question5.topAnchor.constraint(equalTo: question4.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            question5.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            question5.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+
+            question6.topAnchor.constraint(equalTo: question5.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            question6.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            question6.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+
+            dropDown1.topAnchor.constraint(equalTo: question6.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            dropDown1.leftAnchor.constraint(equalTo: v.leftAnchor),
+            dropDown1.rightAnchor.constraint(equalTo: v.rightAnchor),
+
+            //v.bottomAnchor.constraint(equalTo: dropDown1.bottomAnchor),
+            //v.topAnchor.constraint(equalTo: dropDown0.topAnchor)
+
+        ])
+
+        return v
     }
 }

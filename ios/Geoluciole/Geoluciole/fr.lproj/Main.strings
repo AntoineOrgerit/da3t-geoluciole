@@ -1,0 +1,9 @@
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "acW-dT-cKf"; */
+"acW-dT-cKf.title" = "Accueil";
+
+/* Class = "UITabBarItem"; title = "Badges / Stats"; ObjectID = "cPa-gy-q4n"; */
+"cPa-gy-q4n.title" = "Badges / Stats";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "wjY-wW-xrB"; */
+"wjY-wW-xrB.title" = "Paramètres";

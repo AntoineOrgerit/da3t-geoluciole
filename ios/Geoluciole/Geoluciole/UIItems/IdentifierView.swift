@@ -15,16 +15,14 @@ class IdentifierView: UIView {
         super.init(frame: frame)
         
         let title = CustomUILabel()
-        title.text = "Mon identifiant"
-        title.font = UIFont.preferredFont(forTextStyle: .title2)
-        title.adjustsFontForContentSizeCategory = true
+        title.text = Tools.getTranslate(key: "title_my_identifier")
+        title.setStyle(style: .subtitleBold)
         title.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(title)
         
         let id = CustomUILabel()
         id.text = String(Tools.getIdentifier())
-        id.font = UIFont.preferredFont(forTextStyle: .body)
-        id.adjustsFontForContentSizeCategory = true
+        id.setStyle(style: .bodyRegular)
         id.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(id)
         

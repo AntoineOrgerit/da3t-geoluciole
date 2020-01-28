@@ -11,7 +11,7 @@ import UIKit
 
 class ShowLevelView: UIView {
 
-    fileprivate var levelNumberLabel: UILabel!
+    fileprivate var levelNumberLabel: CustomUILabel!
     fileprivate var progressBar: UIProgressView!
     fileprivate let progressBarHeight: CGFloat = 15
     var onProgressBarFinish: (()-> Void)?
@@ -20,10 +20,9 @@ class ShowLevelView: UIView {
         super.init(frame: frame)
         
         // Label indiquant le niveau
-        self.levelNumberLabel = UILabel()
-        self.levelNumberLabel.text = "Progression de votre séjour"
-        self.levelNumberLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-        self.levelNumberLabel.adjustsFontForContentSizeCategory = true
+        self.levelNumberLabel = CustomUILabel()
+        self.levelNumberLabel.text = Tools.getTranslate(key: "stay_progression")
+        self.levelNumberLabel.setStyle(style: .subtitleBold)
         self.levelNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         self.levelNumberLabel.textAlignment = .left
         self.addSubview(self.levelNumberLabel)

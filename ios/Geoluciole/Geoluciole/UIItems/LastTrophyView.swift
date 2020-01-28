@@ -12,24 +12,22 @@ import UIKit
 class LastTrophyView: UIView {
 
     fileprivate var trophy: CustomUIImageView!
-    fileprivate var label: CustomUILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         let label = CustomUILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title2)
-        label.text = "Badge récemment obtenu"
+        label.setStyle(style: .subtitleBold)
+        label.text = Tools.getTranslate(key: "last_achievement_obtained")
         label.textAlignment = .left
-        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(label)
 
-        let trophy = CustomUIImageView(frame: .zero)
-        trophy.image = UIImage(named: "no-badge")
-        trophy.translatesAutoresizingMaskIntoConstraints = false
-        trophy.contentMode = .scaleAspectFit
-        self.addSubview(trophy)
+        self.trophy = CustomUIImageView(frame: .zero)
+        self.trophy.image = UIImage(named: "no-badge")
+        self.trophy.translatesAutoresizingMaskIntoConstraints = false
+        self.trophy.contentMode = .scaleAspectFit
+        self.addSubview(self.trophy)
 
         NSLayoutConstraint.activate([
             
@@ -38,18 +36,17 @@ class LastTrophyView: UIView {
             label.rightAnchor.constraint(equalTo: self.rightAnchor),
             label.topAnchor.constraint(equalTo: self.topAnchor),
             
-            trophy.topAnchor.constraint(equalTo: label.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            trophy.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.75),
-            trophy.heightAnchor.constraint(equalTo: trophy.widthAnchor),
-            trophy.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.trophy.topAnchor.constraint(equalTo: label.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.trophy.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.75),
+            self.trophy.heightAnchor.constraint(equalTo: self.trophy.widthAnchor),
+            self.trophy.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            self.bottomAnchor.constraint(equalTo: trophy.bottomAnchor)
-            
+            self.bottomAnchor.constraint(equalTo: self.trophy.bottomAnchor)
         ])
     }
 
     func setImage(nom: String) {
-        self.trophy.image = UIImage(named: nom)
+        self.trophy.image = UIImage(named: nom) ?? UIImage(named: "no-img")
     }
 
     required init?(coder: NSCoder) {

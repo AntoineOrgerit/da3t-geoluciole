@@ -66,7 +66,8 @@ class DatabaseManager {
             // Pour upgrade, il faut faire un if de cette façon et placer l'upgrade dans le block du if
             if Constantes.DB_VERSION == 1 {
                 // Créations des tables pour la Db
-                DatabaseManager.createTable(tables: [LocationTable.getInstance()])
+                DatabaseManager.createTable(tables: [LocationTable.getInstance(), BadgesTable.getInstance()])
+                BadgesTable.getInstance().insertBadges()
             }
             
             // Mise a niveau de la version de la base de données
