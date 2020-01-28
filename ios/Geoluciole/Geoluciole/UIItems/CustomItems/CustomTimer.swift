@@ -72,7 +72,7 @@ class CustomTimer {
             } else {
                 DispatchQueue.main.async {
                     viewController?.rootView.hideAllToasts()
-                    viewController?.rootView.makeToast("Pas de données à envoyer", duration: 2)
+                    viewController?.rootView.makeToast(Tools.getTranslate(key: "toast_no_data_send"), duration: 2)
                 }
             }
         }

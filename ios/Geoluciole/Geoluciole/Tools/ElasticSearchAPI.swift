@@ -75,7 +75,7 @@ class ElasticSearchAPI {
         }
 
         DispatchQueue.main.async {
-            viewController?.rootView.makeToast("Envoi des données en cours...", duration: 10, position: .bottom)
+            viewController?.rootView.makeToast(Tools.getTranslate(key: "toast_send_data"), duration: 10, position: .bottom)
         }
 
         // Création de la requête (header + contenu)
@@ -112,7 +112,7 @@ class ElasticSearchAPI {
 
                             var style = ToastStyle()
                             style.backgroundColor = UIColor(red: 145 / 255, green: 208 / 255, blue: 182 / 255, alpha: 0.9)
-                            viewController?.rootView.makeToast("Envoi des données réussi !", duration: 1, position: .bottom, style: style)
+                            viewController?.rootView.makeToast(Tools.getTranslate(key: "toast_send_data_success"), duration: 1, position: .bottom, style: style)
                         }
 
                         // Sinon, on indique l'erreur et on garde les données

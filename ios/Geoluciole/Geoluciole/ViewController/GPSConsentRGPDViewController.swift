@@ -47,7 +47,9 @@ class GPSConsentRGPDViewController: ParentModalViewController {
         // texte rgpd
         self.textRGPD = CustomUILabel()
         self.textRGPD.numberOfLines = 0
-        self.textRGPD.text = Tools.getTranslate(key: "rgpd_content")
+        
+        let rgpd_content = Tools.getTranslate(key: "rgpd_first_content_1_line") + "\n\n" + Tools.getTranslate(key: "rgpd_first_content_2_line") + "\n\n" + Tools.getTranslate(key: "rgpd_first_content_3_line") + "\n\n" + Tools.getTranslate(key: "rgpd_first_content_4_line")
+        self.textRGPD.text = rgpd_content
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.textRGPD.setStyle(style: .bodyRegular)
         self.textRGPD.textAlignment = .justified

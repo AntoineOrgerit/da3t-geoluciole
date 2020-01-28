@@ -19,13 +19,14 @@ class SettingsViewController: ParentViewController {
 
     func openRevokConsent() {
 
-        let alert = UIAlertController(title: Tools.getTranslate(key: "revoke_consent"), message: "\(Tools.getTranslate(key: "alert_text_part1")) \(Constantes.REVOQ_CONSENT_MAIL) ", preferredStyle: .alert)
+        let message = Tools.getTranslate(key: "revoke_text_1") + "\(Constantes.REVOQ_CONSENT_MAIL)"
+        let alert = UIAlertController(title: Tools.getTranslate(key: "revoke_title"), message: message, preferredStyle: .alert)
         if MFMailComposeViewController.canSendMail() {
-            alert.title! += Tools.getTranslate(key: "alert_text_part2")
-            alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "alert_continue"), style: .destructive, handler: openMailApp))
+            alert.title! += Tools.getTranslate(key: "revoke_text_2")
+            alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "sendMail"), style: .destructive, handler: openMailApp))
         }
-        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "alert_copy_to_clipboard"), style: .default, handler: saveToClipBoard))
-        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "alert_cancel"), style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "copy"), style: .default, handler: saveToClipBoard))
+        alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "back"), style: .default, handler: nil))
 
         self.present(alert, animated: true, completion: nil)
     }
@@ -85,7 +86,7 @@ class SettingsViewController: ParentViewController {
 
             let alert = UIAlertController(title: Tools.getTranslate(key: "alert_close_app_title"), message: "\(Tools.getTranslate(key: "alert_close_app_explanation"))", preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "alert_continue"), style: .destructive, handler: close))
+            alert.addAction(UIAlertAction(title: Tools.getTranslate(key: "sendMail"), style: .destructive, handler: close))
 
             self.present(alert, animated: true, completion: nil)
 

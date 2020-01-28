@@ -48,7 +48,10 @@ class FormConsentRGPDViewController: ParentModalViewController {
         // texte rgpd
         self.textRGPD = CustomUILabel()
         self.textRGPD.numberOfLines = 0
-        self.textRGPD.text = Tools.getTranslate(key: "rgpd_second_content")
+        let rgpdContent = Tools.getTranslate(key: "rgpd_second_content_1_line") + "\n\n" + Tools.getTranslate(key: "rgpd_second_content_2_line") + "\n\n" + Tools.getTranslate(key: "rgpd_second_content_3_line") + "\n\n" + Tools.getTranslate(key: "rgpd_second_content_4_line") + "\n\n" + Tools.getTranslate(key: "rgpd_second_content_5_line") + "\n\n" +
+            Tools.getTranslate(key: "rgpd_second_content_6_line") + "\n\n" +
+            Tools.getTranslate(key: "rgpd_second_content_7_line")
+        self.textRGPD.text = rgpdContent
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.textRGPD.setStyle(style: .bodyRegular)
         self.textRGPD.textAlignment = .justified
