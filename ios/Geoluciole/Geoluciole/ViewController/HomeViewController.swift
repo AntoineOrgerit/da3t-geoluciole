@@ -87,7 +87,6 @@ class HomeViewController: ParentViewController {
             print("ProgressBar : \(pct)")
         }
         self.showLevelView.setProgress(value: pct)
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +113,16 @@ class HomeViewController: ParentViewController {
             let rgpdController = GPSConsentRGPDViewController()
             rgpdController.modalPresentationStyle = .fullScreen
             self.present(rgpdController, animated: true)
+        } else {
+            // On affiche ensuite le constement pour le formulaire
+            if !self.userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
+                let formRgpdController = FormConsentRGPDViewController()
+                formRgpdController.modalPresentationStyle = .fullScreen
+                self.present(formRgpdController, animated: true)
+            } else {
+                // On affiche le formulaire
+                
+            }
         }
 
         // On affiche ensuite le constement pour le formulaire

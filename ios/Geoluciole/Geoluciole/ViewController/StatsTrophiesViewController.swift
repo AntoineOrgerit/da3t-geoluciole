@@ -41,7 +41,6 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
         self.wrap.addSubview(self.loader)
 
         self.noBadge = NoBadgeView()
-        self.noBadge.isHidden = true
         self.noBadge.translatesAutoresizingMaskIntoConstraints = false
         self.wrap.addSubview(self.noBadge)
 
@@ -51,7 +50,6 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
         self.collectionView.backgroundColor = .white
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.isHidden = true
         self.wrap.addSubview(self.collectionView)
 
         NSLayoutConstraint.activate([
@@ -112,8 +110,8 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
         cell.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            strongSelf.view.hideAllToasts()
-            strongSelf.view.makeToast(badgeInCell.description, duration: 1, title: badgeInCell.name)
+            strongSelf.rootView.hideAllToasts()
+            strongSelf.rootView.makeToast(badgeInCell.description, duration: 1, title: badgeInCell.name)
         }
 
         return cell
@@ -128,13 +126,19 @@ class StatsTrophiesViewController: ParentViewController, UICollectionViewDelegat
 
     fileprivate func loadBadges() {
 
+        // On cache tout sauf le loader
+        self.noBadge.isHidden = true
+        self.collectionView.isHidden = true
+
         self.badgesData = [Badge]()
 
         // Lancement du loader
         self.loader.startAnimating()
 
         let queue = DispatchQueue(label: "LoadBadges", qos: .utility)
-        queue.async {
+
+        // On run 0.4 seconde après afin de voir le loader :)
+        queue.asyncAfter(deadline: .now() + 0.4) {
 
             // Récupération des badges qui ont été obtenu
             BadgesTable.getInstance().selectQuery([], where: [WhereCondition(onColumn: BadgesTable.IS_OBTAIN, withCondition: "1")]) { (success, queryResult, error) in

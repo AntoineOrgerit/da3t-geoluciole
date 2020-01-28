@@ -2,7 +2,7 @@
 //  SettingsViewController.swift
 //  Geoluciole
 //
-//  Created by local192 on 09/01/2020.
+//  Created by Thibaud LAMBERT on 09/01/2020.
 //  Copyright © 2020 Université La Rochelle. All rights reserved.
 //
 
@@ -32,7 +32,7 @@ class SettingsViewController: ParentViewController {
 
     func saveToClipBoard(action: UIAlertAction) {
         UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
-        self.view.makeToast(Tools.getTranslate(key: "toast_copy_id"), duration: 2, position: .bottom)
+        self.rootView.makeToast(Tools.getTranslate(key: "toast_copy_id"), duration: 2, position: .bottom)
     }
 
     func openMailApp(action: UIAlertAction) {

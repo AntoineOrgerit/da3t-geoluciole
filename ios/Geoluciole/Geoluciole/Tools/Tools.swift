@@ -43,7 +43,7 @@ class Tools {
                 }
             } else {
                 if Constantes.DEBUG {
-                    print("Successfully Copy : Your file copy successfully")
+                    print("Successfully Copy : \(fileName) copy successfully")
                 }
             }
         }
