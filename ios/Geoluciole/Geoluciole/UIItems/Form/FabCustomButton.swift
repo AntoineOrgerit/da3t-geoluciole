@@ -45,7 +45,7 @@ class BoutonsPrevNext: UIView {
 
         self.buttonNext = CustomUIButton()
         self.buttonNext.setStyle(style: .active)
-        self.buttonNext.setTitle(Tools.getTranslate(key: "next_button"), for: .normal)
+        self.buttonNext.setTitle(Tools.getTranslate(key: "form_continue"), for: .normal)
         self.buttonNext.translatesAutoresizingMaskIntoConstraints = false
         self.buttonNext.onClick = { [weak self] boutton in
             guard let strongSelf = self else { return }
@@ -56,7 +56,7 @@ class BoutonsPrevNext: UIView {
 
         self.buttonPrevious = CustomUIButton()
         self.buttonPrevious.setStyle(style: .active)
-        self.buttonPrevious.setTitle(Tools.getTranslate(key: "prev_button"), for: .normal)
+        self.buttonPrevious.setTitle(Tools.getTranslate(key: "form_previous"), for: .normal)
         self.buttonPrevious.translatesAutoresizingMaskIntoConstraints = false
         self.buttonPrevious.onClick = { [weak self] boutton in
             guard let strongSelf = self else { return }
@@ -147,7 +147,7 @@ class BoutonValidation: BoutonsPrevNext {
 
     override init() {
         super.init()
-        self.buttonNext.setTitle("Valider", for: .normal)
+        self.buttonNext.setTitle(Tools.getTranslate(key: "form_submit"), for: .normal)
     }
 
     required init?(coder: NSCoder) {
