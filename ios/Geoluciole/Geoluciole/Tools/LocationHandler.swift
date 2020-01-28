@@ -89,7 +89,8 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                 LocationTable.LONGITUDE: currentLocation.longitude,
                 LocationTable.TIMESTAMP: currentLocation.timestamp,
                 LocationTable.PRECISION: currentLocation.precision, // rayon d'un cercle en m
-                LocationTable.VITESSE: currentLocation.vitesse // vitesse en m/s
+                LocationTable.VITESSE: currentLocation.vitesse, // vitesse en m/s,
+                LocationTable.DATE: currentLocation.date_str // date au format du serveur
             ])
 
             updateDistanceParcourue(newDistance: distance)
@@ -134,7 +135,8 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
         }
 
         // Création de l'objet à insérer
-        let currentLocation = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, altitude: location.altitude, timestamp: Date().timeIntervalSince1970, precision: location.horizontalAccuracy, vitesse: location.speed)
+        let now = Date()
+        let currentLocation = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, altitude: location.altitude, timestamp: now.timeIntervalSince1970, precision: location.horizontalAccuracy, vitesse: location.speed, date_str: Tools.convertDateToServerDate(date: now))
 
         let sendData = UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_SEND_DATA)
 
@@ -156,7 +158,8 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                     LocationTable.LONGITUDE: currentLocation.longitude,
                     LocationTable.TIMESTAMP: currentLocation.timestamp,
                     LocationTable.PRECISION: currentLocation.precision, // rayon d'un cercle en m
-                    LocationTable.VITESSE: currentLocation.vitesse // vitesse en m/s
+                    LocationTable.VITESSE: currentLocation.vitesse, // vitesse en m/s
+                    LocationTable.DATE: currentLocation.date_str // date au format du serveur
                 ])
 
                 // on sauvegarde la dernière position si elle semble cohérente

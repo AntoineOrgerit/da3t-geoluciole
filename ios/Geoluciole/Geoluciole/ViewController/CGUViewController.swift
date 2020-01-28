@@ -28,7 +28,7 @@ class CGUViewController: ParentModalViewController, UIWebViewDelegate {
 
         // Création d'un bouton "Femer"
         let closeButton = CustomUIButton()
-        closeButton.setTitle("Fermer", for: .normal)
+        closeButton.setTitle(Tools.getTranslate(key: "action_close"), for: .normal)
         closeButton.setStyle(style: .defaultStyle)
         closeButton.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
