@@ -8,6 +8,9 @@
     <string name="action_validate">Valider</string>
     <string name="action_loader">Chargement</string>
 
+    <string name="alert_title_constructor_settings">Redirection vers vos paramètres</string>
+    <string name="alert_content_constructor_settings">Vous allez être redirigé vers vos paramètres dans le but de désactiver l\'option \'Gestion automatique\'.  Pour le bon fonctionnement de l\'application veuillez désactiver cette option.</string>
+
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole en fonctionnement</string>
     <string name="location_notification_content_text">Le suivi de votre parcours est en cours</string>
