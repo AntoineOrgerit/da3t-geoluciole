@@ -148,6 +148,10 @@
     <string name="no_identifier">No identifier</string>
     <string name="send_data">Send data</string>
 
+    <string name="toast_error_send_data">Error sending data</string>
+    <string name="toast_success_send_data">Data sent</string>
+    <string name="toast_no_data">No data to send</string>
+
     <!-- ACHIEVEMENTS FRAGMENT -->
     <string name="text_stats_title">Statistics</string>
     <string name="text_distance">Distance traveled: </string>
@@ -176,6 +180,7 @@
     <string name="send">Send mail</string>
     <string name="copy_success"> The identifier has been copied to the clipboard </string>
     <string name="revoke_title">Revoque my consent</string>
+    <string name="revoke_title_no_consent">Accept consent</string>
     <string name="revoke_text_1">To revoke your consent and delete the data related to your activity please send an email to
         the following address:</string>
     <string name="revoke_text_2">By clicking continue you will be redirected to your email application if you have an email account linked.</string>
