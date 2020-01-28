@@ -16,18 +16,19 @@ class UserPrefs {
     static let KEY_DUREE_ENGAGEMENT = "duree_engagement"
     static let KEY_TYPE_ENGAGEMENT = "type_engagement"
     static let KEY_SEND_DATA = "send_data"
+    static let KEY_LANGUAGE = "language"
     static let KEY_LAST_POINT = "last_point"
-    static let KEY_DISTANCE_TRAVELED = "distance"
+    static let KEY_DISTANCE = "distance"
     static let KEY_IDENTIFIER = "identifier"
     static let KEY_RGPD_CONSENT = "rgpd_consent"
     static let KEY_FORMULAIRE_CONSENT = "formulaire_consent"
     static let KEY_DATE_START_ENGAGEMENT = "date_start_engagement"
     static let KEY_DATE_END_ENGAGEMENT = "date_end_engagement"
-    static let APPLE_LANGUAGE_KEY = "AppleLanguages"
-    static let KEY_LAST_BADGE = "last_badge"
-    static let KEY_FORMULAIRE_REMPLI = "formulaire_accepte"
+    static let KEY_FORMULAIRE_REMPLI = "formulaire_renseigne"
 
+    
     fileprivate init() {
+        self.userPrefs = UserDefaults.standard
 
         // si la durée d'engagement est renseigné
         if self.userPrefs.object(forKey: UserPrefs.KEY_DUREE_ENGAGEMENT) == nil {
@@ -43,24 +44,28 @@ class UserPrefs {
         if self.userPrefs.object(forKey: UserPrefs.KEY_SEND_DATA) == nil {
             self.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: false)
         }
-
+        
         // Si la langue n'est pas définit, on prend la langue du système par défaut
-        if self.userPrefs.object(forKey: UserPrefs.APPLE_LANGUAGE_KEY) == nil {
+        if self.userPrefs.object(forKey: UserPrefs.KEY_LANGUAGE) == nil {
             // on récupère la langue du système
             let languageCode = Locale.current.regionCode?.lowercased()
-
+            
             var language = ""
-
+            
             if languageCode != nil {
                 // Si le français est défini, on le prend
                 if languageCode == "fr" {
-                    language = NSLocalizedString("french_language", comment: "")
+                    language = Constantes.LANGUAGE_FRENCH
                 // Sinon on met anglais par défaut
                 } else {
-                    language = NSLocalizedString("english_language", comment: "")
+                    language = Constantes.LANGUAGE_ENGLISH
                 }
             }
-            self.setPrefs(key: UserPrefs.APPLE_LANGUAGE_KEY, value: language)
+            self.setPrefs(key: UserPrefs.KEY_LANGUAGE, value: language)
+        }
+        
+        if self.userPrefs.object(forKey: UserPrefs.KEY_FORMULAIRE_REMPLI) == nil {
+            self.setPrefs(key: UserPrefs.KEY_FORMULAIRE_REMPLI, value: false)
         }
     }
 
@@ -99,16 +104,5 @@ class UserPrefs {
 
     func object(forKey key: String) -> Any? {
         return self.userPrefs.object(forKey: key)
-    }
-    
-    func double(forKey key: String, defaultValue: Double = 0) -> Double {
-        if self.userPrefs.object(forKey: key) != nil {
-            return self.userPrefs.double(forKey: key)
-        }
-        return defaultValue
-    }
-
-    func sync() {
-        self.userPrefs.synchronize()
     }
 }

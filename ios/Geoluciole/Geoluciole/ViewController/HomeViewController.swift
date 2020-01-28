@@ -115,21 +115,18 @@ class HomeViewController: ParentViewController {
             self.present(rgpdController, animated: true)
         } else {
             // On affiche ensuite le constement pour le formulaire
-            if !self.userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
+            if self.userPrefs.object(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) == nil {
                 let formRgpdController = FormConsentRGPDViewController()
                 formRgpdController.modalPresentationStyle = .fullScreen
                 self.present(formRgpdController, animated: true)
             } else {
                 // On affiche le formulaire
-                
+                if UserPrefs.getInstance().object(forKey: UserPrefs.KEY_FORMULAIRE_REMPLI) == nil {
+                    let formulaire = FomulairePageController()
+                    formulaire.modalPresentationStyle = .fullScreen
+                    self.present(formulaire, animated: true)
+                }
             }
-        }
-
-        // On affiche ensuite le constement pour le formulaire
-        if !self.userPrefs.bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
-            let formRgpdController = FormulaireConsentRGPDViewController()
-            formRgpdController.modalPresentationStyle = .fullScreen
-            self.present(formRgpdController, animated: true)
         }
     }
 

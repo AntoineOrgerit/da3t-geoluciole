@@ -120,6 +120,11 @@
 "form_err_mail" = "Adresse mail non valide";
 "form_err_radio" = "Veuillez sélectionner une réponse";
 "form_required" = "*champs requis";
+"form_btn_date"= "Choisir une date";
+"form_with_whom_title" = "Avec qui voyagez-vous ?";
+"form_transport_title" = "Comment êtes-vous arrivez à LaRochelle ?";
+"form_other_option" = "Autre";
+"form_placeholder_precision" = "Précision";
 
 /*PREFERENCES*/
 "dates_settings" = "Durée d'engagement";

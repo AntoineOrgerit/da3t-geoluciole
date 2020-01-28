@@ -81,6 +81,14 @@ class CustomUIButton: UIButton {
             self.layer.cornerRadius = 5
             self.setTitleColor(.settingsButtonDark, for: .normal)
             self.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            
+        case .dateField:
+            self.backgroundColor = .activeButton
+            self.layer.borderColor = UIColor.activeButton.cgColor
+            self.layer.borderWidth = 3
+            self.layer.cornerRadius = 5
+            self.setTitleColor(.white, for: .normal)
+            self.contentEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         }
     }
 

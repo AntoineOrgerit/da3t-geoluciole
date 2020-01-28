@@ -39,4 +39,6 @@ class Constantes {
 
     // DISTANCE DE DETECTION
     static let DISTANCE_DETECTION: CLLocationDistance = 10.0
+    
+
 }
