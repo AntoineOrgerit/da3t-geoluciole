@@ -1,24 +1,14 @@
-"action_refused" = "REFUSE";
-"action_validate" = "Validate";
-"action_loader" = "Loading";
-"action_accept" = "ACCEPT";
-/*ALERT*/
-"alert_continue" = "Continue";
-"alert_cancel" = "Cancel";
-"alert_copy_to_clipboard" = "Copy to clipboard";
-"alert_text_part1" = "In order to revoke your consent and delete collected datas please send an email to the following mailbox :";
-"alert_text_part2" = "\n By clicking on continue you will be redirected to your e-mail application.";
-
-"alert_close_app_title" = "Please restart app";
-"alert_close_app_explanation" = "To apply the new language preferences, please restart app manualy ";
-
-/*TOAST*/
-"toast_copy_id" = "Identifier copied";
-
 /*TAB BAR*/
 "title_home" = "Home";
 "title_achievements" = "Stickers";
 "title_dashboard" = "Preferences";
+
+/*ACTIONS*/
+"action_refused" = "Refuse";
+"action_validate" = "Validate";
+"action_accept" = "Accept";
+"action_loader" = "Loading";
+"action_close" = "Close";
 
 /*NOTIFICATION*/
 "location_notification_content_title" = "Géoluciole is running";
@@ -26,12 +16,27 @@
 "location_notification_button_text" = "Open app";
 
 /*RGPD*/
-"rgpd_title_primary" = "Consentement RGPD";
-"rgpd_title_project" = "PROJET Région Nouvelle-Aquitaine DA3T";
-"rgpd_content" = "Les données recueillies par l’application font l’objet d’une inscription sur le registre des traitements de la Rochelle Université. Les données sont recueillies à des fins de recherche par les chercheurs du LIENSs dans le cadre du projet DA3T.\n Le projet de recherche vise à proposer un dispositif d’analyse des traces géonumériques dans le but d’améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine. \n La finalité de l’étude est d’interroger l’apport supposé des traces géonumériques dans la compréhension de la ville touristique atlantique. ";
-"rgpd_first_content_consentement" = "J’autorise les chercheurs du laboratoire LIENSS à utiliser mes données dans le cadre du projet DA3T";
-"rgpd_second_content" = "Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par La Rochelle Université, 23 avenue Albert Einstein, 17000 La Rochelle pour améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine. La base légale du traitement est le consentement. Les données collectées ne seront communiquées à aucun destinataire. Les données sont conservées pendant 5 ans à des fins de recherche scientifique. Vous pouvez accéder aux données vous concernant, les rectifier, demander leur effacement ou exercer votre droit à la limitation du traitement de vos données. Vous pouvez retirer à tout moment votre consentement au traitement de vos données. Vous pouvez également vous opposer au traitement de vos données. Consultez le site cnil.fr pour plus d’informations sur vos droits. Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce dispositif, vous pouvez contacter notre DPO à l’adresse dpo@univ-lr.fr Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL.";
-"rgpd_second_content_consentement" = "J’autorise les chercheurs du laboratoire LIENSS à me recontacter dans le cadre de cette expérience.";
+"rgpd_title_primary" = "GDPR consent";
+"rgpd_title_project" = "Nouvelle-Aquitaine region's DA3T project";
+
+/*RGPD CONTENT : FIRST CONTENT*/
+"rgpd_first_content_1_line" = "The collected data by the app are subject to a registration on the register of processing of La Rochelle University.";
+"rgpd_first_content_2_line" = "Data are collected for research purposes by the LIENSs laboratory researchers as part of the DA3T project.";
+"rgpd_first_content_3_line" = "The research project intend to propose an analysis device of geonumeric traces. Its goal is to improve Nouvelle-Aquitaine region's touristic territories management and valorization.";
+"rgpd_first_content_4_line" = "The study finality is to examine the supposed contribution of geonumeric traces in the understanting of the atlantic touristic city.";
+"rgpd_first_content_consentement" = "I authorize the LIENSs laboratory researchers to use my data as part of the DA3T project.";
+
+/*RGPD CONTENT : SECOND CONTENT*/
+"rgpd_second_content_1_line" = "The collected information of the following form are saved in an informatic file by La Rochelle University, 23 Avenue Albert Einstein, 17000 La Rochelle, France to improve Nouvelle-Aquitaine region's touristic territories management and valorization. The legal basis of data processing is your consent.";
+"rgpd_second_content_2_line" = "The collected data will not be communicated to any recipient.";
+"rgpd_second_content_3_line" = "Data will be retained during 5 years for scientific research purposes.";
+"rgpd_second_content_4_line" = "You can access to your data, rectify them, request for their deletion or perform your data processing limitation right. You can remove your data processing consent at any time; You can also oppose yourself to your data processing.";
+"rgpd_second_content_5_line" = "Please consult the cnil.fr website (or any corresponding relevant data protection entity from your country) to get more information on your rights.";
+"rgpd_second_content_6_line" = "To exercise your rights or for any enquiry on the processing of your data as part of this device, you can contact La Rochelle University's DPO at dpo@univ-lr.fr.";
+"rgpd_second_content_7_line" = "If you think that your privacy and informatic rights are not respected after having contacted us, you can send a complaint to the CNIL (or any corresponding relevant data protection entity from your country).";
+"rgpd_second_content_consentement" = "I authorize the LIENSs laboratory researchers to contact me as part of this experience.";
+
+/*HOME*/
 "stay_progression" = "Progression of your stay";
 "last_achievement_obtained" = "Sticker recently obtained";
 "last_achievement_obtained_picture_description" = "Picture of the last sticker obtained by the user.";
@@ -39,54 +44,84 @@
 "data_collection_activated" = "ON";
 "data_collection_deactivated" = "OFF";
 
-/*FORMULAIRE*/
+/*FORM*/
 "form_title" = "Form";
 "form_title_anonym" = "Anonymous form";
+
+/*FORM : GLOBAL INFORMATION*/
 "form_lastname" = "Lastname";
 "form_firstname" = "FirstName";
 "form_mail" = "Mail";
+"form_phone" = "Phone";
+
+/*FORM : DATE INFO*/
 "form_in_city_title" = "Date and hour of arrival in La Rochelle";
 "form_out_city_title" = "Date and hour of departure of La Rochelle";
+
+/*FORM : DATE BUTTONS*/
 "form_btn_date" = "Select date";
 "form_btn_time" = "Select time";
+
+/*FORM : PLACEHOLDERS*/
+"form_date_in_hint" = "01–01–2020";
+"form_time_in_hint" = "10:00";
+"form_date_out_hint" = "02–01–2020";
+"form_time_out_hint" = "17:00";
+
+/*FORM : QUESTIONS*/
 "form_with_whom_title" = "Whom travel ?*";
 "form_prompt_whom" = "Choose an answer";
+
+"form_explain_validation_period_part_1" = "The data collection period corresponds to the duration for which you consent to the collection of your GPS data.";
+"form_explain_validation_period_part_2" = "After this time, we will no longer collect data. You can, if you wish, modify these periods via the 'Preferences' menu.";
 "form_title_start_date_validation_period" = "Start of collection";
 "form_title_end_date_validation_period" = "End of collection";
-"form_responses_alone" = "alone";
-"form_responses_family" = "With family";
-"form_responses_friends" = "With friends";
-"form_responses_group" = "With group";
-"form_responses_other" = "Other";
+
+"form_responses_whom_choice" = "Choose an answer";
+"form_responses_whom_alone" = "alone";
+"form_responses_whom_family" = "With family";
+"form_responses_whom_friends" = "With friends";
+"form_responses_whom_group" = "With group";
+"form_responses_whom_other" = "Other";
+
+"field_other_title" = "Other";
 "presence_children" = "Presence of children under 13 years old*";
 "presence_teens" = "Presence of teenagers (13–18 years old)*";
+
 "form_transport_title" = "How did you get to La Rochelle ?*";
 "form_prompt_transport" ="Choose an answer";
-"form_responses_transport_personal_car" = "Personnal car";
+
+"form_responses_transport_personal_car" = "Personnal Car";
 "form_responses_transport_carpool" = "Carpool / Stop";
 "form_responses_transport_bus" = "Bus";
 "form_responses_transport_train" = "Train";
 "form_responses_transport_flight" = "Flight";
 "form_responses_transport_boat" = "Boat";
-"form_responses_transport_camping_car" = "Camping car";
+"form_responses_transport_camping_car" = "Camping Car";
 "form_responses_transport_cycling" = "Cycling";
 "form_responses_transport_other" = "Other";
 
-"form_first_visit_title" = "Are you visiting La Rochelle for the first time ?*";
-"form_know_city_title" = "Would you say you know La Rochelle well ?*";
-"form_more_five_times_title" = "Have you been to La Rochelle more than 5 times ?*";
-"form_more_two_months_title" = "Have you ever lived in La Rochelle for more than two months ?*";
+/*RADIOS QUESTIONS*/
+"form_first_visit_title" = "Are you visiting La Rochelle for the first time?*";
+"form_know_city_title" = "Would you say you know La Rochelle well?*";
+"form_more_five_times_title" = "Have you been to La Rochelle more than 5 times?*";
+"form_more_two_months_title" = "Have you ever lived in La Rochelle for more than two months?*";
 "form_yes_response" = "Yes";
 "form_no_response" = "No";
+
+/*BUTTONS FORM*/
 "form_continue" = "Next";
 "form_previous" = "Previous";
 "form_submit" = "Submit";
+
+/*VALIDATION MESSAGES FORM*/
 "form_err_required" = "Required";
 "form_err_mail" = "Invalid email";
 "form_err_radio" = "Select an answer";
 "form_required" = "*required";
-"form_btn_date"= "Select date";
-/*PREFERENCE*/
+
+
+/*PREFERENCES*/
 "dates_settings" = "Commitment period";
 "dates_settings_start" = "Start date";
 "dates_settings_end" = "End date";
@@ -103,7 +138,8 @@
 /*BADGES*/
 "text_stats_title" = "Statistics";
 "text_distance" = "Distance traveled :";
-"no_achievement_picture_description" = "No badges";
+"text_distance_value" = "0 km";
+"no_achievement_picture_description" = "Oops, no sticker!";
 "achievement_title" = "Badges obtained";
 "text_badges" = "My stickers";
 "1_km_description" = "Well done! You just browse 1km";
@@ -114,3 +150,30 @@
 "tour_de_la_lanterne_description" = "Well done ! You have just discovered the Tour de la Lanterne";
 "eglise_saint_sauveur_description" = "Well done ! You have just discovered the Eglise Saint-Sauveur";
 "grosse_horloge_description" = "Well done ! You have just discovered the Grosse Horloge";
+
+/*DAILOG REVOKE*/
+"back" = "Back";
+"copy" = "Copy my username to the clipboard";
+"sendMail" = "I continue";
+"send" = "Send mail";
+"copy_success" = "The identifier has been copied to the clipboard";
+"revoke_title" = "Revoque my consent";
+"revoke_text_1" = "To revoke your consent and delete the data related to your activity please send an email to the following address:";
+"revoke_text_2" = "By clicking continue you will be redirected to your email application if you have an email account linked.";
+"message_mail_revoke" = "I request the deletion of my data.";
+"alert_close_app_title" = "Please restart app";
+"alert_close_app_explanation" = "To apply the new language preferences, please restart app manualy ";
+
+/*PARTNERS*/
+"logo_desc_larochelle" = "logo of La Rochelle Université";
+"logo_desc_cnrs" = "logo of CNRS";
+"logo_desc_lienss" = "logo of LIENSs";
+"logo_desc_l3i" = "logo of L3i";
+
+/*TOAST*/
+"toast_copy_id" = "Identifier copied";
+"message_update_date_title" = "Update date";
+"message_update_date" = "Are you sure to update this date ?";
+"toast_send_data" = "Sending data...";
+"toast_no_data_send" = "No data to send";
+"toast_send_data_success" = "Sending data successfully !";

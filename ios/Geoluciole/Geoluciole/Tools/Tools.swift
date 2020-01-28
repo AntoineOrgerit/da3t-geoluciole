@@ -146,6 +146,13 @@ class Tools {
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: date)
     }
+    
+    // Retourne une date au format date du serveur pour faciliter la lecture
+    static func convertDateToServerDate(date: Date) -> String {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        return df.string(from: date)
+    }
 
     static func getDistStat() -> Double {
         guard let dist_parcourue = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_DISTANCE_TRAVELED) as? Double else {

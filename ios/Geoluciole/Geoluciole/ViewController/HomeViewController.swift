@@ -94,7 +94,7 @@ class HomeViewController: ParentViewController {
 
         self.collectDataSwitchView.isHidden = !self.userPrefs.bool(forKey: UserPrefs.KEY_RGPD_CONSENT)
 
-        let send = self.userPrefs.bool(forKey: "send_data")
+        let send = self.userPrefs.bool(forKey: UserPrefs.KEY_SEND_DATA)
         self.collectDataSwitchView.setSwitch(value: send)
         self.calcProgress()
 

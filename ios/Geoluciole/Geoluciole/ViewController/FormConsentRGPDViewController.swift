@@ -48,7 +48,10 @@ class FormConsentRGPDViewController: ParentModalViewController {
         // texte rgpd
         self.textRGPD = CustomUILabel()
         self.textRGPD.numberOfLines = 0
-        self.textRGPD.text = Tools.getTranslate(key: "rgpd_second_content")
+        let rgpdContent = Tools.getTranslate(key: "rgpd_second_content_1_line") + "\n\n" + Tools.getTranslate(key: "rgpd_second_content_2_line") + "\n\n" + Tools.getTranslate(key: "rgpd_second_content_3_line") + "\n\n" + Tools.getTranslate(key: "rgpd_second_content_4_line") + "\n\n" + Tools.getTranslate(key: "rgpd_second_content_5_line") + "\n\n" +
+            Tools.getTranslate(key: "rgpd_second_content_6_line") + "\n\n" +
+            Tools.getTranslate(key: "rgpd_second_content_7_line")
+        self.textRGPD.text = rgpdContent
         self.textRGPD.translatesAutoresizingMaskIntoConstraints = false
         self.textRGPD.setStyle(style: .bodyRegular)
         self.textRGPD.textAlignment = .justified
@@ -92,10 +95,11 @@ class FormConsentRGPDViewController: ParentModalViewController {
         // Construction d'un dictionnaire contenant les données à envoyer
         var compte = [[String: Any]]()
 
-        let dict = ["consentement": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date": Tools.convertDate(date: Date()), "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com"]
+        let now = Date()
+        let dict = ["consentement_form": NSLocalizedString("rgpd_second_content_consentement", comment: ""), "date_form": now.timeIntervalSince1970, "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com", "date_form_str": Tools.convertDateToServerDate(date: now)] as [String : Any]
         compte.append(dict)
 
-        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, identifier: Tools.getIdentifier(), addInfoDevice: true)
+        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, needBulk: true)
         ElasticSearchAPI.getInstance().postCompte(message: msg)
     }
 
@@ -123,7 +127,7 @@ class FormConsentRGPDViewController: ParentModalViewController {
             guard let strongSelf = self else { return }
 
             if strongSelf.checkbox.isChecked() {
-                //strongSelf.sendDataCompte()
+                strongSelf.sendDataCompte()
                 LocationHandler.getInstance().requestLocationAuthorization()
                 NotificationHandler.getInstance().requestNotificationAuthorization()
                 strongSelf.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)

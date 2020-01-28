@@ -29,7 +29,7 @@ class PartnersViewController: ParentModalViewController {
         self.scrollView.addSubview(self.contentView)
 
         let closeButton = CustomUIButton()
-        closeButton.setTitle("Fermer", for: .normal)
+        closeButton.setTitle(Tools.getTranslate(key: "action_close"), for: .normal)
         closeButton.setStyle(style: .defaultStyle)
         closeButton.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
@@ -40,7 +40,8 @@ class PartnersViewController: ParentModalViewController {
         self.rootView.addSubview(closeButton)
 
         let text = CustomUILabel()
-        text.text = Tools.getTranslate(key: "rgpd_content")
+        let rgpdContent = Tools.getTranslate(key: "rgpd_first_content_1_line") + "\n" + Tools.getTranslate(key: "rgpd_first_content_2_line") + "\n" + Tools.getTranslate(key: "rgpd_first_content_3_line") + "\n" + Tools.getTranslate(key: "rgpd_first_content_4_line")
+        text.text = rgpdContent
         text.setStyle(style: .bodyRegular)
         text.translatesAutoresizingMaskIntoConstraints = false
         text.textAlignment = .justified

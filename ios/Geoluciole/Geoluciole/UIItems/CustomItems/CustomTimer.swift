@@ -59,23 +59,21 @@ class CustomTimer {
 
                 // Pour chaque instance récupérée, on crée un objet Location associé que l'on ajoute dans un tableau
                 for location in result {
-                    let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double, precision: location[LocationTable.PRECISION] as! Double, vitesse: location[LocationTable.VITESSE] as! Double)
+                    let loc = Location(latitude: location[LocationTable.LATITUDE] as! Double, longitude: location[LocationTable.LONGITUDE] as! Double, altitude: location[LocationTable.ALTITUDE] as! Double, timestamp: location[LocationTable.TIMESTAMP] as! Double, precision: location[LocationTable.PRECISION] as! Double, vitesse: location[LocationTable.VITESSE] as! Double, date_str: location[LocationTable.DATE] as! String)
 
                     locations.append(loc.toDictionary())
                 }
 
                 // Si le tableau n'est pas vide, on envoi notre message
                 if locations.count > 0 {
-                    let identifier = Tools.getIdentifier()
-
-                    let message: String = ElasticSearchAPI.getInstance().generateMessage(content: locations, identifier: identifier, addInfoDevice: false)
+                    let message: String = ElasticSearchAPI.getInstance().generateMessage(content: locations, needBulk: true)
                     ElasticSearchAPI.getInstance().postLocations(message: message, viewController: viewController)
                 }
-            }
-
-            DispatchQueue.main.async {
-                viewController?.rootView.hideAllToasts()
-                viewController?.rootView.makeToast("Pas de données à envoyer", duration: 2)
+            } else {
+                DispatchQueue.main.async {
+                    viewController?.rootView.hideAllToasts()
+                    viewController?.rootView.makeToast(Tools.getTranslate(key: "toast_no_data_send"), duration: 2)
+                }
             }
         }
     }
