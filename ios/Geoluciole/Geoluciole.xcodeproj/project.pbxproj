@@ -10,7 +10,6 @@
 		223DE1F1F98FC28DC8BB65A5 /* ElasticSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223DE612CD17EC476DAA208D /* ElasticSearchAPI.swift */; };
 		223DE23B94A8E5B52FE2D6E2 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223DE8E297A0FB9F407CBAC7 /* StringExtension.swift */; };
 		223DE3DD94FAE639A3D40CFF /* CharacterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223DEC50D1BB2FA7C82C8993 /* CharacterExtension.swift */; };
-		223DE77FF88A8044FD599915 /* ElasticSearchAPIMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223DED2B5B0F5FFE6FA67325 /* ElasticSearchAPIMessage.swift */; };
 		2305CE7623C6321200354361 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE6B23C6321200354361 /* FMDatabasePool.m */; };
 		2305CE7723C6321200354361 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE6D23C6321200354361 /* FMDatabaseQueue.m */; };
 		2305CE7823C6321200354361 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2305CE6E23C6321200354361 /* FMDatabase.m */; };
@@ -82,7 +81,6 @@
 		223DE612CD17EC476DAA208D /* ElasticSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticSearchAPI.swift; sourceTree = "<group>"; };
 		223DE8E297A0FB9F407CBAC7 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		223DEC50D1BB2FA7C82C8993 /* CharacterExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterExtension.swift; sourceTree = "<group>"; };
-		223DED2B5B0F5FFE6FA67325 /* ElasticSearchAPIMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticSearchAPIMessage.swift; sourceTree = "<group>"; };
 		2305CE6723C631CA00354361 /* Geoluciole-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Geoluciole-Bridging-Header.h"; sourceTree = "<group>"; };
 		2305CE6B23C6321200354361 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
 		2305CE6C23C6321200354361 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 			children = (
 				2345245523C79F3A001D2CF7 /* Database */,
 				62DAA4DA23C726D4007445A0 /* Location.swift */,
-				223DED2B5B0F5FFE6FA67325 /* ElasticSearchAPIMessage.swift */,
 				23975B1823D74D1A00F89106 /* Badge.swift */,
 			);
 			path = Models;
@@ -535,7 +532,6 @@
 				23610E8523CE3446003B6EF8 /* LanguageSelectorView.swift in Sources */,
 				23975B1923D74D1A00F89106 /* Badge.swift in Sources */,
 				2305CE7923C6321200354361 /* FMDatabaseAdditions.m in Sources */,
-				223DE77FF88A8044FD599915 /* ElasticSearchAPIMessage.swift in Sources */,
 				223DE1F1F98FC28DC8BB65A5 /* ElasticSearchAPI.swift in Sources */,
 				223DE3DD94FAE639A3D40CFF /* CharacterExtension.swift in Sources */,
 				23CB178523CCFFCF00B1BF73 /* LastTrophyView.swift in Sources */,

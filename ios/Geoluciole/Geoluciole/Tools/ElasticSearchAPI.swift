@@ -8,11 +8,11 @@ import UIKit
 
 class ElasticSearchAPI {
 
-    fileprivate let resourceURL: URL
+    fileprivate var resourceURL: URL
     fileprivate static var INSTANCE: ElasticSearchAPI!
 
     init() {
-        guard let resourceURL = URL(string: Constantes.API_URL_UNIV_LR) else {
+        guard let resourceURL = URL(string: Constantes.API_URL_SERVER_TEST_ALEX) else {
             fatalError()
         }
 
@@ -28,17 +28,10 @@ class ElasticSearchAPI {
     }
 
     /// Génération du message à envoyer au serveur
-    func generateMessage(content: [[String: Any]], identifier: Int, addInfoDevice: Bool) -> String {
+    func generateMessage(content: [[String: Any]], needBulk: Bool) -> String {
         var messageStr = ""
-        var needBulk = false // par défaut, on fait un envoi simple
         let index = "{\"index\": {}}"
-        let idStr = "\"id_user\": \(identifier)"
-
-        // On vérifie la taille de l'élément à générer
-        // Si la taille est supérieur à 1, on fait un bulk
-        if content.count > 1 {
-            needBulk = true
-        }
+        let idStr = "\"id_user\": \(Tools.getIdentifier())"
 
         for element in content {
             if needBulk {
@@ -50,9 +43,9 @@ class ElasticSearchAPI {
             messageStr += "{"
             for (key, value) in element {
                 if let value = value as? String {
-                     dictStr += "\"\(key)\": \"\(value)\", "
+                    dictStr += "\"\(key)\": \"\(value)\", "
                 } else {
-                     dictStr += "\"\(key)\": \(value), "
+                    dictStr += "\"\(key)\": \(value), "
                 }
             }
 
@@ -60,20 +53,18 @@ class ElasticSearchAPI {
             messageStr += dictStr + idStr
 
             // On ajoute les informations du device si demandé
-            if addInfoDevice {
-                let type = "\"type\": \"\(UIDevice.current.systemName)\""
-                let version = "\"version\": \"\(UIDevice.current.systemVersion)\""
-                let device = "\"device\": \"\(UIDevice.modelName)\""
-                messageStr += ", \(type), \(version), \(device)"
-            }
-            
+            let type = "\"type\": \"\(UIDevice.current.systemName)\""
+            let version = "\"version\": \"\(UIDevice.current.systemVersion)\""
+            let device = "\"device\": \"\(UIDevice.modelName)\""
+            messageStr += ", \(type), \(version), \(device)"
+
             messageStr += "}"
-        
+
             if needBulk {
                 messageStr += "\n"
             }
         }
-        
+
         return messageStr
     }
 
@@ -127,7 +118,7 @@ class ElasticSearchAPI {
                         // Sinon, on indique l'erreur et on garde les données
                     } else {
                         if Constantes.DEBUG {
-                            print("Erreur durant l'envoi des données de localisation au serveur")
+                            print("Erreur durant l'envoi des données de localisation au serveur : \(String(describing: responseJSON["errors"]))")
                         }
                     }
                 }
@@ -144,8 +135,7 @@ class ElasticSearchAPI {
             print("Envoi des données de compte au serveur en cours ...")
         }
 
-        let id = UserPrefs.getInstance().string(forKey: "KEY_IDENTIFIER")
-        var request = URLRequest(url: resourceURL.appendingPathComponent("/da3t_compte/_doc/\(id)"))
+        var request = URLRequest(url: resourceURL.appendingPathComponent("/da3t_compte/_doc/_bulk"))
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = message.data(using: .utf8)
@@ -161,27 +151,28 @@ class ElasticSearchAPI {
                 return
             }
 
-            // Sinon, on récupère le
+            // Sinon, on récupère le contenu de la réponse
+            
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
-                // si on a pas d'erreurs, on supprime les données en base
-                if let err = responseJSON["_shards"] as? [String: Int] {
-                    if err["failed"] == 0 {
+                
+                if let err = responseJSON["errors"] as? Int {
+                    // Etat de l'envoi des données
+                    if err == 0 {
                         if Constantes.DEBUG {
                             print("Envoi des données de compte au serveur réussi !")
                         }
-                        // Sinon, on indique l'erreur et on garde les données
                     } else {
                         if Constantes.DEBUG {
                             print("Erreur durant l'envoi des données de compte au serveur")
                         }
                     }
                 }
-
             }
         }
 
         // mise en file d'attente de la tâche
         task.resume()
     }
+
 }

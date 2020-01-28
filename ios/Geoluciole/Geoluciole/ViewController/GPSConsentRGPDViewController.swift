@@ -90,10 +90,11 @@ class GPSConsentRGPDViewController: ParentModalViewController {
     fileprivate func sendDataCompte() {
         var compte = [[String: Any]]()
 
-        let dict = ["consentement": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date": Tools.convertDate(date: Date()), "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com"]
+        let now = Date()
+        let dict = ["consentement_gps": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date_gps": now.timeIntervalSince1970, "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com", "date_gps_str": Tools.convertDateToServerDate(date: now)] as [String : Any]
         compte.append(dict)
 
-        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, identifier: Tools.getIdentifier(), addInfoDevice: true)
+        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, needBulk: true)
         ElasticSearchAPI.getInstance().postCompte(message: msg)
     }
 
