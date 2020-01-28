@@ -85,6 +85,24 @@
                     app:layout_constraintTop_toBottomOf="@+id/with_whom_title" />
                 <!-- WITH WHOM QUESTION - END -->
 
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/form_other_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_list_whom">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/other"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Précision"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/presence_children_layout"
                     android:layout_width="match_parent"
@@ -92,7 +110,7 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner_list_whom">
+                    app:layout_constraintTop_toBottomOf="@+id/form_other_title">
 
                     <TextView
                         android:id="@+id/presence_children_title"
@@ -401,6 +419,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/transport_title" />
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/form_other_transport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_list_transport">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/other_transport"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Précision"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
                 <!-- TRANSPORT QUESTION - END -->
             </androidx.constraintlayout.widget.ConstraintLayout>
 

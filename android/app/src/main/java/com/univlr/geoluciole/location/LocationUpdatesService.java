@@ -18,6 +18,27 @@
  * - delete of Android 0 Notification Channel;
  * - remove stopping activity from notifications;
  * - changing accuracy to be balanced with the battery.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 /**
@@ -39,6 +60,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.location.Criteria;
 import android.location.Location;
@@ -60,6 +82,15 @@ import com.google.android.gms.location.LocationRequest;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
+import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.model.badge.Badge;
+import com.univlr.geoluciole.model.badge.BadgeConstantes;
+import com.univlr.geoluciole.model.badge.BadgeManager;
+import com.univlr.geoluciole.model.badge.BadgePlace;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.Map;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -92,6 +123,7 @@ public class LocationUpdatesService extends Service {
     public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
     private static final String EXTRA_STARTED_FROM_NOTIFICATION = PACKAGE_NAME +
             ".started_from_notification";
+    private static final String COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT = "com.univlr.geoluciole.proximityalert";
 
     private final IBinder mBinder = new LocalBinder();
 
@@ -131,23 +163,41 @@ public class LocationUpdatesService extends Service {
             @Override
             public void onLocationChanged(Location location) {
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
+                UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
+                // récuperation de la dernière distance pour le calcul de distance
+                Location last = locationTable.getLastLocation();
+                float distance = last.distanceTo(location);
+                long deltaT = Math.abs(location.getTime() - last.getTime())/1000;
+                // définition de l'arrondi
+                BigDecimal speed = new BigDecimal(location.getSpeed()).round(new MathContext(1));
+                if(speed != null && speed.compareTo(BigDecimal.ZERO) > 0 ){
+                    if (location.distanceTo(last) <= ( speed.longValue() * deltaT)+10){
+                        userPreferences.setDistance(userPreferences.getDistance() + distance);
+                        userPreferences.store(LocationUpdatesService.this);
+                    } else {
+                        Log.e(TAG, "Point GPS bizarre point : speed " + location.getSpeed() + ", lat : " + location.getLatitude() + ", long : " + location.getLongitude() );
+                    }
+                }
+
+
+                // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);
                 onNewLocation(location);
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-                Log.i(TAG, "onStatusChanger: "+ provider + " " + status + " " + extras.toString());
+                Log.i(TAG, "onStatusChanger: " + provider + " " + status + " " + extras.toString());
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-                Log.i(TAG, "onProviderEnabled: "+ provider);
+                Log.i(TAG, "onProviderEnabled: " + provider);
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-                Log.i(TAG, "onProviderDisabled: "+ provider);
+                Log.i(TAG, "onProviderDisabled: " + provider);
             }
         };
 
@@ -172,16 +222,17 @@ public class LocationUpdatesService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "Service started");
-        boolean startedFromNotification = intent.getBooleanExtra(EXTRA_STARTED_FROM_NOTIFICATION,
-                false);
-
-        // We got here because the user decided to remove location updates from the notification.
-        if (startedFromNotification) {
-            removeLocationUpdates();
-            stopSelf();
-        }
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                setProximity(); // instanciation des alertes de proximités
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
         // Tells the system to not try to recreate the service after it has been killed.
-        return START_NOT_STICKY;
+        //return START_NOT_STICKY; // todo vérifier
+        return START_STICKY;
     }
 
     @Override
@@ -239,6 +290,7 @@ public class LocationUpdatesService extends Service {
     public void requestLocationUpdates() {
         Log.i(TAG, "Requesting location updates");
         Utils.setRequestingLocationUpdates(this, true);
+        // permet de garder le service active même après la fin de l'application
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
             mLocationManager.requestLocationUpdates(2000, 10, mCriteria, mLocationListener, Looper.myLooper());
@@ -268,12 +320,7 @@ public class LocationUpdatesService extends Service {
      * Returns the {@link NotificationCompat} used as part of the foreground service.
      */
     private Notification getNotification() {
-        Intent intent = new Intent(this, LocationUpdatesService.class);
-
         CharSequence text = getResources().getString(R.string.location_notification_content_text);
-
-        // Extra to help us figure out if we arrived in onStartCommand via the notification or not.
-        intent.putExtra(EXTRA_STARTED_FROM_NOTIFICATION, true);
 
         // The PendingIntent to launch activity.
         PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
@@ -340,5 +387,48 @@ public class LocationUpdatesService extends Service {
             }
         }
         return false;
+    }
+
+    /**
+     * Méthode permettant de créer les alertes de proximité en fonction de chaque badge à débloquer
+     */
+    private void setProximity() {
+        Utils.setRequestingLocationUpdates(this, true);
+        BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
+        Map<String, Badge> listBadges = badgeManager.getArrayBadges();
+        this.instanciateProximityReceiver();
+        try {
+            for (Map.Entry<String, Badge> entry : listBadges.entrySet()) {
+                String key = entry.getKey();
+                int id = Integer.parseInt(key);
+                Badge b = entry.getValue();
+                Intent i = new Intent(COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT);
+                if (b instanceof BadgePlace) {
+                    i.putExtra(BadgeConstantes.ID, key);
+                    PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), id, i, PendingIntent.FLAG_UPDATE_CURRENT);
+                    double latitude = ((BadgePlace) b).getLocation().getLatitude();
+                    double longitude = ((BadgePlace) b).getLocation().getLongitude();
+                    float proximity = (float) ((BadgePlace) b).getProximity();
+                    mLocationManager.addProximityAlert(latitude, longitude, proximity, -1, pi);
+                    Log.i(TAG, "setProximity, alertProximity ajoutée : latitude : " + latitude + ", longitude : " + longitude + ", proximity : " + proximity);
+                }
+            }
+        } catch (SecurityException unlikely) {
+            Utils.setRequestingLocationUpdates(this, false);
+            Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
+        }
+    }
+
+    /**
+     * Méthode pour instancier le receveur pour les alertes de proximité
+     */
+    private void instanciateProximityReceiver() {
+        IntentFilter filter = new IntentFilter(COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT);
+        registerReceiver(new ProximityReceiver(), filter);
+    }
+
+    public void stopService() {
+        this.removeLocationUpdates();
+        this.stopSelf();
     }
 }

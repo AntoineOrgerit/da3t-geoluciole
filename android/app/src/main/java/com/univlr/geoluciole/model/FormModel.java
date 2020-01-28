@@ -15,8 +15,8 @@ import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromP
 import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
 
 public class FormModel implements Serializable, BulkObject {
-    private static final String FORM_KEY = "formModelPreference";
-    private static final String FORM_FILENAME = "formModelFilePreference";
+    public static final String FORM_KEY = "formModelPreference";
+    public static final String FORM_FILENAME = "formModelFilePreference";
 
     private static final int ID_QUESTION_DATE_IN = 1;
     private static final int ID_QUESTION_DATE_OUT = 2;
@@ -29,7 +29,7 @@ public class FormModel implements Serializable, BulkObject {
     private static final int ID_QUESTION_TWO_MONTH = 9;
     private static final int ID_QUESTION_TRANSPORT = 10;
 
-    private String id_user;
+    private String idUser;
     private Date dateIn;
     private Time timeIn;
     private Date dateOut;
@@ -44,8 +44,13 @@ public class FormModel implements Serializable, BulkObject {
     private boolean twoMonths;
     private String transport;
 
-    public FormModel(String id_user) {
-        this.id_user = id_user;
+    private String device;
+    private String version;
+
+    public FormModel(String idUser) {
+        this.idUser = idUser;
+        this.device = "Inconnu";
+        this.version = "";
     }
 
     public String getWithWhom() {
@@ -129,7 +134,7 @@ public class FormModel implements Serializable, BulkObject {
         this.timeOut = timeOut;
     }
 
-    private long getTimestampStart() {
+    public long getTimestampStart() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateIn);
         calendar.set(Calendar.HOUR_OF_DAY, timeIn.getHours());
@@ -137,7 +142,7 @@ public class FormModel implements Serializable, BulkObject {
         return calendar.getTime().getTime();
     }
 
-    private long getTimestampEnd() {
+    public long getTimestampEnd() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateOut);
         calendar.set(Calendar.HOUR_OF_DAY, timeOut.getHours());
@@ -161,6 +166,22 @@ public class FormModel implements Serializable, BulkObject {
         this.presenceTeens = presenceTeens;
     }
 
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
     public static String datetimeToString(Date date, Time time) {
         return dateToString(date) + " " + timeToString(time);
     }
@@ -180,11 +201,11 @@ public class FormModel implements Serializable, BulkObject {
         return datetimeToString(calendar);
     }
 
-    private static String datetimeToString(Calendar c) {
+    public static String datetimeToString(Calendar c) {
         return FormModel.dateToString(c) + " " + FormModel.timeToString(c);
     }
 
-    private static String timeToString(Calendar calendar) {
+    public static String timeToString(Calendar calendar) {
         return timeToString(new Time(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
     }
 
@@ -204,12 +225,12 @@ public class FormModel implements Serializable, BulkObject {
         return dateToString(calendar);
     }
 
-    private static String dateToString(Calendar c) {
+    public static String dateToString(Calendar c) {
         int day = c.get(Calendar.DAY_OF_MONTH);
-        String sday = day  < 10 ? "0"+day : ""+day;
+        String sday = day < 10 ? "0" + day : "" + day;
         int month = c.get(Calendar.MONTH);
-        String smonth = month < 10 ? "0"+(month+1) : ""+(month+1);
-        return  sday + "-" + smonth + "-" + c.get(Calendar.YEAR);
+        String smonth = month < 10 ? "0" + (month + 1) : "" + (month + 1);
+        return sday + "-" + smonth + "-" + c.get(Calendar.YEAR);
     }
 
     @Override
@@ -227,11 +248,11 @@ public class FormModel implements Serializable, BulkObject {
                 ", fiveTimes=" + fiveTimes +
                 ", twoMonths=" + twoMonths +
                 ", transport='" + transport + '\''
-        + '}';
+                + '}';
     }
 
-    private String InJson(String value, int id_question) {
-        return "{\"id_user\":"+id_user+",\"id_question\":"+id_question+",\"reponse\":\""+value+"\"}";
+    private String InJson(String value, int idQuestion) {
+        return "{\"id_user\":" + idUser + ",\"id_question\":" + idQuestion + ",\"reponse\":\"" + value + "\"}";
     }
 
     private String booleanToString(boolean bool) {
@@ -241,8 +262,8 @@ public class FormModel implements Serializable, BulkObject {
     @Override
     public List<String> jsonFormatObject() {
         List<String> result = new ArrayList<>();
-        result.add(InJson(""+getTimestampStart(), ID_QUESTION_DATE_IN));
-        result.add(InJson(""+getTimestampEnd(), ID_QUESTION_DATE_OUT));
+        result.add(InJson("" + getTimestampStart(), ID_QUESTION_DATE_IN));
+        result.add(InJson("" + getTimestampEnd(), ID_QUESTION_DATE_OUT));
         result.add(InJson(withWhom, ID_QUESTION_WITH_WHOM));
         result.add(InJson(booleanToString(presenceChildren), ID_QUESTION_PRESENCE_CHILDREN));
         result.add(InJson(booleanToString(presenceTeens), ID_QUESTION_PRESENCE_TEEN));
@@ -268,26 +289,30 @@ public class FormModel implements Serializable, BulkObject {
         return getSavedObjectFromPreference(context, FormModel.FORM_FILENAME, FormModel.FORM_KEY, FormModel.class);
     }
 
-    private static void storeInstance(Context context, FormModel form) {
+    public static void storeInstance(Context context, FormModel form) {
         saveObjectToSharedPreference(context, FormModel.FORM_FILENAME, FormModel.FORM_KEY, form);
     }
 
     public void storeInstance(Context context) {
         FormModel.storeInstance(context, this);
     }
-    String formatAccount(Context context, UserPreferences userPreferences) {
+
+    protected String formatAccount(Context context, UserPreferences userPreferences) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",") ;
+        stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",");
         stringBuilder.append("\"date_gps\":").append(userPreferences.getDateConsentementGPS()).append(",");
-        stringBuilder.append("\"consentement_gps\":").append("\""+context.getResources().getString(R.string.rgpd_first_content_consentement)+"\"");
+        stringBuilder.append("\"type\":").append("\"android\"").append(",");
+        stringBuilder.append("\"model\":").append("\"" + this.device + "\"").append(",");
+        stringBuilder.append("\"version\":").append("\"" + this.version + "\"").append(",");
+        stringBuilder.append("\"consentement_gps\":").append("\"" + context.getResources().getString(R.string.rgpd_first_content_consentement) + "\"");
         return stringBuilder.toString();
     }
 
     public String getStringAccount(Context context, UserPreferences userPreferences) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-            stringBuilder.append(this.formatAccount(context, userPreferences));
-            stringBuilder.append("}");
+        stringBuilder.append(this.formatAccount(context, userPreferences));
+        stringBuilder.append("}");
         return stringBuilder.toString();
     }
 }

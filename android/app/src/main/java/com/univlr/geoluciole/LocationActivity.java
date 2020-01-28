@@ -57,7 +57,7 @@ public abstract class LocationActivity extends AppCompatActivity {
             if (shouldProvideRationale) {
                 Log.i(TAG, "Displaying permission rationale to provide additional context.");
                 Snackbar.make(
-                        findViewById(R.id.main_layout),
+                        findViewById(R.id.container_main),
                         "Permission",
                         Snackbar.LENGTH_INDEFINITE)
                         .setAction("OK", new View.OnClickListener() {

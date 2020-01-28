@@ -6,7 +6,11 @@
 
     <string name="action_refused">Refuse</string>
     <string name="action_validate">Validate</string>
+    <string name="action_accept">Accept</string>
     <string name="action_loader">Loading</string>
+
+    <string name="alert_title_constructor_settings">Redirect to your settings</string>
+    <string name="alert_content_constructor_settings"></string>
 
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole is running</string>
@@ -14,37 +18,34 @@
     <string name="location_notification_button_text">Open app</string>
 
     <!-- RGPD CONTENT -->
-    <string name="rgpd_title_primary">Consentement RGPD</string>
-    <string name="rgpd_title_project">PROJET Région Nouvelle-Aquitaine DA3T</string>
+    <string name="rgpd_title_primary">GDPR consent</string>
+    <string name="rgpd_title_project">Nouvelle-Aquitaine region\'s DA3T project</string>
     <!--RGPD CONTENT : First content -->
-    <string name="rgpd_first_content_1_line">Les données recueillies par l’application font l’objet d’une inscription sur le registre des
-    traitements de la Rochelle Université.</string>
-    <string name="rgpd_first_content_2_line">Les données sont recueillies à des fins de recherche par les chercheurs du LIENSS dans le cadre
-    du projet DA3T.</string>
-    <string name="rgpd_first_content_3_line">Le projet de recherche vise à proposer un dispositif d’analyse des traces géonumériques dans le
-    but d’améliorer la gestion et la valorisation des territoires touristiques en Nouvelle-Aquitaine.</string>
-    <string name="rgpd_first_content_4_line">La finalité de l’étude est d’interroger l’apport supposé des traces géonumériques dans la
-    compréhension de la ville touristique atlantique.</string>
-    <string name="rgpd_first_content_consentement">J’autorise les chercheurs du laboratoire LIENSS à utiliser mes données dans le cadre
-    du projet DA3T</string>
+    <string name="rgpd_first_content_1_line">The collected data by the app are subject to a registration on the register of processing of
+        La Rochelle University.</string>
+    <string name="rgpd_first_content_2_line">Data are collected for research purposes by the LIENSs laboratory researchers as part of the
+        DA3T project.</string>
+    <string name="rgpd_first_content_3_line">The research project intend to propose an analysis device of geonumeric traces. Its goal is
+        to improve Nouvelle-Aquitaine region\'s touristic territories management and valorization.</string>
+    <string name="rgpd_first_content_4_line">The study finality is to examine the supposed contribution of geonumeric traces in the
+        understanting of the atlantic touristic city.</string>
+    <string name="rgpd_first_content_consentement">I authorize the LIENSs laboratory researchers to use my data as part of the DA3T project.</string>
 
     <!--RGPD CONTENT : Second content -->
-    <string name="rgpd_second_content_1_line">Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par La
-    Rochelle Université, 23 avenue Albert Einstein, 17000 La Rochelle pour améliorer la gestion et
-    la valorisation des territoires touristiques en Nouvelle-Aquitaine. La base légale du traitement
-    est le consentement.</string>
-    <string name="rgpd_second_content_2_line">Les données collectées ne seront communiquées à aucun destinataires.</string>
-    <string name="rgpd_second_content_3_line">Les données sont conservées pendant 5 ans à des fins de recherche scientifique.</string>
-    <string name="rgpd_second_content_4_line">Vous pouvez accéder aux données vous concernant, les rectifier, demander leur effacement ou
-    exercer votre droit à la limitation du traitement de vos données. Vous pouvez retirer à tout
-    moment votre consentement au traitement de vos données ; Vous pouvez également vous
-    opposer au traitement de vos donnée.</string>
-    <string name="rgpd_second_content_5_line">Consultez le site cnil.fr pour plus d’informations sur vos droits.</string>
-    <string name="rgpd_second_content_6_line">Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce
-    dispositif, vous pouvez contacter notre DPO à l’adresse dpo@univ-lr.fr</string>
-    <string name="rgpd_second_content_7_line">Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne sont
-    pas respectés, vous pouvez adresser une réclamation à la CNIL.</string>
-    <string name="rgpd_second_content_consentement">J’autorise les chercheurs du laboratoire LIENSS à me recontacter dans le cadre de cette expérience.</string>
+    <string name="rgpd_second_content_1_line">The collected information of the following form are saved in an informatic file by La Rochelle
+        University, 23 Avenue Albert Einstein, 17000 La Rochelle, France to improve Nouvelle-Aquitaine region\'s touristic territories management
+        and valorization. The legal basis of data processing is your consent.</string>
+    <string name="rgpd_second_content_2_line">The collected data will not be communicated to any recipient.</string>
+    <string name="rgpd_second_content_3_line">Data will be retained during 5 years for scientific research purposes.</string>
+    <string name="rgpd_second_content_4_line">You can access to your data, rectify them, request for their deletion or perform your data processing
+        limitation right. You can remove your data processing consent at any time; You can also oppose yourself to your data processing.</string>
+    <string name="rgpd_second_content_5_line">Please consult the cnil.fr website (or any corresponding relevant data protection entity from your
+        country) to get more information on your rights.</string>
+    <string name="rgpd_second_content_6_line">To exercise your rights or for any enquiry on the processing of your data as part of this device, you
+        can contact La Rochelle University\'s DPO at dpo@univ-lr.fr.</string>
+    <string name="rgpd_second_content_7_line">If you think that your privacy and informatic rights are not respected after having contacted us, you
+        can send a complaint to the CNIL (or any corresponding relevant data protection entity from your country).</string>
+    <string name="rgpd_second_content_consentement">I authorize the LIENSs laboratory researchers to contact me as part of this experience.</string>
 
     <!-- HOME FRAGMENT -->
     <string name="stay_progression">Progression of your stay</string>
@@ -65,6 +66,7 @@
     <string name="form_lastname">Lastname</string>
     <string name="form_firstname">FirstName</string>
     <string name="form_mail">Mail</string>
+    <string name="form_phone">Phone</string>
     <!-- DATE AND HOUR INFO TITLES -->
     <string name="form_in_city_title">Date and hour of arrival in La Rochelle</string>
     <string name="form_out_city_title">Date and hour of departure of La Rochelle</string>
@@ -77,10 +79,11 @@
     <string name="form_date_out_hint">02–01–2020</string>
     <string name="form_time_out_hint">17:00</string>
     <!-- QUESTIONS FORM -->
-    <string name="form_with_whom_title">Whom travel ?*</string>
+    <string name="form_with_whom_title">Whom travel?*</string>
     <string name="form_prompt_whom">Choose an answer</string>
 
-    <string name="form_explain_validation_period_text">Texte explicatif du concept de période de collecte des données</string>
+    <string name="form_explain_validation_period_part_1">The data collection period corresponds to the duration for which you consent to the collection of your GPS data.</string>
+    <string name="form_explain_validation_period_part_2">After this time, we will no longer collect data. You can, if you wish, modify these periods via the \'Preferences\' menu.</string>
     <string name="form_title_start_date_validation_period">Start of collection</string>
     <string name="form_title_end_date_validation_period">End of collection</string>
     <string-array name="form_responses_whom_array">
@@ -91,10 +94,11 @@
         <item>With group</item>
         <item>Other</item>
     </string-array>
+    <string name="field_other_title">Other</string>
     <string name="presence_children">Presence of children under 13 years old*</string>
     <string name="presence_teens">Presence of teenagers (13–18 years old)*</string>
 
-    <string name="form_transport_title">How did you get to La Rochelle ?*</string>
+    <string name="form_transport_title">How did you get to La Rochelle?*</string>
     <string name="form_prompt_transport">Choose an answer</string>
 
     <string-array name="form_responses_transport_array">
@@ -111,10 +115,10 @@
     </string-array>
 
     <!-- RADIO QUESTIONS -->
-    <string name="form_first_visit_title">Are you visiting La Rochelle for the first time ?*</string>
-    <string name="form_know_city_title">Would you say you know La Rochelle well ?*</string>
-    <string name="form_more_five_times_title">Have you been to La Rochelle more than 5 times ?*</string>
-    <string name="form_more_two_months_title">Have you ever lived in La Rochelle for more than two months ?*</string>
+    <string name="form_first_visit_title">Are you visiting La Rochelle for the first time?*</string>
+    <string name="form_know_city_title">Would you say you know La Rochelle well?*</string>
+    <string name="form_more_five_times_title">Have you been to La Rochelle more than 5 times?*</string>
+    <string name="form_more_two_months_title">Have you ever lived in La Rochelle for more than two months?*</string>
     <string name="form_yes_response">Yes</string>
     <string name="form_no_response">No</string>
 
@@ -137,7 +141,7 @@
     <string name="app_language">App language</string>
     <string name="french_language">French</string>
     <string name="english_language">English</string>
-    <string name="partners">Consult partners</string>
+    <string name="partners">Our project</string>
     <string name="licence_agreement">Consult the EULA</string>
     <string name="revoke_consent">Revoke my consent</string>
     <string name="title_my_identifier">My identifier</string>
@@ -146,14 +150,39 @@
 
     <!-- ACHIEVEMENTS FRAGMENT -->
     <string name="text_stats_title">Statistiques</string>
-    <string name="text_distance">Distance traveled : </string>
-    <string name="text_distance_value">0km</string>
-    <string name="no_achievement_picture_description">Oops no badges</string>
+    <string name="text_distance">Distance traveled: </string>
+    <string name="text_distance_value">0 km</string>
+    <string name="no_achievement_picture_description">Oops, no sticker!</string>
     <string name="achievement_title">Badges obtained</string>
 
+    <!-- DESCRIPTIONS BADGES -->
+    <string name="notification_title">"New Badge unlocked !"</string>
+    <string name="one_km_description"> "Congratulation! You have just traveled 1km" </string>
+    <string name="five_km_description"> "Congratulation! You have just traveled 5km" </string>
+    <string name="ten_km_description"> "Congratulation! You have just traveled 10km" </string>
+    <string name="tour_saint_nicolas_description"> "Congratulation! You have just discovered the Tour Saint Nicolas" </string>
+    <string name="tour_de_la_chaine_description"> "Congratulation! You have just discovered the Tour de la Chaîne" </string>
+    <string name="tour_de_la_lanterne_description"> "Congratulation! You have just discovered the Lantern Tower" </string>
+    <string name="eglise_saint_sauveur_description"> "Congratulation! You have just discovered the Saint-Sauveur Church" </string>
+    <string name="grosse_horloge_description"> "Congratulation! You have just discovered the Grosse Horloge" </string>
+
+    <!-- DIALOG  -->
+    <string name="back">Back</string>
+    <string name="copy">Copy my username to the clipboard</string>
+    <string name="sendMail">I continue</string>
+    <string name="send">Send mail</string>
+    <string name="copy_success"> The identifier has been copied to the clipboard </string>
+    <string name="revoke_title">Revoque my consent</string>
+    <string name="revoke_text_1">To revoke your consent and delete the data related to your activity please send an email to
+        the following address:</string>
+    <string name="revoke_text_2">By clicking continue you will be redirected to your email application if you have an email account linked.</string>
+    <string name="message_mail_revoke"> I request the deletion of my data. </string>
     <!-- PARTNER FRAGMENT -->
     <string name="logo_desc_larochelle">logo of La Rochelle Université</string>
     <string name="logo_desc_cnrs">logo of CNRS</string>
     <string name="logo_desc_lienss">logo of LIENSs</string>
     <string name="logo_desc_l3i">logo of L3i</string>
+    <!-- POPUP VALIDATION DATE -->
+    <string name="message_update_date_title">Update date</string>
+    <string name="message_update_date">Are you sure to update this date?</string>
 </resources>

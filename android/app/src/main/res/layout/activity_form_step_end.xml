@@ -79,11 +79,21 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    android:text="@string/form_explain_validation_period_text"
+                    android:text="@string/form_explain_validation_period_part_1"
                     app:layout_constraintEnd_toEndOf="@id/layout_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/form_explain_validation_period_part_2"
+                    app:layout_constraintEnd_toEndOf="@id/layout_text"
+                    app:layout_constraintStart_toStartOf="@id/layout_text"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- OUT LA ROCHELLE DATE - BEGIN-->

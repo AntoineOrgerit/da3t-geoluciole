@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.univlr.geoluciole.model.Logger;
 import com.univlr.geoluciole.model.UserPreferences;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -23,6 +24,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen_activity);
         spinner = findViewById(R.id.spinner_view);
+        // initialize logger
+        Logger.init(this);
+
+        // creation animation
         Animation a = AnimationUtils.loadAnimation(this, R.anim.progress_anim);
         a.setDuration(600);
         spinner.startAnimation(a);
@@ -34,6 +39,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 return (float)Math.floor(input*frameCount)/frameCount;
             }
         });
+
+        // set transition
         getWindow().setEnterTransition(new Slide(Gravity.START));
         getWindow().setExitTransition(new Slide(Gravity.END));
     }
@@ -58,26 +65,4 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }, 1500);
     }
-
-    //  @Override
-  //  protected void onStart() {
-  //      super.onStart();
-//
-  //      // checking permissions
-  //      ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
-  //      if(!unauthorizedPermissions.isEmpty()) {
-  //          requestPermissions(unauthorizedPermissions);
-  //      } else {
-  //          enableGPSIfNeeded();
-  //      }
-  //  }
-//
-  //  @Override
-  //  protected void onGPSEnabled() {
-  //      Intent intent = new Intent(getApplicationContext(),
-  //              MainActivity.class);
-  //      startActivity(intent);
-  //      finish();
-  //  }
-
 }
