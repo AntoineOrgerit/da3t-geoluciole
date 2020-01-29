@@ -50,7 +50,6 @@ import com.univlr.geoluciole.model.UserPreferences;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
@@ -125,7 +124,7 @@ public class HttpProvider {
 
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                        String responseBody = Objects.requireNonNull(response.body()).string();
+                        String responseBody = response.body().string();
                         try {
                             // recuperation du status de l'insertion
                             JSONObject jsonObject = new JSONObject(responseBody);
@@ -151,7 +150,7 @@ public class HttpProvider {
     /**
      * Function appeler par la tâche périodique pour envoyer les données gps
      *
-     * @param context Context
+     * @param context   Context
      * @param completer CallbackToFutureAdapter
      */
     public static Callback sendGPsPeriodically(Context context, final CallbackToFutureAdapter.Completer<ListenableWorker.Result> completer) {
@@ -171,7 +170,7 @@ public class HttpProvider {
 
             @Override
             public void onResponse(@NonNull Call call, Response response) throws IOException {
-                String responseBody = Objects.requireNonNull(response.body()).string();
+                String responseBody = response.body().string();
                 if (jsonSuccessAction(responseBody, count, Logger.TAG_GPS_PERIODICALLY)) {
                     locationTable.removeAll();
                 }
@@ -237,7 +236,7 @@ public class HttpProvider {
                             Message message = handler.obtainMessage(CODE_HANDLER_GPS_COUNT, count);
                             message.sendToTarget();
                         }
-                        String responseBody = Objects.requireNonNull(response.body()).string();
+                        String responseBody = response.body().string();
                         if (jsonSuccessAction(responseBody, count)) {
                             locationTable.removeAll();
                         }
@@ -260,7 +259,7 @@ public class HttpProvider {
 
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                        String responseBody = Objects.requireNonNull(response.body()).string();
+                        String responseBody = response.body().string();
                         try {
                             JSONObject jsonObject = new JSONObject(responseBody);
                             if (response.code() == 200) {

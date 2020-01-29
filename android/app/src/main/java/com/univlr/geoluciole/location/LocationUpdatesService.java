@@ -27,11 +27,11 @@
 
 /**
  * Modifications done:
- *  - update of package name and string value of PACKAGE_NAME variable;
- *  - update notification channel name;
- *  - remove stopping activity from notifications;
- *  - adapting to Android 8 and 9 versions;
- *  - update of Location retrieve system.
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 package com.univlr.geoluciole.location;
@@ -62,7 +62,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.android.gms.location.LocationRequest;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
@@ -76,16 +75,15 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
  * been requested and all clients unbind.
- *
+ * <p>
  * For apps running in the background on "O" devices, location is computed only once every 10
  * minutes and delivered batched every 30 minutes. This restriction applies even to apps
  * targeting "N" or lower which are run on "O" devices.
- *
+ * <p>
  * This sample show how to use a long-running service for location updates. When an activity is
  * bound to this service, frequent location updates are permitted. When the activity is removed
  * from the foreground, the service promotes itself to a foreground service, and location updates
@@ -162,7 +160,7 @@ public class LocationUpdatesService extends Service {
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
-                if(last.getTime() != 0) {
+                if (last.getTime() != 0) {
                     float distance = last.distanceTo(location);
                     long deltaT = Math.abs(location.getTime() - last.getTime()) / 1000;
                     // définition de l'arrondi
@@ -337,7 +335,7 @@ public class LocationUpdatesService extends Service {
                     "Channel human readable title",
                     NotificationManager.IMPORTANCE_DEFAULT);
 
-            ((NotificationManager) Objects.requireNonNull(getSystemService(Context.NOTIFICATION_SERVICE))).createNotificationChannel(channel);
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -389,7 +387,7 @@ public class LocationUpdatesService extends Service {
     private boolean serviceIsRunningInForeground(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(
                 Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : Objects.requireNonNull(manager).getRunningServices(
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(
                 Integer.MAX_VALUE)) {
             if (getClass().getName().equals(service.service.getClassName()) && service.foreground) {
                 return true;

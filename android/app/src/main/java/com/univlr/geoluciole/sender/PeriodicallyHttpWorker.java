@@ -38,10 +38,10 @@ import androidx.work.WorkerParameters;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.univlr.geoluciole.model.Logger;
 
-class PeriodicallyHttpWorker extends ListenableWorker {
+public class PeriodicallyHttpWorker extends ListenableWorker {
     public static final int PERIODICALLY_CALL_HTTP_IN_HOUR = 4;
     public static final String PERIODICALLY_HTTP_WORKER_NAME = "periodicallyHttpWorker";
-    private final Context context;
+    private Context context;
 
     public PeriodicallyHttpWorker(Context context, WorkerParameters params) {
         super(context, params);
@@ -54,7 +54,7 @@ class PeriodicallyHttpWorker extends ListenableWorker {
         return CallbackToFutureAdapter.getFuture(new CallbackToFutureAdapter.Resolver<Result>() {
             @Nullable
             @Override
-            public Object attachCompleter(@NonNull final CallbackToFutureAdapter.Completer<Result> completer) {
+            public Object attachCompleter(final CallbackToFutureAdapter.Completer<Result> completer) {
                 Logger.logWorker("Worker started");
                 return HttpProvider.sendGPsPeriodically(context, completer);
             }

@@ -39,7 +39,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -82,7 +81,7 @@ public class HttpSender {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Log.d("debug http", Objects.requireNonNull(response.body()).string());
+                Log.d("debug http", response.body().string());
                 Log.d("debug http", response.message());
                 Log.d("debug http", response.toString());
             }
@@ -91,6 +90,7 @@ public class HttpSender {
 
     /**
      * Fixe le content-type de la requête
+     *
      * @param type content type de la requête
      * @return L'objet HttpSender
      */
@@ -101,6 +101,7 @@ public class HttpSender {
 
     /**
      * Fixe l'url de la requête
+     *
      * @param url url de la requête
      * @return L'objet HttpSender
      */
@@ -111,6 +112,7 @@ public class HttpSender {
 
     /**
      * Fixe les données à envoyer
+     *
      * @param data les données
      * @return L'objet HttpSender
      */
@@ -121,6 +123,7 @@ public class HttpSender {
 
     /**
      * Fixe la méthode de la requête : GET | POST
+     *
      * @param method la méthode
      * @return L'objet HttpSender
      */
@@ -131,6 +134,7 @@ public class HttpSender {
 
     /**
      * Fixe le callback pour la requête
+     *
      * @param callback le callback
      * @return L'objet HttpSender
      */
@@ -178,7 +182,7 @@ public class HttpSender {
     public static String parseDataInBulk(List<BulkObject> bulkObjects) {
         StringBuilder result = new StringBuilder();
         String index = "{\"index\":{}}\n";
-        for(BulkObject bulk : bulkObjects) {
+        for (BulkObject bulk : bulkObjects) {
             if (bulk.hasMultipleObject()) {
                 List<String> parsed_data = bulk.jsonFormatObject();
                 for (String data : parsed_data) {
@@ -187,33 +191,12 @@ public class HttpSender {
                     result.append("\n");
                 }
             } else {
-              result.append(index);
-              result.append(bulk.jsonFormat());
-              result.append("\n");
+                result.append(index);
+                result.append(bulk.jsonFormat());
+                result.append("\n");
             }
         }
-
         return result.toString();
     }
 
-    public static void test(Context context) {
-        //String url = "http://86.233.189.163:9200/geolucioles/data/_bulk";
-        String url = "http://datamuseum.univ-lr.fr/geolucioles/data/_bulk";
-        // String content = "{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\r\n{\"index\": {}}\t\r\n{\"x\": 100,\"y\": 300}\r\n{\"index\": {}}\r\n{\"x\": 300,\"y\": 100}\n";
-        String content = HttpSender.parseDataInBulk(new LocationTable(context).getAll());
-        new HttpSender()
-                .setUrl(url)
-                .setData(content)
-                .send();
-    }
-
-    public static void testForm(FormModel form) {
-        //String url = "http://86.233.189.163:9200/geolucioles/data/_bulk";
-        String url = "http://datamuseum.univ-lr.fr:80/da3t_formulaire/_doc/_bulk";
-        String content = HttpSender.parseDataInBulk(form);
-        new HttpSender()
-                .setUrl(url)
-                .setData(content)
-                .send();
-    }
 }

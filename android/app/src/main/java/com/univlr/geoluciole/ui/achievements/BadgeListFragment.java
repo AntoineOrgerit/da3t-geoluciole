@@ -52,7 +52,6 @@ import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.model.badge.BadgeManager;
 
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,7 +128,7 @@ public class BadgeListFragment extends Fragment {
         ImageView iv = new ImageView(root.getContext());
         // compute width - height
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = Objects.requireNonNull(wm).getDefaultDisplay();
+        Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int paddingSpace = PADDING * (NB_BADGE_PER_ROW + 1);
@@ -154,8 +153,8 @@ public class BadgeListFragment extends Fragment {
             public void onClick(View view) {
                 BadgeManager badgeManager = BadgeManager.getInstance(context);
                 if (badgeManager.getArrayBadges().containsKey(idBadge)) {
-                    String name = Objects.requireNonNull(badgeManager.getArrayBadges().get(idBadge)).getName();
-                    String desc = Objects.requireNonNull(badgeManager.getArrayBadges().get(idBadge)).getDescription();
+                    String name = badgeManager.getArrayBadges().get(idBadge).getName();
+                    String desc = badgeManager.getArrayBadges().get(idBadge).getDescription();
                     Toast.makeText(view.getContext(),
                             "Badge " + name + " \n" + desc
                             , Toast.LENGTH_LONG).show();
