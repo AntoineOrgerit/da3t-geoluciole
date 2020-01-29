@@ -71,7 +71,7 @@ public class LocationTable extends Table {
     /**
      * Constructeur recuperant l instance de la base
      *
-     * @param context
+     * @param context Context
      */
     public LocationTable(Context context) {
         super(context);

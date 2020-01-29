@@ -249,7 +249,7 @@ public class BadgeManager {
     /**
      * Méthode pour débloquer les badges en fonction de la distance parcourue par l'utilisateur
      *
-     * @param context
+     * @param context Context
      */
     public void unlockBadgesDistance(Context context) {
         UserPreferences userPref = UserPreferences.getInstance(context);

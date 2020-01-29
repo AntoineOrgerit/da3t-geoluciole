@@ -41,7 +41,7 @@ import android.preference.PreferenceManager;
 
 class Utils {
 
-    static final String KEY_REQUESTING_LOCATION_UPDATES = "requesting_locaction_updates";
+    private static final String KEY_REQUESTING_LOCATION_UPDATES = "requesting_locaction_updates";
 
     private Utils() {
     }

@@ -34,7 +34,7 @@ import com.mobsandgeeks.saripaar.Validator;
 
 
 class TextWatcherListener implements TextWatcher {
-    final Validator validator;
+    private final Validator validator;
 
     public TextWatcherListener(Validator validator) {
         this.validator = validator;

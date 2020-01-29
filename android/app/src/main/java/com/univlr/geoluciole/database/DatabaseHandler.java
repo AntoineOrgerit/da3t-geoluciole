@@ -53,7 +53,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * Singleton DatabaseManager
      *
-     * @param context
+     * @param context Context
      * @return DatabaseManager
      */
     public static synchronized DatabaseHandler getInstance(Context context) {
@@ -67,7 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Constructeur prive de la classe, utilise le contexte passe en parametre,
      * le nom de la base, null pour la factory, et la version de la base de donnees
      *
-     * @param context
+     * @param context Context
      */
     private DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

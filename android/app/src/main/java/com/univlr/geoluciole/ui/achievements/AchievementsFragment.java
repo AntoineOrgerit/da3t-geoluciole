@@ -55,16 +55,15 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     private Fragment childFragment;
     private BadgeListFragment badgeListFragment;
     private OnFragmentInteractionListener mListener;
-    
-    
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_achievements, container, false);
         MainActivity context = (MainActivity) root.getContext();
         updateDistance();
         return root;
     }
-    
-    
+
+
         @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         updateView();
@@ -104,7 +103,7 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     public interface OnFragmentInteractionListener {
         void messageFromParentFragment(Uri uri);
     }
- 
+
     public void updateDistance(){
         UserPreferences userPref = UserPreferences.getInstance(this.root.getContext());
         TextView textView = this.root.findViewById(R.id.distance_value);
@@ -120,6 +119,6 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
             unit = " Km";
         }
         String dis = df.format(distance) + unit;
-        textView.setText(dis);   
+        textView.setText(dis);
     }
 }

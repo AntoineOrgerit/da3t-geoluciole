@@ -341,7 +341,7 @@ public class FormModel implements Serializable, BulkObject {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",");
         stringBuilder.append("\"date_gps\":").append(userPreferences.getDateConsentementGPS()).append(",");
-        stringBuilder.append("\"date_gps_str\":").append("\""+FormModel.dateFormatStr(userPreferences.getDateConsentementGPS())+"\"").append(",");
+        stringBuilder.append("\"date_gps_str\":").append("\"" + FormModel.dateFormatStr(userPreferences.getDateConsentementGPS()) + "\"").append(",");
         stringBuilder.append("\"type\":").append("\"android\"").append(",");
         stringBuilder.append("\"model\":").append("\"" + this.device + "\"").append(",");
         stringBuilder.append("\"version\":").append("\"" + this.version + "\"").append(",");

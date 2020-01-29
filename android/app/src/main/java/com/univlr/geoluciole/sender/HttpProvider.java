@@ -151,8 +151,8 @@ public class HttpProvider {
     /**
      * Function appeler par la tâche périodique pour envoyer les données gps
      *
-     * @param context
-     * @param completer
+     * @param context Context
+     * @param completer CallbackToFutureAdapter
      */
     public static Callback sendGPsPeriodically(Context context, final CallbackToFutureAdapter.Completer<ListenableWorker.Result> completer) {
         final LocationTable locationTable = new LocationTable(context);

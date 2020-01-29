@@ -53,7 +53,6 @@ import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
-import com.univlr.geoluciole.sender.HttpProvider;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.achievements.BadgeListFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
@@ -84,6 +83,9 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             new Intent().setComponent(new ComponentName("com.htc.pitroad", "com.htc.pitroad.landingpage.activity.LandingPageActivity")),
             new Intent().setComponent(new ComponentName("com.asus.mobilemanager", "com.asus.mobilemanager.MainActivity"))
     };
+
+    // position page parametres
+    private static final int ITEM_PARAM_PAGE = 2;
 
     // service permettant la récupération des données GPS
     private LocationUpdatesService mService = null;
@@ -196,7 +198,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
         // si on refuse le consentement, on est redirigé vers la vue params
         if (refused_consent) {
-            changePage(2);
+            changePage(ITEM_PARAM_PAGE);
         }
     }
 
