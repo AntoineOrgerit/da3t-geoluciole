@@ -139,11 +139,6 @@ public class LocationUpdatesService extends Service {
 
     private NotificationManager mNotificationManager;
 
-    /**
-     * Contains parameters used by {@link com.google.android.gms.location.FusedLocationProviderApi}.
-     */
-    private LocationRequest mLocationRequest;
-
     private Handler mServiceHandler;
 
     private String filename;
