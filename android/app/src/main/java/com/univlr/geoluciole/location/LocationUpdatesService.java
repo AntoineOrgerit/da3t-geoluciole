@@ -1,51 +1,28 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - delete of Android 0 Notification Channel;
- * - remove stopping activity from notifications;
- * - changing accuracy to be balanced with the battery.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - update notification channel name;
- * - remove stopping activity from notifications;
- * - adapting to Android 8 and 9 versions;
- * - update of Location retrieve system.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - update notification channel name;
- * - remove stopping activity from notifications;
- * - adapting to Android 8 and 9 versions;
- * - update of Location retrieve system.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - update notification channel name;
- * - remove stopping activity from notifications;
- * - adapting to Android 8 and 9 versions;
- * - update of Location retrieve system.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - update notification channel name;
- * - remove stopping activity from notifications;
- * - adapting to Android 8 and 9 versions;
- * - update of Location retrieve system.
+/*
+ * Copyright (c) 2020, La Rochelle Université
+ * All rights reserved.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *  Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ *  Neither the name of the University of California, Berkeley nor the
+ *   names of its contributors may be used to endorse or promote products
+ *   derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 /**
@@ -190,26 +167,34 @@ public class LocationUpdatesService extends Service {
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
+
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
-                UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
-                float distance = last.distanceTo(location);
-                long deltaT = Math.abs(location.getTime() - last.getTime()) / 1000;
-                // définition de l'arrondi
-                BigDecimal speed = new BigDecimal(location.getSpeed()).round(new MathContext(1));
-                if (speed != null && speed.compareTo(BigDecimal.ZERO) > 0) {
-                    if (location.distanceTo(last) <= (speed.longValue() * deltaT) + 10) {
-                        userPreferences.setDistance(userPreferences.getDistance() + distance);
+                if(last.getTime() != 0) {
+                    float distance = last.distanceTo(location);
+                    long deltaT = Math.abs(location.getTime() - last.getTime()) / 1000;
+                    // définition de l'arrondi
+                    BigDecimal speed = new BigDecimal(location.getSpeed()).round(new MathContext(1));
+                    if (speed != null && speed.compareTo(BigDecimal.ZERO) > 0) {
+
+                        // on recupère pas l'instance si pas nécessaire
+                        UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
+                        BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
+
+                        // si la distance mesurée et calculée sont cohérentes on ajoute la distance sinon on prend la valeur estimée par rapport a la vitesse
+                        if (distance <= (speed.doubleValue() * deltaT) + 10) {
+                            userPreferences.setDistance(userPreferences.getDistance() + distance);
+                        } else {
+                            userPreferences.setDistance(userPreferences.getDistance() + (speed.floatValue() * deltaT) + 10);
+                        }
+                        //update userPref
                         userPreferences.store(LocationUpdatesService.this);
+
                         // verification si badge distance debloqué
                         badgeManager.unlockBadgesDistance(LocationUpdatesService.this);
-                    } else {
-                        Log.e(TAG, "Point GPS bizarre point : speed " + location.getSpeed() + ", lat : " + location.getLatitude() + ", long : " + location.getLongitude());
                     }
                 }
-
                 // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);
                 onNewLocation(location);
