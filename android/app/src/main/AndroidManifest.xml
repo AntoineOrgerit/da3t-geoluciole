@@ -67,9 +67,6 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FormActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".form.FormActivityStepOne"
             android:screenOrientation="portrait" />
         <activity

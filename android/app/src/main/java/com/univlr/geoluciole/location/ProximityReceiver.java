@@ -32,7 +32,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.model.badge.Badge;
@@ -61,7 +60,6 @@ public class ProximityReceiver extends BroadcastReceiver {
                     BadgeManager badgeManager = BadgeManager.getInstance(context);
                     badgeManager.unlockBadgesPlace(idBadgeUnlocked, context);
                     Badge badge = badgeManager.getArrayBadges().get(idBadgeUnlocked);
-                    Toast.makeText(context, "Welcome to my Area, unlock badge id : " + idBadgeUnlocked, Toast.LENGTH_LONG).show();
                     // creation de la notification
                     notificationBadge.showNotification(context, badge);
                 }

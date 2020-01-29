@@ -37,7 +37,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -263,17 +262,8 @@ public class FormActivityStepThree extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 saveToForm();
-
-                Toast.makeText(FormActivityStepThree.this,
-                        "OnClickListener : " +
-                                "\nVoyage avec : " + spinnerWhomList.getSelectedItem() +
-                                "\nTransport : " + spinnerTransportList.getSelectedItem() +
-                                "\nAutre : " + otherWithWhom.getText(),
-
-                        Toast.LENGTH_SHORT).show();
-
+                // validation
                 validatorListener.setRedirect(true);
                 validator.validate();
                 validatorListener.setRedirect(false);
@@ -291,10 +281,6 @@ public class FormActivityStepThree extends AppCompatActivity {
     public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener(final TextInputLayout inputLayout) {
         return new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-               /* Toast.makeText(FormActivityStepThree.this,
-                        "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
-                        Toast.LENGTH_SHORT).show();*/
-
                 if (parent.getItemAtPosition(pos).toString().equalsIgnoreCase(getString(R.string.field_other_title))) {
                     inputLayout.setVisibility(View.VISIBLE);
                 } else {

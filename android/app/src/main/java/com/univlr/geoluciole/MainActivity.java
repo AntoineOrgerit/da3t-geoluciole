@@ -27,15 +27,12 @@
 
 package com.univlr.geoluciole;
 
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,18 +43,15 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hypertrack.hyperlog.HyperLog;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
-import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
 import com.univlr.geoluciole.sender.HttpProvider;
@@ -100,9 +94,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
 
-    // The BroadcastReceiver used to listen from broadcasts from the service.
-    private MyReceiver myReceiver;
-
     // Monitors the state of the connection to the service.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -139,8 +130,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         UserPreferences userPreferences = UserPreferences.getInstance(this);
         Intent intent = getIntent();
         boolean refused_consent = intent.getBooleanExtra("refused_consent", false);
-        // temporary receiver
-        myReceiver = new MyReceiver();
 
         // UI
         setContentView(R.layout.activity_main);
@@ -217,15 +206,15 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             HttpProvider.activePeriodicSend(this);
             //todo ligne suivante de test
             File folder = new File(this.getFilesDir() + "/Log");
-            if(!folder.exists()) {
+            if (!folder.exists()) {
                 folder.mkdir();
             }
-            String filename = this.getFilesDir() + "/Log/" +"gps_log.log";
+            String filename = this.getFilesDir() + "/Log/" + "gps_log.log";
             try {
                 FileWriter fw = new FileWriter(filename);
                 fw.append("Creation file \n");
                 fw.close();
-            }catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             File filelog = HyperLog.getDeviceLogsInFile(this, true);
@@ -269,7 +258,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         navView.getMenu().getItem(item).setChecked(true);
     }
 
-        //todo fonction de test
+    //todo fonction de test
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
@@ -283,9 +272,9 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
     private void checkPermission() {
         ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
-        if(!unauthorizedPermissions.isEmpty()) {
+        if (!unauthorizedPermissions.isEmpty()) {
             requestPermissions(unauthorizedPermissions);
-            if(!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)){
+            if (!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)) {
                 enableGPSIfNeeded();
             }
         } else {
@@ -321,13 +310,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     @Override
     protected void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
-                new IntentFilter(LocationUpdatesService.ACTION_BROADCAST));
     }
 
     @Override
     protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(myReceiver);
         super.onPause();
     }
 
@@ -440,20 +426,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             }
         });
         dialog.show();
-    }
-
-    /**
-     * Receiver for broadcasts sent by {@link LocationUpdatesService}.
-     */
-    private class MyReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Location location = intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
-            if (location != null) {
-                Toast.makeText(MainActivity.this, Utils.getLocationText(location),
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     @Override

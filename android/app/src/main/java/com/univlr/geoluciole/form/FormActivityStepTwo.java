@@ -40,7 +40,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -247,14 +246,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 saveToForm();
-
-                Toast.makeText(FormActivityStepTwo.this,
-                        "OnClickListener : " +
-                                "\nDate arrivée : " + txtDateArrivee.getText() +
-                                "\nDate départ : " + txtDateDepart.getText(),
-                        Toast.LENGTH_SHORT).show();
+                // validation
                 validatorListener.setRedirect(true);
                 validator.validate();
                 validatorListener.setRedirect(false);

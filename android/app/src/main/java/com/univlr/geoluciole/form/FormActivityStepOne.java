@@ -32,7 +32,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -131,15 +130,7 @@ public class FormActivityStepOne extends AppCompatActivity {
                 formWithConsent.setFirstname(String.valueOf(firstname.getText()));
                 formWithConsent.setEmail(String.valueOf(email.getText()));
                 formWithConsent.setPhone(String.valueOf(phone.getText()));
-
-                Toast.makeText(FormActivityStepOne.this,
-                        "OnClickListener : " +
-                                "\nNom : " + lastname.getText() +
-                                "\nPrénom : " + firstname.getText() +
-                                "\nEmail : " + email.getText() +
-                                "\nPhone : " + phone.getText()
-                        ,
-                        Toast.LENGTH_SHORT).show();
+                // validation
                 validatorListener.setRedirect(true);
                 validator.validate();
                 validatorListener.setRedirect(false);

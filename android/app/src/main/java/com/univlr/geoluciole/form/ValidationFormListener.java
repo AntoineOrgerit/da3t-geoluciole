@@ -58,7 +58,6 @@ public class ValidationFormListener implements Validator.ValidationListener {
 
     @Override
     public void onValidationSucceeded() {
-        Toast.makeText(this.activity, "Formulaire valide", Toast.LENGTH_SHORT).show();
         if (this.redirect) {
             Intent intent = new Intent(this.activity, dest);
 
@@ -87,7 +86,7 @@ public class ValidationFormListener implements Validator.ValidationListener {
             } else if (view instanceof Spinner) {
                 ((TextView) ((Spinner) view).getSelectedView()).setError(message);
             } else {
-                Toast.makeText(this.activity, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(this.activity, message, Toast.LENGTH_LONG).show(); // message validation
             }
         }
     }
