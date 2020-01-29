@@ -53,14 +53,13 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     private static final String TAG = AchievementsFragment.class.getSimpleName();
     private View root;
     private Fragment childFragment;
-    private MainActivity context;
     private BadgeListFragment badgeListFragment;
     private OnFragmentInteractionListener mListener;
     
     
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_achievements, container, false);
-        this.context = (MainActivity) root.getContext();
+        MainActivity context = (MainActivity) root.getContext();
         updateDistance();
         return root;
     }

@@ -55,7 +55,6 @@ import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
 
-    private ImageView iv;
     private View root;
     private ProgressBar progressBar;
 
@@ -92,8 +91,8 @@ public class HomeFragment extends Fragment {
         if (userPref.getListUnlockedBadges() != null && !userPref.getListUnlockedBadges().isEmpty()) {
             int index = userPref.getListUnlockedBadges().size() - 1;
             String idBadge = userPref.getListUnlockedBadges().get(index);
-            this.iv = root.findViewById(R.id.last_achievement_image);
-            this.iv.setImageResource(BadgeListFragment.getRessourceImageBadge(idBadge));
+            ImageView iv = root.findViewById(R.id.last_achievement_image);
+            iv.setImageResource(BadgeListFragment.getRessourceImageBadge(idBadge));
         }
     }
 

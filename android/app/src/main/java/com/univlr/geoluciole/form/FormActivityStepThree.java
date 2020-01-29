@@ -55,10 +55,6 @@ public class FormActivityStepThree extends AppCompatActivity {
 
     private static final String FORM = "Form";
     private static final String STEP_ANONYMOUS = "2/3";
-    // variable title
-    private TextView title;
-    // variable step
-    private TextView step;
 
     // variables listes déroulantes
     @Select(messageResId = R.string.form_err_required)
@@ -117,12 +113,14 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void initUI() {
         // title
-        this.title = findViewById(R.id.form_title);
+        // variable title
+        TextView title = findViewById(R.id.form_title);
         // step
-        this.step = findViewById(R.id.form_step);
+        // variable step
+        TextView step = findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(this).isAccountConsent()) {
-            this.title.setText(R.string.form_title_anonym);
-            this.step.setText(STEP_ANONYMOUS);
+            title.setText(R.string.form_title_anonym);
+            step.setText(STEP_ANONYMOUS);
         }
         // liste déroulante
         this.spinnerWhomList = findViewById(R.id.spinner_list_whom);

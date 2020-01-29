@@ -157,7 +157,7 @@ public abstract class LocationActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull
-                                           String[] permissions, @NonNull int[] grantResults) {
+            String[] permissions, @NonNull int[] grantResults) {
         for (Permission permission : Permission.values()) {
             if (permission.getUniqueID() == requestCode) {
                 if (grantResults.length <= 0) {
@@ -171,7 +171,8 @@ public abstract class LocationActivity extends AppCompatActivity {
                         enableGPSIfNeeded();
                     }
                 } else {
-                    // Permission denied.
+                    Log.i(TAG, "Permission denied for " + permission.getManifestValue());
+
                 }
             }
         }

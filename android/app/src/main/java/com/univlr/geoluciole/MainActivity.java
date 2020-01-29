@@ -49,7 +49,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.hypertrack.hyperlog.HyperLog;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.model.UserPreferences;
@@ -61,11 +60,6 @@ import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -119,11 +113,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     private BottomNavigationView navView;
     private MenuItem prevMenuItem;
     private ViewPager viewPager;
-
-    // liste fragments utilisés par le viewPager
-    private HomeFragment homeFragment;
-    private AchievementsFragment dashboardFragment;
-    private PreferencesFragment notificationsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,7 +220,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line;
         while ((line = reader.readLine()) != null) {
             sb.append(line).append("\n");
         }
@@ -253,9 +242,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        homeFragment = new HomeFragment();
-        dashboardFragment = new AchievementsFragment();
-        notificationsFragment = new PreferencesFragment();
+        // liste fragments utilisés par le viewPager
+        HomeFragment homeFragment = new HomeFragment();
+        AchievementsFragment dashboardFragment = new AchievementsFragment();
+        PreferencesFragment notificationsFragment = new PreferencesFragment();
         adapter.addFragment(homeFragment);
         adapter.addFragment(dashboardFragment);
         adapter.addFragment(notificationsFragment);
@@ -275,17 +265,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                     Context.BIND_AUTO_CREATE);
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
 
     @Override
     protected void onStop() {

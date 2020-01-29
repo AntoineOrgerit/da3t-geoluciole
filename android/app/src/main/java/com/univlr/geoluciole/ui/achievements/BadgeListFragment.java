@@ -198,7 +198,7 @@ public class BadgeListFragment extends Fragment {
             case "11":
                 return R.mipmap.badge_aquarium;
             case "12":
-                return R.mipmap.no_image;
+               // return R.mipmap.no_image;
             default:
                 return R.mipmap.no_image;
         }

@@ -146,11 +146,6 @@ public class LocationUpdatesService extends Service {
 
     private Handler mServiceHandler;
 
-    /**
-     * The current location.
-     */
-    private Location mLocation;
-
     private String filename;
 
     private LocationManager mLocationManager;
@@ -366,7 +361,9 @@ public class LocationUpdatesService extends Service {
     private void onNewLocation(Location location) {
         Log.i(TAG, "New location: " + location);
 
-        mLocation = location;
+        /**
+         * The current location.
+         */
 
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);

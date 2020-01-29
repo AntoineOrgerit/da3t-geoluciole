@@ -60,10 +60,6 @@ public class FormActivityStepTwo extends AppCompatActivity {
 
     private static final String STEP_ANONYMOUS = "1/3";
     private static final String FORM = "Form";
-    // variable title
-    private TextView title;
-    // variable step
-    private TextView step;
 
     // variables dates et heures
     @Order(1)
@@ -121,12 +117,14 @@ public class FormActivityStepTwo extends AppCompatActivity {
      */
     private void initUI() {
         // title
-        this.title = findViewById(R.id.form_title);
+        // variable title
+        TextView title = findViewById(R.id.form_title);
         // step
-        this.step = findViewById(R.id.form_step);
+        // variable step
+        TextView step = findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
-            this.title.setText(R.string.form_title_anonym);
-            this.step.setText(STEP_ANONYMOUS);
+            title.setText(R.string.form_title_anonym);
+            step.setText(STEP_ANONYMOUS);
         }
         // date et heure arrivée boutons
         this.btnDatePickerArrivee = findViewById(R.id.btn_in_date);
