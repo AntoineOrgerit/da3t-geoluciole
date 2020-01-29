@@ -13,7 +13,7 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     fileprivate var titre: CustomUILabel!
     fileprivate var container: UIView!
-    fileprivate var dateTxtFld: FormTextField!
+    var dateTxtFld: FormTextField!
     fileprivate var dateButton: CustomUIButton!
     fileprivate var datePicker: UIDatePicker!
     

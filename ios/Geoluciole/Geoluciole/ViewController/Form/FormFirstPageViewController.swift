@@ -10,24 +10,30 @@ import Foundation
 import UIKit
 
 class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDelegate {
-
-    var onNextButton: (() -> Void)?
+    
+    //cette fonction est nécessaire pour récupérer les éléments de la classe qui appelle celle-ci. Cette fonction sera définie dans la classe d'instanciation de celle-ci
+    var onNextButton: (() -> Void)? //? => potentiellement nil => ne sera pas déclenchée si nul nécessite une vérification de type if
     fileprivate var titre: FormTitlePage!
     fileprivate var lblNom: FormTextField!
     fileprivate var lblPrenom: FormTextField!
     fileprivate var lblAddMail: FormTextField!
     fileprivate var lblTelephone: FormTextField!
+    //Dictionnaire de récupération des données pour les transmettre au FormPageViewController ; initialisé à vide
+    fileprivate var data = [String: Any]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //titre de la page
         self.titre = FormTitlePage(title: Tools.getTranslate(key: "form_title"), pageIndex: "1/4")
         self.titre.translatesAutoresizingMaskIntoConstraints = false
 
         self.rootView.addSubview(self.titre)
-
+        
+        //champ d'inscription du prénom
         self.lblNom = FormTextField(placeholder: Tools.getTranslate(key: "form_lastname"), keyboardType: .default)
         self.lblNom.translatesAutoresizingMaskIntoConstraints = false
+
+        // Définition de la fonction de validation. La fonction est appelée dans la calsse FormTextField. La vérification porte sur la présence de texte dans le champs
         self.lblNom.validationData = { txtfield in
 
             if let text = txtfield.text {
@@ -37,7 +43,8 @@ class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDel
             }
         }
         self.rootView.addSubview(self.lblNom)
-
+        
+        //idem que lblNom
         self.lblPrenom = FormTextField(placeholder: Tools.getTranslate(key: "form_firstname"), keyboardType: .default)
         self.lblPrenom.translatesAutoresizingMaskIntoConstraints = false
         self.lblPrenom.validationData = { txtfield in
@@ -53,6 +60,8 @@ class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDel
 
         self.lblAddMail = FormTextField(placeholder: Tools.getTranslate(key: "form_mail"), keyboardType: .emailAddress)
         self.lblAddMail.translatesAutoresizingMaskIntoConstraints = false
+
+        // La vérification porte sur la syntaxe d'une adresse mail
         self.lblAddMail.validationData = { txtfield in
 
             func isValid(_ email: String) -> Bool {
@@ -87,9 +96,11 @@ class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDel
             }
         }
         self.rootView.addSubview(self.lblTelephone)
-
+        //utilisation d'une fabrique pour récupérer le type de bouton nécessaire. Le type est une énumération déclarée
+        //dans la classe FabricCustomButton
         let btonZone = FabricCustomButton.createButton(type: .next)
         btonZone.translatesAutoresizingMaskIntoConstraints = false
+        //les delegates sont gérées en bas de ce fichier
         btonZone.delegate = self
         self.rootView.addSubview(btonZone)
 
@@ -119,7 +130,14 @@ class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDel
             btonZone.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING)
         ])
     }
-
+    //fonction duppliquée, voir pour factoriser dans une classe parente uniquement pour les formulaires
+    func getFormDataInfoGen() -> [String: Any]{
+        data["nom"] = self.lblNom.textfield.text
+        data["prenom"] = self.lblPrenom.textfield.text
+        data["mail"] = self.lblAddMail.textfield.text
+        data["phone"] = self.lblTelephone.textfield.text
+        return data
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -127,11 +145,11 @@ class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
+
     func validationPage() -> Bool {
         return self.lblAddMail.isValid && self.lblNom.isValid && self.lblPrenom.isValid && self.lblTelephone.isValid
     }
-    
+
     func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onNext: Bool) {
         self.onNextButton?()
     }

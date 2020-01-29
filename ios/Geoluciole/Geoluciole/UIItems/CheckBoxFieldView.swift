@@ -12,7 +12,7 @@ import UIKit
 class CheckBoxFieldView: UIView, UIGestureRecognizerDelegate {
 
     fileprivate var checkbox: CheckBoxView!
-    fileprivate var optionLabel: CustomUILabel!
+    var optionLabel: CustomUILabel!
     var onCheckChange: ((CheckBoxFieldView) -> Void)?
 
     override init(frame: CGRect) {

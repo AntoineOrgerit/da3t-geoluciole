@@ -18,7 +18,15 @@ class FormYesNoQuestion: UIView {
     var isValid: Bool {
         return self.noAnswer.isChecked() || self.yesAnswer.isChecked()
     }
-
+    var selectedValue: String {
+        var r: String!
+        if self.noAnswer.isChecked() {
+            r = self.noAnswer.optionLabel.text ?? ""
+        } else if self.yesAnswer.isChecked() {
+            r = self.yesAnswer.optionLabel.text ?? ""
+        }
+        return r
+    }
     init(question: String) {
         super.init(frame: .zero)
         

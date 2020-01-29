@@ -16,7 +16,7 @@ class ParentModalViewController: UIViewController {
     var titleBar: TitleBarView!
     var rootView: UIView!
     var userPrefs = UserPrefs.getInstance()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

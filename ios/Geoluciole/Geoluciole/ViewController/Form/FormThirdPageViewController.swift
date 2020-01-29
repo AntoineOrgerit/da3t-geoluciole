@@ -16,6 +16,16 @@ class FormThirdPageViewController: ParentModalViewController, ButtonsPrevNextDel
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
     fileprivate var allFields = [Any]()
+    var formData = [String: Any]()
+    var formulaire: UIView!
+    fileprivate var dropDown0: FormDropDownList!
+    fileprivate var dropDown1: FormDropDownList!
+    fileprivate var question1: FormYesNoQuestion!
+    fileprivate var question2: FormYesNoQuestion!
+    fileprivate var question3: FormYesNoQuestion!
+    fileprivate var question4: FormYesNoQuestion!
+    fileprivate var question5: FormYesNoQuestion!
+    fileprivate var question6: FormYesNoQuestion!
 
     fileprivate var firstDropdownData = [
         Tools.getTranslate(key: "form_responses_whom_alone"),
@@ -59,10 +69,10 @@ class FormThirdPageViewController: ParentModalViewController, ButtonsPrevNextDel
 
         self.scrollView.addSubview(self.contentView)
 
-        let formulaire = self.createForm()
-        formulaire.translatesAutoresizingMaskIntoConstraints = false
+        self.formulaire = self.createForm()
+        self.formulaire.translatesAutoresizingMaskIntoConstraints = false
 
-        self.contentView.addSubview(formulaire)
+        self.contentView.addSubview(self.formulaire)
 
         let zoneButton = FabricCustomButton.createButton(type: .nextPrev)
         zoneButton.delegate = self
@@ -100,6 +110,20 @@ class FormThirdPageViewController: ParentModalViewController, ButtonsPrevNextDel
             formulaire.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
     }
+    func getFormDat() -> [String: Any] {
+        self.formData["3"] = self.dropDown0.selectedValue
+
+        self.formData["4"] = self.question1.selectedValue
+        self.formData["5"] = self.question2.selectedValue
+        self.formData["6"] = self.question3.selectedValue
+        self.formData["7"] = self.question4.selectedValue
+        self.formData["8"] = self.question5.selectedValue
+        self.formData["9"] = self.question6.selectedValue
+
+        self.formData["10"] = self.dropDown1.selectedValue
+        return formData
+
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -126,86 +150,86 @@ class FormThirdPageViewController: ParentModalViewController, ButtonsPrevNextDel
         v.distribution = .equalSpacing
         v.translatesAutoresizingMaskIntoConstraints = false
 
-        let dropDown0 = FormDropDownList(title: Tools.getTranslate(key: "form_with_whom_title"), data: self.firstDropdownData)
-        dropDown0.axis = .vertical
-        dropDown0.translatesAutoresizingMaskIntoConstraints = false
-        dropDown0.onResize = {
+        self.dropDown0 = FormDropDownList(title: Tools.getTranslate(key: "form_with_whom_title"), data: self.firstDropdownData)
+        self.dropDown0.axis = .vertical
+        self.dropDown0.translatesAutoresizingMaskIntoConstraints = false
+        self.dropDown0.onResize = {
             self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width, height: self.contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
         }
-        self.allFields.append(dropDown0)
-        v.addArrangedSubview(dropDown0)
+        self.allFields.append(self.dropDown0!)
+        v.addArrangedSubview(self.dropDown0)
 
-        let question1 = FormYesNoQuestion(question: Tools.getTranslate(key: "presence_children"))
-        question1.translatesAutoresizingMaskIntoConstraints = false
-        self.allFields.append(question1)
-        v.addArrangedSubview(question1)
+        self.question1 = FormYesNoQuestion(question: Tools.getTranslate(key: "presence_children"))
+        self.question1.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(self.question1!)
+        v.addArrangedSubview(self.question1)
 
-        let question2 = FormYesNoQuestion(question: Tools.getTranslate(key: "presence_teens"))
-        question2.translatesAutoresizingMaskIntoConstraints = false
-        self.allFields.append(question2)
-        v.addArrangedSubview(question2)
+        self.question2 = FormYesNoQuestion(question: Tools.getTranslate(key: "presence_teens"))
+        self.question2.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(self.question2!)
+        v.addArrangedSubview(self.question2)
 
-        let question3 = FormYesNoQuestion(question: Tools.getTranslate(key: "form_first_visit_title"))
-        question3.translatesAutoresizingMaskIntoConstraints = false
-        self.allFields.append(question3)
-        v.addArrangedSubview(question3)
+        self.question3 = FormYesNoQuestion(question: Tools.getTranslate(key: "form_first_visit_title"))
+        self.question3.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(self.question3!)
+        v.addArrangedSubview(self.question3)
 
-        let question4 = FormYesNoQuestion(question: Tools.getTranslate(key: "form_know_city_title"))
-        question4.translatesAutoresizingMaskIntoConstraints = false
-        self.allFields.append(question4)
-        v.addArrangedSubview(question4)
+        self.question4 = FormYesNoQuestion(question: Tools.getTranslate(key: "form_know_city_title"))
+        self.question4.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(self.question4!)
+        v.addArrangedSubview(self.question4)
 
-        let question5 = FormYesNoQuestion(question: Tools.getTranslate(key: "form_more_five_times_title"))
-        question5.translatesAutoresizingMaskIntoConstraints = false
-        self.allFields.append(question5)
-        v.addArrangedSubview(question5)
+        self.question5 = FormYesNoQuestion(question: Tools.getTranslate(key: "form_more_five_times_title"))
+        self.question5.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(self.question5!)
+        v.addArrangedSubview(self.question5)
 
-        let question6 = FormYesNoQuestion(question: Tools.getTranslate(key: "form_more_two_months_title"))
-        question6.translatesAutoresizingMaskIntoConstraints = false
-        self.allFields.append(question6)
-        v.addArrangedSubview(question6)
+        self.question6 = FormYesNoQuestion(question: Tools.getTranslate(key: "form_more_two_months_title"))
+        self.question6.translatesAutoresizingMaskIntoConstraints = false
+        self.allFields.append(self.question6!)
+        v.addArrangedSubview(self.question6)
 
-        let dropDown1 = FormDropDownList(title: Tools.getTranslate(key: "form_transport_title"), data: self.secondDropdownData)
-        dropDown1.axis = .vertical
-        dropDown1.translatesAutoresizingMaskIntoConstraints = false
-        dropDown1.onResize = {
+        self.dropDown1 = FormDropDownList(title: Tools.getTranslate(key: "form_transport_title"), data: self.secondDropdownData)
+        self.dropDown1.axis = .vertical
+        self.dropDown1.translatesAutoresizingMaskIntoConstraints = false
+        self.dropDown1.onResize = {
             self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width, height: self.contentView.bounds.height + Constantes.FIELD_SPACING_VERTICAL)
         }
-        self.allFields.append(dropDown1)
-        v.addArrangedSubview(dropDown1)
+        self.allFields.append(self.dropDown1!)
+        v.addArrangedSubview(self.dropDown1)
 
         NSLayoutConstraint.activate([
-            dropDown0.topAnchor.constraint(equalTo: v.topAnchor),
-            dropDown0.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
-            dropDown0.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.dropDown0.topAnchor.constraint(equalTo: v.topAnchor),
+            self.dropDown0.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.dropDown0.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
-            question1.topAnchor.constraint(equalTo: dropDown0.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            question1.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
-            question1.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.question1.topAnchor.constraint(equalTo: dropDown0.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.question1.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.question1.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
-            question2.topAnchor.constraint(equalTo: question1.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            question2.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
-            question2.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.question2.topAnchor.constraint(equalTo: self.question1.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.question2.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.question2.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
-            question3.topAnchor.constraint(equalTo: question2.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            question3.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
-            question3.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.question3.topAnchor.constraint(equalTo: self.question2.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.question3.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.question3.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
-            question4.topAnchor.constraint(equalTo: question3.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            question4.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
-            question4.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.question4.topAnchor.constraint(equalTo: self.question3.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.question4.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.question4.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
-            question5.topAnchor.constraint(equalTo: question4.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            question5.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
-            question5.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.question5.topAnchor.constraint(equalTo: self.question4.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.question5.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.question5.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
-            question6.topAnchor.constraint(equalTo: question5.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            question6.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
-            question6.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.question6.topAnchor.constraint(equalTo: self.question5.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.question6.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.question6.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
-            dropDown1.topAnchor.constraint(equalTo: question6.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            dropDown1.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
-            dropDown1.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING)
+            self.dropDown1.topAnchor.constraint(equalTo: self.question6.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.dropDown1.leftAnchor.constraint(equalTo: v.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.dropDown1.rightAnchor.constraint(equalTo: v.rightAnchor, constant: -Constantes.PAGE_PADDING)
         ])
 
         return v

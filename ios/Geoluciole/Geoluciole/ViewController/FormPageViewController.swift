@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 
+
 /// Classe permettant de gérer les pages de formulaire
 class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
 
-    static var formAnswers = [String: Any]()
+    fileprivate var formAnswers = [[String: Any]]()
+    fileprivate var formInfoGen = [String: Any]()
     fileprivate var firstPage: FormFirstPageViewController!
     fileprivate var secondPage: FormSecondPageViewController!
     fileprivate var thirdPage: FormThirdPageViewController!
@@ -36,6 +38,7 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
             guard let strongSelf = self else { return }
 
             if strongSelf.firstPage.validationPage() {
+                strongSelf.formInfoGen = strongSelf.firstPage.getFormDataInfoGen()
                 strongSelf.displayablePages.append(strongSelf.secondPage)
                 strongSelf.setViewControllers([strongSelf.secondPage], direction: .forward, animated: true, completion: nil)
             } else {
@@ -56,6 +59,7 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
             [weak self] in
             guard let strongSelf = self else { return }
             if strongSelf.secondPage.validationPage() {
+                strongSelf.formAnswers.append(strongSelf.secondPage.getFormDat())
                 strongSelf.displayablePages.append(strongSelf.thirdPage)
                 strongSelf.setViewControllers([strongSelf.thirdPage], direction: .forward, animated: true, completion: nil)
             } else {
@@ -78,6 +82,7 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
             guard let strongSelf = self else { return }
 
             if strongSelf.thirdPage.validationPage() {
+                strongSelf.formAnswers.append(strongSelf.thirdPage.getFormDat())
                 strongSelf.displayablePages.append(strongSelf.fourthPage)
                 strongSelf.setViewControllers([strongSelf.fourthPage], direction: .forward, animated: true, completion: nil)
             } else {
@@ -99,6 +104,10 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
             guard let strongSelf = self else { return }
             if strongSelf.fourthPage.validationPage() {
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_FORMULAIRE_REMPLI, value: true)
+                let msg = ElasticSearchAPI.getInstance().generateMessage(content: strongSelf.formAnswers, needBulk: true)
+
+                let msg2 = ElasticSearchAPI.getInstance().generateMessage(content: [strongSelf.formInfoGen], needBulk: true)
+                
                 strongSelf.dismiss(animated: true, completion: nil)
             } else {
                 var s = ToastStyle()
