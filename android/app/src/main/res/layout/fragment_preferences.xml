@@ -26,6 +26,8 @@
                 android:id="@+id/layout_identifier"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_parent"
                 app:layout_constraintStart_toStartOf="@+id/constraint_parent"
                 app:layout_constraintTop_toTopOf="@+id/constraint_parent">
@@ -36,6 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/title_my_identifier"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -58,7 +61,9 @@
                 android:id="@+id/layout_dates_settings"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_parent"
                 app:layout_constraintStart_toStartOf="@+id/constraint_parent"
@@ -69,7 +74,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/dates_settings"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/layout_dates_settings_start_end"
@@ -151,7 +157,9 @@
                 android:id="@+id/layout_language_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +170,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/app_language"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup_language_setting"
@@ -190,6 +199,8 @@
                 android:id="@+id/layout_buttons_infos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_parent"

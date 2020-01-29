@@ -55,8 +55,8 @@
     <string name="last_achievement_obtained">Badge récemment obtenu</string>
     <string name="last_achievement_obtained_picture_description">Image du dernier badge obtenu par l\'utilisateur.</string>
     <string name="data_collection">Collecte des données</string>
-    <string name="data_collection_activated">ON</string>
-    <string name="data_collection_deactivated">OFF</string>
+    <string name="data_collection_activated">activée</string>
+    <string name="data_collection_deactivated">désactivée</string>
 
     <!-- CONSTANT FORM -->
     <string name="form_title">Formulaire</string>
@@ -150,6 +150,10 @@
     <string name="no_identifier">Pas d\'identifiant</string>
     <string name="send_data">Envoyer mes données</string>
 
+    <string name="toast_error_send_data">Erreur dans l\'envoi des données.</string>
+    <string name="toast_success_send_data">Données envoyées</string>
+    <string name="toast_no_data">Pas de données à envoyer</string>
+
     <!-- ACHIEVEMENTS FRAGMENT -->
     <string name="text_stats_title">Statistiques</string>
     <string name="text_distance">Distance parcourue : </string>
@@ -167,6 +171,10 @@
     <string name="tour_de_la_lanterne_description"> "Bravo! Vous venez de découvrir la Tour de la Lanterne"</string>
     <string name="eglise_saint_sauveur_description">"Bravo! Vous venez de découvrir l'Eglise Saint-Sauveur"</string>
     <string name="grosse_horloge_description"> "Bravo! Vous venez de découvrir la Grosse Horloge"</string>
+    <string name="plage_de_la_concurrence_description"> "Bravo! Vous venez de découvrir la Plage de la Concurrence"</string>
+    <string name="place_des_minimes_description"> "Bravo! Vous venez de découvrir la Plage des Minimes"</string>
+    <string name="marche_central_description"> "Bravo! Vous venez de découvrir le Marché central"</string>
+
 
     <!-- DIALOG  -->
     <string name="back">Retour</string>
@@ -175,9 +183,10 @@
     <string name="send">Envoyer mail</string>
     <string name="copy_success">L\'identifiant a été copié dans le presse papier</string>
     <string name="revoke_title">Révoquer mon consentement</string>
+    <string name="revoke_title_no_consent">Accepter le consentement</string>
     <string name="revoke_text_1">Pour revoquer votre consentement et effacer les données liées à votre activité veuillez envoyer un mail à
         l\'adresse suivante : </string>
-    <string name="revoke_text_2">En cliquant sur "Continuer", vous aller être redirigé vers votre application de messagerie electronique si un compte est lié à cette dernière.</string>
+    <string name="revoke_text_2">En cliquant sur "Continuer", vous allez être redirigé vers votre application de messagerie electronique si un compte est lié à cette dernière.</string>
     <string name="message_mail_revoke">Je demande la suppression de mes données.</string>
     <!-- PARTNER FRAGMENT -->
     <string name="logo_desc_larochelle">logo de La Rochelle Université</string>

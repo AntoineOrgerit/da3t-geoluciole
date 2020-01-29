@@ -2,6 +2,7 @@ package com.univlr.geoluciole.location;
 
 import android.location.Location;
 
+import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.sender.BulkObject;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class LocationBulk implements BulkObject {
         stringBuilder.append("\"altitude\":").append(location.getAltitude()).append(",");
         stringBuilder.append("\"timestamp\":").append(location.getTime()).append(",");
         stringBuilder.append("\"vitesse\":").append(location.getSpeed()).append(",");
+        stringBuilder.append("\"date_str\":").append("\""+FormModel.dateFormatStr(location.getTime())+"\"").append(",");
         stringBuilder.append("\"precision\":").append(location.getAccuracy());
         stringBuilder.append("}");
         return stringBuilder.toString();

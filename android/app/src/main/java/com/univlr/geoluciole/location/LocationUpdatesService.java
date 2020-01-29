@@ -39,6 +39,13 @@
  * - remove stopping activity from notifications;
  * - adapting to Android 8 and 9 versions;
  * - update of Location retrieve system.
+ * <p>
+ * Modifications done:
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 /**
@@ -90,6 +97,7 @@ import com.univlr.geoluciole.model.badge.BadgePlace;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -151,6 +159,7 @@ public class LocationUpdatesService extends Service {
     private LocationManager mLocationManager;
     private Criteria mCriteria;
     private LocationListener mLocationListener;
+    private ProximityReceiver receiverAlertLocation;
 
     @Override
     public void onCreate() {
@@ -162,24 +171,34 @@ public class LocationUpdatesService extends Service {
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
-                UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
-                float distance = last.distanceTo(location);
-                long deltaT = Math.abs(location.getTime() - last.getTime())/1000;
-                // définition de l'arrondi
-                BigDecimal speed = new BigDecimal(location.getSpeed()).round(new MathContext(1));
-                if(speed != null && speed.compareTo(BigDecimal.ZERO) > 0 ){
-                    if (location.distanceTo(last) <= ( speed.longValue() * deltaT)+10){
-                        userPreferences.setDistance(userPreferences.getDistance() + distance);
+                if(last.getTime() != 0) {
+                    float distance = last.distanceTo(location);
+                    long deltaT = Math.abs(location.getTime() - last.getTime()) / 1000;
+                    // définition de l'arrondi
+                    BigDecimal speed = new BigDecimal(location.getSpeed()).round(new MathContext(1));
+                    if (speed != null && speed.compareTo(BigDecimal.ZERO) > 0) {
+
+                        // on recupère pas l'instance si pas nécessaire
+                        UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
+                        BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
+
+                        // si la distance mesurée et calculée sont cohérentes on ajoute la distance sinon on prend la valeur estimée par rapport a la vitesse
+                        if (distance <= (speed.doubleValue() * deltaT) + 10) {
+                            userPreferences.setDistance(userPreferences.getDistance() + distance);
+                        } else {
+                            userPreferences.setDistance(userPreferences.getDistance() + (speed.floatValue() * deltaT) + 10);
+                        }
+                        //update userPref
                         userPreferences.store(LocationUpdatesService.this);
-                    } else {
-                        Log.e(TAG, "Point GPS bizarre point : speed " + location.getSpeed() + ", lat : " + location.getLatitude() + ", long : " + location.getLongitude() );
+
+                        // verification si badge distance debloqué
+                        badgeManager.unlockBadgesDistance(LocationUpdatesService.this);
                     }
                 }
-
-
                 // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);
                 onNewLocation(location);
@@ -395,10 +414,10 @@ public class LocationUpdatesService extends Service {
     private void setProximity() {
         Utils.setRequestingLocationUpdates(this, true);
         BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
-        Map<String, Badge> listBadges = badgeManager.getArrayBadges();
+        HashMap<String, Badge> listeBagdeLock = badgeManager.cleanListBadge(this);
         this.instanciateProximityReceiver();
         try {
-            for (Map.Entry<String, Badge> entry : listBadges.entrySet()) {
+            for (Map.Entry<String, Badge> entry : listeBagdeLock.entrySet()) {
                 String key = entry.getKey();
                 int id = Integer.parseInt(key);
                 Badge b = entry.getValue();
@@ -424,10 +443,18 @@ public class LocationUpdatesService extends Service {
      */
     private void instanciateProximityReceiver() {
         IntentFilter filter = new IntentFilter(COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT);
-        registerReceiver(new ProximityReceiver(), filter);
+        receiverAlertLocation = new ProximityReceiver();
+        registerReceiver(receiverAlertLocation, filter);
     }
 
     public void stopService() {
+        if (receiverAlertLocation != null) {
+            try {
+                unregisterReceiver(receiverAlertLocation);
+            } catch (IllegalArgumentException iae) {
+                //do nothing
+            }
+        }
         this.removeLocationUpdates();
         this.stopSelf();
     }

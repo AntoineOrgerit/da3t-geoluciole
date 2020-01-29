@@ -1,5 +1,6 @@
 package com.univlr.geoluciole.ui.preferences;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ClipData;
@@ -29,11 +30,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.univlr.geoluciole.CguActivity;
 import com.univlr.geoluciole.PartnerActivity;
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.RGPDConsentementGPSActivity;
 import com.univlr.geoluciole.model.FormModel;
 import com.univlr.geoluciole.model.Time;
 import com.univlr.geoluciole.model.UserPreferences;
@@ -63,6 +64,8 @@ public class PreferencesFragment extends Fragment {
     private EditText endValidityPeriodEditext; // champ date fin
     private Button btnCGUAgreement;
     private Button btnRevokeConsent;
+    private Button sendDataBtn;
+    private Button partenaireBtn;
 
     // Sring
     private String startValidityStr; // champ date début format dd-mm-yyyy hh:mm
@@ -71,9 +74,6 @@ public class PreferencesFragment extends Fragment {
     private Handler handler;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        PreferencesViewModel preferencesViewModel =
-                ViewModelProviders.of(this).get(PreferencesViewModel.class);
         // récupération de la MainActivity
         final View root = inflater.inflate(R.layout.fragment_preferences, container, false);
 
@@ -91,17 +91,9 @@ public class PreferencesFragment extends Fragment {
         if (id != null) {
             this.id_view.setText(id);
         }
-        String curent_local = Locale.getDefault().getLanguage();
-        RadioButton radioButton_english = root.findViewById(R.id.radioButton_english);
-        RadioButton radioButton_french = root.findViewById(R.id.radioButton_french);
 
-        if (curent_local.equals(LANG_FR)) {
-            radioButton_french.setChecked(true);
-
-        } else {
-            radioButton_english.setChecked(true);
-        }
-        
+        // initialize language
+        initLang(root);
 
         // on set les dates avec les éléments enregistrés dans userPref
         updateDateTimeField();
@@ -112,37 +104,19 @@ public class PreferencesFragment extends Fragment {
         // initialisation du listener bouton cgu
         initBtnCGUAgreementListener();
 
+        //initialisation du listener du bouton send data
+        initBtnSendDataListener();
+
+        //initialisation du listener du bouton partenaires
+        initBtnPartenaireListener();
+
         // definition du listener pour le bouton de révocation
-        this.btnRevokeConsent.setOnClickListener(customRevokeBtnOnClickListener());
-        handler = new Handler(Looper.getMainLooper()) {
-            @Override
-            public void handleMessage(Message message) {
-                switch (message.what) {
-                    case HttpProvider.CODE_HANDLER_GPS_COUNT:
-                        Toast.makeText(getActivity(), "Send location : " + message.obj, Toast.LENGTH_SHORT).show();
-                        break;
-                    case HttpProvider.CODE_HANDLER_GPS_ERROR:
-                        Toast.makeText(getActivity(), "Error : " + message.obj, Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        };
+        if (userPref.isGpsConsent()) {
+            this.btnRevokeConsent.setOnClickListener(customRevokeBtnOnClickListener());
+        } else {
+            setBtnAcceptConsent();
+        }
 
-        Button send_data_btn = root.findViewById(R.id.button_send_data);
-        send_data_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HttpProvider.sendGps(root.getContext(), handler);
-            }
-        });
-
-        Button buttonPartners = root.findViewById(R.id.button_partners);
-        buttonPartners.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(root.getContext(), PartnerActivity.class));
-            }
-        });
         return root;
     }
 
@@ -157,7 +131,26 @@ public class PreferencesFragment extends Fragment {
         this.endValidityPeriodEditext = root.findViewById(R.id.end_validity_period_et);
         this.btnCGUAgreement = root.findViewById(R.id.button_license_agreement);
         this.btnRevokeConsent = root.findViewById(R.id.button_revoke_consent);
+        this.sendDataBtn = root.findViewById(R.id.button_send_data);
+        this.partenaireBtn = root.findViewById(R.id.button_partners);
 
+        // initialisation handler
+        handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message message) {
+                switch (message.what) {
+                    case HttpProvider.CODE_HANDLER_GPS_COUNT:
+                        Toast.makeText(getActivity(), getResources().getText(R.string.toast_success_send_data) + " : " + message.obj, Toast.LENGTH_SHORT).show();
+                        break;
+                    case HttpProvider.CODE_HANDLER_GPS_ERROR:
+                        Toast.makeText(getActivity(), getResources().getText(R.string.toast_error_send_data), Toast.LENGTH_SHORT).show();
+                        break;
+                    case HttpProvider.CODE_HANDLER_GPS_NO_DATA:
+                        Toast.makeText(getActivity(), getResources().getText(R.string.toast_no_data), Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,6 +173,46 @@ public class PreferencesFragment extends Fragment {
         this.endValidityPeriodEditext.setText(this.endValidityStr);
     }
 
+    /**
+     * Permet d'initialiser la gestion des langues
+     */
+    private void initLang(View root) {
+        String curent_local = Locale.getDefault().getLanguage();
+        RadioButton radioButton_english = root.findViewById(R.id.radioButton_english);
+        RadioButton radioButton_french = root.findViewById(R.id.radioButton_french);
+
+        if (curent_local.equals(LANG_FR)) {
+            radioButton_french.setChecked(true);
+
+        } else {
+            radioButton_english.setChecked(true);
+        }
+    }
+
+    /**
+     * Initialise le listener du bouton send data
+     */
+    private void initBtnSendDataListener() {
+        if (!UserPreferences.getInstance(context).isGpsConsent()) {
+            return;
+        }
+
+        sendDataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HttpProvider.sendGps(context, handler);
+            }
+        });
+    }
+
+    private void initBtnPartenaireListener() {
+        partenaireBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(context, PartnerActivity.class));
+            }
+        });
+    }
 
     /**
      * Méthode permettant de récupérer les dates de validité depuis les préférences
@@ -246,6 +279,41 @@ public class PreferencesFragment extends Fragment {
             }
         };
     }
+
+
+    private void setBtnAcceptConsent() {
+        // transform btn
+        this.btnRevokeConsent.setTextColor(getResources().getColor(R.color.text_white));
+        this.btnRevokeConsent.setText(R.string.revoke_title_no_consent);
+        this.btnRevokeConsent.setBackground(getResources().getDrawable(R.drawable.button_highlight));
+        sendDataBtn.setBackground(getResources().getDrawable(R.drawable.button_border));
+        sendDataBtn.setTextColor(getResources().getColor(R.color.colorPrimary));
+        // event listener btn
+        this.btnRevokeConsent.setOnClickListener(customAcceptConsent());
+    }
+
+    /**
+     * Méthode permettant de rediriger vers la vue d'acceptation des consentement
+     *
+     * @return View.OnClickListener
+     */
+    private View.OnClickListener customAcceptConsent() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserPreferences userPreferences = UserPreferences.getInstance(context);
+                userPreferences.setConsent(false);
+                userPreferences.store(context);
+                Intent intent = new Intent(context, RGPDConsentementGPSActivity.class);
+                startActivity(intent);
+                Activity activity = getActivity();
+                if (activity != null) {
+                    activity.finish();
+                }
+            }
+        };
+    }
+
 
     /**
      * Méthode permettant de créer la popop de révocation de consement

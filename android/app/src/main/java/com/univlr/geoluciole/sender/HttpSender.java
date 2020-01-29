@@ -8,10 +8,12 @@ import com.univlr.geoluciole.model.FormModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.ConnectionSpec;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -111,7 +113,9 @@ public class HttpSender {
      * Permet d'envoyer la requête en fonction des données fourni
      */
     public void send() {
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS, ConnectionSpec.CLEARTEXT))
+                .build();
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), this.data);
         Request.Builder reqBuilder = new Request.Builder();
         reqBuilder.url(this.url);

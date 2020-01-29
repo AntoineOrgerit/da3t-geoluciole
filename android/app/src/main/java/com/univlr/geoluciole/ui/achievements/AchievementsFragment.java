@@ -25,6 +25,7 @@ import java.text.DecimalFormat;
 public class AchievementsFragment extends Fragment implements BadgeListFragment.OnFragmentInteractionListener {
     private static final String TAG = AchievementsFragment.class.getSimpleName();
     private View root;
+    private Fragment childFragment;
     private MainActivity context;
     private BadgeListFragment badgeListFragment;
     private OnFragmentInteractionListener mListener;
@@ -40,9 +41,7 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     
         @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Fragment childFragment = new BadgeListFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.badgeList_fragment_container, childFragment).commit();
+        updateView();
     }
 
     @Override
@@ -54,6 +53,15 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    public void updateView() {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        if (childFragment != null) {
+          transaction.remove(childFragment);
+        }
+        childFragment = new BadgeListFragment();
+        transaction.replace(R.id.badgeList_fragment_container, childFragment).commit();
     }
 
     @Override

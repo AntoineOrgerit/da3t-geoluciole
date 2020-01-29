@@ -13,6 +13,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.univlr.geoluciole.MainActivity;
@@ -31,9 +32,13 @@ public class HomeFragment extends Fragment {
     private View root;
     private ProgressBar progressBar;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        
         root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_stay_progression);
         progressBar = root.findViewById(R.id.progressBar_stay_progression);
@@ -75,6 +80,9 @@ public class HomeFragment extends Fragment {
     }
 
     public void updateSwitch() {
+        if (root == null) {
+            return;
+        }
         UserPreferences userPreferences = UserPreferences.getInstance(root.getContext());
         Switch switchData = root.findViewById(R.id.data_collection_switch);
 

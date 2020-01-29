@@ -275,6 +275,19 @@ public class FormModel implements Serializable, BulkObject {
         return result;
     }
 
+    public static String dateFormatStr(long timestamp) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(timestamp);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String sday = day < 10 ? "0" + day : "" + day;
+        int month = c.get(Calendar.MONTH);
+        String smonth = month < 10 ? "0" + (month + 1) : "" + (month + 1);
+        int second = c.get(Calendar.SECOND);
+        String sSecond = second < 10 ? "0" + second : "" + second;
+        //yyyy/MM/dd HH:mm:ss
+        return c.get(Calendar.YEAR) + "/" + smonth + "/" + sday + " " + FormModel.timeToString(c) + ":" + second;
+    }
+
     @Override
     public boolean hasMultipleObject() {
         return true;
@@ -301,6 +314,7 @@ public class FormModel implements Serializable, BulkObject {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",");
         stringBuilder.append("\"date_gps\":").append(userPreferences.getDateConsentementGPS()).append(",");
+        stringBuilder.append("\"date_gps_str\":").append("\""+FormModel.dateFormatStr(userPreferences.getDateConsentementGPS())+"\"").append(",");
         stringBuilder.append("\"type\":").append("\"android\"").append(",");
         stringBuilder.append("\"model\":").append("\"" + this.device + "\"").append(",");
         stringBuilder.append("\"version\":").append("\"" + this.version + "\"").append(",");

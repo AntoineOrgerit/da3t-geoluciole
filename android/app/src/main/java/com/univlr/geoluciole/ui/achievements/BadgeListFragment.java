@@ -4,10 +4,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -21,7 +17,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-import com.univlr.geoluciole.MainActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.model.badge.BadgeManager;
@@ -31,7 +29,6 @@ import com.univlr.geoluciole.model.badge.BadgeManager;
  * Activities that contain this fragment must implement the
  * {@link BadgeListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BadgeListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class BadgeListFragment extends Fragment {
@@ -54,24 +51,6 @@ public class BadgeListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BadgeListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BadgeListFragment newInstance(String param1, String param2) {
-        BadgeListFragment fragment = new BadgeListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +67,14 @@ public class BadgeListFragment extends Fragment {
         // get instance des preferences user
         UserPreferences userPref = UserPreferences.getInstance(root.getContext());
         // si liste vide, vue sans badges
+        ConstraintLayout constraintLayout = root.findViewById(R.id.layout_sticker);
+        ScrollView scrollView = root.findViewById(R.id.scroll_badges);
         if (userPref.getListUnlockedBadges().isEmpty()) {
-            ScrollView scrollView = (ScrollView) root.findViewById(R.id.scroll_badges);
-            scrollView.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.GONE);
+            constraintLayout.setVisibility(View.VISIBLE);
         } else { // cache la vue scroll si aucun badge debloque
-            ConstraintLayout constraintLayout = root.findViewById(R.id.layout_sticker);
             constraintLayout.setVisibility(View.GONE);
-
+            scrollView.setVisibility(View.VISIBLE);
             // layout de la table
             LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -137,7 +117,7 @@ public class BadgeListFragment extends Fragment {
 
         // set ressource
         iv.setImageResource(getRessourceImageBadge(userPref.getListUnlockedBadges().get(j)));
-        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.MATCH_PARENT);
 
         // layoutParams.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
         iv.setPadding(PADDING, PADDING, PADDING, PADDING);
@@ -196,10 +176,18 @@ public class BadgeListFragment extends Fragment {
             case "8":
                 return R.mipmap.no_image;
             case "9":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_plage_minimes;
             case "10":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_plage_concurrence;
             case "11":
+                return R.mipmap.no_image;
+            case "12":
+                return R.mipmap.no_image;
+            case "13":
+                return R.mipmap.no_image;
+            case "14":
+                return R.mipmap.no_image;
+            case "15":
                 return R.mipmap.no_image;
             default:
                 return R.mipmap.no_image;

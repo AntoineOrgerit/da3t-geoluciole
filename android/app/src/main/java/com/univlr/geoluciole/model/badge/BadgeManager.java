@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -187,6 +188,21 @@ public class BadgeManager {
         return hashmapBadges;
     }
 
+
+    public HashMap<String, Badge> cleanListBadge(Context context) {
+        HashMap<String, Badge> hashmapBadgesUnlocked = new HashMap<>();
+        UserPreferences userPref = UserPreferences.getInstance(context);
+        ArrayList<String> list = (ArrayList) userPref.getListUnlockedBadges();
+        for (Map.Entry<String, Badge> entry : this.hashmapBadges.entrySet()) {
+            String key = entry.getKey();
+            Badge b = entry.getValue();
+            if (!list.contains(key)) {
+                hashmapBadgesUnlocked.put(key, b);
+            }
+        }
+        return hashmapBadgesUnlocked;
+    }
+
     /**
      * Méthode pour débloquer les badges en fonction de la position de l'utilisateur
      *
@@ -199,12 +215,24 @@ public class BadgeManager {
         userPref.getListUnlockedBadges().add(idBadge);
         // enregistre les badges débloqués
         userPref.store(context);
-        Log.i(TAG, "checkPlaceLocation, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
+        Log.i(TAG, "unlockBadgesPlace, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
     }
 
-    public void unlockBadgesDistance() {
-        // TODO
+    /**
+     * Méthode pour débloquer les badges en fonction de la distance parcourue par l'utilisateur
+     *
+     * @param context
+     */
+    public void unlockBadgesDistance(Context context) {
+        UserPreferences userPref = UserPreferences.getInstance(context);
+        for (Map.Entry<String, Badge> it : this.hashmapBadges.entrySet()) {
+            if (it.getValue() instanceof BadgeDistance) {
+                if (userPref.getDistance() >= ((BadgeDistance) it.getValue()).getDistance() && !userPref.getListUnlockedBadges().contains(it.getKey())) {
+                    userPref.getListUnlockedBadges().add(it.getKey());
+                    Log.i(TAG, "unlockBadgesDistance, BadgeDistance unlocked, " + this.hashmapBadges.get(it.getKey()).getName());
+                    userPref.store(context);
+                }
+            }
+        }
     }
-
-
 }
