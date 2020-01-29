@@ -26,7 +26,6 @@ class FormFourthPageViewController: ParentModalViewController, ButtonsPrevNextDe
         let startCollect = Tools.convertDate(date: self.userPrefs.string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT))
         let endCollect = Tools.convertDate(date: self.userPrefs.string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT))
 
-        var pageIndex: String
         var titre: FormTitlePage
         
         //si la page une n'est pas affichée alors cette page est la 3/3 et le titre doit changer

@@ -26,6 +26,8 @@ class UserPrefs {
     static let APPLE_LANGUAGE_KEY = "AppleLanguages"
     static let KEY_LAST_BADGE = "last_badge"
     static let KEY_FORMULAIRE_REMPLI = "formulaire_accepte"
+    static let KEY_GPS_CONSENT_DATA = "data_gps_consent"
+    static let KEY_FORMULAIRE_CONSENT_DATA = "data_form_consent"
 
     fileprivate init() {
 
@@ -73,6 +75,11 @@ class UserPrefs {
 
     func setPrefs(key: String, value: Any) {
         self.userPrefs.set(value, forKey: key)
+        self.userPrefs.synchronize()
+    }
+    
+    func removePrefs(key: String) {
+        self.userPrefs.removeObject(forKey: key)
         self.userPrefs.synchronize()
     }
 

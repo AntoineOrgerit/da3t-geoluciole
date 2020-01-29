@@ -17,7 +17,7 @@ class FormSecondPageViewController: ParentModalViewController, ButtonsPrevNextDe
     fileprivate var contentView: UIView!
     fileprivate var formulaire: FormDateView!
     
-    fileprivate var formData = [String:String]()
+    fileprivate var formData = [[String:String]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,9 +62,9 @@ class FormSecondPageViewController: ParentModalViewController, ButtonsPrevNextDe
             boutonsNav.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),
         ])
     }
-    func getFormDat() -> [String: Any]{
-        formData["1"] = self.formulaire.zoneDateArrivee.dateTxtFld.textfield!.text
-        formData["2"] = self.formulaire.zoneDateDepart.dateTxtFld.textfield!.text
+    func getFormDat() -> [[String: Any]] {
+        self.formData.append(["1": self.formulaire.zoneDateArrivee.dateTxtFld.textfield.text!])
+        self.formData.append(["2": self.formulaire.zoneDateDepart.dateTxtFld.textfield.text!])
         return formData
     }
 

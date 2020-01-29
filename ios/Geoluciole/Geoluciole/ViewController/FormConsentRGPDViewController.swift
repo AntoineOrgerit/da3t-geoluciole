@@ -194,28 +194,28 @@ class FormConsentRGPDViewController: ParentModalViewController, ButtonsPrevNextD
         ])
     }
 
-    fileprivate func sendDataCompte() {
-        // Construction d'un dictionnaire contenant les données à envoyer
-        var compte = [[String: Any]]()
-
-        let now = Date()
-        // TODO: METTRE LES BONNES DATA
-        let dict = ["consentement_form": NSLocalizedString("rgpd_second_content_consentement", comment: ""), "date_form": now.timeIntervalSince1970, "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com", "date_form_str": Tools.convertDateToServerDate(date: now)] as [String: Any]
-        compte.append(dict)
-
-        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, needBulk: true)
-        ElasticSearchAPI.getInstance().postCompte(message: msg)
-    }
-
     func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onNext: Bool) {
-        self.sendDataCompte()
         self.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: true)
 
+        // on sauvegarde les données de consentement dans les usersPref temporairement (le temps de faire le formulaire)
+        self.saveConsentementForm()
         self.dismiss(animated: true)
     }
 
     func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onPrevious: Bool) {
         self.userPrefs.setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT, value: false)
+
+        // On supprime les données de consentement du formulaire si elles existent lors d'un refus d'utilisation des données personnelles
+        if self.userPrefs.object(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT_DATA) != nil {
+            self.userPrefs.removePrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT_DATA)
+        }
         self.dismiss(animated: true)
+    }
+    
+    /// Sauvegarde les données de consentement de l'utilisation des données personnelles  en local sur le smartphone.
+    fileprivate func saveConsentementForm() {
+        let now = Date()
+        let dict = ["consentement_form": NSLocalizedString("rgpd_second_content_consentement", comment: ""), "date_form": now.timeIntervalSince1970, "date_form_str": Tools.convertDateToServerDate(date: now)] as [String: Any]
+        UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT_DATA, value: dict)
     }
 }

@@ -66,7 +66,7 @@ class CustomTimer {
 
                 // Si le tableau n'est pas vide, on envoi notre message
                 if locations.count > 0 {
-                    let message: String = ElasticSearchAPI.getInstance().generateMessage(content: locations, needBulk: true)
+                    let message: String = ElasticSearchAPI.getInstance().generateMessage(content: locations, needBulk: true, addInfoDevice: false)
                     ElasticSearchAPI.getInstance().postLocations(message: message, viewController: viewController)
                 }
             } else {
