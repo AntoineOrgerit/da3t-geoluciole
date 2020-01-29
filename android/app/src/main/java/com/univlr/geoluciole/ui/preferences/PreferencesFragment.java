@@ -76,7 +76,7 @@ public class PreferencesFragment extends Fragment {
     private static final String LANG_EN = "en";
 
     private static final String MAIL_REVOQUE = "melanie.mondo1@univ-lr.fr";
-    public static final String IDENTIFIANT = "ID : ";
+    private static final String IDENTIFIANT = "ID : ";
 
     private Context context;
 
@@ -164,7 +164,7 @@ public class PreferencesFragment extends Fragment {
         // initialisation handler
         handler = new Handler(Looper.getMainLooper()) {
             @Override
-            public void handleMessage(Message message) {
+            public void handleMessage(@NonNull Message message) {
                 switch (message.what) {
                     case HttpProvider.CODE_HANDLER_GPS_COUNT:
                         Toast.makeText(getActivity(), getResources().getText(R.string.toast_success_send_data) + " : " + message.obj, Toast.LENGTH_SHORT).show();
@@ -426,7 +426,6 @@ public class PreferencesFragment extends Fragment {
     private View.OnClickListener onClickListenerStartDate(final boolean start, final Context context) {
         final Calendar c = Calendar.getInstance();
         if (start) {
-            System.out.println("onlistener" + this.startDate);
             c.setTime(this.startDate);
         } else {
             c.setTime(this.endDate);
@@ -500,8 +499,8 @@ public class PreferencesFragment extends Fragment {
 
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                Button buttonValidate = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                Button buttonBack = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                Button buttonValidate = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                Button buttonBack = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
                 buttonValidate.setOnClickListener(new View.OnClickListener() {
                     @Override

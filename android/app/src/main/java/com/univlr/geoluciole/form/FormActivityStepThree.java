@@ -37,7 +37,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -56,10 +55,6 @@ public class FormActivityStepThree extends AppCompatActivity {
 
     private static final String FORM = "Form";
     private static final String STEP_ANONYMOUS = "2/3";
-    // variable title
-    private TextView title;
-    // variable step
-    private TextView step;
 
     // variables listes déroulantes
     @Select(messageResId = R.string.form_err_required)
@@ -96,8 +91,8 @@ public class FormActivityStepThree extends AppCompatActivity {
     private FormModel form;
 
     // validation
-    ValidationFormListener validatorListener;
-    Validator validator;
+    private ValidationFormListener validatorListener;
+    private Validator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,16 +113,18 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void initUI() {
         // title
-        this.title = (TextView) findViewById(R.id.form_title);
+        // variable title
+        TextView title = findViewById(R.id.form_title);
         // step
-        this.step = (TextView) findViewById(R.id.form_step);
+        // variable step
+        TextView step = findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(this).isAccountConsent()) {
-            this.title.setText(R.string.form_title_anonym);
-            this.step.setText(STEP_ANONYMOUS);
+            title.setText(R.string.form_title_anonym);
+            step.setText(STEP_ANONYMOUS);
         }
         // liste déroulante
-        this.spinnerWhomList = (Spinner) findViewById(R.id.spinner_list_whom);
-        this.spinnerTransportList = (Spinner) findViewById(R.id.spinner_list_transport);
+        this.spinnerWhomList = findViewById(R.id.spinner_list_whom);
+        this.spinnerTransportList = findViewById(R.id.spinner_list_transport);
 
         // autre with whom
         this.otherInputLayout = findViewById(R.id.form_other_title);
@@ -140,17 +137,17 @@ public class FormActivityStepThree extends AppCompatActivity {
         this.otherTransportInputLayout.setVisibility(View.GONE);
 
         // radiogroup
-        this.radiogroupPresenceChildren = (RadioGroup) findViewById(R.id.radio_group_presence_children);
-        this.radiogroupPresenceTeens = (RadioGroup) findViewById(R.id.radio_group_presence_teens);
-        this.radiogroupFirstTime = (RadioGroup) findViewById(R.id.radio_group_first_time);
-        this.radiogroupKnowCity = (RadioGroup) findViewById(R.id.radio_group_know_city);
-        this.radiogroupFiveTimes = (RadioGroup) findViewById(R.id.radio_group_five_times);
-        this.radiogroupTwoMonths = (RadioGroup) findViewById(R.id.radio_group_two_months);
+        this.radiogroupPresenceChildren = findViewById(R.id.radio_group_presence_children);
+        this.radiogroupPresenceTeens = findViewById(R.id.radio_group_presence_teens);
+        this.radiogroupFirstTime = findViewById(R.id.radio_group_first_time);
+        this.radiogroupKnowCity = findViewById(R.id.radio_group_know_city);
+        this.radiogroupFiveTimes = findViewById(R.id.radio_group_five_times);
+        this.radiogroupTwoMonths = findViewById(R.id.radio_group_two_months);
 
         // bouton précédent
-        this.btnPrevious = (Button) findViewById(R.id.btn_prev);
+        this.btnPrevious = findViewById(R.id.btn_prev);
         // bouton envoi
-        this.btnSubmit = (Button) findViewById(R.id.btn_next);
+        this.btnSubmit = findViewById(R.id.btn_next);
     }
 
     /**
@@ -263,17 +260,8 @@ public class FormActivityStepThree extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 saveToForm();
-
-                Toast.makeText(FormActivityStepThree.this,
-                        "OnClickListener : " +
-                                "\nVoyage avec : " + spinnerWhomList.getSelectedItem() +
-                                "\nTransport : " + spinnerTransportList.getSelectedItem() +
-                                "\nAutre : " + otherWithWhom.getText(),
-
-                        Toast.LENGTH_SHORT).show();
-
+                // validation
                 validatorListener.setRedirect(true);
                 validator.validate();
                 validatorListener.setRedirect(false);
@@ -284,17 +272,13 @@ public class FormActivityStepThree extends AppCompatActivity {
     }
 
     private Boolean getRadioButtonValue(int selectedId) {
-        RadioButton radioResponse = (RadioButton) findViewById(selectedId);
+        RadioButton radioResponse = findViewById(selectedId);
         return (radioResponse != null && String.valueOf(radioResponse.getText()).equalsIgnoreCase(getString(R.string.form_yes_response)));
     }
 
-    public AdapterView.OnItemSelectedListener CustomOnItemSelectedListener(final TextInputLayout inputLayout) {
+    private AdapterView.OnItemSelectedListener CustomOnItemSelectedListener(final TextInputLayout inputLayout) {
         return new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-               /* Toast.makeText(FormActivityStepThree.this,
-                        "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
-                        Toast.LENGTH_SHORT).show();*/
-
                 if (parent.getItemAtPosition(pos).toString().equalsIgnoreCase(getString(R.string.field_other_title))) {
                     inputLayout.setVisibility(View.VISIBLE);
                 } else {

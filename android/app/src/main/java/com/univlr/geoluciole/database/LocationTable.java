@@ -44,13 +44,13 @@ import java.util.List;
  * Classe LocationTable - herite de la classe Table
  */
 public class LocationTable extends Table {
-    public static final String LOCATION_TABLE_NAME = "locations";
-    public static final String LATITUDE = "latitude";
-    public static final String LONGITUDE = "longitude";
-    public static final String TIMESTAMP = "time_stamp";
-    public static final String ALTITUDE = "altitude";
-    public static final String ACCURACY = "precision";
-    public static final String SPEED = "vitesse";
+    private static final String LOCATION_TABLE_NAME = "locations";
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE = "longitude";
+    private static final String TIMESTAMP = "time_stamp";
+    private static final String ALTITUDE = "altitude";
+    private static final String ACCURACY = "precision";
+    private static final String SPEED = "vitesse";
 
     /**
      * Constructeur de la classe
@@ -71,7 +71,7 @@ public class LocationTable extends Table {
     /**
      * Constructeur recuperant l instance de la base
      *
-     * @param context
+     * @param context Context
      */
     public LocationTable(Context context) {
         super(context);
@@ -93,7 +93,6 @@ public class LocationTable extends Table {
         values.put(LocationTable.SPEED, l.getSpeed());
         values.put(LocationTable.ACCURACY, l.getAccuracy());
         Log.i("DATABASE", "addLocation - Ajout d une location dans la base de donnee");
-        System.out.println(values);
         this.dbSQLite.getDb().insert(LocationTable.LOCATION_TABLE_NAME, null, values);
     }
 

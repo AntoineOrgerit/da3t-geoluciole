@@ -45,7 +45,7 @@ import com.univlr.geoluciole.model.UserPreferences;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static final String TAG = SplashScreenActivity.class.getSimpleName();
-    ImageView spinner;
+    private ImageView spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

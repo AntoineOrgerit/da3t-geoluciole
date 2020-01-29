@@ -27,13 +27,11 @@
 
 package com.univlr.geoluciole.form;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -64,8 +62,8 @@ public class FormActivityStepOne extends AppCompatActivity {
     private FormModelWithConsent formWithConsent;
 
     // validation
-    ValidationFormListener validatorListener;
-    Validator validator;
+    private ValidationFormListener validatorListener;
+    private Validator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +76,7 @@ public class FormActivityStepOne extends AppCompatActivity {
         // cacher keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // bouton envoi
-        Button btnContinue = (Button) findViewById(R.id.btn_next);
+        Button btnContinue = findViewById(R.id.btn_next);
         btnContinue.setOnClickListener(getPersonalData());
         // init validator
         initValidatorListener();
@@ -132,15 +130,7 @@ public class FormActivityStepOne extends AppCompatActivity {
                 formWithConsent.setFirstname(String.valueOf(firstname.getText()));
                 formWithConsent.setEmail(String.valueOf(email.getText()));
                 formWithConsent.setPhone(String.valueOf(phone.getText()));
-
-                Toast.makeText(FormActivityStepOne.this,
-                        "OnClickListener : " +
-                                "\nNom : " + lastname.getText() +
-                                "\nPrénom : " + firstname.getText() +
-                                "\nEmail : " + email.getText() +
-                                "\nPhone : " + phone.getText()
-                        ,
-                        Toast.LENGTH_SHORT).show();
+                // validation
                 validatorListener.setRedirect(true);
                 validator.validate();
                 validatorListener.setRedirect(false);

@@ -38,9 +38,9 @@ import org.json.JSONObject;
 public class Logger extends HyperLog {
     public static final String TAG_GPS = "GPS_LOG";
     public static final String TAG_GPS_PERIODICALLY = "GPS_AUTO_LOG";
-    public static final String TAG_FORM = "FORM_LOG";
-    public static final String TAG_ACCOUNT = "ACCOUNT_LOG";
-    public static final String TAG_WORKER = "WORKER_LOG";
+    private static final String TAG_FORM = "FORM_LOG";
+    private static final String TAG_ACCOUNT = "ACCOUNT_LOG";
+    private static final String TAG_WORKER = "WORKER_LOG";
 
     private static String user_id;
     private Logger() {}
@@ -114,7 +114,7 @@ public class Logger extends HyperLog {
 }
 
 class CustomLogFormat extends LogFormat {
-    private String user_id;
+    private final String user_id;
     public CustomLogFormat(Context context, String user_id) {
         super(context);
         this.user_id = user_id;

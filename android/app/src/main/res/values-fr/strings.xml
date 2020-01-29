@@ -143,7 +143,7 @@
         <item>Vélo</item>
         <item>Autre</item>
     </string-array>
-
+    <string name="precision">Précision</string>
     <!-- RADIO QUESTIONS -->
     <string name="form_first_visit_title">Visitez-vous La Rochelle pour la première fois ?*</string>
     <string name="form_know_city_title">Diriez-vous que vous connaissez bien La Rochelle ?*</string>
@@ -201,6 +201,8 @@
     <string name="plage_de_la_concurrence_description"> "Bravo! Vous venez de découvrir la Plage de la Concurrence"</string>
     <string name="place_des_minimes_description"> "Bravo! Vous venez de découvrir la Plage des Minimes"</string>
     <string name="marche_central_description"> "Bravo! Vous venez de découvrir le Marché central"</string>
+    <string name="aquarium_description"> "Bravo! Vous venez de découvrir l'Aquarium de La Rochelle"</string>
+    <string name="place_verdun_description"> "Bravo! Vous venez de découvrir la Place de Verdun"</string>
 
 
     <!-- DIALOG  -->

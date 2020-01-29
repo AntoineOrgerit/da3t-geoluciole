@@ -39,6 +39,7 @@ public class BadgeDistance extends Badge {
      */
     public BadgeDistance() {
         // on set les attributs avec les setter dans BadgeManager lors de l'instanciation
+        super();
     }
 
     /**

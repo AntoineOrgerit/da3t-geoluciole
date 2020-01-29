@@ -126,7 +126,7 @@
                         android:id="@+id/other"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Précision"
+                        android:hint="@string/precision"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -459,7 +459,7 @@
                         android:id="@+id/other_transport"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Précision"
+                        android:hint="@string/precision"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <!-- TRANSPORT QUESTION - END -->

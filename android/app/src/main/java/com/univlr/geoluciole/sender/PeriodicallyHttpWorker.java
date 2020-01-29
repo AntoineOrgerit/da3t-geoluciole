@@ -54,7 +54,7 @@ public class PeriodicallyHttpWorker extends ListenableWorker {
         return CallbackToFutureAdapter.getFuture(new CallbackToFutureAdapter.Resolver<Result>() {
             @Nullable
             @Override
-            public Object attachCompleter(@NonNull final CallbackToFutureAdapter.Completer<Result> completer) throws Exception {
+            public Object attachCompleter(final CallbackToFutureAdapter.Completer<Result> completer) {
                 Logger.logWorker("Worker started");
                 return HttpProvider.sendGPsPeriodically(context, completer);
             }

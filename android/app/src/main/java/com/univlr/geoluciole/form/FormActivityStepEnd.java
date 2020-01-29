@@ -56,11 +56,6 @@ public class FormActivityStepEnd extends AppCompatActivity {
     private static final String STEP_ANONYMOUS = "3/3";
     private static final String FORM = "Form";
 
-    // variable title
-    private TextView title;
-    // variable step
-    private TextView step;
-
     private Date startDate;
     private Date endDate;
     private Time startTime;
@@ -107,18 +102,20 @@ public class FormActivityStepEnd extends AppCompatActivity {
      */
     private void initUI() {
         // title
-        this.title = (TextView) findViewById(R.id.form_title);
+        // variable title
+        TextView title = findViewById(R.id.form_title);
         // step
-        this.step = (TextView) findViewById(R.id.form_step);
+        // variable step
+        TextView step = findViewById(R.id.form_step);
         if (!userPreferences.isAccountConsent()) {
-            this.title.setText(R.string.form_title_anonym);
-            this.step.setText(STEP_ANONYMOUS);
+            title.setText(R.string.form_title_anonym);
+            step.setText(STEP_ANONYMOUS);
         }
 
         // bouton précédent
-        this.btnPrevious = (Button) findViewById(R.id.btn_prev);
+        this.btnPrevious = findViewById(R.id.btn_prev);
         // bouton envoi
-        this.btnSubmit = (Button) findViewById(R.id.btn_next);
+        this.btnSubmit = findViewById(R.id.btn_next);
 
         // bouton
         this.startValidityPeriodBtn = findViewById(R.id.start_validity_period_btn);

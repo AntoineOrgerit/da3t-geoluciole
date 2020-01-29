@@ -42,8 +42,8 @@ import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromP
 import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
 
 public class FormModel implements Serializable, BulkObject {
-    public static final String FORM_KEY = "formModelPreference";
-    public static final String FORM_FILENAME = "formModelFilePreference";
+    private static final String FORM_KEY = "formModelPreference";
+    private static final String FORM_FILENAME = "formModelFilePreference";
 
     private static final int ID_QUESTION_DATE_IN = 1;
     private static final int ID_QUESTION_DATE_OUT = 2;
@@ -56,7 +56,7 @@ public class FormModel implements Serializable, BulkObject {
     private static final int ID_QUESTION_TWO_MONTH = 9;
     private static final int ID_QUESTION_TRANSPORT = 10;
 
-    private String idUser;
+    private final String idUser;
     private Date dateIn;
     private Time timeIn;
     private Date dateOut;
@@ -161,7 +161,7 @@ public class FormModel implements Serializable, BulkObject {
         this.timeOut = timeOut;
     }
 
-    public long getTimestampStart() {
+    private long getTimestampStart() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateIn);
         calendar.set(Calendar.HOUR_OF_DAY, timeIn.getHours());
@@ -169,7 +169,7 @@ public class FormModel implements Serializable, BulkObject {
         return calendar.getTime().getTime();
     }
 
-    public long getTimestampEnd() {
+    private long getTimestampEnd() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateOut);
         calendar.set(Calendar.HOUR_OF_DAY, timeOut.getHours());
@@ -232,7 +232,7 @@ public class FormModel implements Serializable, BulkObject {
         return FormModel.dateToString(c) + " " + FormModel.timeToString(c);
     }
 
-    public static String timeToString(Calendar calendar) {
+    private static String timeToString(Calendar calendar) {
         return timeToString(new Time(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
     }
 
@@ -242,17 +242,17 @@ public class FormModel implements Serializable, BulkObject {
         return timeToString(calendar);
     }
 
-    public static String timeToString(Time time) {
+    private static String timeToString(Time time) {
         return time.toString();
     }
 
-    public static String dateToString(Date date) {
+    private static String dateToString(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return dateToString(calendar);
     }
 
-    public static String dateToString(Calendar c) {
+    private static String dateToString(Calendar c) {
         int day = c.get(Calendar.DAY_OF_MONTH);
         String sday = day < 10 ? "0" + day : "" + day;
         int month = c.get(Calendar.MONTH);
@@ -329,7 +329,7 @@ public class FormModel implements Serializable, BulkObject {
         return getSavedObjectFromPreference(context, FormModel.FORM_FILENAME, FormModel.FORM_KEY, FormModel.class);
     }
 
-    public static void storeInstance(Context context, FormModel form) {
+    private static void storeInstance(Context context, FormModel form) {
         saveObjectToSharedPreference(context, FormModel.FORM_FILENAME, FormModel.FORM_KEY, form);
     }
 
@@ -337,11 +337,11 @@ public class FormModel implements Serializable, BulkObject {
         FormModel.storeInstance(context, this);
     }
 
-    protected String formatAccount(Context context, UserPreferences userPreferences) {
+    String formatAccount(Context context, UserPreferences userPreferences) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\"id_user\":").append(userPreferences.getId()).append(",");
         stringBuilder.append("\"date_gps\":").append(userPreferences.getDateConsentementGPS()).append(",");
-        stringBuilder.append("\"date_gps_str\":").append("\""+FormModel.dateFormatStr(userPreferences.getDateConsentementGPS())+"\"").append(",");
+        stringBuilder.append("\"date_gps_str\":").append("\"" + FormModel.dateFormatStr(userPreferences.getDateConsentementGPS()) + "\"").append(",");
         stringBuilder.append("\"type\":").append("\"android\"").append(",");
         stringBuilder.append("\"model\":").append("\"" + this.device + "\"").append(",");
         stringBuilder.append("\"version\":").append("\"" + this.version + "\"").append(",");

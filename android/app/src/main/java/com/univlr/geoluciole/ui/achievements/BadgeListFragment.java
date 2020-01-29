@@ -44,12 +44,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.model.badge.BadgeManager;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,15 +62,8 @@ import com.univlr.geoluciole.model.badge.BadgeManager;
  */
 public class BadgeListFragment extends Fragment {
     private static final String TAG = BadgeListFragment.class.getSimpleName();
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private static final int NB_BADGE_PER_ROW = 3;
-    private static final int IMG_WIDTH = 250;
-    private static final int IMG_HEIGHT = 250;
-    private static final int MARGIN = 30;
     private static final int PADDING = 40;
-    //  private MainActivity context;
 
 
     private OnFragmentInteractionListener mListener;
@@ -79,18 +74,13 @@ public class BadgeListFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_badge_list, container, false);
         this.context = root.getContext();
 
-        TableLayout mTableLayout = (TableLayout) root.findViewById(R.id.table_badges);
+        TableLayout mTableLayout = root.findViewById(R.id.table_badges);
         // get instance des preferences user
         UserPreferences userPref = UserPreferences.getInstance(root.getContext());
         // si liste vide, vue sans badges
@@ -109,7 +99,7 @@ public class BadgeListFragment extends Fragment {
 
             // init de la premiere row
             TableRow row = new TableRow(root.getContext());
-            if(userPref.getListUnlockedBadges() != null){
+            if (userPref.getListUnlockedBadges() != null) {
                 // pour chaque badge debloqués dans la liste
                 for (int j = 0; j < userPref.getListUnlockedBadges().size(); ++j) {
                     // pour afficher 3 badges par row
@@ -143,19 +133,14 @@ public class BadgeListFragment extends Fragment {
         display.getSize(size);
         int paddingSpace = PADDING * (NB_BADGE_PER_ROW + 1);
         int widthPerItem = (size.x - paddingSpace) / NB_BADGE_PER_ROW;
-        // int heightPerItem = (size.y - paddingSpace) / NB_BADGE_PER_ROW;
-
         // set ressource
         iv.setImageResource(getRessourceImageBadge(userPref.getListUnlockedBadges().get(j)));
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        // layoutParams.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
         iv.setPadding(PADDING, PADDING, PADDING, PADDING);
         iv.setLayoutParams(layoutParams);
         iv.setClickable(true);
         iv.bringToFront();
         iv.setAdjustViewBounds(true);
-        //iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
         iv.setOnClickListener(getBadgeInfo(userPref.getListUnlockedBadges().get(j), root.getContext()));
         Log.i(TAG, "setImage, création de l'image - id :" + userPref.getListUnlockedBadges().get(j));
         return iv;
@@ -204,21 +189,15 @@ public class BadgeListFragment extends Fragment {
             case "7":
                 return R.mipmap.badge_grosse_horloge;
             case "8":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_marche;
             case "9":
                 return R.mipmap.badge_plage_minimes;
             case "10":
                 return R.mipmap.badge_plage_concurrence;
             case "11":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_aquarium;
             case "12":
-                return R.mipmap.no_image;
-            case "13":
-                return R.mipmap.no_image;
-            case "14":
-                return R.mipmap.no_image;
-            case "15":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_place_verdun;
             default:
                 return R.mipmap.no_image;
         }
@@ -231,7 +210,7 @@ public class BadgeListFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

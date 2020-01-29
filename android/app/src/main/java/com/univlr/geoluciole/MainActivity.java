@@ -27,12 +27,10 @@
 
 package com.univlr.geoluciole;
 
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -47,35 +45,26 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.hypertrack.hyperlog.HyperLog;
 import com.univlr.geoluciole.adapter.ViewPagerAdapter;
 import com.univlr.geoluciole.location.LocationUpdatesService;
-import com.univlr.geoluciole.location.Utils;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
-import com.univlr.geoluciole.sender.HttpProvider;
 import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.achievements.BadgeListFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
 
 public class MainActivity extends LocationActivity implements AchievementsFragment.OnFragmentInteractionListener, BadgeListFragment.OnFragmentInteractionListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -97,12 +86,12 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             new Intent().setComponent(new ComponentName("com.asus.mobilemanager", "com.asus.mobilemanager.MainActivity"))
     };
 
+    // position page parametres
+    private static final int ITEM_PARAM_PAGE = 2;
+
     // service permettant la récupération des données GPS
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
-
-    // The BroadcastReceiver used to listen from broadcasts from the service.
-    private MyReceiver myReceiver;
 
     // Monitors the state of the connection to the service.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -129,19 +118,12 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     private MenuItem prevMenuItem;
     private ViewPager viewPager;
 
-    // liste fragments utilisés par le viewPager
-    private HomeFragment homeFragment;
-    private AchievementsFragment dashboardFragment;
-    private PreferencesFragment notificationsFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UserPreferences userPreferences = UserPreferences.getInstance(this);
         Intent intent = getIntent();
         boolean refused_consent = intent.getBooleanExtra("refused_consent", false);
-        // temporary receiver
-        myReceiver = new MyReceiver();
 
         // UI
         setContentView(R.layout.activity_main);
@@ -215,42 +197,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         });
 
         if (userPreferences.isGpsConsent()) {
-            HttpProvider.activePeriodicSend(this);
-            //todo ligne suivante de test
-            File folder = new File(this.getFilesDir() + "/Log");
-            if(!folder.exists()) {
-                folder.mkdir();
-            }
-            String filename = this.getFilesDir() + "/Log/" +"gps_log.log";
-            try {
-                FileWriter fw = new FileWriter(filename);
-                fw.append("Creation file \n");
-                fw.close();
-            }catch(IOException e) {
-                e.printStackTrace();
-            }
-            File filelog = HyperLog.getDeviceLogsInFile(this, true);
-            if (filelog != null) {
-                try {
-                    FileInputStream fin = new FileInputStream(filelog);
-                    String content = MainActivity.convertStreamToString(fin);
-                    //Make sure you close all streams.
-                    fin.close();
-
-                    File f = new File(filename);
-                    FileOutputStream fos = new FileOutputStream(f, true);
-                    fos.write(content.getBytes());
-                    fos.flush();
-                    fos.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            // todo fin de ligne de test
-        }
-
-        if (userPreferences.isGpsConsent()) {
             //checkPowerSavingMode();
             if (!userPreferences.isManagerPermissionConstructorShow()) {
                 checkConstructorLayer();
@@ -261,16 +207,15 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             }
         }
 
-        //setup du viewPager
         setupViewPager(viewPager);
 
         // si on refuse le consentement, on est redirigé vers la vue params
         if (refused_consent) {
-            changePage(2);
+            changePage(ITEM_PARAM_PAGE);
         }
     }
 
-    public void changePage(int item) {
+    private void changePage(int item) {
         int old_pos = viewPager.getCurrentItem();
         viewPager.setCurrentItem(item);
         prevMenuItem = navView.getMenu().getItem(old_pos);
@@ -278,11 +223,11 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         navView.getMenu().getItem(item).setChecked(true);
     }
 
-        //todo fonction de test
+    //todo fonction de test
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line;
         while ((line = reader.readLine()) != null) {
             sb.append(line).append("\n");
         }
@@ -292,9 +237,9 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
     private void checkPermission() {
         ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
-        if(!unauthorizedPermissions.isEmpty()) {
+        if (!unauthorizedPermissions.isEmpty()) {
             requestPermissions(unauthorizedPermissions);
-            if(!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)){
+            if (!unauthorizedPermissions.contains(Permission.FINE_LOCATION_PERMISSION)) {
                 enableGPSIfNeeded();
             }
         } else {
@@ -302,11 +247,12 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         }
     }
 
-    public void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        homeFragment = new HomeFragment();
-        dashboardFragment = new AchievementsFragment();
-        notificationsFragment = new PreferencesFragment();
+        // liste fragments utilisés par le viewPager
+        HomeFragment homeFragment = new HomeFragment();
+        AchievementsFragment dashboardFragment = new AchievementsFragment();
+        PreferencesFragment notificationsFragment = new PreferencesFragment();
         adapter.addFragment(homeFragment);
         adapter.addFragment(dashboardFragment);
         adapter.addFragment(notificationsFragment);
@@ -326,20 +272,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                     Context.BIND_AUTO_CREATE);
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
-                new IntentFilter(LocationUpdatesService.ACTION_BROADCAST));
-    }
-
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(myReceiver);
-        super.onPause();
-    }
-
 
     @Override
     protected void onStop() {
@@ -383,7 +315,8 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
      */
     private HomeFragment getHomeFragment() {
         try {
-            return (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(0);
+            HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(0);
+            return fragment;
         } catch (NullPointerException npe) {
             //do nothing
         }
@@ -453,20 +386,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             }
         });
         dialog.show();
-    }
-
-    /**
-     * Receiver for broadcasts sent by {@link LocationUpdatesService}.
-     */
-    private class MyReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Location location = intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
-            if (location != null) {
-                Toast.makeText(MainActivity.this, Utils.getLocationText(location),
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     @Override

@@ -35,8 +35,8 @@ public enum Permission {
     INTERNET_PERMISSION(Manifest.permission.INTERNET, 2),
     FINE_LOCATION_PERMISSION(Manifest.permission.ACCESS_FINE_LOCATION, 3);
 
-    private String manifestValue;
-    private int uniqueID;
+    private final String manifestValue;
+    private final int uniqueID;
 
     @SuppressWarnings("unused")
     Permission(String manifestValue, int uniqueID) {

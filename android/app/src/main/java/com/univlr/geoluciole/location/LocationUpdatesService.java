@@ -27,11 +27,11 @@
 
 /**
  * Modifications done:
- *  - update of package name and string value of PACKAGE_NAME variable;
- *  - update notification channel name;
- *  - remove stopping activity from notifications;
- *  - adapting to Android 8 and 9 versions;
- *  - update of Location retrieve system.
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 package com.univlr.geoluciole.location;
@@ -62,7 +62,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.android.gms.location.LocationRequest;
 import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
@@ -80,11 +79,11 @@ import java.util.Map;
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
  * been requested and all clients unbind.
- *
+ * <p>
  * For apps running in the background on "O" devices, location is computed only once every 10
  * minutes and delivered batched every 30 minutes. This restriction applies even to apps
  * targeting "N" or lower which are run on "O" devices.
- *
+ * <p>
  * This sample show how to use a long-running service for location updates. When an activity is
  * bound to this service, frequent location updates are permitted. When the activity is removed
  * from the foreground, the service promotes itself to a foreground service, and location updates
@@ -103,9 +102,9 @@ public class LocationUpdatesService extends Service {
      */
     private static final String CHANNEL_ID = "channel_location_updates_service";
 
-    public static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
+    private static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
 
-    public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
+    private static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
     private static final String EXTRA_STARTED_FROM_NOTIFICATION = PACKAGE_NAME +
             ".started_from_notification";
     private static final String COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT = "com.univlr.geoluciole.proximityalert";
@@ -138,17 +137,7 @@ public class LocationUpdatesService extends Service {
 
     private NotificationManager mNotificationManager;
 
-    /**
-     * Contains parameters used by {@link com.google.android.gms.location.FusedLocationProviderApi}.
-     */
-    private LocationRequest mLocationRequest;
-
     private Handler mServiceHandler;
-
-    /**
-     * The current location.
-     */
-    private Location mLocation;
 
     private String filename;
 
@@ -171,7 +160,7 @@ public class LocationUpdatesService extends Service {
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
-                if(last.getTime() != 0) {
+                if (last.getTime() != 0) {
                     float distance = last.distanceTo(location);
                     long deltaT = Math.abs(location.getTime() - last.getTime()) / 1000;
                     // définition de l'arrondi
@@ -307,7 +296,7 @@ public class LocationUpdatesService extends Service {
         // permet de garder le service active même après la fin de l'application
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
-            mLocationManager.requestLocationUpdates(2000, 10, mCriteria, mLocationListener, Looper.myLooper());
+            mLocationManager.requestLocationUpdates(7000, 10, mCriteria, mLocationListener, Looper.myLooper());
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
@@ -318,7 +307,7 @@ public class LocationUpdatesService extends Service {
      * Removes location updates. Note that in this sample we merely log the
      * {@link SecurityException}.
      */
-    public void removeLocationUpdates() {
+    private void removeLocationUpdates() {
         Log.i(TAG, "Removing location updates");
         try {
             mLocationManager.removeUpdates(mLocationListener);
@@ -365,7 +354,9 @@ public class LocationUpdatesService extends Service {
     private void onNewLocation(Location location) {
         Log.i(TAG, "New location: " + location);
 
-        mLocation = location;
+        /**
+         * The current location.
+         */
 
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);
@@ -393,7 +384,7 @@ public class LocationUpdatesService extends Service {
      *
      * @param context The {@link Context}.
      */
-    public boolean serviceIsRunningInForeground(Context context) {
+    private boolean serviceIsRunningInForeground(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(
                 Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(

@@ -35,18 +35,18 @@ import java.util.List;
  * Classe Table abstraite
  */
 public abstract class Table {
-    protected String tableName = "";
+    String tableName = "";
     // colonnes de la table
-    protected TableColumn[] columns;
+    TableColumn[] columns;
 
-    protected DatabaseHandler dbSQLite;
+    DatabaseHandler dbSQLite;
 
-    protected Context context;
+    Context context;
 
-    public Table() {
+    Table() {
     }
 
-    public Table(Context context) {
+    Table(Context context) {
         dbSQLite = DatabaseHandler.getInstance(context);
         this.context = context;
     }
@@ -57,27 +57,27 @@ public abstract class Table {
      * @return String la requete de creation
      */
     public String prepareSQLForCreateTable() {
-        String sqlRequest = "CREATE TABLE IF NOT EXISTS";
-        sqlRequest += " " + this.tableName + "(";
+        StringBuilder sqlRequest = new StringBuilder("CREATE TABLE IF NOT EXISTS");
+        sqlRequest.append(" ").append(this.tableName).append("(");
 
         int endIndex = this.columns.length;
         for (int i = 0; i < endIndex; i++) {
 
             TableColumn column = this.columns[i];
 
-            sqlRequest += " " + column.getColumnName();
-            sqlRequest += " " + column.getColumnType();
+            sqlRequest.append(" ").append(column.getColumnName());
+            sqlRequest.append(" ").append(column.getColumnType());
 
             if (!column.isCanBeNull()) {
-                sqlRequest += " NOT NULL";
+                sqlRequest.append(" NOT NULL");
             }
 
             if (i != columns.length - 1) {
-                sqlRequest += ",";
+                sqlRequest.append(",");
             }
         }
-        sqlRequest += " );";
-        return sqlRequest;
+        sqlRequest.append(" );");
+        return sqlRequest.toString();
     }
 
     /**

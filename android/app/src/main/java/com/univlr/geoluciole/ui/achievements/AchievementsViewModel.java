@@ -31,9 +31,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AchievementsViewModel extends ViewModel {
+class AchievementsViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private final MutableLiveData<String> mText;
 
     public AchievementsViewModel() {
         mText = new MutableLiveData<>();

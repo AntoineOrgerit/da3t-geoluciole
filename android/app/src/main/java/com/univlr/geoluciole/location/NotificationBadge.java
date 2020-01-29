@@ -43,9 +43,7 @@ import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.badge.Badge;
 
-import java.util.Objects;
-
-public class NotificationBadge {
+class NotificationBadge {
     private static final String CHANNEL_ID = "channelNotification";
     private static final String TAG = NotificationBadge.class.getSimpleName();
 
@@ -95,7 +93,7 @@ public class NotificationBadge {
             channel.setDescription("Channel pour pouvoir afficher les badges débloqués");
             // Enregister le canal sur le système : attention de ne plus rien modifier après
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            Objects.requireNonNull(notificationManager).createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 }

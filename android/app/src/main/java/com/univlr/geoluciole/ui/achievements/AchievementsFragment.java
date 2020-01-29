@@ -30,6 +30,7 @@ package com.univlr.geoluciole.ui.achievements;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,29 +54,27 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     private static final String TAG = AchievementsFragment.class.getSimpleName();
     private View root;
     private Fragment childFragment;
-    private MainActivity context;
-    private BadgeListFragment badgeListFragment;
     private OnFragmentInteractionListener mListener;
-    
-    
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_achievements, container, false);
-        this.context = (MainActivity) root.getContext();
+        MainActivity context = (MainActivity) root.getContext();
         updateDistance();
         return root;
     }
-    
-    
-        @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         updateView();
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             this.mListener = (OnFragmentInteractionListener) context;
+            Log.d(TAG, "onAttach" + this.mListener);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -85,7 +84,7 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     public void updateView() {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         if (childFragment != null) {
-          transaction.remove(childFragment);
+            transaction.remove(childFragment);
         }
         childFragment = new BadgeListFragment();
         transaction.replace(R.id.badgeList_fragment_container, childFragment).commit();
@@ -105,8 +104,8 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     public interface OnFragmentInteractionListener {
         void messageFromParentFragment(Uri uri);
     }
- 
-    public void updateDistance(){
+
+    public void updateDistance() {
         UserPreferences userPref = UserPreferences.getInstance(this.root.getContext());
         TextView textView = this.root.findViewById(R.id.distance_value);
 
@@ -116,11 +115,11 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
 
         String unit = " m";
         float distance = userPref.getDistance();
-        if(userPref.getDistance() > 1000){
+        if (userPref.getDistance() > 1000) {
             distance = distance / 1000;
             unit = " Km";
         }
         String dis = df.format(distance) + unit;
-        textView.setText(dis);   
+        textView.setText(dis);
     }
 }

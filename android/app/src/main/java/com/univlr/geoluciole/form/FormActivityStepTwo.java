@@ -40,7 +40,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,10 +60,6 @@ public class FormActivityStepTwo extends AppCompatActivity {
 
     private static final String STEP_ANONYMOUS = "1/3";
     private static final String FORM = "Form";
-    // variable title
-    private TextView title;
-    // variable step
-    private TextView step;
 
     // variables dates et heures
     @Order(1)
@@ -95,9 +90,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
     private Time timeArrive;
 
     // validation
-    ValidationFormListener validatorListener;
-    Validator validator;
-    TextWatcherListener textWatcherListener;
+    private ValidationFormListener validatorListener;
+    private Validator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,29 +116,31 @@ public class FormActivityStepTwo extends AppCompatActivity {
      */
     private void initUI() {
         // title
-        this.title = (TextView) findViewById(R.id.form_title);
+        // variable title
+        TextView title = findViewById(R.id.form_title);
         // step
-        this.step = (TextView) findViewById(R.id.form_step);
+        // variable step
+        TextView step = findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
-            this.title.setText(R.string.form_title_anonym);
-            this.step.setText(STEP_ANONYMOUS);
+            title.setText(R.string.form_title_anonym);
+            step.setText(STEP_ANONYMOUS);
         }
         // date et heure arrivée boutons
-        this.btnDatePickerArrivee = (Button) findViewById(R.id.btn_in_date);
+        this.btnDatePickerArrivee = findViewById(R.id.btn_in_date);
         // date arrivée input
-        this.txtDateArrivee = (EditText) findViewById(R.id.in_date);
+        this.txtDateArrivee = findViewById(R.id.in_date);
         // date et heure de départ boutons
-        this.btnDatePickerDepart = (Button) findViewById(R.id.btn_out_date);
+        this.btnDatePickerDepart = findViewById(R.id.btn_out_date);
         // date départ input
-        this.txtDateDepart = (EditText) findViewById(R.id.out_date);
+        this.txtDateDepart = findViewById(R.id.out_date);
         // bouton précédent
-        this.btnPrevious = (Button) findViewById(R.id.btn_prev);
+        this.btnPrevious = findViewById(R.id.btn_prev);
         // cacher le bouton precedent si pas de consentement
         if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
             this.btnPrevious.setVisibility(View.INVISIBLE);
         }
         // bouton suivant
-        this.btnContinue = (Button) findViewById(R.id.btn_next);
+        this.btnContinue = findViewById(R.id.btn_next);
     }
 
     /**
@@ -216,13 +212,13 @@ public class FormActivityStepTwo extends AppCompatActivity {
         validator = new Validator(FormActivityStepTwo.this);
         validatorListener = new ValidationFormListener(FormActivityStepTwo.this, FormActivityStepThree.class, form);
         validator.setValidationListener(validatorListener);
-        textWatcherListener = new TextWatcherListener(this.validator);
+        TextWatcherListener textWatcherListener = new TextWatcherListener(this.validator);
         txtDateArrivee.addTextChangedListener(textWatcherListener);
         txtDateDepart.addTextChangedListener(textWatcherListener);
     }
 
     private void saveToForm() {
-        form.setVersion(getAndroidVersion());
+        form.setVersion(Build.VERSION.RELEASE);
 
         // depart
         if (dateDepart != null && timeDepart != null) {
@@ -247,14 +243,8 @@ public class FormActivityStepTwo extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 saveToForm();
-
-                Toast.makeText(FormActivityStepTwo.this,
-                        "OnClickListener : " +
-                                "\nDate arrivée : " + txtDateArrivee.getText() +
-                                "\nDate départ : " + txtDateDepart.getText(),
-                        Toast.LENGTH_SHORT).show();
+                // validation
                 validatorListener.setRedirect(true);
                 validator.validate();
                 validatorListener.setRedirect(false);
@@ -385,9 +375,5 @@ public class FormActivityStepTwo extends AppCompatActivity {
             cal.setTime(this.dateDepart);
             datePicker.setMaxDate(cal.getTimeInMillis());
         }
-    }
-
-    public String getAndroidVersion() {
-        return Build.VERSION.RELEASE;
     }
 }

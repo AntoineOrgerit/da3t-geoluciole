@@ -43,10 +43,10 @@ import com.univlr.geoluciole.model.FormModel;
 
 import java.util.List;
 
-public class ValidationFormListener implements Validator.ValidationListener {
-    private Activity activity;
-    private FormModel form;
-    private Class dest;
+class ValidationFormListener implements Validator.ValidationListener {
+    private final Activity activity;
+    private final FormModel form;
+    private final Class dest;
     private boolean redirect;
 
     public ValidationFormListener(Activity activity, Class dest, FormModel form) {
@@ -58,7 +58,6 @@ public class ValidationFormListener implements Validator.ValidationListener {
 
     @Override
     public void onValidationSucceeded() {
-        Toast.makeText(this.activity, "Formulaire valide", Toast.LENGTH_SHORT).show();
         if (this.redirect) {
             Intent intent = new Intent(this.activity, dest);
 
@@ -87,13 +86,9 @@ public class ValidationFormListener implements Validator.ValidationListener {
             } else if (view instanceof Spinner) {
                 ((TextView) ((Spinner) view).getSelectedView()).setError(message);
             } else {
-                Toast.makeText(this.activity, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(this.activity, message, Toast.LENGTH_LONG).show(); // message validation
             }
         }
-    }
-
-    public boolean isRedirect() {
-        return redirect;
     }
 
     public void setRedirect(boolean redirect) {

@@ -37,7 +37,7 @@
     <string name="action_loader">Loading</string>
 
     <string name="alert_title_constructor_settings">Redirect to your settings</string>
-    <string name="alert_content_constructor_settings"></string>
+    <string name="alert_content_constructor_settings">You will be redirected to your settings in order to deactivate the \' Automatic management \' option. For the correct functioning of the application please deactivate this option.</string>
 
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole is running</string>
@@ -140,7 +140,7 @@
         <item>Cycling</item>
         <item>Other</item>
     </string-array>
-
+    <string name="precision">Precision</string>
     <!-- RADIO QUESTIONS -->
     <string name="form_first_visit_title">Are you visiting La Rochelle for the first time?*</string>
     <string name="form_know_city_title">Would you say you know La Rochelle well?*</string>
@@ -199,6 +199,9 @@
     <string name="plage_de_la_concurrence_description"> "Congratulation! You have just discovered the Plage de la Concurrence"</string>
     <string name="place_des_minimes_description"> "Congratulation! You have just discovered the Plage des Minimes"</string>
     <string name="marche_central_description"> "Congratulation! You have just discovered the Marché Central"</string>
+    <string name="aquarium_description"> "Congratulation! You have just discovered the l'Aquarium de La Rochelle"</string>
+    <string name="place_verdun_description"> "Congratulation! You have just discovered the Place de Verdun"</string>
+
 
     <!-- DIALOG  -->
     <string name="back">Back</string>
@@ -220,4 +223,5 @@
     <!-- POPUP VALIDATION DATE -->
     <string name="message_update_date_title">Update date</string>
     <string name="message_update_date">Are you sure to update this date?</string>
+
 </resources>

@@ -41,6 +41,7 @@ public class BadgePlace extends Badge {
      * Constructeur de la classe, initialisation d'une location
      */
     public BadgePlace() {
+        super();
         this.location = new Location("");
     }
 
