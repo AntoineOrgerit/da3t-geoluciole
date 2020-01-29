@@ -200,6 +200,8 @@
     <string name="place_des_minimes_description"> "Congratulation! You have just discovered the Plage des Minimes"</string>
     <string name="marche_central_description"> "Congratulation! You have just discovered the Marché Central"</string>
     <string name="aquarium_description"> "Congratulation! You have just discovered the l'Aquarium de La Rochelle"</string>
+    <string name="place_verdun_description"> "Congratulation! You have just discovered the Place de Verdun"</string>
+
 
     <!-- DIALOG  -->
     <string name="back">Back</string>
