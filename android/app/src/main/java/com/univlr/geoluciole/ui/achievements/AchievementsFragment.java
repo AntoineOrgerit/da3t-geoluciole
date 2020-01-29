@@ -67,12 +67,12 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     
     
         @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         updateView();
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             this.mListener = (OnFragmentInteractionListener) context;

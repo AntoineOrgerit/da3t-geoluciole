@@ -44,6 +44,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -125,30 +126,25 @@ public class BadgeListFragment extends Fragment {
     }
 
     private ImageView setImage(View root, UserPreferences userPref, int j) {
-        try {
-            ImageView iv = new ImageView(root.getContext());
-            // compute width - height
-            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            int paddingSpace = PADDING * (NB_BADGE_PER_ROW + 1);
-            int widthPerItem = (size.x - paddingSpace) / NB_BADGE_PER_ROW;
-            // set ressource
-            iv.setImageResource(getRessourceImageBadge(userPref.getListUnlockedBadges().get(j)));
-            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.MATCH_PARENT);
-            iv.setPadding(PADDING, PADDING, PADDING, PADDING);
-            iv.setLayoutParams(layoutParams);
-            iv.setClickable(true);
-            iv.bringToFront();
-            iv.setAdjustViewBounds(true);
-            iv.setOnClickListener(getBadgeInfo(userPref.getListUnlockedBadges().get(j), root.getContext()));
-            Log.i(TAG, "setImage, création de l'image - id :" + userPref.getListUnlockedBadges().get(j));
-            return iv;
-        } catch (NullPointerException npe) {
-            Log.w(TAG, npe.getMessage());
-        }
-        return null;
+        ImageView iv = new ImageView(root.getContext());
+        // compute width - height
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = Objects.requireNonNull(wm).getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int paddingSpace = PADDING * (NB_BADGE_PER_ROW + 1);
+        int widthPerItem = (size.x - paddingSpace) / NB_BADGE_PER_ROW;
+        // set ressource
+        iv.setImageResource(getRessourceImageBadge(userPref.getListUnlockedBadges().get(j)));
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.MATCH_PARENT);
+        iv.setPadding(PADDING, PADDING, PADDING, PADDING);
+        iv.setLayoutParams(layoutParams);
+        iv.setClickable(true);
+        iv.bringToFront();
+        iv.setAdjustViewBounds(true);
+        iv.setOnClickListener(getBadgeInfo(userPref.getListUnlockedBadges().get(j), root.getContext()));
+        Log.i(TAG, "setImage, création de l'image - id :" + userPref.getListUnlockedBadges().get(j));
+        return iv;
     }
 
 
@@ -215,7 +211,7 @@ public class BadgeListFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

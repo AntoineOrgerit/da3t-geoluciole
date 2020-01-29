@@ -32,6 +32,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.concurrent.futures.CallbackToFutureAdapter;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -49,6 +50,7 @@ import com.univlr.geoluciole.model.UserPreferences;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
@@ -85,7 +87,7 @@ public class HttpProvider {
         // création de la request
 
 
-        PeriodicWorkRequest periodicWorkRequest =  new PeriodicWorkRequest.Builder(
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(
                 PeriodicallyHttpWorker.class, PeriodicallyHttpWorker.PERIODICALLY_CALL_HTTP_IN_HOUR, TimeUnit.HOURS)
                 .setConstraints(constraintsNetwork)
                 .build();
@@ -104,7 +106,7 @@ public class HttpProvider {
             }
         }, new Executor() {
             @Override
-            public void execute(Runnable runnable) {
+            public void execute(@NonNull Runnable runnable) {
                 runnable.run();
             }
         });
@@ -117,13 +119,13 @@ public class HttpProvider {
                 .setUrl(FORM_URL)
                 .setCallback(new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         Logger.logForm(e);
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String responseBody = response.body().string();
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        String responseBody = Objects.requireNonNull(response.body()).string();
                         try {
                             // recuperation du status de l'insertion
                             JSONObject jsonObject = new JSONObject(responseBody);
@@ -148,6 +150,7 @@ public class HttpProvider {
 
     /**
      * Function appeler par la tâche périodique pour envoyer les données gps
+     *
      * @param context
      * @param completer
      */
@@ -161,14 +164,14 @@ public class HttpProvider {
 
         Callback callback = new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Logger.logGps(e);
                 completer.setException(e);
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String responseBody = response.body().string();
+            public void onResponse(@NonNull Call call, Response response) throws IOException {
+                String responseBody = Objects.requireNonNull(response.body()).string();
                 if (jsonSuccessAction(responseBody, count, Logger.TAG_GPS_PERIODICALLY)) {
                     locationTable.removeAll();
                 }
@@ -193,7 +196,7 @@ public class HttpProvider {
         try {
             JSONObject jsonObject = new JSONObject(body);
             if (!jsonObject.getBoolean("errors")) {
-                Logger.log("GPS send data : "+ count + " locations", Log.INFO, labelCustom);
+                Logger.log("GPS send data : " + count + " locations", Log.INFO, labelCustom);
                 return true;
             } else {
                 Logger.log(jsonObject.toString(), Log.ERROR, labelCustom);
@@ -220,7 +223,7 @@ public class HttpProvider {
                 .setUrl(GPS_URL)
                 .setCallback(new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         Logger.logGps(e);
                         if (handler != null) {
                             Message message = handler.obtainMessage(CODE_HANDLER_GPS_ERROR);
@@ -229,12 +232,12 @@ public class HttpProvider {
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         if (handler != null) {
                             Message message = handler.obtainMessage(CODE_HANDLER_GPS_COUNT, count);
                             message.sendToTarget();
                         }
-                        String responseBody = response.body().string();
+                        String responseBody = Objects.requireNonNull(response.body()).string();
                         if (jsonSuccessAction(responseBody, count)) {
                             locationTable.removeAll();
                         }
@@ -251,13 +254,13 @@ public class HttpProvider {
                 .setUrl(url)
                 .setCallback(new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         Logger.logAccount(e);
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String responseBody = response.body().string();
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        String responseBody = Objects.requireNonNull(response.body()).string();
                         try {
                             JSONObject jsonObject = new JSONObject(responseBody);
                             if (response.code() == 200) {

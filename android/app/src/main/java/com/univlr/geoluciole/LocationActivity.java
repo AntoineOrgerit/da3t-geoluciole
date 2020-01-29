@@ -156,8 +156,8 @@ public abstract class LocationActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull
+                                           String[] permissions, @NonNull int[] grantResults) {
         for (Permission permission : Permission.values()) {
             if (permission.getUniqueID() == requestCode) {
                 if (grantResults.length <= 0) {

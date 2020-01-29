@@ -30,6 +30,8 @@ package com.univlr.geoluciole.sender;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.univlr.geoluciole.database.LocationTable;
 import com.univlr.geoluciole.model.FormModel;
 
@@ -37,6 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -73,13 +76,13 @@ public class HttpSender {
         this.type = HttpSender.TYPE_JSON_APPLICATION;
         this.callback = new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("debug http", response.body().string());
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Log.d("debug http", Objects.requireNonNull(response.body()).string());
                 Log.d("debug http", response.message());
                 Log.d("debug http", response.toString());
             }

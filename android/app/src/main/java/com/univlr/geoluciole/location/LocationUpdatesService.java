@@ -76,6 +76,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -346,7 +347,7 @@ public class LocationUpdatesService extends Service {
                     "Channel human readable title",
                     NotificationManager.IMPORTANCE_DEFAULT);
 
-            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
+            ((NotificationManager) Objects.requireNonNull(getSystemService(Context.NOTIFICATION_SERVICE))).createNotificationChannel(channel);
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -396,7 +397,7 @@ public class LocationUpdatesService extends Service {
     public boolean serviceIsRunningInForeground(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(
                 Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(
+        for (ActivityManager.RunningServiceInfo service : Objects.requireNonNull(manager).getRunningServices(
                 Integer.MAX_VALUE)) {
             if (getClass().getName().equals(service.service.getClassName()) && service.foreground) {
                 return true;

@@ -164,7 +164,7 @@ public class PreferencesFragment extends Fragment {
         // initialisation handler
         handler = new Handler(Looper.getMainLooper()) {
             @Override
-            public void handleMessage(Message message) {
+            public void handleMessage(@NonNull Message message) {
                 switch (message.what) {
                     case HttpProvider.CODE_HANDLER_GPS_COUNT:
                         Toast.makeText(getActivity(), getResources().getText(R.string.toast_success_send_data) + " : " + message.obj, Toast.LENGTH_SHORT).show();

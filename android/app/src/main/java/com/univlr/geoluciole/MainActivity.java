@@ -69,6 +69,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends LocationActivity implements AchievementsFragment.OnFragmentInteractionListener, BadgeListFragment.OnFragmentInteractionListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -150,7 +151,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                         break;
                     case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
-                        AchievementsFragment childfragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(1);
+                        AchievementsFragment childfragment = (AchievementsFragment) ((ViewPagerAdapter) Objects.requireNonNull(viewPager.getAdapter())).getItem(1);
                         childfragment.updateDistance();
                         childfragment.updateView();
                         break;
@@ -183,11 +184,11 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 }
                 if (position == 1) {
                     try {
-                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(1);
+                        AchievementsFragment fragment = (AchievementsFragment) ((ViewPagerAdapter) Objects.requireNonNull(viewPager.getAdapter())).getItem(1);
                         fragment.updateDistance();
                         fragment.updateView();
                     } catch (NullPointerException np) {
-                        Log.i(TAG, np.getMessage());
+                        Log.i(TAG, Objects.requireNonNull(np.getMessage()));
                     }
                 }
                 Log.d(TAG, "onPageSelected: " + position);
@@ -360,7 +361,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
      */
     private HomeFragment getHomeFragment() {
         try {
-            return (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(0);
+            return (HomeFragment) ((ViewPagerAdapter) Objects.requireNonNull(viewPager.getAdapter())).getItem(0);
         } catch (NullPointerException npe) {
             //do nothing
         }
@@ -375,7 +376,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     private void checkPowerSavingMode() {
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                && powerManager.isPowerSaveMode()) {
+                && Objects.requireNonNull(powerManager).isPowerSaveMode()) {
             Intent intent = new Intent();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (powerManager.isIgnoringBatteryOptimizations(getPackageName()))

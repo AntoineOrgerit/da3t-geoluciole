@@ -42,6 +42,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Exemple de formattage du fichier Json contenant les badges
@@ -176,7 +177,7 @@ public class BadgeManager {
     private void instanciateObjFromJson(Context context) {
         Badge badge = null;
         try {
-            JSONObject jsonObject = new JSONObject(loadJSONFromAsset(context));
+            JSONObject jsonObject = new JSONObject(Objects.requireNonNull(loadJSONFromAsset(context)));
             JSONArray jsonArray = jsonObject.getJSONArray(BadgeConstantes.BADGES_LIST);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectBadge = jsonArray.getJSONObject(i);
@@ -242,7 +243,7 @@ public class BadgeManager {
         userPref.getListUnlockedBadges().add(idBadge);
         // enregistre les badges débloqués
         userPref.store(context);
-        Log.i(TAG, "unlockBadgesPlace, BadgePlace unlocked, " + this.hashmapBadges.get(idBadge).getName());
+        Log.i(TAG, "unlockBadgesPlace, BadgePlace unlocked, " + Objects.requireNonNull(this.hashmapBadges.get(idBadge)).getName());
     }
 
     /**
@@ -256,7 +257,7 @@ public class BadgeManager {
             if (it.getValue() instanceof BadgeDistance) {
                 if (userPref.getDistance() >= ((BadgeDistance) it.getValue()).getDistance() && !userPref.getListUnlockedBadges().contains(it.getKey())) {
                     userPref.getListUnlockedBadges().add(it.getKey());
-                    Log.i(TAG, "unlockBadgesDistance, BadgeDistance unlocked, " + this.hashmapBadges.get(it.getKey()).getName());
+                    Log.i(TAG, "unlockBadgesDistance, BadgeDistance unlocked, " + Objects.requireNonNull(this.hashmapBadges.get(it.getKey())).getName());
                     userPref.store(context);
                 }
             }

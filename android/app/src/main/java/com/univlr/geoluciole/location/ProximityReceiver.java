@@ -38,6 +38,8 @@ import com.univlr.geoluciole.model.badge.Badge;
 import com.univlr.geoluciole.model.badge.BadgeConstantes;
 import com.univlr.geoluciole.model.badge.BadgeManager;
 
+import java.util.Objects;
+
 
 public class ProximityReceiver extends BroadcastReceiver {
     private static final String TAG = ProximityReceiver.class.getSimpleName();
@@ -54,14 +56,14 @@ public class ProximityReceiver extends BroadcastReceiver {
         if (entered) {
             try {
                 UserPreferences userPref = UserPreferences.getInstance(context);
-                String idBadgeUnlocked = intent.getExtras().getString(BadgeConstantes.ID);
+                String idBadgeUnlocked = Objects.requireNonNull(intent.getExtras()).getString(BadgeConstantes.ID);
                 if (!userPref.getListUnlockedBadges().contains(idBadgeUnlocked)) {
                     // Call the Notification Service or anything else that you would like to do here
                     BadgeManager badgeManager = BadgeManager.getInstance(context);
                     badgeManager.unlockBadgesPlace(idBadgeUnlocked, context);
                     Badge badge = badgeManager.getArrayBadges().get(idBadgeUnlocked);
                     // creation de la notification
-                    notificationBadge.showNotification(context, badge);
+                    notificationBadge.showNotification(context, Objects.requireNonNull(badge));
                 }
             } catch (NullPointerException npe) {
                 Log.w(TAG, "onReceive, nullpointer " + npe.getMessage());
