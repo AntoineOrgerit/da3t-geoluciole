@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
 
     public void updateLastBadgeView() {
         UserPreferences userPref = UserPreferences.getInstance(root.getContext());
-        if (!userPref.getListUnlockedBadges().isEmpty()) {
+        if (userPref.getListUnlockedBadges() != null && !userPref.getListUnlockedBadges().isEmpty()) {
             int index = userPref.getListUnlockedBadges().size() - 1;
             String idBadge = userPref.getListUnlockedBadges().get(index);
             this.iv = root.findViewById(R.id.last_achievement_image);
