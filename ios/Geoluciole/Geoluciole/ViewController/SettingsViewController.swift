@@ -14,16 +14,15 @@ class SettingsViewController: ParentViewController {
 
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
-
     fileprivate var deleteButton: CustomUIButton!
     fileprivate var sendDataManually: CustomUIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.scrollView = UIScrollView()
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(self.scrollView)
-
         self.contentView = UIView()
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.addSubview(self.contentView)
@@ -203,9 +202,7 @@ class SettingsViewController: ParentViewController {
 
         self.present(alert, animated: true, completion: nil)
     }
-    func openConsentPage() {
-
-    }
+    
     func saveToClipBoard(action: UIAlertAction) {
         UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
         self.rootView.makeToast(Tools.getTranslate(key: "toast_copy_id"), duration: 2, position: .bottom)

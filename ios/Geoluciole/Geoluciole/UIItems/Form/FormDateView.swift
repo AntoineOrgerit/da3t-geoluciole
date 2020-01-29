@@ -39,10 +39,10 @@ class FormDateView: UIView {
             } else {
                 incomeDate = Date()
             }
-
+            
             let result = incomeDate.timeIntervalSince1970 <= strongSelf.zoneDateDepart.date.timeIntervalSince1970
             if result {
-                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_START_ENGAGEMENT, value: Tools.convertDate(date: incomeDate))
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_START_STAY, value: Tools.convertDate(date: incomeDate))
 
             }
             return result
@@ -69,7 +69,7 @@ class FormDateView: UIView {
 
             let result = incomeDate.timeIntervalSince1970 >= strongSelf.zoneDateArrivee.date.timeIntervalSince1970
             if result {
-                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_END_ENGAGEMENT, value: Tools.convertDate(date: incomeDate))
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_END_STAY, value: Tools.convertDate(date: incomeDate))
 
             }
             return result

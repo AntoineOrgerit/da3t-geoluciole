@@ -16,7 +16,7 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
     var dateTxtFld: FormTextField!
     fileprivate var dateButton: CustomUIButton!
     fileprivate var datePicker: UIDatePicker!
-    
+
     var onDateValidate: ((Date) -> Void)?
     var onDateCancel: (() -> Void)?
     var validationData: ((UITextField) -> Bool)?
@@ -32,7 +32,7 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
             return Date()
         }
     }
-    
+
     init(title: String) {
         super.init(frame: .zero)
 
@@ -112,6 +112,14 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
         ])
     }
 
+    func setDefaultDate(key: String) {
+        let strDate = UserPrefs.getInstance().string(forKey: key)
+        let date = Tools.convertDate(date: strDate)
+
+        self.dateTxtFld.textfield.placeholder = strDate
+        self.datePicker.setDate(date, animated: false)
+    }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -130,20 +138,22 @@ class FormDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     @objc fileprivate func dateValidate() {
         self.dateTxtFld.textfield.resignFirstResponder()
-        
-        if let dateText = self.dateTxtFld.textfield.text, dateText != "" {
-            self.onDateValidate?(Tools.convertDate(date: dateText))
-            self.dateChange()
-        } else if let placeholder = self.dateTxtFld.textfield.placeholder, placeholder != "" {
-            self.onDateValidate?(Tools.convertDate(date: placeholder))
-            self.dateChange()
-        } else {
-            self.onDateValidate?(Date())
-            self.dateChange()
+        if self.validationData?(self.dateTxtFld.textfield) ?? true {
+            if let dateText = self.dateTxtFld.textfield.text, dateText != "" {
+                self.onDateValidate?(Tools.convertDate(date: dateText))
+                self.dateChange()
+            } else if let placeholder = self.dateTxtFld.textfield.placeholder, placeholder != "" {
+                self.onDateValidate?(Tools.convertDate(date: placeholder))
+                self.dateChange()
+            } else {
+                self.onDateValidate?(Date())
+                self.dateChange()
+            }
         }
     }
 
     @objc fileprivate func dateChange() {
+
         self.dateTxtFld.textfield.text = Tools.convertDate(date: self.datePicker.date)
     }
 

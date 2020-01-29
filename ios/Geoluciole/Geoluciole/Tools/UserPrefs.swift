@@ -26,7 +26,9 @@ class UserPrefs {
     static let APPLE_LANGUAGE_KEY = "AppleLanguages"
     static let KEY_LAST_BADGE = "last_badge"
     static let KEY_FORMULAIRE_REMPLI = "formulaire_accepte"
-
+    static let KEY_DATE_START_STAY = "date_debut_sejour"
+    static let KEY_DATE_END_STAY = "date_fin_sejour"
+    
     fileprivate init() {
 
         // si la durée d'engagement est renseigné

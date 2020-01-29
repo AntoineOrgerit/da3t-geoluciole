@@ -48,14 +48,14 @@ class FormThirdPageViewController: ParentModalViewController, ButtonsPrevNextDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let pageIndex: String
+        let titre: FormTitlePage!
+        
         if UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
-            pageIndex = "3/4"
+            titre = FormTitlePage(title: Tools.getTranslate(key: "form_title"), pageIndex: "3/4")
         } else {
-            pageIndex = "2/3"
+            titre = FormTitlePage(title: Tools.getTranslate(key: "form_title_anonym"), pageIndex: "2/3")
         }
-
-        let titre = FormTitlePage(title: Tools.getTranslate(key: "form_title"), pageIndex: pageIndex)
+        
         titre.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(titre)
 

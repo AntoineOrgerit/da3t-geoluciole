@@ -24,6 +24,7 @@ class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDel
     override func viewDidLoad() {
         super.viewDidLoad()
         //titre de la page
+        
         self.titre = FormTitlePage(title: Tools.getTranslate(key: "form_title"), pageIndex: "1/4")
         self.titre.translatesAutoresizingMaskIntoConstraints = false
 

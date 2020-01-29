@@ -23,10 +23,9 @@ class FormFourthPageViewController: ParentModalViewController, ButtonsPrevNextDe
         super.viewDidLoad()
 
         //récuperation des dates enregistrées dans la page arrivée/départ (2/4)
-        let startCollect = Tools.convertDate(date: self.userPrefs.string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT))
-        let endCollect = Tools.convertDate(date: self.userPrefs.string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT))
+        let startCollect = Tools.convertDate(date: self.userPrefs.string(forKey: UserPrefs.KEY_DATE_START_STAY))
+        let endCollect = Tools.convertDate(date: self.userPrefs.string(forKey: UserPrefs.KEY_DATE_END_STAY))
 
-        var pageIndex: String
         var titre: FormTitlePage
         
         //si la page une n'est pas affichée alors cette page est la 3/3 et le titre doit changer
@@ -61,6 +60,29 @@ class FormFourthPageViewController: ParentModalViewController, ButtonsPrevNextDe
         self.debutCollect.translatesAutoresizingMaskIntoConstraints = false
         self.debutCollect.setMinimumDate(date: startCollect)
         self.debutCollect.setMaximumDate(date: endCollect)
+        self.debutCollect.setDefaultDate(key: UserPrefs.KEY_DATE_START_STAY)
+        self.debutCollect.validationData = {[weak self] textfield in
+            guard let strongSelf = self else {
+                return false
+            }
+            var incomeDate: Date
+
+            if let date = textfield.text, date != "" {
+                incomeDate = Tools.convertDate(date: date)
+            } else if let placeholder = textfield.placeholder, placeholder != "" {
+                incomeDate = Tools.convertDate(date: placeholder)
+            } else {
+                incomeDate = Date()
+            }
+            
+            let result = incomeDate.timeIntervalSince1970 <= strongSelf.finCollect.date.timeIntervalSince1970
+            if result {
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_START_ENGAGEMENT, value: Tools.convertDate(date: incomeDate))
+
+            }
+            return result
+            
+        }
         self.contentView.addSubview(self.debutCollect)
 
         //idem fin de collect
@@ -68,6 +90,29 @@ class FormFourthPageViewController: ParentModalViewController, ButtonsPrevNextDe
         self.finCollect.translatesAutoresizingMaskIntoConstraints = false
         self.finCollect.setMinimumDate(date: startCollect)
         self.finCollect.setMaximumDate(date: endCollect)
+        self.finCollect.setDefaultDate(key: UserPrefs.KEY_DATE_END_STAY)
+        self.finCollect.validationData = {[weak self] textfield in
+            guard let strongSelf = self else {
+                return false
+            }
+            var incomeDate: Date
+
+            if let date = textfield.text, date != "" {
+                incomeDate = Tools.convertDate(date: date)
+            } else if let placeholder = textfield.placeholder, placeholder != "" {
+                incomeDate = Tools.convertDate(date: placeholder)
+            } else {
+                incomeDate = Date()
+            }
+            
+            let result = incomeDate.timeIntervalSince1970 >= strongSelf.debutCollect.date.timeIntervalSince1970
+            if result {
+                UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_END_ENGAGEMENT, value: Tools.convertDate(date: incomeDate))
+
+            }
+            return result
+            
+        }
         self.contentView.addSubview(self.finCollect)
 
         //création des boutons de navigation

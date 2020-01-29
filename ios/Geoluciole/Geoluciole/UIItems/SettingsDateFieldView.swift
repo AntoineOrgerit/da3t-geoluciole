@@ -16,10 +16,11 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
     fileprivate var datePicker: UIDatePicker!
     var onDateValidate: ((Date) -> Void)?
     var onDateCancel: (() -> Void)?
+    var validationData: ((UITextView)->Bool)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         self.titleLabel = CustomUILabel()
         self.titleLabel.setStyle(style: .bodyRegular)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +32,7 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
         wrapDate.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(wrapDate)
 
+        //élément utilisé pour afficher la date
         self.dateLabel = UITextView()
         self.dateLabel.tintColor = .clear
         self.dateLabel.font = UIFont(name: "Roboto-Italic", size: 16)
@@ -40,13 +42,14 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
         self.dateLabel.isUserInteractionEnabled = false
         wrapDate.addSubview(self.dateLabel)
 
+        //élément qui affiche un sélecteur de date
         self.datePicker = UIDatePicker()
         self.datePicker.datePickerMode = .dateAndTime
         self.datePicker.addTarget(self, action: #selector(SettingsDateFieldView.dateChange), for: .valueChanged)
         self.datePicker.calendar = Calendar.current
         self.datePicker.locale = Tools.getPreferredLocale()
 
-        //ToolBar
+        //ToolBar du picker pour valider la date et fermer la vue
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         let doneButton = UIBarButtonItem(title: Tools.getTranslate(key: "action_validate"), style: .done, target: self, action: #selector(SettingsDateFieldView.dateValidate))
@@ -117,7 +120,10 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     @objc fileprivate func dateValidate() {
         self.dateLabel.resignFirstResponder()
-        self.onDateValidate?(Tools.convertDate(date: self.dateLabel.text))
+        if self.validationData?(self.dateLabel) ?? true{
+            self.onDateValidate?(Tools.convertDate(date: self.dateLabel.text))
+        } 
+        
     }
 
     @objc fileprivate func dateChange() {
@@ -142,5 +148,11 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
     
     func setDateLabel(date: String) {
         self.dateLabel.text = date
+    }
+    func getDateLabel() -> String {
+        return self.dateLabel.text
+    }
+    func setDefaultDatePicker(date: String){
+        self.datePicker.setDate(Tools.convertDate(date: date), animated: false)
     }
 }
