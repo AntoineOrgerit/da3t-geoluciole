@@ -51,6 +51,8 @@ import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.model.badge.BadgeManager;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -60,15 +62,8 @@ import com.univlr.geoluciole.model.badge.BadgeManager;
  */
 public class BadgeListFragment extends Fragment {
     private static final String TAG = BadgeListFragment.class.getSimpleName();
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private static final int NB_BADGE_PER_ROW = 3;
-    private static final int IMG_WIDTH = 250;
-    private static final int IMG_HEIGHT = 250;
-    private static final int MARGIN = 30;
     private static final int PADDING = 40;
-    //  private MainActivity context;
 
 
     private OnFragmentInteractionListener mListener;
@@ -76,11 +71,6 @@ public class BadgeListFragment extends Fragment {
 
     public BadgeListFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -135,30 +125,30 @@ public class BadgeListFragment extends Fragment {
     }
 
     private ImageView setImage(View root, UserPreferences userPref, int j) {
-        ImageView iv = new ImageView(root.getContext());
-        // compute width - height
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int paddingSpace = PADDING * (NB_BADGE_PER_ROW + 1);
-        int widthPerItem = (size.x - paddingSpace) / NB_BADGE_PER_ROW;
-        // int heightPerItem = (size.y - paddingSpace) / NB_BADGE_PER_ROW;
-
-        // set ressource
-        iv.setImageResource(getRessourceImageBadge(userPref.getListUnlockedBadges().get(j)));
-        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        // layoutParams.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
-        iv.setPadding(PADDING, PADDING, PADDING, PADDING);
-        iv.setLayoutParams(layoutParams);
-        iv.setClickable(true);
-        iv.bringToFront();
-        iv.setAdjustViewBounds(true);
-        //iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        iv.setOnClickListener(getBadgeInfo(userPref.getListUnlockedBadges().get(j), root.getContext()));
-        Log.i(TAG, "setImage, création de l'image - id :" + userPref.getListUnlockedBadges().get(j));
-        return iv;
+        try {
+            ImageView iv = new ImageView(root.getContext());
+            // compute width - height
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int paddingSpace = PADDING * (NB_BADGE_PER_ROW + 1);
+            int widthPerItem = (size.x - paddingSpace) / NB_BADGE_PER_ROW;
+            // set ressource
+            iv.setImageResource(getRessourceImageBadge(userPref.getListUnlockedBadges().get(j)));
+            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.MATCH_PARENT);
+            iv.setPadding(PADDING, PADDING, PADDING, PADDING);
+            iv.setLayoutParams(layoutParams);
+            iv.setClickable(true);
+            iv.bringToFront();
+            iv.setAdjustViewBounds(true);
+            iv.setOnClickListener(getBadgeInfo(userPref.getListUnlockedBadges().get(j), root.getContext()));
+            Log.i(TAG, "setImage, création de l'image - id :" + userPref.getListUnlockedBadges().get(j));
+            return iv;
+        } catch (NullPointerException npe) {
+            Log.w(TAG, npe.getMessage());
+        }
+        return null;
     }
 
 
@@ -168,8 +158,8 @@ public class BadgeListFragment extends Fragment {
             public void onClick(View view) {
                 BadgeManager badgeManager = BadgeManager.getInstance(context);
                 if (badgeManager.getArrayBadges().containsKey(idBadge)) {
-                    String name = badgeManager.getArrayBadges().get(idBadge).getName();
-                    String desc = badgeManager.getArrayBadges().get(idBadge).getDescription();
+                    String name = Objects.requireNonNull(badgeManager.getArrayBadges().get(idBadge)).getName();
+                    String desc = Objects.requireNonNull(badgeManager.getArrayBadges().get(idBadge)).getDescription();
                     Toast.makeText(view.getContext(),
                             "Badge " + name + " \n" + desc
                             , Toast.LENGTH_LONG).show();
