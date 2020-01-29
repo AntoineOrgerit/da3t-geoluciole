@@ -84,18 +84,6 @@ class GPSConsentRGPDViewController: ParentModalViewController, ButtonsPrevNextDe
         self.setupConstraints()
     }
 
-    fileprivate func sendDataCompte() {
-        var compte = [[String: Any]]()
-
-        let now = Date()
-        // TODO: METTRE LES BONNES DATA
-        let dict = ["consentement_gps": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date_gps": now.timeIntervalSince1970, "nom": "test2", "prenom": "test2", "mail": "mail2@gmail.com", "date_gps_str": Tools.convertDateToServerDate(date: now)] as [String: Any]
-        compte.append(dict)
-
-        let msg = ElasticSearchAPI.getInstance().generateMessage(content: compte, needBulk: true)
-        ElasticSearchAPI.getInstance().postCompte(message: msg)
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -205,15 +193,31 @@ class GPSConsentRGPDViewController: ParentModalViewController, ButtonsPrevNextDe
     }
 
     func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onNext: Bool) {
-        self.sendDataCompte()
         self.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: true)
         self.userPrefs.setPrefs(key: UserPrefs.KEY_SEND_DATA, value: true)
+
+        // on sauvegarde les données de consentement dans les usersPref temporairement (le temps de faire le formulaire)
+        self.saveConsentementGPS()
         LocationHandler.getInstance().requestLocationAuthorization()
         self.dismiss(animated: true)
     }
 
     func boutonsPrevNext(boutonsPrevNext: ButtonsPrevNext, onPrevious: Bool) {
         self.userPrefs.setPrefs(key: UserPrefs.KEY_RGPD_CONSENT, value: false)
+
+        // On supprime les données de consentement GPS si elles existent lors d'un refus d'utilisation des données de localisation
+        if self.userPrefs.object(forKey: UserPrefs.KEY_GPS_CONSENT_DATA) != nil {
+            self.userPrefs.removePrefs(key: UserPrefs.KEY_GPS_CONSENT_DATA)
+        }
         self.dismiss(animated: true)
     }
+    
+    /// Sauvegarde les données de consentement de l'utilisation du GPS en local sur le smartphone.
+    fileprivate func saveConsentementGPS() {
+        let now = Date()
+        let dict = ["consentement_gps": NSLocalizedString("rgpd_first_content_consentement", comment: ""), "date_gps": now.timeIntervalSince1970, "date_gps_str": Tools.convertDateToServerDate(date: now)] as [String: Any]
+
+        UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_GPS_CONSENT_DATA, value: dict)
+    }
 }
+

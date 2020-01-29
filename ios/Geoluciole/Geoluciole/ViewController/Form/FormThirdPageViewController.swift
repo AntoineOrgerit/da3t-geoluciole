@@ -16,7 +16,7 @@ class FormThirdPageViewController: ParentModalViewController, ButtonsPrevNextDel
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
     fileprivate var allFields = [Any]()
-    var formData = [String: Any]()
+    var formData = [[String: Any]]()
     var formulaire: UIView!
     fileprivate var dropDown0: FormDropDownList!
     fileprivate var dropDown1: FormDropDownList!
@@ -110,17 +110,15 @@ class FormThirdPageViewController: ParentModalViewController, ButtonsPrevNextDel
             formulaire.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
     }
-    func getFormDat() -> [String: Any] {
-        self.formData["3"] = self.dropDown0.selectedValue
-
-        self.formData["4"] = self.question1.selectedValue
-        self.formData["5"] = self.question2.selectedValue
-        self.formData["6"] = self.question3.selectedValue
-        self.formData["7"] = self.question4.selectedValue
-        self.formData["8"] = self.question5.selectedValue
-        self.formData["9"] = self.question6.selectedValue
-
-        self.formData["10"] = self.dropDown1.selectedValue
+    func getFormDat() -> [[String: Any]] {
+        self.formData.append(["3": self.dropDown0.selectedValue])
+        self.formData.append(["4": self.question1.selectedValue])
+        self.formData.append(["5": self.question2.selectedValue])
+        self.formData.append(["6": self.question3.selectedValue])
+        self.formData.append(["7": self.question4.selectedValue])
+        self.formData.append(["8": self.question5.selectedValue])
+        self.formData.append(["9": self.question6.selectedValue])
+        self.formData.append(["10": self.dropDown1.selectedValue])
         return formData
 
     }

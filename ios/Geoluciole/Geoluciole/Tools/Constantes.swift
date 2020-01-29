@@ -32,9 +32,10 @@ class Constantes {
     // SERVEUR ELASTIC SEARCH
     static let API_URL_UNIV_LR_HTTP = "http://datamuseum.univ-lr.fr:9200"
     static let API_URL_UNIV_LR_HTTPS = "https://datamuseum.univ-lr.fr:9200"
-    // TODO: IL FAUT SUPPRIMER ÇA
-    static let API_URL_SERVER_TEST_JESSY = "http://86.233.189.163:9200"
-    static let TIMER_SEND_DATA = 60.0 * 2 // en s ==> paramètre pour l'envoi régulier au serveur
+    static let SECONDE: Double = 1.0 //
+    static let MINUTE: Double = SECONDE * 60.0
+    static let HEURE: Double = MINUTE * 60.0 // en secondes
+    static let TIMER_SEND_DATA: Double = HEURE * 4.0 // en secondes ==> paramètre pour l'envoi régulier au serveur (ici 4h : 3600s * 4 = 4h)
 
     // DISTANCE DE DETECTION
     static let DISTANCE_DETECTION: CLLocationDistance = 10.0

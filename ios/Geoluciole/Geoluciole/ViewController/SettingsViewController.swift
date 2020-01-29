@@ -212,7 +212,6 @@ class SettingsViewController: ParentViewController {
         let email = Constantes.REVOQ_CONSENT_MAIL
 
         let identifiant = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
-        // TODO: I18N
         let stringURL = "mailto:\(email)?subject=Revoquer%20mon%20consentement&body=\(identifiant)%20demande%20la%20suppression%20de%20ses%20donn%C3%A9es"
         if let url = URL(string: stringURL) {
 

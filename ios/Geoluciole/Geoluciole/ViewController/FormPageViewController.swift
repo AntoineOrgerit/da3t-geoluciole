@@ -59,7 +59,13 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
             [weak self] in
             guard let strongSelf = self else { return }
             if strongSelf.secondPage.validationPage() {
-                strongSelf.formAnswers.append(strongSelf.secondPage.getFormDat())
+                // on sette les données de la page
+                let fields = strongSelf.secondPage.getFormDat()
+                
+                for element in fields {
+                    strongSelf.formAnswers.append(element)
+                }
+                
                 strongSelf.displayablePages.append(strongSelf.thirdPage)
                 strongSelf.setViewControllers([strongSelf.thirdPage], direction: .forward, animated: true, completion: nil)
             } else {
@@ -82,7 +88,12 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
             guard let strongSelf = self else { return }
 
             if strongSelf.thirdPage.validationPage() {
-                strongSelf.formAnswers.append(strongSelf.thirdPage.getFormDat())
+                let fields = strongSelf.thirdPage.getFormDat()
+                
+                for element in fields {
+                     strongSelf.formAnswers.append(element)
+                }
+                
                 strongSelf.displayablePages.append(strongSelf.fourthPage)
                 strongSelf.setViewControllers([strongSelf.fourthPage], direction: .forward, animated: true, completion: nil)
             } else {
@@ -104,10 +115,11 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
             guard let strongSelf = self else { return }
             if strongSelf.fourthPage.validationPage() {
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_FORMULAIRE_REMPLI, value: true)
-                let msg = ElasticSearchAPI.getInstance().generateMessage(content: strongSelf.formAnswers, needBulk: true)
-
-                let msg2 = ElasticSearchAPI.getInstance().generateMessage(content: [strongSelf.formInfoGen], needBulk: true)
+                // Envoi des informations de compte au serveur
+                strongSelf.sendDataCompte()
                 
+                // Envoi des informations du formulaire au serveur
+                strongSelf.sendDataFormulaire()
                 strongSelf.dismiss(animated: true, completion: nil)
             } else {
                 var s = ToastStyle()
@@ -117,8 +129,6 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
             }
         }
 
-        // TODO: POURQUOI CE COMMENTAIRE ?
-        // Si le consentement de récupération des données du formulaire
         self.dataSource = self
         self.delegate = self
 
@@ -140,5 +150,37 @@ class FormPageViewController: UIPageViewController, UIPageViewControllerDelegate
         // Blocage des swipes
         return nil
     }
-
+    
+    /// Envoi des informations de compte au serveur
+    fileprivate func sendDataCompte() {
+        // on récupère les données que l'on a stockées en local pour compléter le message à envoyer
+        if let gps_consent_data = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_GPS_CONSENT_DATA) as? [String: Any] {
+            if let form_consent_data = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT_DATA) as? [String: Any] {
+                // On complete notre objet avec les informations récupérées
+                
+                // informations consentement GPS
+                for (key, value) in gps_consent_data {
+                    self.formInfoGen[key] = value
+                }
+                
+                // informations consentement formulaire
+                for (key, value) in form_consent_data {
+                    self.formInfoGen[key] = value
+                }
+            } else {
+                 print("Aucune données de consentement du formulaire récupérée")
+            }
+        } else {
+            print("Aucune données de consentement GPS récupérée")
+        }
+        
+        let messageCompte = ElasticSearchAPI.getInstance().generateMessage(content: [self.formInfoGen], needBulk: false, addInfoDevice: true)
+        ElasticSearchAPI.getInstance().postCompte(message: messageCompte)
+    }
+    
+    /// Envoi les informations du formulaire (réponses aux questions) au serveur
+    fileprivate func sendDataFormulaire() {
+        let messageFormulaire = ElasticSearchAPI.getInstance().generateMessageFormulaire(content: self.formAnswers)
+        ElasticSearchAPI.getInstance().postFormulaire(message: messageFormulaire)
+    }
 }
