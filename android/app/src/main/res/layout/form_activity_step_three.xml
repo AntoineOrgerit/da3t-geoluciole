@@ -463,7 +463,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:text="@string/form_submit"
+            android:text="@string/form_continue"
             android:textColor="@color/text_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

@@ -55,8 +55,8 @@
     <string name="last_achievement_obtained">Badge récemment obtenu</string>
     <string name="last_achievement_obtained_picture_description">Image du dernier badge obtenu par l\'utilisateur.</string>
     <string name="data_collection">Collecte des données</string>
-    <string name="data_collection_activated">ON</string>
-    <string name="data_collection_deactivated">OFF</string>
+    <string name="data_collection_activated">activée</string>
+    <string name="data_collection_deactivated">désactivée</string>
 
     <!-- CONSTANT FORM -->
     <string name="form_title">Formulaire</string>
@@ -151,8 +151,8 @@
     <string name="send_data">Envoyer mes données</string>
 
     <string name="toast_error_send_data">Erreur dans l\'envoi des données.</string>
-    <string name="toast_success_send_data">Données envoiyées</string>
-    <string name="toast_no_data">Pas de données à evnoyer</string>
+    <string name="toast_success_send_data">Données envoyées</string>
+    <string name="toast_no_data">Pas de données à envoyer</string>
 
     <!-- ACHIEVEMENTS FRAGMENT -->
     <string name="text_stats_title">Statistiques</string>
