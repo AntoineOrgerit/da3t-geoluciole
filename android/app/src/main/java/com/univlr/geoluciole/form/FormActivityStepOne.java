@@ -76,7 +76,7 @@ public class FormActivityStepOne extends AppCompatActivity {
         // cacher keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // bouton envoi
-        Button btnContinue = (Button) findViewById(R.id.btn_next);
+        Button btnContinue = findViewById(R.id.btn_next);
         btnContinue.setOnClickListener(getPersonalData());
         // init validator
         initValidatorListener();

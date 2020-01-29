@@ -90,7 +90,7 @@ public class BadgeListFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_badge_list, container, false);
         this.context = root.getContext();
 
-        TableLayout mTableLayout = (TableLayout) root.findViewById(R.id.table_badges);
+        TableLayout mTableLayout = root.findViewById(R.id.table_badges);
         // get instance des preferences user
         UserPreferences userPref = UserPreferences.getInstance(root.getContext());
         // si liste vide, vue sans badges
@@ -109,7 +109,7 @@ public class BadgeListFragment extends Fragment {
 
             // init de la premiere row
             TableRow row = new TableRow(root.getContext());
-            if(userPref.getListUnlockedBadges() != null){
+            if (userPref.getListUnlockedBadges() != null) {
                 // pour chaque badge debloqués dans la liste
                 for (int j = 0; j < userPref.getListUnlockedBadges().size(); ++j) {
                     // pour afficher 3 badges par row
@@ -204,20 +204,14 @@ public class BadgeListFragment extends Fragment {
             case "7":
                 return R.mipmap.badge_grosse_horloge;
             case "8":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_marche;
             case "9":
                 return R.mipmap.badge_plage_minimes;
             case "10":
                 return R.mipmap.badge_plage_concurrence;
             case "11":
-                return R.mipmap.no_image;
+                return R.mipmap.badge_aquarium;
             case "12":
-                return R.mipmap.no_image;
-            case "13":
-                return R.mipmap.no_image;
-            case "14":
-                return R.mipmap.no_image;
-            case "15":
                 return R.mipmap.no_image;
             default:
                 return R.mipmap.no_image;

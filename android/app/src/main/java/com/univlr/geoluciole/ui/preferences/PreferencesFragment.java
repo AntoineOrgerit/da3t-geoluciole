@@ -499,8 +499,8 @@ public class PreferencesFragment extends Fragment {
 
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                Button buttonValidate = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                Button buttonBack = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                Button buttonValidate = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                Button buttonBack = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
                 buttonValidate.setOnClickListener(new View.OnClickListener() {
                     @Override

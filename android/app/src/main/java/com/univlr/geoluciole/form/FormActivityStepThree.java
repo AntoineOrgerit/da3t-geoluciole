@@ -117,16 +117,16 @@ public class FormActivityStepThree extends AppCompatActivity {
      */
     private void initUI() {
         // title
-        this.title = (TextView) findViewById(R.id.form_title);
+        this.title = findViewById(R.id.form_title);
         // step
-        this.step = (TextView) findViewById(R.id.form_step);
+        this.step = findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
             this.step.setText(STEP_ANONYMOUS);
         }
         // liste déroulante
-        this.spinnerWhomList = (Spinner) findViewById(R.id.spinner_list_whom);
-        this.spinnerTransportList = (Spinner) findViewById(R.id.spinner_list_transport);
+        this.spinnerWhomList = findViewById(R.id.spinner_list_whom);
+        this.spinnerTransportList = findViewById(R.id.spinner_list_transport);
 
         // autre with whom
         this.otherInputLayout = findViewById(R.id.form_other_title);
@@ -139,17 +139,17 @@ public class FormActivityStepThree extends AppCompatActivity {
         this.otherTransportInputLayout.setVisibility(View.GONE);
 
         // radiogroup
-        this.radiogroupPresenceChildren = (RadioGroup) findViewById(R.id.radio_group_presence_children);
-        this.radiogroupPresenceTeens = (RadioGroup) findViewById(R.id.radio_group_presence_teens);
-        this.radiogroupFirstTime = (RadioGroup) findViewById(R.id.radio_group_first_time);
-        this.radiogroupKnowCity = (RadioGroup) findViewById(R.id.radio_group_know_city);
-        this.radiogroupFiveTimes = (RadioGroup) findViewById(R.id.radio_group_five_times);
-        this.radiogroupTwoMonths = (RadioGroup) findViewById(R.id.radio_group_two_months);
+        this.radiogroupPresenceChildren = findViewById(R.id.radio_group_presence_children);
+        this.radiogroupPresenceTeens = findViewById(R.id.radio_group_presence_teens);
+        this.radiogroupFirstTime = findViewById(R.id.radio_group_first_time);
+        this.radiogroupKnowCity = findViewById(R.id.radio_group_know_city);
+        this.radiogroupFiveTimes = findViewById(R.id.radio_group_five_times);
+        this.radiogroupTwoMonths = findViewById(R.id.radio_group_two_months);
 
         // bouton précédent
-        this.btnPrevious = (Button) findViewById(R.id.btn_prev);
+        this.btnPrevious = findViewById(R.id.btn_prev);
         // bouton envoi
-        this.btnSubmit = (Button) findViewById(R.id.btn_next);
+        this.btnSubmit = findViewById(R.id.btn_next);
     }
 
     /**
@@ -274,7 +274,7 @@ public class FormActivityStepThree extends AppCompatActivity {
     }
 
     private Boolean getRadioButtonValue(int selectedId) {
-        RadioButton radioResponse = (RadioButton) findViewById(selectedId);
+        RadioButton radioResponse = findViewById(selectedId);
         return (radioResponse != null && String.valueOf(radioResponse.getText()).equalsIgnoreCase(getString(R.string.form_yes_response)));
     }
 

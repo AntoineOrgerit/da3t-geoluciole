@@ -104,29 +104,20 @@
     {
       "id": 11,
       "type": "place",
-      "name": "Technoforum",
-      "description": "grosse_horloge_description",
-      "latitude": 46.147712,
-      "longitude": -1.155089,
+      "name": "Aquarium de La Rochelle",
+      "description": "aquarium_description",
+      "latitude": 46.153278029059102,
+      "longitude": -1.150613223029379,
       "proximity": 25
     },
     {
       "id": 12,
       "type": "place",
-      "name": "Carrefour",
-      "description": "grosse_horloge_description",
-      "latitude": 46.148579,
-      "longitude": -1.153366,
-      "proximity": 10
-    },
-    {
-      "id": 13,
-      "type": "place",
-      "name": "Maison de la Charente Maritime",
-      "description": "grosse_horloge_description",
-      "latitude": 46.138027,
-      "longitude": -1.151643,
-      "proximity": 400
+      "name": "Place Verdun",
+      "description": "place_verdun_description",
+      "latitude": 46.16257597016866,
+      "longitude": -1.153556468182943,
+      "proximity": 25
     }
   ]
 }

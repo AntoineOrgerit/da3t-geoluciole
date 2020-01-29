@@ -107,18 +107,18 @@ public class FormActivityStepEnd extends AppCompatActivity {
      */
     private void initUI() {
         // title
-        this.title = (TextView) findViewById(R.id.form_title);
+        this.title = findViewById(R.id.form_title);
         // step
-        this.step = (TextView) findViewById(R.id.form_step);
+        this.step = findViewById(R.id.form_step);
         if (!userPreferences.isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
             this.step.setText(STEP_ANONYMOUS);
         }
 
         // bouton précédent
-        this.btnPrevious = (Button) findViewById(R.id.btn_prev);
+        this.btnPrevious = findViewById(R.id.btn_prev);
         // bouton envoi
-        this.btnSubmit = (Button) findViewById(R.id.btn_next);
+        this.btnSubmit = findViewById(R.id.btn_next);
 
         // bouton
         this.startValidityPeriodBtn = findViewById(R.id.start_validity_period_btn);

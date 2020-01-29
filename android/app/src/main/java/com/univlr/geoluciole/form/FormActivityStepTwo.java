@@ -121,29 +121,29 @@ public class FormActivityStepTwo extends AppCompatActivity {
      */
     private void initUI() {
         // title
-        this.title = (TextView) findViewById(R.id.form_title);
+        this.title = findViewById(R.id.form_title);
         // step
-        this.step = (TextView) findViewById(R.id.form_step);
+        this.step = findViewById(R.id.form_step);
         if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
             this.title.setText(R.string.form_title_anonym);
             this.step.setText(STEP_ANONYMOUS);
         }
         // date et heure arrivée boutons
-        this.btnDatePickerArrivee = (Button) findViewById(R.id.btn_in_date);
+        this.btnDatePickerArrivee = findViewById(R.id.btn_in_date);
         // date arrivée input
-        this.txtDateArrivee = (EditText) findViewById(R.id.in_date);
+        this.txtDateArrivee = findViewById(R.id.in_date);
         // date et heure de départ boutons
-        this.btnDatePickerDepart = (Button) findViewById(R.id.btn_out_date);
+        this.btnDatePickerDepart = findViewById(R.id.btn_out_date);
         // date départ input
-        this.txtDateDepart = (EditText) findViewById(R.id.out_date);
+        this.txtDateDepart = findViewById(R.id.out_date);
         // bouton précédent
-        this.btnPrevious = (Button) findViewById(R.id.btn_prev);
+        this.btnPrevious = findViewById(R.id.btn_prev);
         // cacher le bouton precedent si pas de consentement
         if (!UserPreferences.getInstance(FormActivityStepTwo.this).isAccountConsent()) {
             this.btnPrevious.setVisibility(View.INVISIBLE);
         }
         // bouton suivant
-        this.btnContinue = (Button) findViewById(R.id.btn_next);
+        this.btnContinue = findViewById(R.id.btn_next);
     }
 
     /**
