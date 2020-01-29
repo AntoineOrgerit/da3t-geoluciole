@@ -140,7 +140,7 @@
         <item>Cycling</item>
         <item>Other</item>
     </string-array>
-
+    <string name="precision">Precision</string>
     <!-- RADIO QUESTIONS -->
     <string name="form_first_visit_title">Are you visiting La Rochelle for the first time?*</string>
     <string name="form_know_city_title">Would you say you know La Rochelle well?*</string>
@@ -221,4 +221,5 @@
     <!-- POPUP VALIDATION DATE -->
     <string name="message_update_date_title">Update date</string>
     <string name="message_update_date">Are you sure to update this date?</string>
+
 </resources>
