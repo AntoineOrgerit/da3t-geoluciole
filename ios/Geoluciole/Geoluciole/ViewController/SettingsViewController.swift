@@ -15,6 +15,8 @@ class SettingsViewController: ParentViewController {
     fileprivate var scrollView: UIScrollView!
     fileprivate var contentView: UIView!
 
+    fileprivate var deleteButton: CustomUIButton!
+    fileprivate var sendDataManually: CustomUIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,18 +78,13 @@ class SettingsViewController: ParentViewController {
         partnersButton.translatesAutoresizingMaskIntoConstraints = false
         wrapButtons.addSubview(partnersButton)
 
-        let deleteButton = CustomUIButton()
-        deleteButton.setTitle(Tools.getTranslate(key: "revoke_consent"), for: .normal)
-        deleteButton.onClick = { button in
-            self.openRevokConsent()
-        }
-        deleteButton.setStyle(style: .settingLight)
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        wrapButtons.addSubview(deleteButton)
+        self.deleteButton = CustomUIButton()
+        self.deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        wrapButtons.addSubview(self.deleteButton)
 
-        let sendDataManually = CustomUIButton()
-        sendDataManually.setTitle(Tools.getTranslate(key: "send_data"), for: .normal)
-        sendDataManually.onClick = { [weak self] _ in
+        self.sendDataManually = CustomUIButton()
+        self.sendDataManually.setTitle(Tools.getTranslate(key: "send_data"), for: .normal)
+        self.sendDataManually.onClick = { [weak self] _ in
             guard let strongSelf = self else { return }
 
             let queue = DispatchQueue(label: "SendData", qos: .background)
@@ -97,9 +94,9 @@ class SettingsViewController: ParentViewController {
             }
 
         }
-        sendDataManually.setStyle(style: .settingDark)
-        sendDataManually.translatesAutoresizingMaskIntoConstraints = false
-        wrapButtons.addSubview(sendDataManually)
+        self.sendDataManually.setStyle(style: .settingDark)
+        self.sendDataManually.translatesAutoresizingMaskIntoConstraints = false
+        wrapButtons.addSubview(self.sendDataManually)
 
         // Constraints ScrollView
         NSLayoutConstraint.activate([
@@ -141,7 +138,7 @@ class SettingsViewController: ParentViewController {
             wrapButtons.topAnchor.constraint(equalTo: languageSelectorView.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL * 2),
             wrapButtons.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: Constantes.PAGE_PADDING),
             wrapButtons.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING),
-            wrapButtons.bottomAnchor.constraint(equalTo: sendDataManually.bottomAnchor),
+            wrapButtons.bottomAnchor.constraint(equalTo: self.sendDataManually.bottomAnchor),
 
             partnersButton.topAnchor.constraint(equalTo: wrapButtons.topAnchor),
             partnersButton.rightAnchor.constraint(equalTo: wrapButtons.rightAnchor),
@@ -151,13 +148,13 @@ class SettingsViewController: ParentViewController {
             cguButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
             cguButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),
 
-            deleteButton.topAnchor.constraint(equalTo: cguButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            deleteButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
-            deleteButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),
+            self.deleteButton.topAnchor.constraint(equalTo: cguButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.deleteButton.widthAnchor.constraint(equalTo: wrapButtons.widthAnchor),
+            self.deleteButton.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor),
 
-            sendDataManually.topAnchor.constraint(equalTo: deleteButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            sendDataManually.rightAnchor.constraint(equalTo: wrapButtons.rightAnchor),
-            sendDataManually.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor)
+            self.sendDataManually.topAnchor.constraint(equalTo: self.deleteButton.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
+            self.sendDataManually.rightAnchor.constraint(equalTo: wrapButtons.rightAnchor),
+            self.sendDataManually.leftAnchor.constraint(equalTo: wrapButtons.leftAnchor)
         ])
     }
 
@@ -169,7 +166,25 @@ class SettingsViewController: ParentViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
+        if UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_RGPD_CONSENT) {
+            self.deleteButton.setTitle(Tools.getTranslate(key: "revoke_consent"), for: .normal)
+            self.deleteButton.setStyle(style: .settingLight)
+            self.deleteButton.onClick = { button in
+                self.openRevokConsent()
+            }
+            self.sendDataManually.isHidden = false
+        } else {
+            self.deleteButton.setTitle(Tools.getTranslate(key: "give_consent"), for: .normal)
+            self.deleteButton.setStyle(style: .settingDark)
+            self.deleteButton.onClick = { button in
+                let rgpdController = GPSConsentRGPDViewController()
+                rgpdController.modalPresentationStyle = .fullScreen
+                self.present(rgpdController, animated: true)
+            }
+            self.sendDataManually.isHidden = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -188,7 +203,9 @@ class SettingsViewController: ParentViewController {
 
         self.present(alert, animated: true, completion: nil)
     }
+    func openConsentPage() {
 
+    }
     func saveToClipBoard(action: UIAlertAction) {
         UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
         self.rootView.makeToast(Tools.getTranslate(key: "toast_copy_id"), duration: 2, position: .bottom)

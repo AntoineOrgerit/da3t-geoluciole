@@ -138,6 +138,7 @@
 "partners" = "Notre projet";
 "licence_agreement" = "Consulter les CGU";
 "revoke_consent" = "Révoquer mon consentement";
+"give_consent" = "Donner mon consentement";
 "title_my_identifier" = "Mon identifiant";
 "no_identifier" = "No identifier";
 "send_data" = "Envoyer mes données";

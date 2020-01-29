@@ -133,6 +133,7 @@
 "partners" = "Our project";
 "licence_agreement" = "Consult the EULA";
 "revoke_consent" = "Revoke my consent";
+"give_consent" = "Give my consent";
 "title_my_identifier" = "My identifier";
 "no_identifier" = "No identifier";
 "send_data" = "Send data";

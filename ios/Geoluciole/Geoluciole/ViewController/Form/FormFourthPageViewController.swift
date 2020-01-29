@@ -27,15 +27,14 @@ class FormFourthPageViewController: ParentModalViewController, ButtonsPrevNextDe
         let endCollect = Tools.convertDate(date: self.userPrefs.string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT))
 
         var pageIndex: String
+        var titre: FormTitlePage
+        
         //si la page une n'est pas affichée alors cette page est la 3/3 et le titre doit changer
         if UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) {
-            pageIndex = "4/4"
+            titre = FormTitlePage(title: Tools.getTranslate(key: "form_title"), pageIndex: "4/4")
         } else {
-            pageIndex = "3/3"
+            titre = FormTitlePage(title: Tools.getTranslate(key: "form_title_anonym"), pageIndex: "3/3")
         }
-
-        //création du titre
-        let titre = FormTitlePage(title: Tools.getTranslate(key: "form_title"), pageIndex: pageIndex)
         titre.translatesAutoresizingMaskIntoConstraints = false
         self.rootView.addSubview(titre)
 
