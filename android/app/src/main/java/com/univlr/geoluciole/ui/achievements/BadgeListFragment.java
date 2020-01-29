@@ -96,7 +96,7 @@ public class BadgeListFragment extends Fragment {
         // si liste vide, vue sans badges
         ConstraintLayout constraintLayout = root.findViewById(R.id.layout_sticker);
         ScrollView scrollView = root.findViewById(R.id.scroll_badges);
-        if (userPref.getListUnlockedBadges().isEmpty()) {
+        if (userPref.getListUnlockedBadges() != null && userPref.getListUnlockedBadges().isEmpty()) {
             scrollView.setVisibility(View.GONE);
             constraintLayout.setVisibility(View.VISIBLE);
         } else { // cache la vue scroll si aucun badge debloque
@@ -109,22 +109,25 @@ public class BadgeListFragment extends Fragment {
 
             // init de la premiere row
             TableRow row = new TableRow(root.getContext());
-            // pour chaque badge debloqués dans la liste
-            for (int j = 0; j < userPref.getListUnlockedBadges().size(); ++j) {
-                // pour afficher 3 badges par row
-                if (j % NB_BADGE_PER_ROW == 0 && j != 0) {
-                    row = new TableRow(root.getContext());
-                }
-                row.setLayoutParams(tableRowParams);
-                // instanciation d'une image view
-                ImageView iv = setImage(root, userPref, j);
-                // ajout de l'image a la row
-                row.addView(iv);
-                // ajout de la row a la table
-                if (j % NB_BADGE_PER_ROW == 0) {
-                    mTableLayout.addView(row);
+            if(userPref.getListUnlockedBadges() != null){
+                // pour chaque badge debloqués dans la liste
+                for (int j = 0; j < userPref.getListUnlockedBadges().size(); ++j) {
+                    // pour afficher 3 badges par row
+                    if (j % NB_BADGE_PER_ROW == 0 && j != 0) {
+                        row = new TableRow(root.getContext());
+                    }
+                    row.setLayoutParams(tableRowParams);
+                    // instanciation d'une image view
+                    ImageView iv = setImage(root, userPref, j);
+                    // ajout de l'image a la row
+                    row.addView(iv);
+                    // ajout de la row a la table
+                    if (j % NB_BADGE_PER_ROW == 0) {
+                        mTableLayout.addView(row);
+                    }
                 }
             }
+
         }
 
 
