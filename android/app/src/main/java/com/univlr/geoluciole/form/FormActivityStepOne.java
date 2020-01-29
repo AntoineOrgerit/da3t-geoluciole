@@ -27,7 +27,6 @@
 
 package com.univlr.geoluciole.form;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
