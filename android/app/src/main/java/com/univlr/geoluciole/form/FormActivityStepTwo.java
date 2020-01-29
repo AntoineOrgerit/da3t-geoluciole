@@ -92,7 +92,6 @@ public class FormActivityStepTwo extends AppCompatActivity {
     // validation
     private ValidationFormListener validatorListener;
     private Validator validator;
-    private TextWatcherListener textWatcherListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,13 +212,13 @@ public class FormActivityStepTwo extends AppCompatActivity {
         validator = new Validator(FormActivityStepTwo.this);
         validatorListener = new ValidationFormListener(FormActivityStepTwo.this, FormActivityStepThree.class, form);
         validator.setValidationListener(validatorListener);
-        textWatcherListener = new TextWatcherListener(this.validator);
+        TextWatcherListener textWatcherListener = new TextWatcherListener(this.validator);
         txtDateArrivee.addTextChangedListener(textWatcherListener);
         txtDateDepart.addTextChangedListener(textWatcherListener);
     }
 
     private void saveToForm() {
-        form.setVersion(getAndroidVersion());
+        form.setVersion(Build.VERSION.RELEASE);
 
         // depart
         if (dateDepart != null && timeDepart != null) {
@@ -376,9 +375,5 @@ public class FormActivityStepTwo extends AppCompatActivity {
             cal.setTime(this.dateDepart);
             datePicker.setMaxDate(cal.getTimeInMillis());
         }
-    }
-
-    private String getAndroidVersion() {
-        return Build.VERSION.RELEASE;
     }
 }

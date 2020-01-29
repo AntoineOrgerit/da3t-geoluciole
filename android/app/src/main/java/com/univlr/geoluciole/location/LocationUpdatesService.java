@@ -303,7 +303,7 @@ public class LocationUpdatesService extends Service {
         // permet de garder le service active même après la fin de l'application
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
-            mLocationManager.requestLocationUpdates(2000, 10, mCriteria, mLocationListener, Looper.myLooper());
+            mLocationManager.requestLocationUpdates(7000, 10, mCriteria, mLocationListener, Looper.myLooper());
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);

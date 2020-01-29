@@ -192,14 +192,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             }
         });
 
-        if (userPreferences.isGpsConsent()) {
-            HttpProvider.activePeriodicSend(this);
-        }
-
-        //checkPowerSavingMode();
-        //checkConstructorLayer();
-
-        //setup du viewPager
         setupViewPager(viewPager);
 
         // si on refuse le consentement, on est redirigé vers la vue params
