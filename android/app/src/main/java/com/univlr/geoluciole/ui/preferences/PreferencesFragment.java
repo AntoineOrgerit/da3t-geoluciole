@@ -426,7 +426,6 @@ public class PreferencesFragment extends Fragment {
     private View.OnClickListener onClickListenerStartDate(final boolean start, final Context context) {
         final Calendar c = Calendar.getInstance();
         if (start) {
-            System.out.println("onlistener" + this.startDate);
             c.setTime(this.startDate);
         } else {
             c.setTime(this.endDate);

@@ -93,7 +93,6 @@ public class LocationTable extends Table {
         values.put(LocationTable.SPEED, l.getSpeed());
         values.put(LocationTable.ACCURACY, l.getAccuracy());
         Log.i("DATABASE", "addLocation - Ajout d une location dans la base de donnee");
-        System.out.println(values);
         this.dbSQLite.getDb().insert(LocationTable.LOCATION_TABLE_NAME, null, values);
     }
 
