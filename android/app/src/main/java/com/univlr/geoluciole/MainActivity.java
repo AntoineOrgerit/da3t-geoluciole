@@ -138,10 +138,9 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                         break;
                     case R.id.navigation_achievements:
                         viewPager.setCurrentItem(1);
-                        FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.badgeList_fragment_container,
-                                new BadgeListFragment());
-
-                        fragmentTransaction.commit();
+                        AchievementsFragment childfragment = (AchievementsFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(1);
+                        childfragment.updateDistance();
+                        childfragment.updateView();
                         break;
                     case R.id.navigation_dashboard:
                         viewPager.setCurrentItem(2);

@@ -117,7 +117,7 @@ public class BadgeListFragment extends Fragment {
 
         // set ressource
         iv.setImageResource(getRessourceImageBadge(userPref.getListUnlockedBadges().get(j)));
-        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(widthPerItem, ViewGroup.LayoutParams.MATCH_PARENT);
 
         // layoutParams.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
         iv.setPadding(PADDING, PADDING, PADDING, PADDING);
@@ -184,6 +184,10 @@ public class BadgeListFragment extends Fragment {
             case "12":
                 return R.mipmap.no_image;
             case "13":
+                return R.mipmap.no_image;
+            case "14":
+                return R.mipmap.no_image;
+            case "15":
                 return R.mipmap.no_image;
             default:
                 return R.mipmap.no_image;
