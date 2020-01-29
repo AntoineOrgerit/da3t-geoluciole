@@ -91,10 +91,6 @@ class ValidationFormListener implements Validator.ValidationListener {
         }
     }
 
-    public boolean isRedirect() {
-        return redirect;
-    }
-
     public void setRedirect(boolean redirect) {
         this.redirect = redirect;
     }
