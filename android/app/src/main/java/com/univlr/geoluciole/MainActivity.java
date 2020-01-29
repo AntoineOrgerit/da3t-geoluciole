@@ -205,38 +205,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
         if (userPreferences.isGpsConsent()) {
             HttpProvider.activePeriodicSend(this);
-            //todo ligne suivante de test
-            File folder = new File(this.getFilesDir() + "/Log");
-            if (!folder.exists()) {
-                folder.mkdir();
-            }
-            String filename = this.getFilesDir() + "/Log/" + "gps_log.log";
-            try {
-                FileWriter fw = new FileWriter(filename);
-                fw.append("Creation file \n");
-                fw.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            File filelog = HyperLog.getDeviceLogsInFile(this, true);
-            if (filelog != null) {
-                try {
-                    FileInputStream fin = new FileInputStream(filelog);
-                    String content = MainActivity.convertStreamToString(fin);
-                    //Make sure you close all streams.
-                    fin.close();
-
-                    File f = new File(filename);
-                    FileOutputStream fos = new FileOutputStream(f, true);
-                    fos.write(content.getBytes());
-                    fos.flush();
-                    fos.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            // todo fin de ligne de test
         }
 
         //checkPowerSavingMode();
