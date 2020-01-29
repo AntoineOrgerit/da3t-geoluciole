@@ -1,10 +1,27 @@
+//    Copyright (c) 2020, La Rochelle Université
+//    All rights reserved.
+//    Redistribution and use in source and binary forms, with or without
+//    modification, are permitted provided that the following conditions are met:
 //
-//  FormDropDownList.swift
-//  Geoluciole
+//    * Redistributions of source code must retain the above copyright
+//      notice, this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright
+//      notice, this list of conditions and the following disclaimer in the
+//      documentation and/or other materials provided with the distribution.
+//    * Neither the name of the University of California, Berkeley nor the
+//      names of its contributors may be used to endorse or promote products
+//      derived from this software without specific prior written permission.
 //
-//  Created by Laurent RAYEZ on 26/01/2020.
-//  Copyright © 2020 Université La Rochelle. All rights reserved.
-//
+//    THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+//    EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+//    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//    DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+//    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+//    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+//    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+//    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+//    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+//    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
 import UIKit
@@ -13,12 +30,14 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
 
     fileprivate var data = [String]()
     fileprivate var titre: CustomUILabel!
-    fileprivate var bton: CustomUIButton!
+    fileprivate var button: CustomUIButton!
     fileprivate var tbView: UITableView!
     fileprivate var formTextfield: FormTextField!
+    fileprivate var iv: CustomUIImageView!
     fileprivate var optionSelected: String = ""
     fileprivate var optionPrecision: String?
     fileprivate let reusableIdentifier = "OptionTableViewCell"
+    fileprivate var isOpen = false
     var onResize: (() -> Void)?
 
     var isValid: Bool {
@@ -28,7 +47,7 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
             return self.optionSelected != ""
         }
     }
-    
+
     var selectedValue: String {
         if self.optionSelected == Tools.getTranslate(key: "form_other_option") {
             return self.optionPrecision ?? ""
@@ -40,11 +59,15 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
     init(title: String, data: [String]) {
         super.init(frame: .zero)
 
+        self.axis = .vertical
+        self.spacing = 5
+
         self.data = data
         self.data.append(Tools.getTranslate(key: "form_other_option"))
 
         self.titre = CustomUILabel()
         self.titre.text = title
+        self.titre.numberOfLines = 0
         self.titre.setStyle(style: .bodyRegular)
         self.titre.translatesAutoresizingMaskIntoConstraints = false
         self.addArrangedSubview(self.titre)
@@ -56,24 +79,40 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
         wrap.layer.cornerRadius = 2
         self.addArrangedSubview(wrap)
 
-        self.bton = CustomUIButton()
-        self.bton.setTitleColor(.black, for: .normal)
-        self.bton .setTitle(Tools.getTranslate(key: "form_prompt_whom"), for: .normal)
-        self.bton.translatesAutoresizingMaskIntoConstraints = false
-        self.bton.onClick = { [weak self] button in
+        self.button = CustomUIButton()
+        self.button.setTitleColor(.black, for: .normal)
+        self.button .setTitle(Tools.getTranslate(key: "form_prompt_whom"), for: .normal)
+        self.button.translatesAutoresizingMaskIntoConstraints = false
+        self.button.onClick = { [weak self] button in
             guard let strongSelf = self else {
                 return
             }
-            strongSelf.showTableView()
-        }
-        self.bton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        wrap.addSubview(self.bton)
 
-        let iv = UIImageView()
-        iv.image = UIImage(named: "drop-down")
-        iv.contentMode = .scaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        wrap.addSubview(iv)
+            if strongSelf.isOpen {
+                strongSelf.hideTableView()
+            } else {
+                strongSelf.showTableView()
+            }
+        }
+        self.button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        wrap.addSubview(self.button)
+
+        self.iv = CustomUIImageView(frame: .zero)
+        self.iv.image = UIImage(named: "fleche-bas")
+        self.iv.contentMode = .scaleAspectFit
+        self.iv.translatesAutoresizingMaskIntoConstraints = false
+        self.iv.onClick = { [weak self] imageView in
+            guard let strongSelf = self else {
+                return
+            }
+
+            if strongSelf.isOpen {
+                strongSelf.hideTableView()
+            } else {
+                strongSelf.showTableView()
+            }
+        }
+        wrap.addSubview(self.iv)
 
         self.tbView = UITableView()
         self.tbView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +125,7 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
         self.formTextfield = FormTextField(placeholder: Tools.getTranslate(key: "form_placeholder_precision"), keyboardType: .default)
         self.formTextfield.validationData = { [weak self] textfield in
             guard let strongSelf = self else { return false }
-            
+
             if let text = textfield.text, text != "" {
                 strongSelf.optionPrecision = text
                 return true
@@ -98,19 +137,19 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
         self.formTextfield.isHidden = true
         self.addArrangedSubview(self.formTextfield)
 
-        self.bton.sizeToFit()
+        self.button.sizeToFit()
 
         NSLayoutConstraint.activate([
 
-            self.bton.topAnchor.constraint(equalTo: wrap.topAnchor),
-            self.bton.leftAnchor.constraint(equalTo: wrap.leftAnchor),
-            self.bton.bottomAnchor.constraint(equalTo: wrap.bottomAnchor),
-            self.bton.rightAnchor.constraint(equalTo: iv.leftAnchor),
+            self.button.topAnchor.constraint(equalTo: wrap.topAnchor),
+            self.button.leftAnchor.constraint(equalTo: wrap.leftAnchor),
+            self.button.bottomAnchor.constraint(equalTo: wrap.bottomAnchor),
+            self.button.rightAnchor.constraint(equalTo: self.iv.leftAnchor),
 
-            iv.centerYAnchor.constraint(equalTo: wrap.centerYAnchor),
-            iv.rightAnchor.constraint(equalTo: wrap.rightAnchor, constant: -Constantes.PAGE_PADDING),
-            iv.heightAnchor.constraint(equalToConstant: self.bton.frame.height / 2),
-            iv.widthAnchor.constraint(equalTo: iv.heightAnchor),
+            self.iv.centerYAnchor.constraint(equalTo: wrap.centerYAnchor),
+            self.iv.rightAnchor.constraint(equalTo: wrap.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.iv.heightAnchor.constraint(equalToConstant: self.button.frame.height / 2),
+            self.iv.widthAnchor.constraint(equalTo: iv.heightAnchor),
 
             self.tbView.topAnchor.constraint(equalTo: wrap.bottomAnchor),
             self.tbView.heightAnchor.constraint(equalToConstant: 150),
@@ -124,14 +163,18 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
     }
 
     func showTableView() {
+        self.isOpen = true
+        self.iv.image = UIImage(named: "fleche-haut")
         UIView.animate(withDuration: 0.3) {
-            self.arrangedSubviews[2].isHidden = false
+            self.tbView.isHidden = false
         }
         self.onResize?()
     }
 
     func hideTableView() {
-        self.arrangedSubviews[2].isHidden = true
+        self.isOpen = false
+            self.iv.image = UIImage(named: "fleche-bas")
+        self.tbView.isHidden = true
         self.onResize?()
     }
 
@@ -155,10 +198,9 @@ class FormDropDownList: UIStackView, UITableViewDelegate, UITableViewDataSource 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let lbOption = self.data[indexPath.row]
-        self.bton.setTitle(lbOption, for: .normal)
+        self.button.setTitle(lbOption, for: .normal)
         self.optionSelected = lbOption
-        self.hideTableView()
         self.formTextfield.isHidden = !(self.optionSelected == Tools.getTranslate(key: "form_other_option"))
-        self.onResize?()
+        self.hideTableView()
     }
 }

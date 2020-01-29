@@ -1,10 +1,27 @@
+//    Copyright (c) 2020, La Rochelle Université
+//    All rights reserved.
+//    Redistribution and use in source and binary forms, with or without
+//    modification, are permitted provided that the following conditions are met:
 //
-//  FormSecondPageViewController.swift
-//  Geoluciole
+//    * Redistributions of source code must retain the above copyright
+//      notice, this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright
+//      notice, this list of conditions and the following disclaimer in the
+//      documentation and/or other materials provided with the distribution.
+//    * Neither the name of the University of California, Berkeley nor the
+//      names of its contributors may be used to endorse or promote products
+//      derived from this software without specific prior written permission.
 //
-//  Created by Laurent RAYEZ on 20/01/2020.
-//  Copyright © 2020 Université La Rochelle. All rights reserved.
-//
+//    THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+//    EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+//    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//    DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+//    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+//    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+//    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+//    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+//    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+//    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
 import UIKit
@@ -13,8 +30,6 @@ class FormSecondPageViewController: ParentModalViewController, ButtonsPrevNextDe
 
     var onNextButton: (() -> Void)?
     var onPreviousButton: (() -> Void)?
-    fileprivate var scrollView: UIScrollView!
-    fileprivate var contentView: UIView!
     fileprivate var formulaire: FormDateView!
     
     fileprivate var formData = [[String:String]]()
@@ -51,12 +66,12 @@ class FormSecondPageViewController: ParentModalViewController, ButtonsPrevNextDe
             titre.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
             titre.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
 
-            //position du formulaire dans le contentView
+            //position du formulaire
             self.formulaire.topAnchor.constraint(equalTo: titre.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
             self.formulaire.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
             self.formulaire.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
 
-            //position des boutons dans la rootView / scrollview
+            //position des boutons dans la rootView
             boutonsNav.bottomAnchor.constraint(equalTo: self.rootView.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
             boutonsNav.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.FIELD_SPACING_HORIZONTAL),
             boutonsNav.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.FIELD_SPACING_HORIZONTAL),

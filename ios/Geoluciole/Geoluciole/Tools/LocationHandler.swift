@@ -1,10 +1,27 @@
+//    Copyright (c) 2020, La Rochelle Université
+//    All rights reserved.
+//    Redistribution and use in source and binary forms, with or without
+//    modification, are permitted provided that the following conditions are met:
 //
-//  LocationHandler.swift
-//  Geoluciole
+//    * Redistributions of source code must retain the above copyright
+//      notice, this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright
+//      notice, this list of conditions and the following disclaimer in the
+//      documentation and/or other materials provided with the distribution.
+//    * Neither the name of the University of California, Berkeley nor the
+//      names of its contributors may be used to endorse or promote products
+//      derived from this software without specific prior written permission.
 //
-//  Created by Alexandre BARET on 16/01/2020.
-//  Copyright © 2020 Université La Rochelle. All rights reserved.
-//
+//    THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+//    EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+//    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//    DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+//    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+//    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+//    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+//    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+//    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+//    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
 import CoreLocation
@@ -93,7 +110,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                 LocationTable.DATE: currentLocation.date_str // date au format du serveur
             ])
 
-            updateDistanceParcourue(newDistance: distance)
+            self.updateDistanceParcourue(newDistance: distance)
 
             // on sauvegarde la dernière position si elle semble cohérente
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_POINT, value: currentLocation.toDictionary())
@@ -282,15 +299,15 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_BADGE, value: badge.resource)
 
                 // Send notification
-                NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: badge.name, bodyMessage: badge.description, idNotification: String(badge!.id))
+                NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: Tools.getTranslate(key: "notification_title"), bodyMessage: badge.description, idNotification: String(badge!.id))
             }
         }
     }
 
     fileprivate func checkDistanceBadges() {
         var badgeObtained = [Badge]()
-        // distance en KM
-        let distanceTraveledActually = UserPrefs.getInstance().double(forKey: UserPrefs.KEY_DISTANCE_TRAVELED) / 1000.0
+        // distance en M
+        let distanceTraveledActually = UserPrefs.getInstance().double(forKey: UserPrefs.KEY_DISTANCE_TRAVELED)
 
         BadgesTable.getInstance().selectQuery([], where: [WhereCondition(onColumn: BadgesTable.TYPE, withCondition: "distance"), WhereCondition(onColumn: BadgesTable.IS_OBTAIN, withCondition: 0)]) { (success, queryResult, error) in
 
@@ -324,7 +341,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
                 UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_LAST_BADGE, value: badge.resource)
 
                 // Send notification
-                NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: badge.name, bodyMessage: badge.description, idNotification: String(badge.id))
+                NotificationHandler.getInstance().sendBadgeUnlocked(titleMessage: Tools.getTranslate(key: "notification_title"), bodyMessage: badge.description, idNotification: String(badge.id))
             }
         }
     }

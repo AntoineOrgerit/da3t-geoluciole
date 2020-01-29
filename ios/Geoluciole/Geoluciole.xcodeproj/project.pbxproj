@@ -48,9 +48,9 @@
 		238E1ABF23D7B7CF00BDD891 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 238E1ABB23D7B7CF00BDD891 /* Roboto-Bold.ttf */; };
 		238E1AC023D7B7CF00BDD891 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 238E1ABC23D7B7CF00BDD891 /* Roboto-Regular.ttf */; };
 		2392A4C823CCC2E1006606B5 /* CustomUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2392A4C723CCC2E1006606B5 /* CustomUILabel.swift */; };
-		23975B1523D72E1100F89106 /* badges.json in Resources */ = {isa = PBXBuildFile; fileRef = 23975B1423D72E1100F89106 /* badges.json */; };
 		23975B1723D7488100F89106 /* BadgesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23975B1623D7488100F89106 /* BadgesTable.swift */; };
 		23975B1923D74D1A00F89106 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23975B1823D74D1A00F89106 /* Badge.swift */; };
+		23A04FC523E1DC170011D436 /* badges.json in Resources */ = {isa = PBXBuildFile; fileRef = 23A04FC423E1DC170011D436 /* badges.json */; };
 		23A76CC623CCB71900E191B6 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A76CC523CCB71900E191B6 /* StatsView.swift */; };
 		23CB178123CCDCFE00B1BF73 /* CollectDataSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CB178023CCDCFE00B1BF73 /* CollectDataSwitchView.swift */; };
 		23CB178323CCE9AC00B1BF73 /* ShowLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CB178223CCE9AC00B1BF73 /* ShowLevelView.swift */; };
@@ -141,9 +141,9 @@
 		238E1ABB23D7B7CF00BDD891 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		238E1ABC23D7B7CF00BDD891 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		2392A4C723CCC2E1006606B5 /* CustomUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUILabel.swift; sourceTree = "<group>"; };
-		23975B1423D72E1100F89106 /* badges.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = badges.json; sourceTree = "<group>"; };
 		23975B1623D7488100F89106 /* BadgesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesTable.swift; sourceTree = "<group>"; };
 		23975B1823D74D1A00F89106 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		23A04FC423E1DC170011D436 /* badges.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = badges.json; sourceTree = "<group>"; };
 		23A76CC523CCB71900E191B6 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		23CB178023CCDCFE00B1BF73 /* CollectDataSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectDataSwitchView.swift; sourceTree = "<group>"; };
 		23CB178223CCE9AC00B1BF73 /* ShowLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLevelView.swift; sourceTree = "<group>"; };
@@ -341,8 +341,8 @@
 			children = (
 				238E1AB723D7B7B000BDD891 /* Fonts */,
 				2305CE7B23C632CF00354361 /* geoluciole.sqlite */,
-				23975B1423D72E1100F89106 /* badges.json */,
 				238D39E623E0B27500251F6C /* cgu.pdf */,
+				23A04FC423E1DC170011D436 /* badges.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -525,8 +525,8 @@
 				627BC8E123D85FE4006BF1E7 /* Localizable.strings in Resources */,
 				237AD42D23C606D4009937AB /* LaunchScreen.storyboard in Resources */,
 				237AD42823C606D4009937AB /* Main.storyboard in Resources */,
+				23A04FC523E1DC170011D436 /* badges.json in Resources */,
 				237AD42A23C606D4009937AB /* Assets.xcassets in Resources */,
-				23975B1523D72E1100F89106 /* badges.json in Resources */,
 				238E1ABF23D7B7CF00BDD891 /* Roboto-Bold.ttf in Resources */,
 				238E1AC023D7B7CF00BDD891 /* Roboto-Regular.ttf in Resources */,
 				238D39E723E0B27500251F6C /* cgu.pdf in Resources */,
