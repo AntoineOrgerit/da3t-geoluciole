@@ -55,10 +55,10 @@ import okhttp3.Response;
  */
 public class HttpSender {
 
-    public static final String METHOD_POST = "POST";
+    private static final String METHOD_POST = "POST";
     public static final String METHOD_GET = "GET";
 
-    public static final String TYPE_JSON_APPLICATION = "application/json";
+    private static final String TYPE_JSON_APPLICATION = "application/json";
 
     // Attributes
     private String method;

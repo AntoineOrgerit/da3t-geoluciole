@@ -44,13 +44,13 @@ import java.util.List;
  * Classe LocationTable - herite de la classe Table
  */
 public class LocationTable extends Table {
-    public static final String LOCATION_TABLE_NAME = "locations";
-    public static final String LATITUDE = "latitude";
-    public static final String LONGITUDE = "longitude";
-    public static final String TIMESTAMP = "time_stamp";
-    public static final String ALTITUDE = "altitude";
-    public static final String ACCURACY = "precision";
-    public static final String SPEED = "vitesse";
+    private static final String LOCATION_TABLE_NAME = "locations";
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE = "longitude";
+    private static final String TIMESTAMP = "time_stamp";
+    private static final String ALTITUDE = "altitude";
+    private static final String ACCURACY = "precision";
+    private static final String SPEED = "vitesse";
 
     /**
      * Constructeur de la classe

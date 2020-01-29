@@ -76,7 +76,7 @@ public class PreferencesFragment extends Fragment {
     private static final String LANG_EN = "en";
 
     private static final String MAIL_REVOQUE = "melanie.mondo1@univ-lr.fr";
-    public static final String IDENTIFIANT = "ID : ";
+    private static final String IDENTIFIANT = "ID : ";
 
     private Context context;
 

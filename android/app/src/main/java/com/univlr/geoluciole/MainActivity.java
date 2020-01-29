@@ -200,7 +200,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         }
     }
 
-    public void changePage(int item) {
+    private void changePage(int item) {
         int old_pos = viewPager.getCurrentItem();
         viewPager.setCurrentItem(item);
         prevMenuItem = navView.getMenu().getItem(old_pos);
@@ -232,7 +232,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         }
     }
 
-    public void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         // liste fragments utilisés par le viewPager
         HomeFragment homeFragment = new HomeFragment();

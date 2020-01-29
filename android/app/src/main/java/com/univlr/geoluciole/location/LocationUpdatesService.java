@@ -104,9 +104,9 @@ public class LocationUpdatesService extends Service {
      */
     private static final String CHANNEL_ID = "channel_location_updates_service";
 
-    public static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
+    private static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
 
-    public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
+    private static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
     private static final String EXTRA_STARTED_FROM_NOTIFICATION = PACKAGE_NAME +
             ".started_from_notification";
     private static final String COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT = "com.univlr.geoluciole.proximityalert";
@@ -314,7 +314,7 @@ public class LocationUpdatesService extends Service {
      * Removes location updates. Note that in this sample we merely log the
      * {@link SecurityException}.
      */
-    public void removeLocationUpdates() {
+    private void removeLocationUpdates() {
         Log.i(TAG, "Removing location updates");
         try {
             mLocationManager.removeUpdates(mLocationListener);
@@ -391,7 +391,7 @@ public class LocationUpdatesService extends Service {
      *
      * @param context The {@link Context}.
      */
-    public boolean serviceIsRunningInForeground(Context context) {
+    private boolean serviceIsRunningInForeground(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(
                 Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : Objects.requireNonNull(manager).getRunningServices(

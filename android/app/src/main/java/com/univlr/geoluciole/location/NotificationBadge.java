@@ -45,7 +45,7 @@ import com.univlr.geoluciole.model.badge.Badge;
 
 import java.util.Objects;
 
-public class NotificationBadge {
+class NotificationBadge {
     private static final String CHANNEL_ID = "channelNotification";
     private static final String TAG = NotificationBadge.class.getSimpleName();
 

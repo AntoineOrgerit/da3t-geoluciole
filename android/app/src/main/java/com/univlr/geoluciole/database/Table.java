@@ -35,18 +35,18 @@ import java.util.List;
  * Classe Table abstraite
  */
 public abstract class Table {
-    protected String tableName = "";
+    String tableName = "";
     // colonnes de la table
-    protected TableColumn[] columns;
+    TableColumn[] columns;
 
-    protected DatabaseHandler dbSQLite;
+    DatabaseHandler dbSQLite;
 
-    protected Context context;
+    Context context;
 
-    public Table() {
+    Table() {
     }
 
-    public Table(Context context) {
+    Table(Context context) {
         dbSQLite = DatabaseHandler.getInstance(context);
         this.context = context;
     }

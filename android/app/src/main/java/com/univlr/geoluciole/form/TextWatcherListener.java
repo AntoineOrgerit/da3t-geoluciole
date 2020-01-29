@@ -33,7 +33,7 @@ import android.text.TextWatcher;
 import com.mobsandgeeks.saripaar.Validator;
 
 
-public class TextWatcherListener implements TextWatcher {
+class TextWatcherListener implements TextWatcher {
     final Validator validator;
 
     public TextWatcherListener(Validator validator) {
