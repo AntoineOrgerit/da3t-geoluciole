@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
@@ -51,7 +50,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends LocationActivity implements AchievementsFragment.OnFragmentInteractionListener, BadgeListFragment.OnFragmentInteractionListener {
-    public static final String PREFERENCES = "Saved_Pref";
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final Intent[] POWERMANAGER_INTENTS = {
@@ -71,6 +69,7 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             new Intent().setComponent(new ComponentName("com.asus.mobilemanager", "com.asus.mobilemanager.MainActivity"))
     };
 
+    // service permettant la récupération des données GPS
     private LocationUpdatesService mService = null;
     private boolean mBound = false;
 
@@ -84,9 +83,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             LocationUpdatesService.LocalBinder binder = (LocationUpdatesService.LocalBinder) service;
             mService = binder.getService();
             mBound = true;
-
-            // checking permissions
-            checkPermission();
 
             HomeFragment homeFragment = getHomeFragment();
             if (homeFragment != null) {
@@ -229,8 +225,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         //checkPowerSavingMode();
         //checkConstructorLayer();
 
+        //setup du viewPager
         setupViewPager(viewPager);
 
+        // si on refuse le consentement, on est redirigé vers la vue params
         if (refused_consent) {
             changePage(2);
         }
@@ -282,11 +280,15 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
     @Override
     protected void onStart() {
         super.onStart();
+        if (UserPreferences.getInstance(this).isGpsConsent()) {
+            // checking permissions
+            checkPermission();
 
-        // Bind to the service. If the service is in foreground mode, this signals to the service
-        // that since this activity is in the foreground, the service can exit foreground mode.
-        bindService(new Intent(this, LocationUpdatesService.class), mServiceConnection,
-                Context.BIND_AUTO_CREATE);
+            // Bind to the service. If the service is in foreground mode, this signals to the service
+            // that since this activity is in the foreground, the service can exit foreground mode.
+            bindService(new Intent(this, LocationUpdatesService.class), mServiceConnection,
+                    Context.BIND_AUTO_CREATE);
+        }
     }
 
     @Override
@@ -317,8 +319,19 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
 
     @Override
     protected void onGPSEnabled() {
-        //todo activé la track de donnée si acceptation
-        //mService.requestLocationUpdates();
+        // Mise à jour des autorisations de récupération des données GPS
+        UserPreferences userPreferences = UserPreferences.getInstance(this);
+        if (!userPreferences.isGpsAutorize()) {
+            userPreferences.setSendData(true);
+            userPreferences.setGpsAutorize(true);
+            userPreferences.store(this);
+        }
+
+        // Acutalisation du switch + démarage des services
+        HomeFragment homeFragment = getHomeFragment();
+        if (homeFragment != null) {
+            homeFragment.updateSwitch();
+        }
     }
 
     @Override
@@ -326,14 +339,19 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         // do nothing
     }
 
-
+    /**
+     * Récupère le fragment HomeFragment.
+     * Attention le retour peut être null, vérifier avant.
+     *
+     * @return HomeFragment || null
+     */
     private HomeFragment getHomeFragment() {
         try {
-            HomeFragment fragment = (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(0);
-            return fragment;
+            return (HomeFragment) ((ViewPagerAdapter) viewPager.getAdapter()).getItem(0);
         } catch (NullPointerException npe) {
             //do nothing
         }
+
         return null;
     }
 

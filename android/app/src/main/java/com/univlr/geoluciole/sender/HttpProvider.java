@@ -30,6 +30,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class HttpProvider {
+    //todo activer le HTTPS
     //private final static String BASE_URL = "https://datamuseum.univ-lr.fr:9200/";
     private final static String BASE_URL = "http://datamuseum.univ-lr.fr:9200/";
     // private final static String BASE_URL = "http://86.233.189.163:9200/";
@@ -58,8 +59,7 @@ public class HttpProvider {
 
 
         PeriodicWorkRequest periodicWorkRequest =  new PeriodicWorkRequest.Builder(
-                PeriodicallyHttpWorker.class, 15, TimeUnit.MINUTES) // todo ligne de test
-        //        PeriodicallyHttpWorker.class, PeriodicallyHttpWorker.PERIODICALLY_CALL_HTTP_IN_HOUR, TimeUnit.HOURS) //todo décommenter cette ligne (ligne de prod)
+                PeriodicallyHttpWorker.class, PeriodicallyHttpWorker.PERIODICALLY_CALL_HTTP_IN_HOUR, TimeUnit.HOURS)
                 .setConstraints(constraintsNetwork)
                 .build();
         // Mise en place du periodique worker

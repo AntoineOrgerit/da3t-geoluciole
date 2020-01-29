@@ -46,7 +46,6 @@ public class Logger extends HyperLog {
 
 
     public static void logGps(JSONObject response, int flag) {
-        // todo definir le message a recup
         log(response.toString(), flag, TAG_GPS);
     }
 

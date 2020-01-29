@@ -85,11 +85,18 @@ public class HomeFragment extends Fragment {
         }
         UserPreferences userPreferences = UserPreferences.getInstance(root.getContext());
         Switch switchData = root.findViewById(R.id.data_collection_switch);
+        if (!userPreferences.isGpsConsent() || !userPreferences.isGpsAutorize()) {
+            switchData.setChecked(false);
+            userPreferences.setSendData(false);
+            userPreferences.store(root.getContext());
+            return;
+        }
 
         //set du switch en fonction des données stockées
         switchData.setChecked(userPreferences.isSendData());
 
         // dans tous les cas si la periode de validité est depassé on coupe la collect
+        // ou que le consentement n'est pas donnée
         Calendar current = Calendar.getInstance();
         if (userPreferences.getEndValidity() < current.getTimeInMillis()){
             userPreferences.setSendData(false);

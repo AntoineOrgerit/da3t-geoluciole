@@ -76,7 +76,6 @@ public class AchievementsFragment extends Fragment implements BadgeListFragment.
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void messageFromParentFragment(Uri uri);
     }
  

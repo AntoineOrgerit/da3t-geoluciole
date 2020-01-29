@@ -261,7 +261,6 @@ public class LocationUpdatesService extends Service {
         Thread t = new Thread(r);
         t.start();
         // Tells the system to not try to recreate the service after it has been killed.
-        //return START_NOT_STICKY; // todo vérifier
         return START_STICKY;
     }
 

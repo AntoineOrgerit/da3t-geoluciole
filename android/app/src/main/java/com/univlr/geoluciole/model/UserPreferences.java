@@ -31,6 +31,8 @@ public class UserPreferences {
     private float distance;
     private boolean sendData;
 
+    private boolean isGpsAutorize;
+
     private boolean isAccountIsSend;
     private boolean isFormIsSend;
 
@@ -52,7 +54,8 @@ public class UserPreferences {
         this.listUnlockedBadges = new ArrayList<>();
         this.distance = 0;
         this.isManagerPermissionBatteryShow = false;
-        this.isManagerPermissionConstructorShow= false;
+        this.isManagerPermissionConstructorShow = false;
+        this.isGpsAutorize = false;
     }
 
     public static UserPreferences getInstance(Context context) {
@@ -95,6 +98,14 @@ public class UserPreferences {
         String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.i(TAG, "generateID, android ID " + androidId);
         return Long.toString(Math.abs(androidId.hashCode()));
+    }
+
+    public void setGpsAutorize(boolean gpsAutorize) {
+        isGpsAutorize = gpsAutorize;
+    }
+
+    public boolean isGpsAutorize() {
+        return isGpsAutorize;
     }
 
     public void setFormIsSend(boolean formIsSend) {
