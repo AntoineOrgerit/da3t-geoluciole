@@ -35,6 +35,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -249,8 +250,16 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
             // todo fin de ligne de test
         }
 
-        //checkPowerSavingMode();
-        //checkConstructorLayer();
+        if (userPreferences.isGpsConsent()) {
+            //checkPowerSavingMode();
+            if (!userPreferences.isManagerPermissionConstructorShow()) {
+                checkConstructorLayer();
+            }
+
+            if (!userPreferences.isManagerPermissionBatteryShow()) {
+                checkPowerSavingMode();
+            }
+        }
 
         //setup du viewPager
         setupViewPager(viewPager);
@@ -402,13 +411,17 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                 intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
                 intent.setData(Uri.parse("package:" + getPackageName()));
             }
+            UserPreferences userPreferences = UserPreferences.getInstance(this);
+            userPreferences.setManagerPermissionBatteryShow(true);
+            userPreferences.store(this);
             startActivity(intent);
         }
     }
 
     private void checkConstructorLayer() {
         for (Intent intent : POWERMANAGER_INTENTS) {
-            if (getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            ResolveInfo resolveInfo = getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            if (resolveInfo != null) {
                 showDialogConstructor(intent);
                 break;
             }
