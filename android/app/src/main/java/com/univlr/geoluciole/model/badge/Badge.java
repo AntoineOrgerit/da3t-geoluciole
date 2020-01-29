@@ -38,7 +38,7 @@ public class Badge {
     /**
      * Constructeur de la classe
      */
-    public Badge() {
+    Badge() {
         // on set les attributs avec les setter dans BadgeManager lors de l'instanciation
     }
 

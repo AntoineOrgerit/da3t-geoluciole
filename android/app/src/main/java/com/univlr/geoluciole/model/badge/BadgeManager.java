@@ -78,7 +78,7 @@ public class BadgeManager {
     // nom du fichier contenant les badges
     private static final String BADGES_JSON = "badges.json";
     // map contenant les badges à débloquer, sont accessibles grâce à leur clé 'id'
-    private HashMap<String, Badge> hashmapBadges;
+    private final HashMap<String, Badge> hashmapBadges;
     // instance singleton
     private static BadgeManager badgeInstance;
 
@@ -220,7 +220,7 @@ public class BadgeManager {
     public HashMap<String, Badge> cleanListBadge(Context context) {
         HashMap<String, Badge> hashmapBadgesUnlocked = new HashMap<>();
         UserPreferences userPref = UserPreferences.getInstance(context);
-        ArrayList<String> list = (ArrayList) userPref.getListUnlockedBadges();
+        ArrayList list = (ArrayList) userPref.getListUnlockedBadges();
         for (Map.Entry<String, Badge> entry : this.hashmapBadges.entrySet()) {
             String key = entry.getKey();
             Badge b = entry.getValue();

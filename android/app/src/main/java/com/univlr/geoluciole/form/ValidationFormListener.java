@@ -44,9 +44,9 @@ import com.univlr.geoluciole.model.FormModel;
 import java.util.List;
 
 public class ValidationFormListener implements Validator.ValidationListener {
-    private Activity activity;
-    private FormModel form;
-    private Class dest;
+    private final Activity activity;
+    private final FormModel form;
+    private final Class dest;
     private boolean redirect;
 
     public ValidationFormListener(Activity activity, Class dest, FormModel form) {

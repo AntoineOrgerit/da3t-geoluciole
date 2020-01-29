@@ -36,8 +36,8 @@ import java.util.List;
 
 public class LocationBulk implements BulkObject {
 
-    private Location location;
-    private String id;
+    private final Location location;
+    private final String id;
 
     public LocationBulk(Location location, String id) {
         this.location = location;

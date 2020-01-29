@@ -46,7 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // nom de la base de donnees
     private static final String DATABASE_NAME = "geoluciole";
     // tables de la base de donnees
-    private Table[] myTables = {new LocationTable()};
+    private final Table[] myTables = {new LocationTable()};
     // base de donnees
     private SQLiteDatabase db;
 
@@ -88,11 +88,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     /**
      * Permet de creer toutes les tables passees en parametres via le tableau Table[]
-     *
-     * @param db     SQLiteDatabase la base donnees
+     *  @param db     SQLiteDatabase la base donnees
      * @param tables Table[]
      */
-    public void createAllTables(SQLiteDatabase db, Table[] tables) {
+    private void createAllTables(SQLiteDatabase db, Table[] tables) {
         for (Table t : tables) {
             db.execSQL(t.prepareSQLForCreateTable());
         }
@@ -104,7 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param db     SQLiteDatabase la base de donnees
      * @param tables Table[]
      */
-    public void deleteAllTables(SQLiteDatabase db, Table[] tables) {
+    private void deleteAllTables(SQLiteDatabase db, Table[] tables) {
         for (Table t : tables) {
             db.execSQL(t.prepareSQLForDeleteTable());
         }

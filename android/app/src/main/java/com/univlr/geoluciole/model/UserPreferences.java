@@ -45,7 +45,7 @@ public class UserPreferences {
     public static final String USER_PREFERENCE_FILENAME = "UserPreference";
     private static final String TAG = UserPreferences.class.getSimpleName();
 
-    private String id;
+    private final String id;
     private boolean consent;
     private boolean gpsConsent;
     private long dateConsentementGPS;
@@ -54,7 +54,7 @@ public class UserPreferences {
     private long startValidity;
     private long endValidity;
     private String language;
-    private List<String> listUnlockedBadges;
+    private final List<String> listUnlockedBadges;
     private float distance;
     private boolean sendData;
 

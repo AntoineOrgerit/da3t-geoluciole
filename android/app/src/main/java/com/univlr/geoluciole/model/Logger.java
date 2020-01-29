@@ -114,7 +114,7 @@ public class Logger extends HyperLog {
 }
 
 class CustomLogFormat extends LogFormat {
-    private String user_id;
+    private final String user_id;
     public CustomLogFormat(Context context, String user_id) {
         super(context);
         this.user_id = user_id;

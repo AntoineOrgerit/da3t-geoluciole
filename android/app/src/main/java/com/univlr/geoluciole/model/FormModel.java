@@ -56,7 +56,7 @@ public class FormModel implements Serializable, BulkObject {
     private static final int ID_QUESTION_TWO_MONTH = 9;
     private static final int ID_QUESTION_TRANSPORT = 10;
 
-    private String idUser;
+    private final String idUser;
     private Date dateIn;
     private Time timeIn;
     private Date dateOut;
