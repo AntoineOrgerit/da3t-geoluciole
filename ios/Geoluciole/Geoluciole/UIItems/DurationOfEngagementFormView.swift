@@ -79,7 +79,7 @@ class DurationOfEngagementFormView: UIView {
         self.dateStartField.setDateLabel(date: beginDateStr)
         self.dateStartField.setMinimumDate(date: Tools.convertDate(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY)))
         self.dateStartField.setMaximumDate(date: Tools.convertDate(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY)))
-        self.dateStartField.setDefaultDatePicker(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY))
+        self.dateStartField.setDefaultDatePicker(date: beginDateStr)
         
         self.dateStartField.translatesAutoresizingMaskIntoConstraints = false
         self.dateStartField.onDateValidate = { date in
@@ -112,7 +112,7 @@ class DurationOfEngagementFormView: UIView {
         }
         self.dateEndField.setMinimumDate(date: Tools.convertDate(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY)))
         self.dateEndField.setMaximumDate(date: Tools.convertDate(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY)))
-        self.dateEndField.setDefaultDatePicker(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY))
+        self.dateEndField.setDefaultDatePicker(date: endDateStr)
         self.dateEndField.setDateLabel(date: endDateStr)
         self.dateEndField.setTitle(title: Tools.getTranslate(key: "dates_settings_end"))
         self.dateEndField.translatesAutoresizingMaskIntoConstraints = false

@@ -33,11 +33,11 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
     fileprivate var datePicker: UIDatePicker!
     var onDateValidate: ((Date) -> Void)?
     var onDateCancel: (() -> Void)?
-    var validationData: ((UITextView)->Bool)?
+    var validationData: ((UITextView) -> Bool)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         self.titleLabel = CustomUILabel()
         self.titleLabel.setStyle(style: .bodyRegular)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,8 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
         //élément qui affiche un sélecteur de date
         self.datePicker = UIDatePicker()
         self.datePicker.datePickerMode = .dateAndTime
-        self.datePicker.addTarget(self, action: #selector(SettingsDateFieldView.dateChange), for: .valueChanged)
+        //code commenté pour pour étudier la gestion du cancel dans le choix des dates - TODO
+        //self.datePicker.addTarget(self, action: #selector(SettingsDateFieldView.dateChange), for: .valueChanged)
         self.datePicker.calendar = Calendar.current
         self.datePicker.locale = Tools.getPreferredLocale()
 
@@ -129,47 +130,52 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     @objc fileprivate func dateCancel() {
         self.dateLabel.resignFirstResponder()
-        if let date = self.datePicker.minimumDate {
-            self.dateLabel.text = Tools.convertDate(date: date)
-        }
+        //commenté pour revoir l'annulation de l'affichage de la date choisie. TODO
+//        if let date = self.datePicker.minim {
+//            self.dateLabel.text = Tools.convertDate(date: date)
+//        }
         self.onDateCancel?()
     }
 
     @objc fileprivate func dateValidate() {
         self.dateLabel.resignFirstResponder()
-        if self.validationData?(self.dateLabel) ?? true{
+        if self.validationData?(self.dateLabel) ?? true {
+            self.dateChange()
             self.onDateValidate?(Tools.convertDate(date: self.dateLabel.text))
-        } 
-        
+            self.setDefaultDatePicker(date: self.dateLabel!.text)
+        }
+
     }
 
     @objc fileprivate func dateChange() {
+
         self.dateLabel.text = Tools.convertDate(date: self.datePicker.date)
+
     }
 
     func getDate() -> Date {
         return self.datePicker.date
     }
-    
+
     func setDate(date: Date) {
         self.datePicker.date = date
     }
-    
+
     func setMaximumDate(date: Date) {
         self.datePicker.maximumDate = date
     }
-    
-    func setMinimumDate(date : Date) {
+
+    func setMinimumDate(date: Date) {
         self.datePicker.minimumDate = date
     }
-    
+
     func setDateLabel(date: String) {
         self.dateLabel.text = date
     }
     func getDateLabel() -> String {
         return self.dateLabel.text
     }
-    func setDefaultDatePicker(date: String){
+    func setDefaultDatePicker(date: String) {
         self.datePicker.setDate(Tools.convertDate(date: date), animated: false)
     }
 }
