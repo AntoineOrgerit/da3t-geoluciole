@@ -1,0 +1,4 @@
+MIT LICENSE applies to :
+- Copyright (c) 2011 Flying Meat Inc.
+- Copyright (c) 2017 Beau Nouvelle
+- Copyright (c) 2015-2019 Charles Scalesse
