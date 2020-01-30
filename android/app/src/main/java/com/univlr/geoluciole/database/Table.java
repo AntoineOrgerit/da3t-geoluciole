@@ -41,23 +41,26 @@ public abstract class Table {
     String tableName = "";
     // colonnes de la table
     TableColumn[] columns;
-
     DatabaseHandler dbSQLite;
-
     Context context;
 
     Table() {
     }
 
+    /**
+     * Constructeur de la Table
+     *
+     * @param context Context
+     */
     Table(Context context) {
         dbSQLite = DatabaseHandler.getInstance(context);
         this.context = context;
     }
 
     /**
-     * Permet de creer une table en base de donnees dynamiquement
+     * Permet de créer une table en base de données dynamiquement
      *
-     * @return String la requete de creation
+     * @return String la requete de création
      */
     public String prepareSQLForCreateTable() {
         StringBuilder sqlRequest = new StringBuilder("CREATE TABLE IF NOT EXISTS");
@@ -84,7 +87,7 @@ public abstract class Table {
     }
 
     /**
-     * Permet de supprimer une table en base de donnees
+     * Permet de supprimer une table en base de données
      *
      * @return String la requete de suppression
      */
@@ -93,7 +96,7 @@ public abstract class Table {
     }
 
     /**
-     * Permet d inserer un objet en base
+     * Permet d insérer un objet en base
      *
      * @param o Object a sauvegarder
      */
@@ -141,7 +144,7 @@ public abstract class Table {
         List list = new ArrayList();
         this.dbSQLite.open();
         try {
-             list = getAllObject();
+            list = getAllObject();
         } catch (Exception ex) {
             //do nothing
         }

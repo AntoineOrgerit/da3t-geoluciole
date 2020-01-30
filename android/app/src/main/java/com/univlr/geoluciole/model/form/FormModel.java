@@ -45,10 +45,13 @@ import java.util.List;
 import static com.univlr.geoluciole.utils.PreferencesManager.getSavedObjectFromPreference;
 import static com.univlr.geoluciole.utils.PreferencesManager.saveObjectToSharedPreference;
 
+/**
+ * Classe FormModel - constitue le modèle pour les formulaires anonymes
+ */
 public class FormModel implements Serializable, BulkObject {
     private static final String FORM_KEY = "formModelPreference";
     private static final String FORM_FILENAME = "formModelFilePreference";
-
+    // id pour les questions
     private static final int ID_QUESTION_DATE_IN = 1;
     private static final int ID_QUESTION_DATE_OUT = 2;
     private static final int ID_QUESTION_WITH_WHOM = 3;
@@ -59,13 +62,18 @@ public class FormModel implements Serializable, BulkObject {
     private static final int ID_QUESTION_FIVE_TIMES = 8;
     private static final int ID_QUESTION_TWO_MONTH = 9;
     private static final int ID_QUESTION_TRANSPORT = 10;
-
+    // id généré
     private final String idUser;
+    // date d'arrivée
     private Date dateIn;
+    // heure d'arrivée
     private Time timeIn;
+    // date de départ
     private Date dateOut;
+    // heure de départ
     private Time timeOut;
 
+    // divers questions
     private String withWhom;
     private boolean presenceChildren;
     private boolean presenceTeens;
@@ -78,6 +86,11 @@ public class FormModel implements Serializable, BulkObject {
     private String device;
     private String version;
 
+    /**
+     * Constructeur du formulaire
+     *
+     * @param idUser String id de l'utilisateur
+     */
     public FormModel(String idUser) {
         this.idUser = idUser;
         this.device = "Inconnu";
@@ -165,6 +178,11 @@ public class FormModel implements Serializable, BulkObject {
         this.timeOut = timeOut;
     }
 
+    /**
+     * Méthode permettant de convertir la date d'arrivée en timestamp
+     *
+     * @return long
+     */
     private long getTimestampStart() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateIn);
@@ -173,6 +191,11 @@ public class FormModel implements Serializable, BulkObject {
         return calendar.getTime().getTime();
     }
 
+    /**
+     * Méthode permettant de convertir la date de départ en timestamp
+     *
+     * @return long
+     */
     private long getTimestampEnd() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateOut);
@@ -213,10 +236,25 @@ public class FormModel implements Serializable, BulkObject {
         this.version = version;
     }
 
+    /**
+     * Méthode permettant d'affiche la date et l'heure sous un format String
+     * jj-mm-yyyy hh:mm
+     *
+     * @param date Date
+     * @param time Time
+     * @return String la chaine représentant la date et l'heure
+     */
     public static String datetimeToString(Date date, Time time) {
         return dateToString(date) + " " + timeToString(time);
     }
 
+    /**
+     * Méthode permettant de convertir la date et l'heure en timestamp
+     *
+     * @param date Date
+     * @param time Time
+     * @return long représentant la date
+     */
     public static long formatToTimestamp(Date date, Time time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -225,37 +263,78 @@ public class FormModel implements Serializable, BulkObject {
         return calendar.getTimeInMillis();
     }
 
-
+    /**
+     * Méthode permettant de convertir une date sous la forme de String
+     *
+     * @param date Date
+     * @return String représentant la date sous forme de chaine
+     */
     public static String datetimeToString(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return datetimeToString(calendar);
     }
 
+    /**
+     * Méthode permettant de convertir un calendar sous la forme d'une String
+     * représentant la date et l'heure sous le format jj-mm-yyyy hh:mm
+     *
+     * @param c Calendar
+     * @return String représentant la date sous forme de chaine
+     */
     public static String datetimeToString(Calendar c) {
         return FormModel.dateToString(c) + " " + FormModel.timeToString(c);
     }
 
+    /**
+     * Méthode permettant de convertir un calendar en String représentant l'heure
+     * sous le format hh:mm
+     *
+     * @param calendar Calendar
+     * @return String représentant l'heure
+     */
     private static String timeToString(Calendar calendar) {
         return timeToString(new Time(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
     }
 
+    /**
+     * Méthode permettant de convertir une Date sous le format hh:mm
+     *
+     * @param date Date
+     * @return String représentant l'heure
+     */
     public static String timeToString(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return timeToString(calendar);
     }
 
+    /**
+     * Méthode permettant de convertir l'heure sous un format hh:mm (String)
+     *
+     * @param time Time
+     * @return String représentant l'heure
+     */
     private static String timeToString(Time time) {
         return time.toString();
     }
 
+    /**
+     * Méthode permettant de convertir une date sous un format jj-mm-yyyy (String)
+     *
+     * @param date Date
+     * @return String représentant la date
+     */
     private static String dateToString(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return dateToString(calendar);
     }
 
+    /**
+     * @param c Calendar
+     * @return String représentant
+     */
     private static String dateToString(Calendar c) {
         int day = c.get(Calendar.DAY_OF_MONTH);
         String sday = day < 10 ? "0" + day : "" + day;
@@ -306,6 +385,13 @@ public class FormModel implements Serializable, BulkObject {
         return result;
     }
 
+    /**
+     * Méthode permettant de formaté le temps en string pour envoyer au serveur
+     * yyyy/MM/dd HH:mm:ss
+     *
+     * @param timestamp long
+     * @return String au format yyyy/MM/dd HH:mm:ss
+     */
     public static String dateFormatStr(long timestamp) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp);

@@ -46,6 +46,7 @@ import java.util.List;
  * Classe LocationTable - herite de la classe Table
  */
 public class LocationTable extends Table {
+    private static final String TAG = "LocationTable : ";
     private static final String LOCATION_TABLE_NAME = "locations";
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
@@ -55,7 +56,7 @@ public class LocationTable extends Table {
     private static final String SPEED = "vitesse";
 
     /**
-     * Constructeur de la classe
+     * Constructeur de la classe, on définit les colonnes, leurs types et propriétés
      */
     public LocationTable() {
         super();
@@ -71,7 +72,7 @@ public class LocationTable extends Table {
     }
 
     /**
-     * Constructeur recuperant l instance de la base
+     * Constructeur recuperant l'instance de la base
      *
      * @param context Context
      */
@@ -82,7 +83,7 @@ public class LocationTable extends Table {
     /**
      * Ajouter une localisation dans la table de la BDD
      *
-     * @param o Object a inserer dans la table
+     * @param o Object a insérer dans la table
      */
     @Override
     protected void insertObject(Object o) {
@@ -94,7 +95,7 @@ public class LocationTable extends Table {
         values.put(LocationTable.ALTITUDE, l.getAltitude());
         values.put(LocationTable.SPEED, l.getSpeed());
         values.put(LocationTable.ACCURACY, l.getAccuracy());
-        Log.i("DATABASE", "addLocation - Ajout d une location dans la base de donnee");
+        Log.d(TAG, "addLocation - Ajout d'une location dans la base de donnée");
         this.dbSQLite.getDb().insert(LocationTable.LOCATION_TABLE_NAME, null, values);
     }
 
@@ -117,7 +118,7 @@ public class LocationTable extends Table {
         List<LocationBulk> locationList = new ArrayList();
         String[] columnArray = {
                 LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + "," +
-                        LocationTable.TIMESTAMP + "," + LocationTable.ALTITUDE + "," +LocationTable.SPEED + ","+ LocationTable.ACCURACY};
+                        LocationTable.TIMESTAMP + "," + LocationTable.ALTITUDE + "," + LocationTable.SPEED + "," + LocationTable.ACCURACY};
         Cursor cursor = this.dbSQLite.getDb().query(LocationTable.LOCATION_TABLE_NAME,
                 columnArray, null, null, null, null, null, null);
 
@@ -137,17 +138,17 @@ public class LocationTable extends Table {
             } while (cursor.moveToNext());
             cursor.close();
         } else {
-            Log.i("DATABASE", "getAll - Pas de valeurs trouvees");
+            Log.d(TAG, "getAll - Pas de valeurs trouvées");
         }
-        Log.i("DATABASE", "getAll - valeurs recuperees");
+        Log.d(TAG, "getAll - valeurs recupérées");
         return locationList;
     }
 
 
-    public Location getLastLocation(){
+    public Location getLastLocation() {
         this.dbSQLite.open();
         String[] columnArray = {
-                LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + ", (SELECT max(time_stamp) from locations) AS time_stamp" + "," + LocationTable.ALTITUDE + "," +LocationTable.SPEED + ","+ LocationTable.ACCURACY};
+                LocationTable.LATITUDE + "," + LocationTable.LONGITUDE + ", (SELECT max(time_stamp) from locations) AS time_stamp" + "," + LocationTable.ALTITUDE + "," + LocationTable.SPEED + "," + LocationTable.ACCURACY};
         Cursor cursor = this.dbSQLite.getDb().query(LocationTable.LOCATION_TABLE_NAME,
                 columnArray, null, null, null, null, null, null);
 
@@ -166,9 +167,9 @@ public class LocationTable extends Table {
             } while (cursor.moveToNext());
             cursor.close();
         } else {
-            Log.i("DATABASE", "getLast - Pas de valeurs trouvees");
+            Log.i(TAG, "getLastLocation - Pas de valeurs trouvees");
         }
-        Log.i("DATABASE", "getLast - valeurs recuperees");
+        Log.i(TAG, "getLastLocation - valeurs recuperees");
         this.dbSQLite.close();
         return location;
     }

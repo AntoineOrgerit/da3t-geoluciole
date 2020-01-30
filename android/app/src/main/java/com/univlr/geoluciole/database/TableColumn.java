@@ -44,32 +44,62 @@ class TableColumn {
      * @param columnType String type de la colonne
      * @param canBeNull  boolean si null est a 1 sinon 0
      */
-    TableColumn(String columnName, String columnType, boolean canBeNull) {
+    public TableColumn(String columnName, String columnType, boolean canBeNull) {
         this.columnName = columnName;
         this.columnType = columnType;
         this.canBeNull = canBeNull;
     }
 
-    String getColumnName() {
+    /**
+     * Getter du nom de la colonne
+     *
+     * @return String
+     */
+    public String getColumnName() {
         return columnName;
     }
 
+    /**
+     * Setter du nom de la colonne
+     *
+     * @param columnName String
+     */
     public void setColumnName(String columnName) {
         this.columnName = columnName;
     }
 
-    String getColumnType() {
+    /**
+     * Getter du type de la colonne
+     *
+     * @return String
+     */
+    public String getColumnType() {
         return columnType;
     }
 
+    /**
+     * Setter du type de la colonne
+     *
+     * @param columnType String
+     */
     public void setColumnType(String columnType) {
         this.columnType = columnType;
     }
 
-    boolean isCanBeNull() {
+    /**
+     * Getter de la propriété null
+     *
+     * @return boolean
+     */
+    public boolean isCanBeNull() {
         return canBeNull;
     }
 
+    /**
+     * Setter de la propriété null
+     *
+     * @param canBeNull boolean
+     */
     public void setCanBeNull(boolean canBeNull) {
         this.canBeNull = canBeNull;
     }

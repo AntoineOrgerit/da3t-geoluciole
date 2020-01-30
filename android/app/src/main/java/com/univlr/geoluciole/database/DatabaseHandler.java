@@ -29,27 +29,26 @@
 
 package com.univlr.geoluciole.database;
 
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 
 /**
  * DatabaseManager - herite de la classe SQLiteOpenHelper
  * Permet de gerer la base de donnees selon les evenements du systeme
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
-    // instance singleton de la base de donnees
+    private static final String TAG = "DatabaseHandler : ";
+    // instance singleton de la base de données
     private static DatabaseHandler sInstance;
-    // version de la base de donnees
+    // version de la base de données
     private static final int DATABASE_VERSION = 9;
-    // nom de la base de donnees
+    // nom de la base de données
     private static final String DATABASE_NAME = "geoluciole";
-    // tables de la base de donnees
+    // tables de la base de données
     private final Table[] myTables = {new LocationTable()};
-    // base de donnees
+    // base de données
     private SQLiteDatabase db;
 
     /**
@@ -66,8 +65,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Constructeur prive de la classe, utilise le contexte passe en parametre,
-     * le nom de la base, null pour la factory, et la version de la base de donnees
+     * Constructeur privé de la classe, utilise le contexte passé en parametre,
+     * le nom de la base, null pour la factory, et la version de la base de données
      *
      * @param context Context
      */
@@ -76,21 +75,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Premiere fois ou on manipule la base de donnees,
-     * Premier deploiement de l'application
-     * Permet de creer la base de donnees
+     * Première fois où on manipule la base de données,
+     * Premier déploiement de l'application
+     * Permet de créer la base de données
      *
-     * @param db SQLiteDatabase la base de donnees SQLite
+     * @param db SQLiteDatabase la base de données SQLite
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i("DATABASE", "onCreate invoked");
+        Log.i(TAG, "onCreate invoked");
         createAllTables(db, myTables);
     }
 
     /**
-     * Permet de creer toutes les tables passees en parametres via le tableau Table[]
-     *  @param db     SQLiteDatabase la base donnees
+     * Permet de créer toutes les tables passées en paramètres via le tableau Table[]
+     *
+     * @param db     SQLiteDatabase la base données
      * @param tables Table[]
      */
     private void createAllTables(SQLiteDatabase db, Table[] tables) {
@@ -112,26 +112,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Suppression de l ancienne base de donnees
-     * Mise en place de la nouvelle base de donnees
+     * Suppression de l'ancienne base de données
+     * Mise en place de la nouvelle base de données
      *
-     * @param db         SQLiteDatabase la base de donnees
+     * @param db         SQLiteDatabase la base de données
      * @param oldVersion ancienne version de la base
      * @param newVersion nouvelle version de la base
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.i("DATABASE", "onUpgrade invoked");
+        Log.d(TAG, "onUpgrade");
         deleteAllTables(db, myTables);
         onCreate(db);
     }
 
     /**
-     * Ouverture de la BDD en ecriture
+     * Ouverture de la BDD en écriture
      */
     public void open() {
         db = this.getWritableDatabase();
-        Log.i("DATABASE", "Ouverture de la base de donnees en ecriture");
+        Log.i(TAG, "Ouverture de la base de données en écriture");
     }
 
     /**
@@ -139,19 +139,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public void close() {
         db.close();
-        Log.i("DATABASE", "Fermeture de la base de donnees en ecriture");
+        Log.i(TAG, "Fermeture de la base de données en écriture");
     }
 
     /**
-     * Getter de la base de donnees
+     * Getter de la base de données
      *
-     * @return SQLiteDatabase la base de donnees
+     * @return SQLiteDatabase la base de données
      */
     public SQLiteDatabase getDb() {
         return db;
     }
 
-    public void read() {
-        db = this.getReadableDatabase();
-    }
 }

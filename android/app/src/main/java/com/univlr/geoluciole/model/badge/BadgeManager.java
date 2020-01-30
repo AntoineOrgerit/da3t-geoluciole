@@ -155,6 +155,7 @@ public class BadgeManager {
     /**
      * Méthode pour charger le fichier json
      *
+     * @param context Context
      * @return String correspondant au fichier json chargé
      */
     private String loadJSONFromAsset(Context context) {
@@ -176,6 +177,8 @@ public class BadgeManager {
 
     /**
      * Méthode pour instancier les badges à partir du json
+     *
+     * @param context Context
      */
     private void instanciateObjFromJson(Context context) {
         Badge badge = null;
@@ -219,7 +222,12 @@ public class BadgeManager {
         return hashmapBadges;
     }
 
-
+    /**
+     * Méthode permettant de retourner une hashmap contenant que les badges non débloqués
+     *
+     * @param context Context
+     * @return HashMap<String, Badge>
+     */
     public HashMap<String, Badge> cleanListBadge(Context context) {
         HashMap<String, Badge> hashmapBadgesUnlocked = new HashMap<>();
         UserPreferences userPref = UserPreferences.getInstance(context);
