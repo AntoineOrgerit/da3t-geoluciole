@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020, Martin Allusse and Alexandre Baret and Jessy Barritault and Florian
+  ~ Bertonnier and Lisa Fougeron and François Gréau and Thibaud Lambert and Antoine
+  ~ Orgerit and Laurent Rayez
+  ~ All rights reserved.
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~
+  ~ * Redistributions of source code must retain the above copyright
+  ~   notice, this list of conditions and the following disclaimer.
+  ~ * Redistributions in binary form must reproduce the above copyright
+  ~   notice, this list of conditions and the following disclaimer in the
+  ~   documentation and/or other materials provided with the distribution.
+  ~ * Neither the name of the University of California, Berkeley nor the
+  ~   names of its contributors may be used to endorse or promote products
+  ~   derived from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+  ~ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~ DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+  ~ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.RGPDConsentementGPSActivity">
+
+    <TextView
+        android:id="@+id/rgpd_title_primary_textview"
+        style="@style/textviewTitle"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/rgpd_title_primary"
+        android:textAlignment="center"
+        android:textAppearance="@style/rgpd_title_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rgpd_title_project_textview"
+        style="@style/textviewTitle_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/rgpd_title_project"
+        app:layout_constraintBottom_toTopOf="@+id/scrollview_rgdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgpd_title_primary_textview" />
+
+    <ScrollView
+        android:id="@+id/scrollview_rgdp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/rgpd_first_content_consentement_checkbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgpd_title_project_textview">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rgpd_first_content_2_line_texview"
+                style="@style/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rgpd_first_content_2_line" />
+
+            <TextView
+                android:id="@+id/rgpd_first_content_3_line_texview"
+                style="@style/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rgpd_first_content_3_line" />
+
+            <TextView
+                android:id="@+id/rgpd_first_content_1_line_texview"
+                style="@style/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rgpd_first_content_1_line" />
+
+            <TextView
+                android:id="@+id/rgpd_first_content_4_line_texview"
+                style="@style/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rgpd_first_content_4_line" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <CheckBox
+        android:id="@+id/rgpd_first_content_consentement_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/rgpd_horizontal_margin_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/rgpd_horizontal_margin_content"
+        android:layout_marginBottom="32dp"
+        android:buttonTint="@color/colorPrimary"
+        android:text="@string/rgpd_first_content_consentement"
+        android:textAppearance="@style/textviewContent"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/rgpd_first_validate_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollview_rgdp" />
+
+    <Button
+        android:id="@+id/rgpd_first_validate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/colorDisabled"
+        android:text="@string/action_accept"
+        android:textColor="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgpd_first_content_consentement_checkbox" />
+
+    <Button
+        android:id="@+id/rgpd_gps_consent_refused"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/colorRefused"
+        android:text="@string/action_refused"
+        android:textColor="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgpd_first_content_consentement_checkbox"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

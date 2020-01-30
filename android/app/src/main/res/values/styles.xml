@@ -1,11 +1,82 @@
+<!--
+  ~ Copyright (c) 2020, Martin Allusse and Alexandre Baret and Jessy Barritault and Florian
+  ~ Bertonnier and Lisa Fougeron and François Gréau and Thibaud Lambert and Antoine
+  ~ Orgerit and Laurent Rayez
+  ~ All rights reserved.
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~
+  ~ * Redistributions of source code must retain the above copyright
+  ~   notice, this list of conditions and the following disclaimer.
+  ~ * Redistributions in binary form must reproduce the above copyright
+  ~   notice, this list of conditions and the following disclaimer in the
+  ~   documentation and/or other materials provided with the distribution.
+  ~ * Neither the name of the University of California, Berkeley nor the
+  ~   names of its contributors may be used to endorse or promote products
+  ~   derived from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+  ~ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~ DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+  ~ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
+    <!--Style for Splash Screen-->
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name ="android:windowBackground">@drawable/ic_launcher_background</item>
+    </style>
+
+    <!-- Style for RGPD Screen -->
+
+    <style name="textviewTitle" parent="@android:style/Widget.TextView">
+        <item name="android:layout_marginBottom">@dimen/rgpd_vertical_margin_title_primary</item>
+        <item name="android:textAppearance">@style/rgpd_title_primary</item>
+    </style>
+
+    <style name="textviewTitle_1" parent="@android:style/Widget.TextView">
+        <item name="android:textAppearance">@style/rgpd_title_1</item>
+        <item name="android:layout_marginStart">@dimen/rgpd_horizontal_margin_title_1</item>
+        <item name="android:layout_marginBottom">@dimen/rgpd_vertical_margin_title_1</item>
+    </style>
+
+    <style name="textviewContent">
+        <item name="android:layout_marginStart">@dimen/rgpd_horizontal_margin_content</item>
+        <item name="android:layout_marginBottom">@dimen/rgpd_vertical_margin_content</item>
+    </style>
+
+    <style name="rgpd_title_primary" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="rgpd_title_1">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="mySwitch" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textColorPrimaryDisableOnly">#b71c1c</item>
+        <item name="android:colorControlActivated">#1b5e20</item>
+        <item name="android:colorForeground">#f57f17</item>
+    </style>
 </resources>
