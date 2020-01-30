@@ -1,4 +1,4 @@
-Copyright (c) 2020, Martin Allusse and Alexandre Baret and Jessy Barritault and Florian
+//Copyright (c) 2020, Martin Allusse and Alexandre Baret and Jessy Barritault and Florian
 Bertonnier and Lisa Fougeron and François Gréau and Thibaud Lambert and Antoine
 Orgerit and Laurent Rayez
 All rights reserved.
