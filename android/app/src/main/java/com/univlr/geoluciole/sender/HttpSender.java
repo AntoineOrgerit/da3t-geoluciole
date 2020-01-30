@@ -47,6 +47,8 @@ import okhttp3.Response;
 
 /**
  * Classe permettant d'envoyer des données via le protocol HTTP
+ *
+ * Interface de la librairie OkHTTP3
  */
 public class HttpSender {
 

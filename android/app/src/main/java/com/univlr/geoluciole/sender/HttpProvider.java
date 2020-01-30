@@ -43,9 +43,9 @@ import androidx.work.WorkManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.univlr.geoluciole.database.LocationTable;
+import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.model.form.FormModel;
 import com.univlr.geoluciole.utils.Logger;
-import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONObject;
 
@@ -57,20 +57,36 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+/**
+ * Cette classe permet d'envoyer les données de manière plus simple en masquant l'utilisation du HttpSender
+ */
 public class HttpProvider {
     //todo activer le HTTPS
+    /**
+     * Url de base pour l'envoi des données au serveur.
+     */
     //private final static String BASE_URL = "https://datamuseum.univ-lr.fr:9200/";
-    private final static String BASE_URL = "http://datamuseum.univ-lr.fr:9200/";
-    // private final static String BASE_URL = "http://86.233.189.163:9200/";
+    private final static String BASE_URL = "http://datamuseum.univ-lr.fr:9200/"; // Attention à supprimer lorsque le HTTPS sera ok
 
-    public final static int CODE_HANDLER_GPS_COUNT = 1;
-    public final static int CODE_HANDLER_GPS_ERROR = 2;
-    public final static int CODE_HANDLER_GPS_NO_DATA = 3;
-
+    /**
+     * Les url pour l'envoi des données
+     */
     private final static String GPS_URL = BASE_URL + "da3t_gps/_doc/_bulk";
     private final static String ACCOUNT_URL = BASE_URL + "da3t_compte/_doc/<id>";
     private final static String FORM_URL = BASE_URL + "da3t_formulaire/_doc/_bulk";
 
+    /**
+     * Les constantes permettant de communiquer avec un handler
+     * (utiliser ici uniquement avec le handler créer dans le fragment preference sur l'appuie sur le bouton de l'envoi des données GPS)
+     */
+    public final static int CODE_HANDLER_GPS_COUNT = 1;
+    public final static int CODE_HANDLER_GPS_ERROR = 2;
+    public final static int CODE_HANDLER_GPS_NO_DATA = 3;
+
+    /**
+     * Permet d'envoyer le formulaire en se basant uniquement sur le Context
+     * @param context
+     */
     public static void sendForm(final Context context) {
         FormModel form = FormModel.getInstance(context);
         if (form != null) {
@@ -78,6 +94,10 @@ public class HttpProvider {
         }
     }
 
+    /**
+     * Active l'envoi automatique des données GPS
+     * @param context
+     */
     public static void activePeriodicSend(Context context) {
         // récupération du workerManager
         WorkManager workManager = WorkManager.getInstance(context);
@@ -95,6 +115,10 @@ public class HttpProvider {
         workManager.enqueueUniquePeriodicWork(PeriodicallyHttpWorker.PERIODICALLY_HTTP_WORKER_NAME, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
     }
 
+    /**
+     * Annule l'envoi automatique des données GPS
+     * @param context
+     */
     public static void cancelPeriodicSend(Context context) {
         WorkManager workManager = WorkManager.getInstance(context);
         ListenableFuture listenableFuture = workManager.cancelUniqueWork(PeriodicallyHttpWorker.PERIODICALLY_HTTP_WORKER_NAME).getResult();
@@ -111,6 +135,11 @@ public class HttpProvider {
         });
     }
 
+    /**
+     * Envoi le formulaire passé en paramètre
+     * @param context
+     * @param form
+     */
     public static void sendForm(final Context context, FormModel form) {
         final UserPreferences userPreferences = UserPreferences.getInstance(context);
         new HttpSender()
@@ -130,6 +159,11 @@ public class HttpProvider {
                             JSONObject jsonObject = new JSONObject(responseBody);
                             if (!jsonObject.getBoolean("errors")) {
                                 Logger.logForm("form send");
+
+                                //todo Evolution de l'envoi des donnée formulaire
+
+                                // Permet de savoir si l'envoi du formulaire a réussi. Peut servir à une évolution permettant de le renvoyer par la suite si
+                                // les données n'ont pas réussi à être envoyées.
                                 userPreferences.setFormIsSend(true);
                                 userPreferences.store(context);
                             } else {
@@ -207,6 +241,11 @@ public class HttpProvider {
         return false;
     }
 
+    /**
+     * Envoi les données GPS avec un callback qui envoie le résultat dans le handler passé en paramètre.
+     * @param context
+     * @param handler
+     */
     public static void sendGps(Context context, final Handler handler) {
         final LocationTable locationTable = new LocationTable(context);
         final long count = locationTable.countAll();
@@ -245,6 +284,11 @@ public class HttpProvider {
                 .send();
     }
 
+    /**
+     * Envoi les données du compte au serveur
+     * @param context
+     * @param content
+     */
     public static void sendAccount(final Context context, String content) {
         final UserPreferences userPreferences = UserPreferences.getInstance(context);
         String url = ACCOUNT_URL.replace("<id>", userPreferences.getId());
@@ -264,6 +308,12 @@ public class HttpProvider {
                             JSONObject jsonObject = new JSONObject(responseBody);
                             if (response.code() == 200) {
                                 Logger.logAccount("account send");
+
+
+                                //todo Evolution de l'envoi des donnée compte
+
+                                // Permet de savoir si l'envoi du compte a réussi. Peut servir à une évolution permettant de le renvoyer par la suite si
+                                // les données n'ont pas réussi à être envoyées.
                                 userPreferences.setAccountIsSend(true);
                                 userPreferences.store(context);
                             } else {

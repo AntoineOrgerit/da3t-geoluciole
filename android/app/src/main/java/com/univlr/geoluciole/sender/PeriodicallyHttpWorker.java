@@ -38,11 +38,23 @@ import androidx.work.WorkerParameters;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.univlr.geoluciole.utils.Logger;
 
+/**
+ * Worker utilliser pour l'envoi des données GPS périodiquement.
+ */
 public class PeriodicallyHttpWorker extends ListenableWorker {
+    /**
+     * Cosntante utilisé avec le PeriodicallyHttpWorker
+     */
     public static final int PERIODICALLY_CALL_HTTP_IN_HOUR = 4;
     public static final String PERIODICALLY_HTTP_WORKER_NAME = "periodicallyHttpWorker";
+
     private Context context;
 
+    /**
+     * Attention la classe doit absolument être en public, elle est instancié par une classe WorkerManager
+     * @param context
+     * @param params
+     */
     public PeriodicallyHttpWorker(Context context, WorkerParameters params) {
         super(context, params);
         this.context = context;
@@ -56,6 +68,7 @@ public class PeriodicallyHttpWorker extends ListenableWorker {
             @Override
             public Object attachCompleter(final CallbackToFutureAdapter.Completer<Result> completer) {
                 Logger.logWorker("Worker started");
+                // on utilise ici le provider pour l'envoi des données GPS
                 return HttpProvider.sendGPsPeriodically(context, completer);
             }
         });
