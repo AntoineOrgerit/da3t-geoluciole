@@ -30,6 +30,7 @@ package com.univlr.geoluciole.model.badge;
 import android.content.Context;
 import android.util.Log;
 
+import com.univlr.geoluciole.location.NotificationBadge;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONArray;
@@ -42,6 +43,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Exemple de formattage du fichier Json contenant les badges
@@ -256,7 +258,10 @@ public class BadgeManager {
             if (it.getValue() instanceof BadgeDistance) {
                 if (userPref.getDistance() >= ((BadgeDistance) it.getValue()).getDistance() && !userPref.getListUnlockedBadges().contains(it.getKey())) {
                     userPref.getListUnlockedBadges().add(it.getKey());
-                    Log.i(TAG, "unlockBadgesDistance, BadgeDistance unlocked, " + this.hashmapBadges.get(it.getKey()).getName());
+                    NotificationBadge notificationBadge = new NotificationBadge();
+                    notificationBadge.createNotificationChannel(context);
+                    Log.i(TAG, "unlockBadgesDistance, BadgeDistance unlocked, " + Objects.requireNonNull(this.hashmapBadges.get(it.getKey())).getName());
+                    notificationBadge.showNotification(context, it.getValue());
                     userPref.store(context);
                 }
             }

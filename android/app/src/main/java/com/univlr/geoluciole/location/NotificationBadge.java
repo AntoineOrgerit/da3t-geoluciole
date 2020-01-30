@@ -43,7 +43,7 @@ import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.badge.Badge;
 import com.univlr.geoluciole.ui.MainActivity;
 
-class NotificationBadge {
+public class NotificationBadge {
     private static final String CHANNEL_ID = "channelNotification";
     private static final String TAG = NotificationBadge.class.getSimpleName();
 
@@ -84,7 +84,7 @@ class NotificationBadge {
      *
      * @param context Context
      */
-    private void createNotificationChannel(Context context) {
+    public void createNotificationChannel(Context context) {
         // Créer le NotificationChannel, seulement pour API 26+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notification badge channel";
