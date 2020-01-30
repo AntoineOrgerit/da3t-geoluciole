@@ -211,8 +211,14 @@ class SettingsViewController: ParentViewController {
         let dateFinStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT, defaultValue: UserPrefs.KEY_DATE_END_STAY)
 
         self.durationOfEngagementFormView.getDateStartField().setDefaultDatePicker(date: dateDebutStr)
+        self.durationOfEngagementFormView.getDateStartField().setMinimumDate(date: Tools.convertDate(date:dateDebutStr))
+        self.durationOfEngagementFormView.getDateStartField().setMaximumDate(date: Tools.convertDate(date:dateFinStr))
         self.durationOfEngagementFormView.getDateStartField().setDateLabel(date: dateDebutStr)
+       
+        // separation
         self.durationOfEngagementFormView.getDateEndField().setDefaultDatePicker(date: dateFinStr)
+       self.durationOfEngagementFormView.getDateEndField().setMinimumDate(date: Tools.convertDate(date:dateDebutStr))
+        self.durationOfEngagementFormView.getDateEndField().setMaximumDate(date: Tools.convertDate(date:dateFinStr))
         self.durationOfEngagementFormView.getDateEndField().setDateLabel(date: dateFinStr)
 
         Tools.checkConsent(viewController: self)

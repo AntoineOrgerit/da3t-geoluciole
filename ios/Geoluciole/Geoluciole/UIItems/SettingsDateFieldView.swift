@@ -32,10 +32,10 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     fileprivate var titleLabel: CustomUILabel!
     fileprivate var dateLabel: UITextView!
-    fileprivate var datePicker: DurationOfEngagementFormView!
+    fileprivate var datePicker: UIDatePicker!
     var onDateValidate: ((Date) -> Void)?
     var onDateCancel: (() -> Void)?
-    var validationData: ((UITextView) -> Bool)?
+    var validationData: ((String) -> Bool)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,12 +62,12 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
         wrapDate.addSubview(self.dateLabel)
 
         //élément qui affiche un sélecteur de date
-        self.datePicker = DurationOfEngagementFormView()
-//        self.datePicker.datePickerMode = .dateAndTime
+        self.datePicker = UIDatePicker()
+        self.datePicker.datePickerMode = .dateAndTime
         //code commenté pour pour étudier la gestion du cancel dans le choix des dates - TODO
         //self.datePicker.addTarget(self, action: #selector(SettingsDateFieldView.dateChange), for: .valueChanged)
-//        self.datePicker.calendar = Calendar.current
-//        self.datePicker.locale = Tools.getPreferredLocale()
+        self.datePicker.calendar = Calendar.current
+        self.datePicker.locale = Tools.getPreferredLocale()
 
         //ToolBar du picker pour valider la date et fermer la vue
         let toolbar = UIToolbar()
@@ -141,7 +141,7 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     @objc fileprivate func dateValidate() {
         self.dateLabel.resignFirstResponder()
-        if self.validationData?(self.dateLabel) ?? true {
+        if self.validationData?(Tools.convertDate(date:self.datePicker.date)) ?? true {
             self.dateChange()
             self.onDateValidate?(Tools.convertDate(date: self.dateLabel.text))
             self.setDefaultDatePicker(date: self.dateLabel!.text)
@@ -151,7 +151,7 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     @objc fileprivate func dateChange() {
 
-        self.dateLabel.text = Tools.convertDate(date: self.datePicker)
+        self.dateLabel.text = Tools.convertDate(date: self.datePicker.date)
 
     }
 

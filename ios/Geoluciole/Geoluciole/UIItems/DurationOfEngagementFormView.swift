@@ -39,11 +39,11 @@ class DurationOfEngagementFormView: UIView {
         /*
          Récupère les dates données dans le formulaire si elles existent ou founit la date du jour. Pour la date de début et la date de fin.
          */
-        let beginDateStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT, defaultValue:  UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY))
-        
+        let beginDateStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT, defaultValue: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY))
+
         let minimumDate = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY)
-        
-         let maxDate = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY)
+
+        let maxDate = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY)
         //let beginDate = Tools.convertDate(date: beginDateStr)
 
         let endDateStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT, defaultValue: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY))
@@ -61,21 +61,17 @@ class DurationOfEngagementFormView: UIView {
          et un datePicker pour choisir une nouvelle date
          */
         self.dateStartField = SettingsDateFieldView()
-        self.dateStartField.validationData = { [weak self] uitextview in
+        self.dateStartField.validationData = { [weak self] pickerDate in
             guard let strongSelf = self else {
                 return false
             }
-            var incomeDate: Date
 
-            if let date = uitextview.text, date != "" {
-                incomeDate = Tools.convertDate(date: date)
-            } else {
-                incomeDate = Date()
-            }
+            var incomeDate: Date
+            incomeDate = Tools.convertDate(date: pickerDate)
 
             let result = incomeDate.timeIntervalSince1970 <= Tools.convertDate(date: strongSelf.dateEndField.getDateLabel()).timeIntervalSince1970
             if !result {
-                strongSelf.dateStartField.setDateLabel(date:  UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT))
+                strongSelf.dateStartField.setDateLabel(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT))
             }
             return result
 
@@ -85,32 +81,27 @@ class DurationOfEngagementFormView: UIView {
         self.dateStartField.setMinimumDate(date: Tools.convertDate(date: minimumDate))
         self.dateStartField.setMaximumDate(date: Tools.convertDate(date: maxDate))
         self.dateStartField.setDefaultDatePicker(date: beginDateStr)
-        
+
         self.dateStartField.translatesAutoresizingMaskIntoConstraints = false
         self.dateStartField.onDateValidate = { date in
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_START_ENGAGEMENT, value: Tools.convertDate(date: date))
         }
         self.addSubview(dateStartField)
-        
+
         /*
          idem que dateStartField mais pour la fin d'engagement
          */
         self.dateEndField = SettingsDateFieldView()
-        self.dateEndField.validationData = { [weak self] uitextview in
+        self.dateEndField.validationData = { [weak self] pickerDate in
             guard let strongSelf = self else {
                 return false
             }
             var incomeDate: Date
-
-            if let date = uitextview.text, date != "" {
-                incomeDate = Tools.convertDate(date: date)
-            } else {
-                incomeDate = Date()
-            }
+            incomeDate = Tools.convertDate(date: pickerDate)
 
             let result = incomeDate.timeIntervalSince1970 >= Tools.convertDate(date: strongSelf.dateStartField.getDateLabel()).timeIntervalSince1970
             if !result {
-                strongSelf.dateEndField.setDateLabel(date:  UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT))
+                strongSelf.dateEndField.setDateLabel(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT))
             }
             return result
 
@@ -125,7 +116,7 @@ class DurationOfEngagementFormView: UIView {
             UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_DATE_END_ENGAGEMENT, value: Tools.convertDate(date: date))
         }
         self.addSubview(dateEndField)
-        
+
         NSLayoutConstraint.activate([
 
             self.bottomAnchor.constraint(equalTo: dateStartField.bottomAnchor),
@@ -145,17 +136,17 @@ class DurationOfEngagementFormView: UIView {
             self.dateEndField.leftAnchor.constraint(equalTo: dateStartField.rightAnchor),
             self.dateEndField.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
-        
+
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     func getDateStartField() -> SettingsDateFieldView {
         return self.dateStartField
     }
-    
+
     func getDateEndField() -> SettingsDateFieldView {
         return self.dateEndField
     }
