@@ -29,6 +29,9 @@ package com.univlr.geoluciole.utils;
 
 import java.io.Serializable;
 
+/**
+ * Classe permettant de gérer les heures minutes
+ */
 public class Time implements Serializable {
     private int hours;
     private int minutes;

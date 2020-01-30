@@ -44,29 +44,84 @@ import static com.univlr.geoluciole.utils.PreferencesManager.saveObjectToSharedP
 
 
 public class UserPreferences {
+    /**
+     * Constantes UserPreferences
+     */
     private static final String USER_PREFERENCE_KEY = "userPreferenceKey";
     private static final String USER_PREFERENCE_FILENAME = "UserPreference";
     private static final String TAG = UserPreferences.class.getSimpleName();
 
+    /**
+     * id : Identifiant unique généré depuis le androidId du téléphone
+     */
     private final String id;
+    /**
+     * consent : Flag permettant de savoir si l'utilisateur set son consentement. Si == true, cela peut être du à un consentement refuser ou accepter
+     */
     private boolean consent;
+    /**
+     * gpsConsent : Flag concernant l'acceptation du consentement GPS
+     */
     private boolean gpsConsent;
-    private long dateConsentementGPS;
-    private long dateConsentementForm;
+    /**
+     * accountConsent : Flag concernant l'acceptation du consentement du compte pour le formulaire
+     */
     private boolean accountConsent;
+
+    /**
+     * dateConsentementGPS : date de consentement GPS
+     */
+    private long dateConsentementGPS;
+    /**
+     * dateConsentementForm : date de consentement du compte (pour être recontacté)
+     */
+    private long dateConsentementForm;
+    /**
+     * startValidity : Date début période d'engagement
+     */
     private long startValidity;
+    /**
+     * endValidity : Date de fin période d'engagement
+     */
     private long endValidity;
+    /**
+     * language : Language de l'application
+     */
     private String language;
+    /**
+     * listUnlockedBadges : La liste des badge débloqués
+     */
     private final List<String> listUnlockedBadges;
+    /**
+     * distance : La distance calculé sur les différentes localisation
+     */
     private float distance;
+    /**
+     * sendData : Flag permettant de savoir si on peut activer la récupération des données GPS
+     */
     private boolean sendData;
 
+    /**
+     * isGpsAutorize : Flag permettant de savoir si le gps a été autorisé
+     */
     private boolean isGpsAutorize;
 
+    /**
+     * isAccountIsSend : Flag permettant de savoir si le compte a reussi à être envoyé
+     */
     private boolean isAccountIsSend;
+    /**
+     * isFormIsSend : Flag permettant de savoir si le formulaire a réussi à être envoyé
+     */
     private boolean isFormIsSend;
 
+    /**
+     * isManagerPermissionConstructorShow : Flag permettant de savoir si la page de setting de la gestion automatique de l'application a été montrer une foi
+     */
     private boolean isManagerPermissionConstructorShow;
+    /**
+     * isManagerPermissionBatteryShow : Flag permettant de savoir si la page de setting de la gestion de la batterie de l'application a été montrer une foi
+     */
     private boolean isManagerPermissionBatteryShow;
 
     private UserPreferences(String language, Context context) {
