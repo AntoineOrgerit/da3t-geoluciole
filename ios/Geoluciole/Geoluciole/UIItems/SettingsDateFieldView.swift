@@ -32,7 +32,7 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     fileprivate var titleLabel: CustomUILabel!
     fileprivate var dateLabel: UITextView!
-    fileprivate var datePicker: UIDatePicker!
+    fileprivate var datePicker: DurationOfEngagementFormView!
     var onDateValidate: ((Date) -> Void)?
     var onDateCancel: (() -> Void)?
     var validationData: ((UITextView) -> Bool)?
@@ -62,12 +62,12 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
         wrapDate.addSubview(self.dateLabel)
 
         //élément qui affiche un sélecteur de date
-        self.datePicker = UIDatePicker()
-        self.datePicker.datePickerMode = .dateAndTime
+        self.datePicker = DurationOfEngagementFormView()
+//        self.datePicker.datePickerMode = .dateAndTime
         //code commenté pour pour étudier la gestion du cancel dans le choix des dates - TODO
         //self.datePicker.addTarget(self, action: #selector(SettingsDateFieldView.dateChange), for: .valueChanged)
-        self.datePicker.calendar = Calendar.current
-        self.datePicker.locale = Tools.getPreferredLocale()
+//        self.datePicker.calendar = Calendar.current
+//        self.datePicker.locale = Tools.getPreferredLocale()
 
         //ToolBar du picker pour valider la date et fermer la vue
         let toolbar = UIToolbar()
@@ -151,7 +151,7 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
 
     @objc fileprivate func dateChange() {
 
-        self.dateLabel.text = Tools.convertDate(date: self.datePicker.date)
+        self.dateLabel.text = Tools.convertDate(date: self.datePicker)
 
     }
 
@@ -179,5 +179,8 @@ class SettingsDateFieldView: UIView, UIGestureRecognizerDelegate {
     }
     func setDefaultDatePicker(date: String) {
         self.datePicker.setDate(Tools.convertDate(date: date), animated: false)
+    }
+    func getPicker() -> UIDatePicker {
+        return self.datePicker
     }
 }
