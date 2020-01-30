@@ -212,6 +212,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         }
     }
 
+    /**
+     * Permet de changer la vue
+     * @param item
+     */
     private void changePage(int item) {
         int old_pos = viewPager.getCurrentItem();
         viewPager.setCurrentItem(item);
@@ -220,6 +224,9 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         navView.getMenu().getItem(item).setChecked(true);
     }
 
+    /**
+     * Check les permissions
+     */
     private void checkPermission() {
         ArrayList<Permission> unauthorizedPermissions = retrieveUnauthorizedPermissions();
         if (!unauthorizedPermissions.isEmpty()) {
@@ -232,6 +239,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         }
     }
 
+    /**
+     * Set up du view pager
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         // liste fragments utilisés par le viewPager
@@ -309,10 +320,17 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         return null;
     }
 
+    /**
+     * Get le binder pour binder le service avec l'activité
+     * @return
+     */
     public LocationUpdatesService getmService() {
         return mService;
     }
 
+    /**
+     * Check permission lié à la batterie
+     */
     private void checkPowerSavingMode() {
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
@@ -336,6 +354,9 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         }
     }
 
+    /**
+     *  check les options du constructeur
+     */
     private void checkConstructorLayer() {
         for (Intent intent : POWERMANAGER_INTENTS) {
             ResolveInfo resolveInfo = getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
@@ -346,6 +367,10 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         }
     }
 
+    /**
+     * Montre un fenêtre de dialogue.
+     * @param intent
+     */
     private void showDialogConstructor(final Intent intent) {
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.alert_title_constructor_settings)
