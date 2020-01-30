@@ -60,9 +60,6 @@ import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
 import com.univlr.geoluciole.utils.adapter.ViewPagerAdapter;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
@@ -221,18 +218,6 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
         prevMenuItem = navView.getMenu().getItem(old_pos);
         prevMenuItem.setChecked(false);
         navView.getMenu().getItem(item).setChecked(true);
-    }
-
-    //todo fonction de test
-    public static String convertStreamToString(InputStream is) throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line).append("\n");
-        }
-        reader.close();
-        return sb.toString();
     }
 
     private void checkPermission() {
