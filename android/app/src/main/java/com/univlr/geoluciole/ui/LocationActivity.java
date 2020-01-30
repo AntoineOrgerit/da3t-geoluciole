@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole;
+package com.univlr.geoluciole.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -50,6 +50,7 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.permissions.Permission;
 
 import java.util.ArrayList;

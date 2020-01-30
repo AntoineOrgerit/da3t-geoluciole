@@ -25,13 +25,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.model;
+package com.univlr.geoluciole.utils;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.hypertrack.hyperlog.HyperLog;
 import com.hypertrack.hyperlog.LogFormat;
+import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONObject;
 

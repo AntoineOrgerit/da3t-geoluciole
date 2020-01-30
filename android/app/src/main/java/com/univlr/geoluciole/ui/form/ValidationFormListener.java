@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.form;
+package com.univlr.geoluciole.ui.form;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -39,7 +39,7 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.univlr.geoluciole.R;
-import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.form.FormModel;
 
 import java.util.List;
 

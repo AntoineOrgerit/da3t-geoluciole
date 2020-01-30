@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole;
+package com.univlr.geoluciole.ui;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -34,7 +34,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,7 +50,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.univlr.geoluciole.adapter.ViewPagerAdapter;
+import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.location.LocationUpdatesService;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.permissions.Permission;
@@ -59,6 +58,7 @@ import com.univlr.geoluciole.ui.achievements.AchievementsFragment;
 import com.univlr.geoluciole.ui.achievements.BadgeListFragment;
 import com.univlr.geoluciole.ui.home.HomeFragment;
 import com.univlr.geoluciole.ui.preferences.PreferencesFragment;
+import com.univlr.geoluciole.utils.adapter.ViewPagerAdapter;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

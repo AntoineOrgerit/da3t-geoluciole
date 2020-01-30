@@ -31,13 +31,16 @@ import android.content.Context;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.univlr.geoluciole.model.form.FormModel;
+import com.univlr.geoluciole.utils.Time;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
-import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
+import static com.univlr.geoluciole.utils.PreferencesManager.getSavedObjectFromPreference;
+import static com.univlr.geoluciole.utils.PreferencesManager.saveObjectToSharedPreference;
 
 
 public class UserPreferences {

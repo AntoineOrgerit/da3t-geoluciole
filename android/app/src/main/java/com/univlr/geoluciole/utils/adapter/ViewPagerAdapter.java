@@ -25,44 +25,34 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.model;
+package com.univlr.geoluciole.utils.adapter;
 
-import java.io.Serializable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
-public class Time implements Serializable {
-    private int hours;
-    private int minutes;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Time() {
-        hours = 0;
-        minutes = 0;
-    }
+public class ViewPagerAdapter extends FragmentPagerAdapter {
+    private final List<Fragment> mFragmentList = new ArrayList<>();
 
-    public Time(int hours, int minutes) {
-        this.minutes = minutes;
-        this.hours = hours;
-    }
-
-    public void setHours(int hours) {
-        this.hours = hours;
-    }
-
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
-    }
-
-    public int getHours() {
-        return hours;
-    }
-
-    public int getMinutes() {
-        return minutes;
+    public ViewPagerAdapter(FragmentManager manager) {
+        super(manager);
     }
 
     @Override
-    public String toString() {
-        String minutes = this.minutes < 10 ? "0" + (this.minutes) : this.minutes + "";
-        String hours = this.hours < 10 ? "0" + (this.hours) : this.hours + "";
-        return hours+":"+minutes;
+    public Fragment getItem(int position) {
+        return mFragmentList.get(position);
     }
+
+    @Override
+    public int getCount() {
+        return mFragmentList.size();
+    }
+
+    public void addFragment(Fragment fragment) {
+        mFragmentList.add(fragment);
+    }
+
 }

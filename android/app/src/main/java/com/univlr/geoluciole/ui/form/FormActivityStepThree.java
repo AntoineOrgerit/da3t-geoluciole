@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.form;
+package com.univlr.geoluciole.ui.form;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,7 +47,7 @@ import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Select;
 import com.univlr.geoluciole.R;
-import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.form.FormModel;
 import com.univlr.geoluciole.model.UserPreferences;
 
 public class FormActivityStepThree extends AppCompatActivity {

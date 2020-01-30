@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.form;
+package com.univlr.geoluciole.ui.form;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -41,10 +41,10 @@ import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mobsandgeeks.saripaar.Validator;
-import com.univlr.geoluciole.MainActivity;
+import com.univlr.geoluciole.ui.MainActivity;
 import com.univlr.geoluciole.R;
-import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.Time;
+import com.univlr.geoluciole.model.form.FormModel;
+import com.univlr.geoluciole.utils.Time;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.sender.HttpProvider;
 

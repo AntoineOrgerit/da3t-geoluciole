@@ -25,11 +25,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.model;
+package com.univlr.geoluciole.model.form;
 
 import android.content.Context;
 
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.model.UserPreferences;
 
 public class FormModelWithConsent extends FormModel {
     private String lastname;

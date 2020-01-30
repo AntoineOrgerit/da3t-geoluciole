@@ -36,7 +36,7 @@ import androidx.work.ListenableWorker;
 import androidx.work.WorkerParameters;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.univlr.geoluciole.model.Logger;
+import com.univlr.geoluciole.utils.Logger;
 
 public class PeriodicallyHttpWorker extends ListenableWorker {
     public static final int PERIODICALLY_CALL_HTTP_IN_HOUR = 4;

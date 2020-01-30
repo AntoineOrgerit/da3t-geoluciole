@@ -27,13 +27,9 @@
 
 package com.univlr.geoluciole.sender;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
-import com.univlr.geoluciole.database.LocationTable;
-import com.univlr.geoluciole.model.FormModel;
 
 import java.io.IOException;
 import java.util.ArrayList;

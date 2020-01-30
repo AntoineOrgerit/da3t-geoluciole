@@ -25,33 +25,54 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.model;
+/**
+ * Modifications done:
+ *  - update of package name;
+ *  - making class public;
+ *  - removing getLocationTitle function.
+ */
+
+package com.univlr.geoluciole.utils;
+
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.location.Location;
+import android.preference.PreferenceManager;
 
-import com.google.gson.Gson;
+public class Utils {
 
-/**
- * https://stackoverflow.com/questions/7145606/how-android-sharedpreferences-save-store-object
- */
-class PreferencesManager {
+    private static final String KEY_REQUESTING_LOCATION_UPDATES = "requesting_locaction_updates";
 
-    public static void saveObjectToSharedPreference(Context context, String preferenceFileName, String serializedObjectKey, Object object) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName, 0);
-        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-        final Gson gson = new Gson();
-        String serializedObject = gson.toJson(object);
-        sharedPreferencesEditor.putString(serializedObjectKey, serializedObject);
-        sharedPreferencesEditor.apply();
+    private Utils() {
     }
 
-    public static <GenericClass> GenericClass getSavedObjectFromPreference(Context context, String preferenceFileName, String preferenceKey, Class<GenericClass> classType) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName, 0);
-        if (sharedPreferences.contains(preferenceKey)) {
-            final Gson gson = new Gson();
-            return gson.fromJson(sharedPreferences.getString(preferenceKey, ""), classType);
-        }
-        return null;
+    /**
+     * Returns true if requesting location updates, otherwise returns false.
+     *
+     * @param context The {@link Context}.
+     */
+    public static boolean requestingLocationUpdates(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(KEY_REQUESTING_LOCATION_UPDATES, false);
+    }
+
+    /**
+     * Stores the location updates state in SharedPreferences.
+     * @param requestingLocationUpdates The location updates state.
+     */
+    public static void setRequestingLocationUpdates(Context context, boolean requestingLocationUpdates) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(KEY_REQUESTING_LOCATION_UPDATES, requestingLocationUpdates)
+                .apply();
+    }
+
+    /**
+     * Returns the {@code location} object as a human readable string.
+     * @param location  The {@link Location}.
+     */
+    public static String getLocationText(Location location) {
+        return location == null ? "Unknown location" :
+                "(" + location.getLatitude() + ", " + location.getLongitude() + ")";
     }
 }

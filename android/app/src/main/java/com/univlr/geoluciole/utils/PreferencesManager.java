@@ -25,34 +25,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.adapter;
+package com.univlr.geoluciole.utils;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import android.content.Context;
+import android.content.SharedPreferences;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.Gson;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private final List<Fragment> mFragmentList = new ArrayList<>();
+/**
+ * https://stackoverflow.com/questions/7145606/how-android-sharedpreferences-save-store-object
+ */
+public class PreferencesManager {
 
-    public ViewPagerAdapter(FragmentManager manager) {
-        super(manager);
+    public static void saveObjectToSharedPreference(Context context, String preferenceFileName, String serializedObjectKey, Object object) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName, 0);
+        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+        final Gson gson = new Gson();
+        String serializedObject = gson.toJson(object);
+        sharedPreferencesEditor.putString(serializedObjectKey, serializedObject);
+        sharedPreferencesEditor.apply();
     }
 
-    @Override
-    public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+    public static <GenericClass> GenericClass getSavedObjectFromPreference(Context context, String preferenceFileName, String preferenceKey, Class<GenericClass> classType) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName, 0);
+        if (sharedPreferences.contains(preferenceKey)) {
+            final Gson gson = new Gson();
+            return gson.fromJson(sharedPreferences.getString(preferenceKey, ""), classType);
+        }
+        return null;
     }
-
-    @Override
-    public int getCount() {
-        return mFragmentList.size();
-    }
-
-    public void addFragment(Fragment fragment) {
-        mFragmentList.add(fragment);
-    }
-
 }

@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole;
+package com.univlr.geoluciole.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,25 +35,24 @@ import android.widget.CheckBox;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.univlr.geoluciole.form.FormActivityStepOne;
-import com.univlr.geoluciole.form.FormActivityStepTwo;
+import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.Date;
 
-public class RGPDConsentementFormActivity extends AppCompatActivity {
+public class RGPDConsentementGPSActivity extends AppCompatActivity {
 
+    private CheckBox consentementCheckbox;
     private Button validate_button;
     private Button refused_button;
-    private CheckBox consentementCheckbox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rgpd_consentement_form);
+        setContentView(R.layout.activity_rgpd_consentement_gps);
 
-        this.consentementCheckbox = findViewById(R.id.rgpd_second_content_consentement_checkbox);
-        this.validate_button = findViewById(R.id.rgpd_second_validate_button);
+        this.consentementCheckbox = findViewById(R.id.rgpd_first_content_consentement_checkbox);
         this.refused_button = findViewById(R.id.rgpd_gps_consent_refused);
+        this.validate_button = findViewById(R.id.rgpd_first_validate_button);
 
         this.consentementCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,21 +68,20 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
             }
         });
 
-
         this.validate_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean consentement = consentementCheckbox.isChecked();
-                if (!consentement) {
+                boolean consent = consentementCheckbox.isChecked();
+                if (!consent) {
                     return;
                 }
+                Intent intent = new Intent(getApplicationContext(), RGPDConsentementFormActivity.class);
 
-                Intent intent = new Intent(getApplicationContext(), FormActivityStepOne.class);
                 // sauvegarde des préférences
-                UserPreferences u = UserPreferences.getInstance(RGPDConsentementFormActivity.this);
-                u.setAccountConsent(true);
-                u.setDateConsentementForm(new Date().getTime());
-                UserPreferences.storeInstance(RGPDConsentementFormActivity.this, u);
+                UserPreferences u = UserPreferences.getInstance(RGPDConsentementGPSActivity.this);
+                u.setGpsConsent(true);
+                u.setDateConsentementGPS(new Date().getTime());
+                UserPreferences.storeInstance(RGPDConsentementGPSActivity.this, u);
 
                 startActivity(intent);
                 finish();
@@ -97,11 +95,12 @@ public class RGPDConsentementFormActivity extends AppCompatActivity {
                 if (consent) {
                     return;
                 }
-                Intent intent = new Intent(getApplicationContext(), FormActivityStepTwo.class);
-
-                UserPreferences u = UserPreferences.getInstance(RGPDConsentementFormActivity.this);
-                u.setAccountConsent(false);
-                UserPreferences.storeInstance(RGPDConsentementFormActivity.this, u);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("refused_consent", true);
+                UserPreferences u = UserPreferences.getInstance(RGPDConsentementGPSActivity.this);
+                u.setConsent(true);
+                u.setGpsConsent(false);
+                UserPreferences.storeInstance(RGPDConsentementGPSActivity.this, u);
 
                 startActivity(intent);
                 finish();

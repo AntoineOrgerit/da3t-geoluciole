@@ -25,54 +25,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- * Modifications done:
- *  - update of package name;
- *  - making class public;
- *  - removing getLocationTitle function.
- */
+package com.univlr.geoluciole.ui.form;
 
-package com.univlr.geoluciole.location;
+import android.text.Editable;
+import android.text.TextWatcher;
+
+import com.mobsandgeeks.saripaar.Validator;
 
 
-import android.content.Context;
-import android.location.Location;
-import android.preference.PreferenceManager;
+class TextWatcherListener implements TextWatcher {
+    private final Validator validator;
 
-class Utils {
-
-    private static final String KEY_REQUESTING_LOCATION_UPDATES = "requesting_locaction_updates";
-
-    private Utils() {
+    public TextWatcherListener(Validator validator) {
+        this.validator = validator;
     }
 
-    /**
-     * Returns true if requesting location updates, otherwise returns false.
-     *
-     * @param context The {@link Context}.
-     */
-    static boolean requestingLocationUpdates(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(KEY_REQUESTING_LOCATION_UPDATES, false);
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
     }
 
-    /**
-     * Stores the location updates state in SharedPreferences.
-     * @param requestingLocationUpdates The location updates state.
-     */
-    static void setRequestingLocationUpdates(Context context, boolean requestingLocationUpdates) {
-        PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
-                .putBoolean(KEY_REQUESTING_LOCATION_UPDATES, requestingLocationUpdates)
-                .apply();
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
     }
 
-    /**
-     * Returns the {@code location} object as a human readable string.
-     * @param location  The {@link Location}.
-     */
-    public static String getLocationText(Location location) {
-        return location == null ? "Unknown location" :
-                "(" + location.getLatitude() + ", " + location.getLongitude() + ")";
+    @Override
+    public void afterTextChanged(Editable editable) {
+        this.validator.validate();
     }
 }

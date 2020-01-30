@@ -43,8 +43,8 @@ import androidx.work.WorkManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.univlr.geoluciole.database.LocationTable;
-import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.Logger;
+import com.univlr.geoluciole.model.form.FormModel;
+import com.univlr.geoluciole.utils.Logger;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONObject;

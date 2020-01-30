@@ -29,7 +29,7 @@ package com.univlr.geoluciole.location;
 
 import android.location.Location;
 
-import com.univlr.geoluciole.model.FormModel;
+import com.univlr.geoluciole.model.form.FormModel;
 import com.univlr.geoluciole.sender.BulkObject;
 
 import java.util.List;

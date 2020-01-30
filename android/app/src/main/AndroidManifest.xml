@@ -48,12 +48,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CguActivity" />
-        <activity android:name=".PartnerActivity" />
-        <activity android:name=".RGPDConsentementFormActivity" />
-        <activity android:name=".RGPDConsentementGPSActivity" />
+        <activity android:name=".ui.CguActivity" />
+        <activity android:name=".ui.PartnerActivity" />
+        <activity android:name=".ui.RGPDConsentementFormActivity" />
+        <activity android:name=".ui.RGPDConsentementGPSActivity" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".ui.SplashScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -63,19 +63,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".form.FormActivityStepOne"
+            android:name=".ui.form.FormActivityStepOne"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".form.FormActivityStepTwo"
+            android:name=".ui.form.FormActivityStepTwo"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".form.FormActivityStepThree"
+            android:name=".ui.form.FormActivityStepThree"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".form.FormActivityStepEnd"
+            android:name=".ui.form.FormActivityStepEnd"
             android:screenOrientation="portrait" />
 
         <service

@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole;
+package com.univlr.geoluciole.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,8 +39,9 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.univlr.geoluciole.model.Logger;
+import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
+import com.univlr.geoluciole.utils.Logger;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

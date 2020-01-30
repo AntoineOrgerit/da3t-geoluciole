@@ -62,7 +62,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
 import com.univlr.geoluciole.model.UserPreferences;
@@ -70,6 +69,8 @@ import com.univlr.geoluciole.model.badge.Badge;
 import com.univlr.geoluciole.model.badge.BadgeConstantes;
 import com.univlr.geoluciole.model.badge.BadgeManager;
 import com.univlr.geoluciole.model.badge.BadgePlace;
+import com.univlr.geoluciole.ui.MainActivity;
+import com.univlr.geoluciole.utils.Utils;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

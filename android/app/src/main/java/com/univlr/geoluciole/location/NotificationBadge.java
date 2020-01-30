@@ -39,9 +39,9 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.badge.Badge;
+import com.univlr.geoluciole.ui.MainActivity;
 
 class NotificationBadge {
     private static final String CHANNEL_ID = "channelNotification";

@@ -58,12 +58,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.univlr.geoluciole.CguActivity;
-import com.univlr.geoluciole.PartnerActivity;
+import com.univlr.geoluciole.ui.CguActivity;
+import com.univlr.geoluciole.ui.PartnerActivity;
 import com.univlr.geoluciole.R;
-import com.univlr.geoluciole.RGPDConsentementGPSActivity;
-import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.Time;
+import com.univlr.geoluciole.ui.RGPDConsentementGPSActivity;
+import com.univlr.geoluciole.model.form.FormModel;
+import com.univlr.geoluciole.utils.Time;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.sender.HttpProvider;
 

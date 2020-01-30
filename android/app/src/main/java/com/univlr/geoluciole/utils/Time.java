@@ -25,33 +25,44 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.form;
+package com.univlr.geoluciole.utils;
 
-import android.text.Editable;
-import android.text.TextWatcher;
+import java.io.Serializable;
 
-import com.mobsandgeeks.saripaar.Validator;
+public class Time implements Serializable {
+    private int hours;
+    private int minutes;
 
+    public Time() {
+        hours = 0;
+        minutes = 0;
+    }
 
-class TextWatcherListener implements TextWatcher {
-    private final Validator validator;
+    public Time(int hours, int minutes) {
+        this.minutes = minutes;
+        this.hours = hours;
+    }
 
-    public TextWatcherListener(Validator validator) {
-        this.validator = validator;
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
     }
 
     @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-        this.validator.validate();
+    public String toString() {
+        String minutes = this.minutes < 10 ? "0" + (this.minutes) : this.minutes + "";
+        String hours = this.hours < 10 ? "0" + (this.hours) : this.hours + "";
+        return hours+":"+minutes;
     }
 }

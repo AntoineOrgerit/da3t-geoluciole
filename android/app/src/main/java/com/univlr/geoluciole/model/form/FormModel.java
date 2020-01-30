@@ -25,12 +25,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole.model;
+package com.univlr.geoluciole.model.form;
 
 import android.content.Context;
 
 import com.univlr.geoluciole.R;
+import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.sender.BulkObject;
+import com.univlr.geoluciole.utils.Time;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,8 +40,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.univlr.geoluciole.model.PreferencesManager.getSavedObjectFromPreference;
-import static com.univlr.geoluciole.model.PreferencesManager.saveObjectToSharedPreference;
+import static com.univlr.geoluciole.utils.PreferencesManager.getSavedObjectFromPreference;
+import static com.univlr.geoluciole.utils.PreferencesManager.saveObjectToSharedPreference;
 
 public class FormModel implements Serializable, BulkObject {
     private static final String FORM_KEY = "formModelPreference";

@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.univlr.geoluciole;
+package com.univlr.geoluciole.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +35,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.univlr.geoluciole.R;
 
 public class CguActivity extends AppCompatActivity {
     @Override
