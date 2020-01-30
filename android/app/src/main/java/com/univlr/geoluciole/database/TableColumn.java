@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2020, La Rochelle Université
+ * Copyright (c) 2020, Martin Allusse and Alexandre Baret and Jessy Barritault and Florian
+ * Bertonnier and Lisa Fougeron and François Gréau and Thibaud Lambert and Antoine
+ * Orgerit and Laurent Rayez
  * All rights reserved.
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -42,13 +44,13 @@ class TableColumn {
      * @param columnType String type de la colonne
      * @param canBeNull  boolean si null est a 1 sinon 0
      */
-    public TableColumn(String columnName, String columnType, boolean canBeNull) {
+    TableColumn(String columnName, String columnType, boolean canBeNull) {
         this.columnName = columnName;
         this.columnType = columnType;
         this.canBeNull = canBeNull;
     }
 
-    public String getColumnName() {
+    String getColumnName() {
         return columnName;
     }
 
@@ -56,7 +58,7 @@ class TableColumn {
         this.columnName = columnName;
     }
 
-    public String getColumnType() {
+    String getColumnType() {
         return columnType;
     }
 
@@ -64,7 +66,7 @@ class TableColumn {
         this.columnType = columnType;
     }
 
-    public boolean isCanBeNull() {
+    boolean isCanBeNull() {
         return canBeNull;
     }
 
