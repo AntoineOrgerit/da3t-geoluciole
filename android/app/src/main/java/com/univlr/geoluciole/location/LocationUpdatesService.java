@@ -60,7 +60,6 @@ import android.os.Looper;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
@@ -69,11 +68,13 @@ import com.univlr.geoluciole.model.badge.Badge;
 import com.univlr.geoluciole.model.badge.BadgeConstantes;
 import com.univlr.geoluciole.model.badge.BadgeManager;
 import com.univlr.geoluciole.model.badge.BadgePlace;
+import com.univlr.geoluciole.sender.HttpProvider;
 import com.univlr.geoluciole.ui.MainActivity;
 import com.univlr.geoluciole.utils.Utils;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -159,6 +160,7 @@ public class LocationUpdatesService extends Service {
             public void onLocationChanged(Location location) {
 
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
+                UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
                 if (last.getTime() != 0) {
@@ -169,7 +171,6 @@ public class LocationUpdatesService extends Service {
                     if (speed != null && speed.compareTo(BigDecimal.ZERO) > 0) {
 
                         // on recupère pas l'instance si pas nécessaire
-                        UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
                         BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
 
                         // si la distance mesurée et calculée sont cohérentes on ajoute la distance sinon on prend la valeur estimée par rapport a la vitesse
@@ -187,7 +188,20 @@ public class LocationUpdatesService extends Service {
                 }
                 // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);
-                onNewLocation(location);
+
+                // remove service si time est dépassé
+                Calendar current = Calendar.getInstance();
+                if (userPreferences.getEndValidity() < current.getTimeInMillis()){
+                    userPreferences.setSendData(false);
+                    // stop tous les services de l'application (envoi automatique, récupération gps)
+                    // on envoi les données gps
+                    HttpProvider.sendGps(LocationUpdatesService.this);
+                    // stop l'envoi automatique des données
+                    HttpProvider.cancelPeriodicSend(LocationUpdatesService.this);
+
+                    // stop this services
+                    LocationUpdatesService.this.stopService();
+                }
             }
 
             @Override
@@ -350,24 +364,6 @@ public class LocationUpdatesService extends Service {
                 .setWhen(System.currentTimeMillis());
 
         return builder.build();
-    }
-
-    private void onNewLocation(Location location) {
-        Log.i(TAG, "New location: " + location);
-
-        /**
-         * The current location.
-         */
-
-        // Notify anyone listening for broadcasts about the new location.
-        Intent intent = new Intent(ACTION_BROADCAST);
-        intent.putExtra(EXTRA_LOCATION, location);
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-
-        // Update notification content if running as a foreground service.
-        if (serviceIsRunningInForeground(this)) {
-            mNotificationManager.notify(NOTIFICATION_ID, getNotification());
-        }
     }
 
     /**

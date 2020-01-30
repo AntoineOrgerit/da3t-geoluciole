@@ -377,9 +377,12 @@ public class MainActivity extends LocationActivity implements AchievementsFragme
                         UserPreferences userPreferences = UserPreferences.getInstance(MainActivity.this);
                         userPreferences.setManagerPermissionConstructorShow(true);
                         userPreferences.store(MainActivity.this);
-
-                        startActivity(intent);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        try {
+                            startActivity(intent);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        } catch (SecurityException se) {
+                            // do nothing
+                        }
                         dialog.dismiss();
                     }
                 });

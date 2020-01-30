@@ -29,6 +29,7 @@ package com.univlr.geoluciole.database;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,7 +97,11 @@ public abstract class Table {
      */
     public void insert(Object o) {
         this.dbSQLite.open();
-        insertObject(o);
+        try {
+            insertObject(o);
+        } catch (Exception e) {
+            // do nothing
+        }
         this.dbSQLite.close();
     }
 
@@ -112,7 +117,11 @@ public abstract class Table {
      */
     public void removeAll() {
         this.dbSQLite.open();
-        removeAllObject();
+        try {
+            removeAllObject();
+        } catch (Exception ex) {
+            // do nothing
+        }
         this.dbSQLite.close();
     }
 
@@ -127,8 +136,13 @@ public abstract class Table {
      * @return List des objets
      */
     public List getAll() {
+        List list = new ArrayList();
         this.dbSQLite.open();
-        List list = getAllObject();
+        try {
+             list = getAllObject();
+        } catch (Exception ex) {
+            //do nothing
+        }
         this.dbSQLite.close();
         return list;
     }
