@@ -1,6 +1,6 @@
 AUTHORS
  * Martin Allusse <martin.allusse(A)gmail.com>
- * Alexandre Baret
+ * Alexandre Baret <alexandre.baret17(A)gmail.com>
  * Jessy Barritault <jessy.barritault(A)gmail.com>
  * Florian Bertonnier <ber.flo(A)hotmail.fr>
  * Lisa Fougeron <lisa.fougeron(A)gmail.com>
