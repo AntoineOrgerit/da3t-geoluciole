@@ -22,10 +22,10 @@ class DurationOfEngagementFormView: UIView {
          */
         let beginDateStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT, defaultValue:  UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY))
         
-        let beginDate = Tools.convertDate(date: beginDateStr)
+        //let beginDate = Tools.convertDate(date: beginDateStr)
 
         let endDateStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT, defaultValue: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY))
-        let endDate = Tools.convertDate(date: beginDateStr)
+        //let endDate = Tools.convertDate(date: beginDateStr)
 
         let title = CustomUILabel()
         title.text = Tools.getTranslate(key: "dates_settings")
