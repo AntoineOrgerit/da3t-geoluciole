@@ -155,6 +155,9 @@ public class LocationUpdatesService extends Service {
         mCriteria.setAccuracy(Criteria.ACCURACY_FINE);
         mCriteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
         mCriteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
+        /**
+         * C'est ce listener qui sera appelé à chaque changement de localisation
+         */
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -189,7 +192,7 @@ public class LocationUpdatesService extends Service {
                 // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);
 
-                // remove service si time est dépassé
+                // remove service si période est fini
                 Calendar current = Calendar.getInstance();
                 if (userPreferences.getEndValidity() < current.getTimeInMillis()){
                     userPreferences.setSendData(false);
@@ -302,7 +305,8 @@ public class LocationUpdatesService extends Service {
     }
 
     /**
-     * Makes a request for location updates. Note that in this sample we merely log the
+     * Démarre le service en activant la récupération des données GPS
+     * et démarre la surveillance des zone de badge de lieu.
      * {@link SecurityException}.
      */
     public void requestLocationUpdates() {
@@ -432,6 +436,9 @@ public class LocationUpdatesService extends Service {
         registerReceiver(receiverAlertLocation, filter);
     }
 
+    /**
+     * Permet de stopper les services de localisation
+     */
     public void stopService() {
         if (receiverAlertLocation != null) {
             try {

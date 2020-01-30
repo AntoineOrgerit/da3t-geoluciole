@@ -40,7 +40,11 @@ import com.univlr.geoluciole.model.badge.BadgeManager;
 
 import java.util.Objects;
 
-
+/**
+ * Cette classe est appeler à chaque foi qu'on rentre dans la localisation d'un lieu de badge
+ *
+ * ce receiver est set dans la classe LocationUpdateService dans la méthode setProximityAlert()
+ */
 public class ProximityReceiver extends BroadcastReceiver {
     private static final String TAG = ProximityReceiver.class.getSimpleName();
 
@@ -61,6 +65,7 @@ public class ProximityReceiver extends BroadcastReceiver {
                 if (!userPref.getListUnlockedBadges().contains(idBadgeUnlocked)) {
                     // Call the Notification Service or anything else that you would like to do here
                     BadgeManager badgeManager = BadgeManager.getInstance(context);
+                    // déblocage du badge
                     badgeManager.unlockBadgesPlace(idBadgeUnlocked, context);
                     Badge badge = badgeManager.getArrayBadges().get(idBadgeUnlocked);
                     // creation de la notification

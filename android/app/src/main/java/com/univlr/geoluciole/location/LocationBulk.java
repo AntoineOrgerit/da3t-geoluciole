@@ -34,11 +34,20 @@ import com.univlr.geoluciole.sender.BulkObject;
 
 import java.util.List;
 
+/**
+ * Objet utilisée pour parser les données location et les envoyer au server sous un format bulk ** voir class BulkObject
+ */
 public class LocationBulk implements BulkObject {
 
     private final Location location;
     private final String id;
 
+    /**
+     * Création d'un location bulk
+     *
+     * @param location location a parse
+     * @param id identifiant utilisateur (unique ID du UserPreference)
+     */
     public LocationBulk(Location location, String id) {
         this.location = location;
         this.id = id;
@@ -56,6 +65,9 @@ public class LocationBulk implements BulkObject {
 
     @Override
     public String jsonFormat() {
+        /**
+         * Attention à bien penser à mettre les chaine de caractère entre quote.
+         */
         StringBuilder stringBuilder = new StringBuilder("{");
         stringBuilder.append("\"id_user\":").append(id).append(",");
         stringBuilder.append("\"latitude\":").append(location.getLatitude()).append(",");
