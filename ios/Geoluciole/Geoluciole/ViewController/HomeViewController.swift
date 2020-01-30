@@ -123,6 +123,8 @@ class HomeViewController: ParentViewController {
         } else {
             self.lastTrophyView.setImage(nom: "no-badge")
         }
+        
+        self.collectDataSwitchView.isUserInteractionEnabled = send
     }
 
     override func viewDidAppear(_ animated: Bool) {
