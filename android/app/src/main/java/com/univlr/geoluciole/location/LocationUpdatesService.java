@@ -1,60 +1,37 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - delete of Android 0 Notification Channel;
- * - remove stopping activity from notifications;
- * - changing accuracy to be balanced with the battery.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - update notification channel name;
- * - remove stopping activity from notifications;
- * - adapting to Android 8 and 9 versions;
- * - update of Location retrieve system.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - update notification channel name;
- * - remove stopping activity from notifications;
- * - adapting to Android 8 and 9 versions;
- * - update of Location retrieve system.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - update notification channel name;
- * - remove stopping activity from notifications;
- * - adapting to Android 8 and 9 versions;
- * - update of Location retrieve system.
- * <p>
- * Modifications done:
- * - update of package name and string value of PACKAGE_NAME variable;
- * - update notification channel name;
- * - remove stopping activity from notifications;
- * - adapting to Android 8 and 9 versions;
- * - update of Location retrieve system.
+/*
+ * Copyright (c) 2020, La Rochelle Université
+ * All rights reserved.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *  Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ *  Neither the name of the University of California, Berkeley nor the
+ *   names of its contributors may be used to endorse or promote products
+ *   derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 /**
  * Modifications done:
- *  - update of package name and string value of PACKAGE_NAME variable;
- *  - update notification channel name;
- *  - remove stopping activity from notifications;
- *  - adapting to Android 8 and 9 versions;
- *  - update of Location retrieve system.
+ * - update of package name and string value of PACKAGE_NAME variable;
+ * - update notification channel name;
+ * - remove stopping activity from notifications;
+ * - adapting to Android 8 and 9 versions;
+ * - update of Location retrieve system.
  */
 
 package com.univlr.geoluciole.location;
@@ -83,10 +60,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.android.gms.location.LocationRequest;
-import com.univlr.geoluciole.MainActivity;
 import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.database.LocationTable;
 import com.univlr.geoluciole.model.UserPreferences;
@@ -94,20 +68,24 @@ import com.univlr.geoluciole.model.badge.Badge;
 import com.univlr.geoluciole.model.badge.BadgeConstantes;
 import com.univlr.geoluciole.model.badge.BadgeManager;
 import com.univlr.geoluciole.model.badge.BadgePlace;
+import com.univlr.geoluciole.sender.HttpProvider;
+import com.univlr.geoluciole.ui.MainActivity;
+import com.univlr.geoluciole.utils.Utils;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
  * been requested and all clients unbind.
- *
+ * <p>
  * For apps running in the background on "O" devices, location is computed only once every 10
  * minutes and delivered batched every 30 minutes. This restriction applies even to apps
  * targeting "N" or lower which are run on "O" devices.
- *
+ * <p>
  * This sample show how to use a long-running service for location updates. When an activity is
  * bound to this service, frequent location updates are permitted. When the activity is removed
  * from the foreground, the service promotes itself to a foreground service, and location updates
@@ -126,9 +104,9 @@ public class LocationUpdatesService extends Service {
      */
     private static final String CHANNEL_ID = "channel_location_updates_service";
 
-    public static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
+    private static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
 
-    public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
+    private static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
     private static final String EXTRA_STARTED_FROM_NOTIFICATION = PACKAGE_NAME +
             ".started_from_notification";
     private static final String COM_UNIVLR_GEOLUCIOLE_PROXIMITYALERT = "com.univlr.geoluciole.proximityalert";
@@ -139,6 +117,13 @@ public class LocationUpdatesService extends Service {
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+
+    /**
+     * The fastest rate for active location updates. Updates will never be more frequent
+     * than this value.
+     */
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
+            UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 
     /**
      * The identifier for the notification displayed for the foreground service.
@@ -155,6 +140,8 @@ public class LocationUpdatesService extends Service {
     private NotificationManager mNotificationManager;
 
     private Handler mServiceHandler;
+
+    private String filename;
 
     private LocationManager mLocationManager;
     private Criteria mCriteria;
@@ -173,9 +160,10 @@ public class LocationUpdatesService extends Service {
             public void onLocationChanged(Location location) {
 
                 LocationTable locationTable = new LocationTable(LocationUpdatesService.this);
+                UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
                 // récuperation de la dernière distance pour le calcul de distance
                 Location last = locationTable.getLastLocation();
-                if(last.getTime() != 0) {
+                if (last.getTime() != 0) {
                     float distance = last.distanceTo(location);
                     long deltaT = Math.abs(location.getTime() - last.getTime()) / 1000;
                     // définition de l'arrondi
@@ -183,7 +171,6 @@ public class LocationUpdatesService extends Service {
                     if (speed != null && speed.compareTo(BigDecimal.ZERO) > 0) {
 
                         // on recupère pas l'instance si pas nécessaire
-                        UserPreferences userPreferences = UserPreferences.getInstance(LocationUpdatesService.this);
                         BadgeManager badgeManager = BadgeManager.getInstance(LocationUpdatesService.this);
 
                         // si la distance mesurée et calculée sont cohérentes on ajoute la distance sinon on prend la valeur estimée par rapport a la vitesse
@@ -201,7 +188,20 @@ public class LocationUpdatesService extends Service {
                 }
                 // insertion de la nouvelle valeur en bdd
                 locationTable.insert(location);
-                onNewLocation(location);
+
+                // remove service si time est dépassé
+                Calendar current = Calendar.getInstance();
+                if (userPreferences.getEndValidity() < current.getTimeInMillis()){
+                    userPreferences.setSendData(false);
+                    // stop tous les services de l'application (envoi automatique, récupération gps)
+                    // on envoi les données gps
+                    HttpProvider.sendGps(LocationUpdatesService.this);
+                    // stop l'envoi automatique des données
+                    HttpProvider.cancelPeriodicSend(LocationUpdatesService.this);
+
+                    // stop this services
+                    LocationUpdatesService.this.stopService();
+                }
             }
 
             @Override
@@ -250,7 +250,6 @@ public class LocationUpdatesService extends Service {
         Thread t = new Thread(r);
         t.start();
         // Tells the system to not try to recreate the service after it has been killed.
-        //return START_NOT_STICKY; // todo vérifier
         return START_STICKY;
     }
 
@@ -312,7 +311,7 @@ public class LocationUpdatesService extends Service {
         // permet de garder le service active même après la fin de l'application
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
-            mLocationManager.requestLocationUpdates(2000, 10, mCriteria, mLocationListener, Looper.myLooper());
+            mLocationManager.requestLocationUpdates(7000, 10, mCriteria, mLocationListener, Looper.myLooper());
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
@@ -365,20 +364,6 @@ public class LocationUpdatesService extends Service {
                 .setWhen(System.currentTimeMillis());
 
         return builder.build();
-    }
-
-    private void onNewLocation(Location location) {
-        Log.i(TAG, "New location: " + location);
-
-        // Notify anyone listening for broadcasts about the new location.
-        Intent intent = new Intent(ACTION_BROADCAST);
-        intent.putExtra(EXTRA_LOCATION, location);
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-
-        // Update notification content if running as a foreground service.
-        if (serviceIsRunningInForeground(this)) {
-            mNotificationManager.notify(NOTIFICATION_ID, getNotification());
-        }
     }
 
     /**

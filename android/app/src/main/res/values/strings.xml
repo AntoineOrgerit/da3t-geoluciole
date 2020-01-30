@@ -1,3 +1,30 @@
+<!--
+  ~ Copyright (c) 2020, La Rochelle Université
+  ~ All rights reserved.
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~
+  ~ * Redistributions of source code must retain the above copyright
+  ~   notice, this list of conditions and the following disclaimer.
+  ~ * Redistributions in binary form must reproduce the above copyright
+  ~   notice, this list of conditions and the following disclaimer in the
+  ~   documentation and/or other materials provided with the distribution.
+  ~ * Neither the name of the University of California, Berkeley nor the
+  ~   names of its contributors may be used to endorse or promote products
+  ~   derived from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+  ~ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~ DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+  ~ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
 <resources>
     <string name="app_name">Géoluciole</string>
     <string name="title_home">Home</string>
@@ -10,7 +37,7 @@
     <string name="action_loader">Loading</string>
 
     <string name="alert_title_constructor_settings">Redirect to your settings</string>
-    <string name="alert_content_constructor_settings"></string>
+    <string name="alert_content_constructor_settings">You will be redirected to your settings in order to deactivate the \' Automatic management \' option. For the correct functioning of the application please deactivate this option.</string>
 
     <!-- CONSTANT NOTIFICATION -->
     <string name="location_notification_content_title">Géoluciole is running</string>
@@ -113,7 +140,7 @@
         <item>Cycling</item>
         <item>Other</item>
     </string-array>
-
+    <string name="precision">Precision</string>
     <!-- RADIO QUESTIONS -->
     <string name="form_first_visit_title">Are you visiting La Rochelle for the first time?*</string>
     <string name="form_know_city_title">Would you say you know La Rochelle well?*</string>
@@ -172,6 +199,9 @@
     <string name="plage_de_la_concurrence_description"> "Congratulation! You have just discovered the Plage de la Concurrence"</string>
     <string name="place_des_minimes_description"> "Congratulation! You have just discovered the Plage des Minimes"</string>
     <string name="marche_central_description"> "Congratulation! You have just discovered the Marché Central"</string>
+    <string name="aquarium_description"> "Congratulation! You have just discovered the l'Aquarium de La Rochelle"</string>
+    <string name="place_verdun_description"> "Congratulation! You have just discovered the Place de Verdun"</string>
+
 
     <!-- DIALOG  -->
     <string name="back">Back</string>
@@ -193,4 +223,5 @@
     <!-- POPUP VALIDATION DATE -->
     <string name="message_update_date_title">Update date</string>
     <string name="message_update_date">Are you sure to update this date?</string>
+
 </resources>

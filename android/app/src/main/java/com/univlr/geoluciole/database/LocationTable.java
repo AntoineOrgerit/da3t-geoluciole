@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2020, La Rochelle Université
+ * All rights reserved.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *  Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ *  Neither the name of the University of California, Berkeley nor the
+ *   names of its contributors may be used to endorse or promote products
+ *   derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.univlr.geoluciole.database;
 
 import android.content.ContentValues;
@@ -17,13 +44,13 @@ import java.util.List;
  * Classe LocationTable - herite de la classe Table
  */
 public class LocationTable extends Table {
-    public static final String LOCATION_TABLE_NAME = "locations";
-    public static final String LATITUDE = "latitude";
-    public static final String LONGITUDE = "longitude";
-    public static final String TIMESTAMP = "time_stamp";
-    public static final String ALTITUDE = "altitude";
-    public static final String ACCURACY = "precision";
-    public static final String SPEED = "vitesse";
+    private static final String LOCATION_TABLE_NAME = "locations";
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE = "longitude";
+    private static final String TIMESTAMP = "time_stamp";
+    private static final String ALTITUDE = "altitude";
+    private static final String ACCURACY = "precision";
+    private static final String SPEED = "vitesse";
 
     /**
      * Constructeur de la classe
@@ -44,7 +71,7 @@ public class LocationTable extends Table {
     /**
      * Constructeur recuperant l instance de la base
      *
-     * @param context
+     * @param context Context
      */
     public LocationTable(Context context) {
         super(context);
@@ -66,7 +93,6 @@ public class LocationTable extends Table {
         values.put(LocationTable.SPEED, l.getSpeed());
         values.put(LocationTable.ACCURACY, l.getAccuracy());
         Log.i("DATABASE", "addLocation - Ajout d une location dans la base de donnee");
-        System.out.println(values);
         this.dbSQLite.getDb().insert(LocationTable.LOCATION_TABLE_NAME, null, values);
     }
 

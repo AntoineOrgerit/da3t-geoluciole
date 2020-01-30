@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2020, La Rochelle Université
+ * All rights reserved.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *  Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ *  Neither the name of the University of California, Berkeley nor the
+ *   names of its contributors may be used to endorse or promote products
+ *   derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.univlr.geoluciole.sender;
 
 import android.content.Context;
@@ -5,6 +32,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.concurrent.futures.CallbackToFutureAdapter;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -15,8 +43,8 @@ import androidx.work.WorkManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.univlr.geoluciole.database.LocationTable;
-import com.univlr.geoluciole.model.FormModel;
-import com.univlr.geoluciole.model.Logger;
+import com.univlr.geoluciole.model.form.FormModel;
+import com.univlr.geoluciole.utils.Logger;
 import com.univlr.geoluciole.model.UserPreferences;
 
 import org.json.JSONObject;
@@ -30,6 +58,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class HttpProvider {
+    //todo activer le HTTPS
     //private final static String BASE_URL = "https://datamuseum.univ-lr.fr:9200/";
     private final static String BASE_URL = "http://datamuseum.univ-lr.fr:9200/";
     // private final static String BASE_URL = "http://86.233.189.163:9200/";
@@ -57,9 +86,8 @@ public class HttpProvider {
         // création de la request
 
 
-        PeriodicWorkRequest periodicWorkRequest =  new PeriodicWorkRequest.Builder(
-                PeriodicallyHttpWorker.class, 15, TimeUnit.MINUTES) // todo ligne de test
-        //        PeriodicallyHttpWorker.class, PeriodicallyHttpWorker.PERIODICALLY_CALL_HTTP_IN_HOUR, TimeUnit.HOURS) //todo décommenter cette ligne (ligne de prod)
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(
+                PeriodicallyHttpWorker.class, PeriodicallyHttpWorker.PERIODICALLY_CALL_HTTP_IN_HOUR, TimeUnit.HOURS)
                 .setConstraints(constraintsNetwork)
                 .build();
         // Mise en place du periodique worker
@@ -77,7 +105,7 @@ public class HttpProvider {
             }
         }, new Executor() {
             @Override
-            public void execute(Runnable runnable) {
+            public void execute(@NonNull Runnable runnable) {
                 runnable.run();
             }
         });
@@ -90,12 +118,12 @@ public class HttpProvider {
                 .setUrl(FORM_URL)
                 .setCallback(new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         Logger.logForm(e);
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         String responseBody = response.body().string();
                         try {
                             // recuperation du status de l'insertion
@@ -121,8 +149,9 @@ public class HttpProvider {
 
     /**
      * Function appeler par la tâche périodique pour envoyer les données gps
-     * @param context
-     * @param completer
+     *
+     * @param context   Context
+     * @param completer CallbackToFutureAdapter
      */
     public static Callback sendGPsPeriodically(Context context, final CallbackToFutureAdapter.Completer<ListenableWorker.Result> completer) {
         final LocationTable locationTable = new LocationTable(context);
@@ -134,13 +163,13 @@ public class HttpProvider {
 
         Callback callback = new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Logger.logGps(e);
                 completer.setException(e);
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, Response response) throws IOException {
                 String responseBody = response.body().string();
                 if (jsonSuccessAction(responseBody, count, Logger.TAG_GPS_PERIODICALLY)) {
                     locationTable.removeAll();
@@ -166,7 +195,7 @@ public class HttpProvider {
         try {
             JSONObject jsonObject = new JSONObject(body);
             if (!jsonObject.getBoolean("errors")) {
-                Logger.log("GPS send data : "+ count + " locations", Log.INFO, labelCustom);
+                Logger.log("GPS send data : " + count + " locations", Log.INFO, labelCustom);
                 return true;
             } else {
                 Logger.log(jsonObject.toString(), Log.ERROR, labelCustom);
@@ -193,7 +222,7 @@ public class HttpProvider {
                 .setUrl(GPS_URL)
                 .setCallback(new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         Logger.logGps(e);
                         if (handler != null) {
                             Message message = handler.obtainMessage(CODE_HANDLER_GPS_ERROR);
@@ -202,7 +231,7 @@ public class HttpProvider {
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         if (handler != null) {
                             Message message = handler.obtainMessage(CODE_HANDLER_GPS_COUNT, count);
                             message.sendToTarget();
@@ -224,12 +253,12 @@ public class HttpProvider {
                 .setUrl(url)
                 .setCallback(new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         Logger.logAccount(e);
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         String responseBody = response.body().string();
                         try {
                             JSONObject jsonObject = new JSONObject(responseBody);
