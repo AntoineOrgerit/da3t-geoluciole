@@ -39,6 +39,9 @@ class DurationOfEngagementFormView: UIView {
          */
         let beginDateStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT, defaultValue:  UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY))
         
+        let minimumDate = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY)
+        
+         let maxDate = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY)
         //let beginDate = Tools.convertDate(date: beginDateStr)
 
         let endDateStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT, defaultValue: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY))
@@ -77,8 +80,8 @@ class DurationOfEngagementFormView: UIView {
         }
         self.dateStartField.setTitle(title: Tools.getTranslate(key: "dates_settings_start"))
         self.dateStartField.setDateLabel(date: beginDateStr)
-        self.dateStartField.setMinimumDate(date: Tools.convertDate(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY)))
-        self.dateStartField.setMaximumDate(date: Tools.convertDate(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY)))
+        self.dateStartField.setMinimumDate(date: Tools.convertDate(date: minimumDate))
+        self.dateStartField.setMaximumDate(date: Tools.convertDate(date: maxDate))
         self.dateStartField.setDefaultDatePicker(date: beginDateStr)
         
         self.dateStartField.translatesAutoresizingMaskIntoConstraints = false
@@ -110,8 +113,8 @@ class DurationOfEngagementFormView: UIView {
             return result
 
         }
-        self.dateEndField.setMinimumDate(date: Tools.convertDate(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_STAY)))
-        self.dateEndField.setMaximumDate(date: Tools.convertDate(date: UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_STAY)))
+        self.dateEndField.setMinimumDate(date: Tools.convertDate(date: minimumDate))
+        self.dateEndField.setMaximumDate(date: Tools.convertDate(date: maxDate))
         self.dateEndField.setDefaultDatePicker(date: endDateStr)
         self.dateEndField.setDateLabel(date: endDateStr)
         self.dateEndField.setTitle(title: Tools.getTranslate(key: "dates_settings_end"))
@@ -145,5 +148,13 @@ class DurationOfEngagementFormView: UIView {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func getDateStartField() -> SettingsDateFieldView {
+        return self.dateStartField
+    }
+    
+    func getDateEndField() -> SettingsDateFieldView {
+        return self.dateEndField
     }
 }

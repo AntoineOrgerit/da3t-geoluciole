@@ -126,26 +126,15 @@ class HomeViewController: ParentViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        // On affiche le consentement de RGPD pour le GPS
-        if self.userPrefs.object(forKey: UserPrefs.KEY_RGPD_CONSENT) == nil {
-            let rgpdController = GPSConsentRGPDViewController()
-            rgpdController.modalPresentationStyle = .fullScreen
-            self.present(rgpdController, animated: true)
-        } else {
-            // On affiche ensuite le constement pour le formulaire
-            if self.userPrefs.object(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) == nil {
-                let formRgpdController = FormConsentRGPDViewController()
-                formRgpdController.modalPresentationStyle = .fullScreen
-                self.present(formRgpdController, animated: true)
-            } else {
-                // On affiche le formulaire
-                if UserPrefs.getInstance().object(forKey: UserPrefs.KEY_FORMULAIRE_REMPLI) == nil {
-                    let formulaire = FormPageViewController()
-                    formulaire.modalPresentationStyle = .fullScreen
-                    self.present(formulaire, animated: true)
-                }
-            }
+        // On affiche la fenêtre de consentement 1 seul fois lors du premier lancement.
+        // Sinon, on doit aller sur la vue paramètre pour faire apparaitre les consentement
+        let consent_ask = UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_CONSENT_ASK)
+
+        if !consent_ask {
+            Tools.checkConsent(viewController: self)
+            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_CONSENT_ASK, value: true)
         }
+
     }
 
     override func didReceiveMemoryWarning() {

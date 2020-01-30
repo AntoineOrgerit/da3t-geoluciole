@@ -47,8 +47,18 @@ class UserPrefs {
     static let KEY_FORMULAIRE_CONSENT_DATA = "data_form_consent"
     static let KEY_DATE_START_STAY = "date_debut_sejour"
     static let KEY_DATE_END_STAY = "date_fin_sejour"
-    
+    static let KEY_CONSENT_ASK = "consent_ask"
+
     fileprivate init() {
+//initialisation par defaut des dates de séjour pour le cas de refus des consentement GPS
+        
+        if self.userPrefs.object(forKey: UserPrefs.KEY_DATE_START_STAY) == nil {
+            self.setPrefs(key: UserPrefs.KEY_DATE_START_STAY, value: Tools.convertDate(date: Date()))
+        }
+
+        if self.userPrefs.object(forKey: UserPrefs.KEY_DATE_END_STAY) == nil {
+            self.setPrefs(key: UserPrefs.KEY_DATE_END_STAY, value: Tools.convertDate(date: Date()))
+        }
 
         // si la durée d'engagement est renseigné
         if self.userPrefs.object(forKey: UserPrefs.KEY_DUREE_ENGAGEMENT) == nil {
@@ -76,12 +86,17 @@ class UserPrefs {
                 // Si le français est défini, on le prend
                 if languageCode == "fr" {
                     language = Tools.getTranslate(key: "french_language")
-                // Sinon on met anglais par défaut
+                    // Sinon on met anglais par défaut
                 } else {
                     language = Tools.getTranslate(key: "english_language")
                 }
             }
             self.setPrefs(key: UserPrefs.APPLE_LANGUAGE_KEY, value: language)
+        }
+        
+        // indique si l'on a affiché le consentement GPS au moins une fois au démarrage de l'application
+        if self.userPrefs.object(forKey: UserPrefs.KEY_CONSENT_ASK) == nil {
+            self.setPrefs(key: UserPrefs.KEY_CONSENT_ASK, value: false)
         }
     }
 
@@ -96,7 +111,7 @@ class UserPrefs {
         self.userPrefs.set(value, forKey: key)
         self.userPrefs.synchronize()
     }
-    
+
     func removePrefs(key: String) {
         self.userPrefs.removeObject(forKey: key)
         self.userPrefs.synchronize()
@@ -126,7 +141,7 @@ class UserPrefs {
     func object(forKey key: String) -> Any? {
         return self.userPrefs.object(forKey: key)
     }
-    
+
     func double(forKey key: String, defaultValue: Double = 0) -> Double {
         if self.userPrefs.object(forKey: key) != nil {
             return self.userPrefs.double(forKey: key)

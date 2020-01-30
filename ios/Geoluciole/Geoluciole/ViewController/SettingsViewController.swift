@@ -33,7 +33,8 @@ class SettingsViewController: ParentViewController {
     fileprivate var contentView: UIView!
     fileprivate var deleteButton: CustomUIButton!
     fileprivate var sendDataManually: CustomUIButton!
-    
+    fileprivate var durationOfEngagementFormView: DurationOfEngagementFormView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,9 +50,9 @@ class SettingsViewController: ParentViewController {
         identifierView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(identifierView)
 
-        let durationOfEngagementFormView = DurationOfEngagementFormView()
-        durationOfEngagementFormView.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(durationOfEngagementFormView)
+        self.durationOfEngagementFormView = DurationOfEngagementFormView()
+        self.durationOfEngagementFormView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.durationOfEngagementFormView)
 
         let languageSelectorView = LanguageSelectorView()
         languageSelectorView.translatesAutoresizingMaskIntoConstraints = false
@@ -183,7 +184,7 @@ class SettingsViewController: ParentViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        
+
         super.viewWillAppear(animated)
         if UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_RGPD_CONSENT) {
             self.deleteButton.setTitle(Tools.getTranslate(key: "revoke_consent"), for: .normal)
@@ -196,12 +197,21 @@ class SettingsViewController: ParentViewController {
             self.deleteButton.setTitle(Tools.getTranslate(key: "give_consent"), for: .normal)
             self.deleteButton.setStyle(style: .settingDark)
             self.deleteButton.onClick = { button in
-                let rgpdController = GPSConsentRGPDViewController()
-                rgpdController.modalPresentationStyle = .fullScreen
-                self.present(rgpdController, animated: true)
+                Tools.checkConsent(viewController: self)
             }
             self.sendDataManually.isHidden = true
         }
+
+        // maj date picker et label
+        let dateDebutStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_START_ENGAGEMENT, defaultValue: UserPrefs.KEY_DATE_START_STAY)
+        let dateFinStr = UserPrefs.getInstance().string(forKey: UserPrefs.KEY_DATE_END_ENGAGEMENT, defaultValue: UserPrefs.KEY_DATE_END_STAY)
+
+        self.durationOfEngagementFormView.getDateStartField().setDefaultDatePicker(date: dateDebutStr)
+        self.durationOfEngagementFormView.getDateStartField().setDateLabel(date: dateDebutStr)
+        self.durationOfEngagementFormView.getDateEndField().setDefaultDatePicker(date: dateFinStr)
+        self.durationOfEngagementFormView.getDateEndField().setDateLabel(date: dateFinStr)
+        
+        Tools.checkConsent(viewController: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -220,7 +230,7 @@ class SettingsViewController: ParentViewController {
 
         self.present(alert, animated: true, completion: nil)
     }
-    
+
     func saveToClipBoard(action: UIAlertAction) {
         UIPasteboard.general.string = userPrefs.string(forKey: UserPrefs.KEY_IDENTIFIER)
         self.rootView.makeToast(Tools.getTranslate(key: "toast_copy_id"), duration: 2, position: .bottom)
