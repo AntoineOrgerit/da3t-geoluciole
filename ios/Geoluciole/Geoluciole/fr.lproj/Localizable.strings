@@ -173,7 +173,7 @@
 "text_distance_value" = "0 km";
 "no_achievement_picture_description" = "Oups, aucun badge !";
 "achievement_title" = "Badges obtenus";
-"notification_title" = "Nouveau Badge débloqué !";
+"notification_title" = "Nouveau badge débloqué !";
 "one_km_description" ="Bravo! Vous venez de parcourir 1km";
 "five_km_description" = "Bravo! Vous venez de parcourir 5km";
 "ten_km_description" = "Bravo! Vous venez de parcourir 10km";
@@ -186,6 +186,7 @@
 "place_des_minimes_description" = "Bravo! Vous venez de découvrir la Plage des Minimes";
 "marche_central_description" = "Bravo! Vous venez de découvrir le Marché central";
 "place_verdun_description" = "Bravo! Vous venez de découvrir la Place de Verdun";
+"aquarium_description" = "Bravo! Vous venez de découvrir l'Aquarium de La Rochelle";
 
 /*DIALOG REVOKE*/
 "back" = "Retour";

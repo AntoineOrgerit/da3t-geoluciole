@@ -185,6 +185,7 @@
 "place_des_minimes_description" =  "Congratulation! You have just discovered the Plage des Minimes";
 "marche_central_description" =  "Congratulation! You have just discovered the Marché Central";
 "place_verdun_description" = "Congratulation! You have just discovered the Place de Verdun";
+"aquarium_description" = "Congratulation! You have just discovered the Aquarium de La Rochelle";
 
 /*DAILOG REVOKE*/
 "back" = "Back";
