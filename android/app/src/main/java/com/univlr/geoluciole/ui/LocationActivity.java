@@ -55,6 +55,9 @@ import com.univlr.geoluciole.permissions.Permission;
 
 import java.util.ArrayList;
 
+/**
+ * Gestion des droits GPS
+ */
 public abstract class LocationActivity extends AppCompatActivity {
 
     private static final String TAG = LocationActivity.class.getSimpleName();

@@ -36,6 +36,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.univlr.geoluciole.R;
 
+/**
+ * Activité lié au partenaires du projet
+ */
 public class PartnerActivity extends AppCompatActivity {
 
     @Override

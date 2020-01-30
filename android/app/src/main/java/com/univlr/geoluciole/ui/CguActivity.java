@@ -37,6 +37,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.univlr.geoluciole.R;
 
+/**
+ * Activité affichant les CGU
+ */
 public class CguActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class CguActivity extends AppCompatActivity {
                 actionBar.setDisplayHomeAsUpEnabled(true);
                 actionBar.setDisplayShowHomeEnabled(true);            }
         }
+        // On utilise le pdfViewer
         PDFView pdfViewer = findViewById(R.id.cgu_pdf_viewer);
         pdfViewer.fromAsset("cgu.pdf").load();
     }

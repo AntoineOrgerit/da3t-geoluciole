@@ -40,6 +40,9 @@ import com.univlr.geoluciole.model.UserPreferences;
 
 import java.util.Date;
 
+/**
+ * Activité sur le consentment du GPS
+ */
 public class RGPDConsentementGPSActivity extends AppCompatActivity {
 
     private CheckBox consentementCheckbox;

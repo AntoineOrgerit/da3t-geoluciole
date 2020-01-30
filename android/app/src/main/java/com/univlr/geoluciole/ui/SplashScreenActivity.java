@@ -43,6 +43,9 @@ import com.univlr.geoluciole.R;
 import com.univlr.geoluciole.model.UserPreferences;
 import com.univlr.geoluciole.utils.Logger;
 
+/**
+ * Activité du démarrage de l'application
+ */
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static final String TAG = SplashScreenActivity.class.getSimpleName();

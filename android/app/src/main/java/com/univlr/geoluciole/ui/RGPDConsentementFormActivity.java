@@ -42,6 +42,9 @@ import com.univlr.geoluciole.ui.form.FormActivityStepTwo;
 
 import java.util.Date;
 
+/**
+ * Activité concernant pour le formulaire pour le recontact de la personne
+ */
 public class RGPDConsentementFormActivity extends AppCompatActivity {
 
     private Button validate_button;
