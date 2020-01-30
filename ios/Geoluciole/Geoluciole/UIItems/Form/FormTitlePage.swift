@@ -24,40 +24,40 @@
 //    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import UIKit
 
-class LocationTable: Table {
+class FormTitlePage: UIView {
 
-    fileprivate static var INSTANCE: LocationTable!
-
-    static let LATITUDE = "latitude"
-    static let LONGITUDE = "longitude"
-    static let ALTITUDE = "altitude"
-    static let TIMESTAMP = "time_stamp"
-    static let PRECISION = "precision"
-    static let VITESSE = "vitesse"
-    static let DATE = "date_str"
-
-    fileprivate override init() {
-        super.init()
-
-        self.tableName = "locations"
-        self.columns = [
-            TableColumn(columnName: LocationTable.LATITUDE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.LONGITUDE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.ALTITUDE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.TIMESTAMP, columnType: "TIMESTAMP", canBeNull: false),
-            TableColumn(columnName: LocationTable.PRECISION, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.VITESSE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.DATE, columnType: "TEXT", canBeNull: false)
-        ]
-    }
-    
-    static func getInstance() -> LocationTable {
-        if INSTANCE == nil {
-            INSTANCE = LocationTable()
-        }
+    init(title: String, pageIndex: String) {
+        super.init(frame: .zero)
         
-        return INSTANCE
+        let titre = CustomUILabel()
+        titre.setStyle(style: .titleBold)
+        titre.text = title
+        titre.numberOfLines = 0
+        titre.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(titre)
+
+        let page = CustomUILabel()
+        page.setStyle(style: .subtitleBold)
+        page.text = pageIndex
+        page.numberOfLines = 0
+        page.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(page)
+        
+        NSLayoutConstraint.activate([
+
+            self.heightAnchor.constraint(equalTo: titre.heightAnchor),
+
+            titre.topAnchor.constraint(equalTo: self.topAnchor),
+            titre.leftAnchor.constraint(equalTo: self.leftAnchor),
+
+            page.rightAnchor.constraint(equalTo: self.rightAnchor),
+            page.centerYAnchor.constraint(equalTo: titre.centerYAnchor)
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 }
-

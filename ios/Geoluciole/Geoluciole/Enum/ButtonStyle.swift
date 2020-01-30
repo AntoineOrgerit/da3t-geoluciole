@@ -25,39 +25,6 @@
 
 import Foundation
 
-class LocationTable: Table {
-
-    fileprivate static var INSTANCE: LocationTable!
-
-    static let LATITUDE = "latitude"
-    static let LONGITUDE = "longitude"
-    static let ALTITUDE = "altitude"
-    static let TIMESTAMP = "time_stamp"
-    static let PRECISION = "precision"
-    static let VITESSE = "vitesse"
-    static let DATE = "date_str"
-
-    fileprivate override init() {
-        super.init()
-
-        self.tableName = "locations"
-        self.columns = [
-            TableColumn(columnName: LocationTable.LATITUDE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.LONGITUDE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.ALTITUDE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.TIMESTAMP, columnType: "TIMESTAMP", canBeNull: false),
-            TableColumn(columnName: LocationTable.PRECISION, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.VITESSE, columnType: "DOUBLE", canBeNull: false),
-            TableColumn(columnName: LocationTable.DATE, columnType: "TEXT", canBeNull: false)
-        ]
-    }
-    
-    static func getInstance() -> LocationTable {
-        if INSTANCE == nil {
-            INSTANCE = LocationTable()
-        }
-        
-        return INSTANCE
-    }
+enum ButtonStyle {
+    case settingDark, settingLight, disabled, active, delete, defaultStyle, dateField
 }
-

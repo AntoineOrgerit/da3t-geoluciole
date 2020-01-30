@@ -4,25 +4,25 @@
       "id": 0,
       "type": "distance",
       "name": "1 km",
-      "description": "1_km_description",
+      "description": "one_km_description",
       "resource": "1_km",
-      "distance": 1
+      "distance": 1000
     },
     {
       "id": 1,
       "type": "distance",
       "name": "5 km",
-      "description": "5_km_description",
+      "description": "five_km_description",
       "resource": "5_km",
-      "distance": 5
+      "distance": 5000
     },
     {
       "id": 2,
       "type": "distance",
       "name": "10 km",
-      "description": "10_km_description",
+      "description": "ten_km_description",
       "resource": "10_km",
-      "distance": 10
+      "distance": 10000
     },
     {
       "id": 3,
@@ -72,6 +72,56 @@
       "latitude": 46.158139371995802,
       "longitude": -1.153671329175265,
       "resource": "grosse_horloge",
+      "proximity": 25
+    },
+    {
+      "id": 8,
+      "type": "place",
+      "name": "Marché Central",
+      "description": "marche_central_description",
+      "latitude": 46.161747064245937,
+      "longitude": -1.149186305243822,
+      "resource": "marche_central",
+      "proximity": 25
+    },
+    {
+      "id": 9,
+      "type": "place",
+      "name": "Plage des Minimes",
+      "description": "place_des_minimes_description",
+      "latitude": 46.14120420348177,
+      "longitude": -1.171689179468023,
+      "resource": "plage_des_minimes",
+      "proximity": 30
+    },
+    {
+      "id": 10,
+      "type": "place",
+      "name": "Plage de la concurrence",
+      "description": "plage_de_la_concurrence_description",
+      "latitude": 46.154966099507341,
+      "longitude": -1.160335679642659,
+      "resource": "plage_de_la_concurrence",
+      "proximity": 30
+    },
+    {
+      "id": 11,
+      "type": "place",
+      "name": "Aquarium de La Rochelle",
+      "description": "aquarium_description",
+      "latitude": 46.153278029059102,
+      "longitude": -1.150613223029379,
+      "resource": "aquarium",
+      "proximity": 25
+    },
+    {
+      "id": 12,
+      "type": "place",
+      "name": "Place Verdun",
+      "description": "place_verdun_description",
+      "latitude": 46.16257597016866,
+      "longitude": -1.153556468182943,
+      "resource": "place_verdun",
       "proximity": 25
     }
   ]

@@ -122,9 +122,6 @@
 "form_err_mail" = "Adresse mail non valide";
 "form_err_radio" = "Veuillez sélectionner une réponse";
 "form_required" = "*champs requis";
-"form_btn_date"= "Choisir une date";
-"form_with_whom_title" = "Avec qui voyagez-vous ?";
-"form_transport_title" = "Comment êtes-vous arrivez à LaRochelle ?";
 "form_other_option" = "Autre";
 "form_placeholder_precision" = "Précision";
 
@@ -143,21 +140,25 @@
 "no_identifier" = "No identifier";
 "send_data" = "Envoyer mes données";
 
-/*BADGES*/
+/*DESCRIPTIONS BADGES*/
 "text_stats_title" = "Statistiques";
 "text_distance" = "Distance parcourue :";
 "text_distance_value" = "0 km";
 "no_achievement_picture_description" = "Oups, aucun badge !";
 "achievement_title" = "Badges obtenus";
-"text_badges" = "Mes badges";
-"1_km_description" = "Bravo! Vous venez de parcourir 1km";
-"5_km_description" = "Bravo! Vous venez de parcourir 5km";
-"10_km_description" = "Bravo! Vous venez de parcourir 10km";
-"tour_saint_nicolas_description" = "Bravo ! Vous venez de découvrir la Tour Saint Nicolas";
-"tour_de_la_chaine_description" = "Bravo ! Vous venez de découvrir la Tour de la Chaîne";
-"tour_de_la_lanterne_description" = "Bravo ! Vous venez de découvrir la Tour de la Lanterne";
-"eglise_saint_sauveur_description" = "Bravo ! Vous venez de découvrir l'Eglise Saint-Sauveur";
-"grosse_horloge_description" = "Bravo ! Vous venez de découvrir la Grosse Horloge";
+"notification_title" = "Nouveau Badge débloqué !";
+"one_km_description" ="Bravo! Vous venez de parcourir 1km";
+"five_km_description" = "Bravo! Vous venez de parcourir 5km";
+"ten_km_description" = "Bravo! Vous venez de parcourir 10km";
+"tour_saint_nicolas_description" = "Bravo! Vous venez de découvrir la Tour Saint Nicolas";
+"tour_de_la_chaine_description" = "Bravo! Vous venez de découvrir la Tour de la Chaîne";
+"tour_de_la_lanterne_description" = "Bravo! Vous venez de découvrir la Tour de la Lanterne";
+"eglise_saint_sauveur_description" ="Bravo! Vous venez de découvrir l'Eglise Saint-Sauveur";
+"grosse_horloge_description" = "Bravo! Vous venez de découvrir la Grosse Horloge";
+"plage_de_la_concurrence_description" = "Bravo! Vous venez de découvrir la Plage de la Concurrence";
+"place_des_minimes_description" = "Bravo! Vous venez de découvrir la Plage des Minimes";
+"marche_central_description" = "Bravo! Vous venez de découvrir le Marché central";
+"place_verdun_description" = "Bravo! Vous venez de découvrir la Place de Verdun";
 
 /*DIALOG REVOKE*/
 "back" = "Retour";

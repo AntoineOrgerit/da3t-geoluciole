@@ -1,10 +1,27 @@
+//    Copyright (c) 2020, La Rochelle Université
+//    All rights reserved.
+//    Redistribution and use in source and binary forms, with or without
+//    modification, are permitted provided that the following conditions are met:
 //
-//  FormFirstPageViewController.swift
-//  Geoluciole
+//    * Redistributions of source code must retain the above copyright
+//      notice, this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright
+//      notice, this list of conditions and the following disclaimer in the
+//      documentation and/or other materials provided with the distribution.
+//    * Neither the name of the University of California, Berkeley nor the
+//      names of its contributors may be used to endorse or promote products
+//      derived from this software without specific prior written permission.
 //
-//  Created by Laurent RAYEZ on 20/01/2020.
-//  Copyright © 2020 Université La Rochelle. All rights reserved.
-//
+//    THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+//    EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+//    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//    DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+//    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+//    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+//    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+//    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+//    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+//    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
 import UIKit
@@ -66,9 +83,7 @@ class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDel
         self.lblAddMail.validationData = { txtfield in
 
             func isValid(_ email: String) -> Bool {
-                let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-                let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegEx)
+                let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", Constantes.REGEX_MAIL)
                 return emailTest.evaluate(with: email)
             }
 
@@ -85,11 +100,10 @@ class FormFirstPageViewController: ParentModalViewController, ButtonsPrevNextDel
         self.lblTelephone.validationData = { txtfield in
 
             func isValid(_ phoneNumber: String) -> Bool {
-                let emailRegEx = "[0-9]{1,15}"
-
-                let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegEx)
+                let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", Constantes.REGEX_PHONE)
                 return emailTest.evaluate(with: phoneNumber)
             }
+            
             if let text = txtfield.text {
                 return isValid(text)
             } else {

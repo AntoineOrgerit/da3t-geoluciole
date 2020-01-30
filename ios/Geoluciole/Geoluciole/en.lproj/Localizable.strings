@@ -120,8 +120,9 @@
 "form_err_required" = "Required";
 "form_err_mail" = "Invalid email";
 "form_err_radio" = "Select an answer";
+"form_other_option" = "Other";
 "form_required" = "*required";
-
+"form_placeholder_precision" = "Accuracy";
 
 /*PREFERENCES*/
 "dates_settings" = "Commitment period";
@@ -138,21 +139,25 @@
 "no_identifier" = "No identifier";
 "send_data" = "Send data";
 
-/*BADGES*/
+/*DESCRIPTIONS BADGES*/
 "text_stats_title" = "Statistics";
 "text_distance" = "Distance traveled :";
 "text_distance_value" = "0 km";
 "no_achievement_picture_description" = "Oops, no sticker!";
 "achievement_title" = "Badges obtained";
-"text_badges" = "My stickers";
-"1_km_description" = "Well done! You just browse 1km";
-"5_km_description" = "Well done! You just browse 5km";
-"10_km_description" = "Well done! You just browse 10km";
-"tour_saint_nicolas_description" = "Well done ! You have just discovered the Tour Saint Nicolas";
-"tour_de_la_chaine_description" = "Well done ! You have just discovered the Tour de la Chaîne";
-"tour_de_la_lanterne_description" = "Well done ! You have just discovered the Tour de la Lanterne";
-"eglise_saint_sauveur_description" = "Well done ! You have just discovered the Eglise Saint-Sauveur";
-"grosse_horloge_description" = "Well done ! You have just discovered the Grosse Horloge";
+"notification_title" = "New Badge unlocked !";
+"one_km_description" =  "Congratulation! You have just traveled 1km";
+"five_km_description" =  "Congratulation! You have just traveled 5km";
+"ten_km_description" =  "Congratulation! You have just traveled 10km";
+"tour_saint_nicolas_description" =  "Congratulation! You have just discovered the Tour Saint Nicolas";
+"tour_de_la_chaine_description" =  "Congratulation! You have just discovered the Tour de la Chaîne";
+"tour_de_la_lanterne_description" =  "Congratulation! You have just discovered the Lantern Tower";
+"eglise_saint_sauveur_description" =  "Congratulation! You have just discovered the Saint-Sauveur Church";
+"grosse_horloge_description" =  "Congratulation! You have just discovered the Grosse Horloge";
+"plage_de_la_concurrence_description" =  "Congratulation! You have just discovered the Plage de la Concurrence";
+"place_des_minimes_description" =  "Congratulation! You have just discovered the Plage des Minimes";
+"marche_central_description" =  "Congratulation! You have just discovered the Marché Central";
+"place_verdun_description" = "Congratulation! You have just discovered the Place de Verdun";
 
 /*DAILOG REVOKE*/
 "back" = "Back";

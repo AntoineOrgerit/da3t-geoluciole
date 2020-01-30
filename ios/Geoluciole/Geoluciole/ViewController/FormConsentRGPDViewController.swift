@@ -1,11 +1,27 @@
+//    Copyright (c) 2020, La Rochelle Université
+//    All rights reserved.
+//    Redistribution and use in source and binary forms, with or without
+//    modification, are permitted provided that the following conditions are met:
 //
-//  FormConsentRGPDViewController.swift
-//  Geoluciole
+//    * Redistributions of source code must retain the above copyright
+//      notice, this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright
+//      notice, this list of conditions and the following disclaimer in the
+//      documentation and/or other materials provided with the distribution.
+//    * Neither the name of the University of California, Berkeley nor the
+//      names of its contributors may be used to endorse or promote products
+//      derived from this software without specific prior written permission.
 //
-//  Created by Jessy BARRITAULT on 15/01/2020.
-//  Copyright © 2020 Université La Rochelle. All rights reserved.
-//
-
+//    THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ''AS IS'' AND ANY
+//    EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+//    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//    DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+//    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+//    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+//    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+//    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+//    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+//    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
 import UIKit
@@ -38,6 +54,7 @@ class FormConsentRGPDViewController: ParentModalViewController, ButtonsPrevNextD
         // ScollView pour le texte
         self.scrollView = UIScrollView()
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
+        self.scrollView.showsVerticalScrollIndicator = false
         self.rootView.addSubview(self.scrollView)
 
         self.contentView = UIView()
@@ -168,28 +185,28 @@ class FormConsentRGPDViewController: ParentModalViewController, ButtonsPrevNextD
         NSLayoutConstraint.activate([
 
             self.scrollView.topAnchor.constraint(equalTo: self.firstSeparator.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL),
-            self.scrollView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor),
-            self.scrollView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor),
+            self.scrollView.leftAnchor.constraint(equalTo: self.rootView.leftAnchor, constant: Constantes.PAGE_PADDING),
+            self.scrollView.rightAnchor.constraint(equalTo: self.rootView.rightAnchor, constant: -Constantes.PAGE_PADDING),
             self.scrollView.bottomAnchor.constraint(equalTo: secondSeparator.bottomAnchor, constant: -Constantes.FIELD_SPACING_VERTICAL),
 
             self.contentView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
             self.contentView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor),
-            self.contentView.widthAnchor.constraint(equalTo: self.rootView.widthAnchor),
+            self.contentView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
             self.contentView.rightAnchor.constraint(equalTo: self.scrollView.rightAnchor),
             self.contentView.bottomAnchor.constraint(equalTo: self.checkbox.bottomAnchor)
         ])
 
         // Texte RGPD
         NSLayoutConstraint.activate([
-            self.textRGPD.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: Constantes.PAGE_PADDING),
-            self.textRGPD.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING),
-            self.textRGPD.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: Constantes.FIELD_SPACING_VERTICAL)
+            self.textRGPD.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+            self.textRGPD.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
+            self.textRGPD.topAnchor.constraint(equalTo: self.contentView.topAnchor)
         ])
 
         // CheckBox
         NSLayoutConstraint.activate([
-            self.checkbox.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: Constantes.PAGE_PADDING),
-            self.checkbox.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -Constantes.PAGE_PADDING),
+            self.checkbox.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+            self.checkbox.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
             self.checkbox.topAnchor.constraint(equalTo: self.textRGPD.bottomAnchor, constant: Constantes.FIELD_SPACING_VERTICAL)
         ])
     }
@@ -211,11 +228,11 @@ class FormConsentRGPDViewController: ParentModalViewController, ButtonsPrevNextD
         }
         self.dismiss(animated: true)
     }
-    
+
     /// Sauvegarde les données de consentement de l'utilisation des données personnelles  en local sur le smartphone.
     fileprivate func saveConsentementForm() {
         let now = Date()
-        let dict = ["consentement_form": NSLocalizedString("rgpd_second_content_consentement", comment: ""), "date_form": now.timeIntervalSince1970, "date_form_str": Tools.convertDateToServerDate(date: now)] as [String: Any]
+        let dict = ["consentement_form": Tools.getTranslate(key: "rgpd_second_content_consentement"), "date_form": now.timeIntervalSince1970, "date_form_str": Tools.convertDateToServerDate(date: now)] as [String: Any]
         UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_FORMULAIRE_CONSENT_DATA, value: dict)
     }
 }
