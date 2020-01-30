@@ -202,27 +202,31 @@ class Tools {
 
     /// Vérifie que les consentements ont été acceptés et lance le processus de consentement si non effectué
     static func checkConsent(viewController: ParentViewController) {
-        let consent = UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_RGPD_CONSENT)
+        let consent_gps = UserPrefs.getInstance().object(forKey: UserPrefs.KEY_RGPD_CONSENT)
 
-        // On affiche ensuite le constement pour le formulaire
-        if consent {
-            if UserPrefs.getInstance().object(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) == nil {
-                let formRgpdController = FormConsentRGPDViewController()
-                formRgpdController.modalPresentationStyle = .fullScreen
-                viewController.present(formRgpdController, animated: true)
-            } else {
-                // On affiche le formulaire
-                if UserPrefs.getInstance().object(forKey: UserPrefs.KEY_FORMULAIRE_REMPLI) == nil {
-                    let formulaire = FormPageViewController()
-                    formulaire.modalPresentationStyle = .fullScreen
-                    viewController.present(formulaire, animated: true)
-                }
-            }
-            // On affiche le consentement de RGPD pour le GPS
-        } else {
+        // On affiche le consentement de RGPD pour le GPS
+        if consent_gps == nil {
             let rgpdController = GPSConsentRGPDViewController()
             rgpdController.modalPresentationStyle = .fullScreen
             viewController.present(rgpdController, animated: true)
+        } else {
+            if let consent = consent_gps as? Bool {
+                if consent {
+                    // On affiche ensuite le constement pour le formulaire
+                    if UserPrefs.getInstance().object(forKey: UserPrefs.KEY_FORMULAIRE_CONSENT) == nil {
+                        let formRgpdController = FormConsentRGPDViewController()
+                        formRgpdController.modalPresentationStyle = .fullScreen
+                        viewController.present(formRgpdController, animated: true)
+                    } else {
+                        // On affiche le formulaire
+                        if UserPrefs.getInstance().object(forKey: UserPrefs.KEY_FORMULAIRE_REMPLI) == nil {
+                            let formulaire = FormPageViewController()
+                            formulaire.modalPresentationStyle = .fullScreen
+                            viewController.present(formulaire, animated: true)
+                        }
+                    }
+                }
+            }
         }
     }
 

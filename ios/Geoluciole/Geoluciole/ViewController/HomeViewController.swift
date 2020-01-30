@@ -125,16 +125,7 @@ class HomeViewController: ParentViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        // On affiche la fenêtre de consentement 1 seul fois lors du premier lancement.
-        // Sinon, on doit aller sur la vue paramètre pour faire apparaitre les consentement
-        let consent_ask = UserPrefs.getInstance().bool(forKey: UserPrefs.KEY_CONSENT_ASK)
-
-        if !consent_ask {
             Tools.checkConsent(viewController: self)
-            UserPrefs.getInstance().setPrefs(key: UserPrefs.KEY_CONSENT_ASK, value: true)
-        }
-
     }
 
     override func didReceiveMemoryWarning() {

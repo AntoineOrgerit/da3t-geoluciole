@@ -197,7 +197,9 @@ class SettingsViewController: ParentViewController {
             self.deleteButton.setTitle(Tools.getTranslate(key: "give_consent"), for: .normal)
             self.deleteButton.setStyle(style: .settingDark)
             self.deleteButton.onClick = { button in
-                Tools.checkConsent(viewController: self)
+                let rgpdController = GPSConsentRGPDViewController()
+                rgpdController.modalPresentationStyle = .fullScreen
+                self.present(rgpdController, animated: true)
             }
             self.sendDataManually.isHidden = true
         }
@@ -210,7 +212,7 @@ class SettingsViewController: ParentViewController {
         self.durationOfEngagementFormView.getDateStartField().setDateLabel(date: dateDebutStr)
         self.durationOfEngagementFormView.getDateEndField().setDefaultDatePicker(date: dateFinStr)
         self.durationOfEngagementFormView.getDateEndField().setDateLabel(date: dateFinStr)
-        
+
         Tools.checkConsent(viewController: self)
     }
 
