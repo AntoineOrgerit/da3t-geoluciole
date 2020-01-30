@@ -1,0 +1,10 @@
+AUTHORS
+ * Martin Allusse <martin.allusse(A)gmail.com>
+ * Alexandre Baret
+ * Jessy Barritault <jessy.barritault(A)gmail.com>
+ * Florian Bertonnier <ber.flo(A)hotmail.fr>
+ * Lisa Fougeron <lisa.fougeron(A)gmail.com>
+ * François Gréau <francoisgreau.adressepro(A)gmail.com>
+ * Thibaud Lambert <loufok28(A)gmail.com>
+ * Antoine Orgerit <orgerit.antoine(A)gmail.com>
+ * Laurent Rayez <rayezlaurent(A)gmail.com>
