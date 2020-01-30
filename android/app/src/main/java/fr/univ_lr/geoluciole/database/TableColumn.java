@@ -27,46 +27,80 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-apply plugin: 'com.android.application'
+package fr.univ_lr.geoluciole.database;
 
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-    defaultConfig {
-        applicationId "fr.univ_lr.geoluciole"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 4
-        versionName "2.0.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+/**
+ * Classe TableColumn
+ */
+class TableColumn {
+    private String columnName;
+    private String columnType;
+    private boolean canBeNull;
+
+    /**
+     * Constructeur de la classe
+     *
+     * @param columnName String nom de la colonne
+     * @param columnType String type de la colonne
+     * @param canBeNull  boolean si null est a 1 sinon 0
+     */
+    public TableColumn(String columnName, String columnType, boolean canBeNull) {
+        this.columnName = columnName;
+        this.columnType = columnType;
+        this.canBeNull = canBeNull;
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+
+    /**
+     * Getter du nom de la colonne
+     *
+     * @return String
+     */
+    public String getColumnName() {
+        return columnName;
     }
-}
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.navigation:navigation-fragment:2.1.0'
-    implementation 'androidx.navigation:navigation-ui:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.mobsandgeeks:android-saripaar:2.0.2'
-    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-    implementation "androidx.work:work-runtime:2.3.0"
-    implementation 'com.hypertrack:hyperlog:0.0.10'
-    implementation 'com.jaredrummler:android-device-names:1.1.9'
-    implementation "androidx.concurrent:concurrent-futures:1.0.0"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    /**
+     * Setter du nom de la colonne
+     *
+     * @param columnName String
+     */
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
 
+    /**
+     * Getter du type de la colonne
+     *
+     * @return String
+     */
+    public String getColumnType() {
+        return columnType;
+    }
+
+    /**
+     * Setter du type de la colonne
+     *
+     * @param columnType String
+     */
+    public void setColumnType(String columnType) {
+        this.columnType = columnType;
+    }
+
+    /**
+     * Getter de la propriété null
+     *
+     * @return boolean
+     */
+    public boolean isCanBeNull() {
+        return canBeNull;
+    }
+
+    /**
+     * Setter de la propriété null
+     *
+     * @param canBeNull boolean
+     */
+    public void setCanBeNull(boolean canBeNull) {
+        this.canBeNull = canBeNull;
+    }
 }

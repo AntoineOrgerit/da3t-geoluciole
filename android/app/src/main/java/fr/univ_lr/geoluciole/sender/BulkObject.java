@@ -27,46 +27,48 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-apply plugin: 'com.android.application'
+package fr.univ_lr.geoluciole.sender;
 
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-    defaultConfig {
-        applicationId "fr.univ_lr.geoluciole"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 4
-        versionName "2.0.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+import java.util.List;
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.navigation:navigation-fragment:2.1.0'
-    implementation 'androidx.navigation:navigation-ui:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.mobsandgeeks:android-saripaar:2.0.2'
-    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-    implementation "androidx.work:work-runtime:2.3.0"
-    implementation 'com.hypertrack:hyperlog:0.0.10'
-    implementation 'com.jaredrummler:android-device-names:1.1.9'
-    implementation "androidx.concurrent:concurrent-futures:1.0.0"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+/**
+ * Cette interface permet de formatter un envoi réalisé dans le format 'bulk'.
+ *
+ * Le format bulk est un format utilisé par le serveur Elastic Search qui permet d'ajouter plusieurs objet en base de donnée
+ * en réalisant une seule requête.
+ *
+ * Le format bulk s'obtient de la façon suivante :
+ * {"index":{}}\n          // Obj 1
+ * {"KEY_NAME":VALUE}\n
+ * {"index":{}}\n          // Obj 2
+ * {"KEY_NAME":VALUE}\n
+ *
+ * Attention :
+ *  - La clé doit se trouver entre quote.
+ *  - Il faut absolument avoir un saut de ligne (\n) en fin de l'objet à envoyer
+ *  - Si la valeur doit être un String, il faut l'entourer de quote : \"VALUE\"
+ *
+ */
+public interface BulkObject {
 
+    /**
+     * retourne l'ensemble des objet à envoyer sous le format d'une liste.
+     * Cette function est utilisé lorsque hasMultipleObject() retourne true.
+     *
+     * @return la chaine de caractère en json
+     */
+    List<String> jsonFormatObject();
+
+    /**
+     * Défini si l'objet Java doit retourner plusieurs objet à storer
+     * @return true, il y aura plusieurs génération d'objet à inserer dans la base de donnée (utilisé pour le formulaire)
+     */
+    boolean hasMultipleObject();
+
+    /**
+     * Permet de générer l'objet à envoyer. (utilisé pour l'envoi des données GPS)
+     *
+     * @return l'objet formatter en string pour envoyer au serveur.
+     */
+    String jsonFormat();
 }

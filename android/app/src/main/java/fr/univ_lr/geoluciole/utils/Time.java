@@ -27,46 +27,47 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-apply plugin: 'com.android.application'
+package fr.univ_lr.geoluciole.utils;
 
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-    defaultConfig {
-        applicationId "fr.univ_lr.geoluciole"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 4
-        versionName "2.0.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+import java.io.Serializable;
+
+/**
+ * Classe permettant de gérer les heures minutes
+ */
+public class Time implements Serializable {
+    private int hours;
+    private int minutes;
+
+    public Time() {
+        hours = 0;
+        minutes = 0;
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+
+    public Time(int hours, int minutes) {
+        this.minutes = minutes;
+        this.hours = hours;
     }
-}
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.navigation:navigation-fragment:2.1.0'
-    implementation 'androidx.navigation:navigation-ui:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.mobsandgeeks:android-saripaar:2.0.2'
-    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-    implementation "androidx.work:work-runtime:2.3.0"
-    implementation 'com.hypertrack:hyperlog:0.0.10'
-    implementation 'com.jaredrummler:android-device-names:1.1.9'
-    implementation "androidx.concurrent:concurrent-futures:1.0.0"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
 
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    @Override
+    public String toString() {
+        String minutes = this.minutes < 10 ? "0" + (this.minutes) : this.minutes + "";
+        String hours = this.hours < 10 ? "0" + (this.hours) : this.hours + "";
+        return hours+":"+minutes;
+    }
 }
