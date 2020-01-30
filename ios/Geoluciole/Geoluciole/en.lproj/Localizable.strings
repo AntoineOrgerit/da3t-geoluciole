@@ -107,7 +107,7 @@
 "form_title_end_date_validation_period" = "End of collection";
 
 "form_responses_whom_choice" = "Choose an answer";
-"form_responses_whom_alone" = "alone";
+"form_responses_whom_alone" = "Alone";
 "form_responses_whom_family" = "With family";
 "form_responses_whom_friends" = "With friends";
 "form_responses_whom_group" = "With group";
@@ -172,7 +172,7 @@
 "text_distance_value" = "0 km";
 "no_achievement_picture_description" = "Oops, no sticker!";
 "achievement_title" = "Badges obtained";
-"notification_title" = "New Badge unlocked !";
+"notification_title" = "New badge unlocked !";
 "one_km_description" =  "Congratulation! You have just traveled 1km";
 "five_km_description" =  "Congratulation! You have just traveled 5km";
 "ten_km_description" =  "Congratulation! You have just traveled 10km";
