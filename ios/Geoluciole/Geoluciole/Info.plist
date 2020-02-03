@@ -58,7 +58,14 @@
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>location</string>
+		<string>
+            We use constant tracking of the user in order to follow the activity of a user.
+            As the application is part of a research project, we use this data. (with the concent of a user)
+            to create a map of the touristic activities of La Rochelle.
+            The path taken by the user can be then discussed with a geographer with him later on (That's why we need the email adress of the user).
+            We also need background geolocation to unlock those tiny success called Badges, who will reward the user when he is close to a point of interest in La Rochelle, like a famous local monument.
+            Based on his data we also wanted to display tiny indicators like the total distance travelled during his trip.
+        </string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
