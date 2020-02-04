@@ -37,7 +37,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
         self.locationManager = CLLocationManager()
         super.init()
         self.locationManager.delegate = self
-        self.locationManager.allowsBackgroundLocationUpdates = true
+        self.locationManager.allowsBackgroundLocationUpdates = false
         self.locationManager.distanceFilter = Constantes.DISTANCE_DETECTION // Définit la distance minimale pour détecter un changement
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.pausesLocationUpdatesAutomatically = false
